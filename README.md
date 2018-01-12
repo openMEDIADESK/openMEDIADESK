@@ -34,7 +34,7 @@ Bitte lesen Sie [CONTRIBUTING.md](CONTRIBUTING.md) für Details zu unserem Verha
 
 ## Lizenz
 
-This project is licensed under the Apache 2 License - see the [LICENSE.txt](license.txt) file for details
+This project is licensed under the Apache 2 License - see the [LICENSE](LICENSE) file for details
 
 Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
 
