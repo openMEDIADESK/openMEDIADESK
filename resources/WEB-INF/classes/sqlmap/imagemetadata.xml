@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Imagemetadata">
+
+    <resultMap id="imagemetadataList" class="com.stumpner.mediadesk.image.Metadata">
+        <result property="imdid" column="imdid"/>
+        <result property="imageId" column="imageid"/>
+        <result property="versionId" column="versionid"/>
+        <result property="metaKey" column="metakey"/>
+        <result property="metaValue" column="metaValue"/>
+        <result property="exifTag" column="exiftag"/>
+        <result property="lang" column="lang"/>
+        <result property="ivid" column="ivid"/>
+    </resultMap>
+    <select id="getImageMetadata" parameterClass="int" resultMap="imagemetadataList">
+        SELECT *
+        FROM imagemetadata
+        WHERE ivid = #value#
+    </select>
+
+    <insert id="addImageMetadata" parameterClass="com.stumpner.mediadesk.image.Metadata">
+        INSERT INTO
+        imagemetadata (imageid,versionid,metakey,metavalue,exiftag,lang,ivid)
+        VALUES (#imageId#,#versionId#,#metaKey#,#metaValue#,#exifTag#,#lang#,#ivid#)
+    </insert>
+
+    <update id="saveImageMetadata" parameterClass="com.stumpner.mediadesk.image.Metadata">
+        UPDATE imagemetadata
+        SET metakey = #metaKey#,
+            metavalue = #metaValue#,
+            exiftag = #exifTag#,
+            lang = #lang#
+        WHERE imdid = #imdid#
+    </update>
+
+    <delete id="deleteAllImageMetadataFromIvid" parameterClass="int">
+        DELETE FROM imagemetadata WHERE ivid = #value#
+    </delete>
+
+    <delete id="deleteAllImageMetadataFromImageId" parameterClass="int">
+        DELETE FROM imagemetadata WHERE imageid = #value#
+    </delete>
+
+</sqlMap>

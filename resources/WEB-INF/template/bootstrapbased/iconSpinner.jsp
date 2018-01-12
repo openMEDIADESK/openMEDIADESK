@@ -1,0 +1,1 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><i class="fa fa-circle-o-notch fa-<c:out value="${param.size}"/>x fa-spin md-color-spinner"></i>

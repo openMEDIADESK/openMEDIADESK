@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Menu">
+
+    <resultMap id="menuList" class="com.stumpner.mediadesk.menu.Menu">
+        <result property="id" column="id"/>
+        <result property="type" column="type"/>
+        <result property="position" column="position"/>
+        <result property="visibleForRole" column="visibleforrole"/>
+        <result property="title" column="title"/>
+        <result property="titleLng1" column="titlelng1"/>
+        <result property="titleLng2" column="titlelng2"/>
+        <result property="metaData" column="metadata"/>
+        <result property="openAs" column="openas"/>
+        <result property="usedLanguage" column="usedLanguage"/>
+    </resultMap>
+    <select id="getMenu" parameterClass="com.stumpner.mediadesk.menu.MenuLoaderClass" resultMap="menuList">
+        SELECT
+              id,
+              type,
+              position,
+              visibleforrole,
+              title,
+              titlelng1,
+              titlelng2,
+              metadata,
+              openas,
+                 '$usedLanguage$' as usedLanguage
+        FROM menu
+        WHERE type = #type#
+    </select>
+
+    <select id="getMenuById" parameterClass="int" resultClass="com.stumpner.mediadesk.menu.Menu">
+        SELECT * FROM menu WHERE id = #value#
+    </select>
+
+    <insert id="addMenu" parameterClass="com.stumpner.mediadesk.menu.Menu">
+        INSERT INTO
+        menu (type,position,visibleforrole,title,titlelng1,titlelng2,metadata,openas)
+        VALUES (#type#,#position#,#visibleForRole#,#title#,#titleLng1#,#titleLng2#,#metaData#,#openAs#)
+    </insert>
+
+    <update id="saveMenu" parameterClass="com.stumpner.mediadesk.menu.Menu">
+        UPDATE menu
+        SET type = #type#,
+            position = #position#,
+            visibleforrole = #visibleForRole#,
+            title = #title#,
+            titlelng1 = #titleLng1#,
+            titlelng2 = #titleLng2#,
+            metadata = #metaData#,
+            openas = #openAs#
+        WHERE id = #id#
+    </update>
+
+    <delete id="deleteMenu" parameterClass="int">
+        DELETE FROM menu WHERE id = #value#
+    </delete>
+
+</sqlMap>

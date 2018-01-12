@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Category">
+
+    <select id="getCategoryById" parameterClass="int" resultClass="com.stumpner.mediadesk.image.category.CategoryMultiLang">
+        SELECT
+            categoryid      as categoryId,
+            cattitle        as catTitle,
+            catname         as catName,
+            description     as description,
+            descriptionlng1 as descriptionLng1,
+            descriptionlng2 as descriptionLng2,
+            parent          as parent,
+            changeddate     as changedDate,
+            imagecount      as imageCount,
+            imagecounts     as imageCountS,
+            icon            as icon,
+            cattitlelng1    as catTitleLng1,
+            cattitlelng2    as catTitleLng2,
+            sortby          as sortBy,
+            orderby         as orderBy,
+            defaultview     as defaultview,
+            createdate      as createDate,
+            primaryivid     as primaryIvid,
+            categorydate    as categoryDate,
+            creatoruserid   as creatorUserId,
+            fid             as fid,
+            public          as publicAcl,
+            inheritacl      as inheritAcl,
+            protected       as protectedAcl
+        FROM category
+        WHERE categoryid = #value#
+    </select>
+    
+    <select id="getCategoryByName" parameterClass="java.lang.String" resultClass="com.stumpner.mediadesk.image.category.CategoryMultiLang">
+        SELECT
+            categoryid      as categoryId,
+            cattitle        as catTitle,
+            catname         as catName,
+            description     as description,
+            descriptionlng1 as descriptionLng1,
+            descriptionlng2 as descriptionLng2,
+            parent          as parent,
+            changeddate     as changedDate,
+            imagecount      as imageCount,
+            imagecounts     as imageCountS,
+            icon            as icon,
+            cattitlelng1    as catTitleLng1,
+            cattitlelng2    as catTitleLng2,
+            descriptionlng1     as descriptionLng1,
+            descriptionlng2     as descriptionLng2,
+            sortby          as sortBy,
+            orderby         as orderBy,
+            defaultview     as defaultview,
+            createdate      as createDate,
+            primaryivid     as primaryIvid,
+            categorydate    as categoryDate,
+            creatoruserid   as creatorUserId,
+            fid             as fid,
+            public          as publicAcl,
+            inheritacl      as inheritAcl,
+            protected       as protectedAcl
+        FROM category
+        WHERE catname = #value#
+    </select>
+
+    <resultMap id="categoryList" class="com.stumpner.mediadesk.image.category.CategoryMultiLang">
+        <result property="categoryId" column="categoryid"/>
+        <result property="catTitle" column="cattitle"/>
+        <result property="catName" column="catname"/>
+        <result property="description" column="description"/>
+        <result property="parent" column="parent"/>
+        <result property="changedDate" column="changeddate"/>
+        <result property="imageCount" column="imagecount"/>
+        <result property="imageCountS" column="imagecounts"/>
+        <result property="icon" column="icon"/>
+        <result property="sortBy" column="sortby"/>
+        <result property="orderBy" column="orderby"/>
+        <result property="catTitleLng1" column="cattitlelng1"/>
+        <result property="catTitleLng2" column="cattitlelng2"/>
+        <result property="usedLanguage" column="usedLanguage"/>
+        <result property="descriptionLng1" column="descriptionlng1"/>
+        <result property="descriptionLng2" column="descriptionlng2"/>
+        <result property="defaultview" column="defaultview"/>
+
+        <result property="createDate" column="createdate"/>
+        <result property="primaryIvid" column="primaryivid"/>
+        <result property="categoryDate" column="categorydate"/>
+        <result property="creatorUserId" column="creatoruserid"/>
+        <result property="fid" column="fid"/>
+
+        <result property="publicAcl" column="public"/>
+        <result property="inheritAcl" column="inheritacl"/>
+        <result property="protectedAcl" column="protected"/>
+    </resultMap>
+    <statement id="getCategoryList" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.CategoryLoaderClass" resultMap="categoryList">
+        SELECT  category.categoryid,
+                cattitle,
+                catname,
+                description,
+                descriptionlng1,
+                descriptionlng2,
+                parent,
+                changeddate,
+                imagecount,
+                imagecounts,
+                icon,
+                sortby,
+                orderby,
+                defaultview,
+                cattitlelng1,
+                cattitlelng2,
+                '$usedLanguage$' as usedLanguage,
+                createdate      as createDate,
+                primaryivid     as primaryIvid,
+                categorydate    as categoryDate,
+                creatoruserid   as creatorUserId,
+                fid             as fid,
+                public,
+                inheritacl,
+                protected
+            FROM category
+         WHERE parent = #id#
+        <isEqual compareValue="1" property="sort">
+         ORDER BY catname, cattitle DESC
+        </isEqual>
+        <isEqual compareValue="2" property="sort">
+         ORDER BY cattitle DESC
+        </isEqual>
+        <isEqual compareValue="3" property="sort">
+         ORDER BY createdate DESC
+        </isEqual>
+        <isEqual compareValue="4" property="sort">
+         ORDER BY categorydate DESC
+        </isEqual>
+    </statement>
+
+    <statement id="getAllCategoryList" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="categoryList">
+        SELECT categoryid,
+               cattitle,
+               catname,
+               description,
+               descriptionlng1,
+               descriptionlng2,
+               parent,
+               changeddate,
+               imagecount,
+               imagecounts,
+               icon,
+               sortby,
+               orderby,
+               defaultview,
+               cattitlelng1,
+               cattitlelng2
+                 , '$usedLanguage$' as usedLanguage,
+                createdate      as createDate,
+                primaryivid     as primaryIvid,
+                categorydate    as categoryDate,
+                creatoruserid   as creatorUserId,
+                fid             as fid,
+                public,
+                inheritacl,
+                protected
+        FROM category
+        ORDER BY catname ASC
+    </statement>
+
+    <statement id="getAllCategoryListIc" resultMap="categoryList">
+        SELECT  category.categoryid,
+                cattitle,
+                catname,
+                description,
+                descriptionlng1,
+                descriptionlng2,
+                parent,
+                changeddate,
+                count(categoryholder.ivid) as imagecount,
+                imagecounts,
+                icon,
+                sortby,
+                orderby,
+                defaultview,
+                cattitlelng1,
+                cattitlelng2
+                 , '0' as usedLanguage,
+                createdate      as createDate,
+                primaryivid     as primaryIvid,
+                categorydate    as categoryDate,
+                creatoruserid   as creatorUserId,
+                fid             as fid,
+                public,
+                inheritacl,
+                protected
+            FROM categoryholder
+            RIGHT OUTER JOIN category ON categoryholder.categoryid = category.categoryid
+            GROUP BY category.categoryid
+         ORDER BY cattitle DESC
+    </statement>
+    
+    <statement id="getCategoryListFromImageVersion" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="categoryList">
+        SELECT  category.categoryid,
+                cattitle,
+                catname,
+                description,
+                descriptionlng1,
+                descriptionlng2,
+                parent,
+                changeddate,
+                imagecount,
+                imagecounts,
+                icon,
+                sortby,
+                orderby,
+                defaultview,
+                cattitlelng1,
+                cattitlelng2
+                 , '$usedLanguage$' as usedLanguage,
+                createdate      as createDate,
+                primaryivid     as primaryIvid,
+                categorydate    as categoryDate,
+                creatoruserid   as creatorUserId,
+                fid             as fid,
+                public,
+                inheritacl,
+                protected
+            FROM category
+         LEFT OUTER JOIN categoryholder ON category.categoryid = categoryholder.categoryid
+         WHERE categoryholder.ivid = #id#
+         GROUP BY category.categoryid
+         ORDER BY catname ASC
+    </statement>
+    
+    <!-- with mysql 4.1 (subselects) -->
+    <!--
+    <statement id="getCategorySubTree" parameterClass="int" resultMap="categoryList">
+        SELECT  category.categoryid,
+                cattitle,
+                catname,
+                description,
+                parent
+            FROM category
+         WHERE parent = #value# OR parent IN
+         (SELECT categoryid FROM category WHERE parent = #value#)
+         ORDER BY parent DESC
+    </statement>
+    -->
+    <!-- without subselects -->
+    <statement id="getCategorySubTree" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.CategoryLoaderClass" resultMap="categoryList">
+        SELECT DISTINCT 
+                category.categoryid,
+                category.cattitle,
+                category.catname,
+                category.description,
+                category.descriptionlng1,
+                category.descriptionlng2,
+                category.parent,
+                category.changeddate,
+                category.imagecount,
+                category.imagecounts,
+                category.icon,
+                category.sortby,
+                category.orderby,
+                category.defaultview,
+                category.cattitlelng1,
+                category.cattitlelng2
+                 , '$usedLanguage$' as usedLanguage,
+                category.createdate      as createDate,
+                category.primaryivid     as primaryIvid,
+                category.categorydate    as categoryDate,
+                category.creatoruserid   as creatorUserId,
+                category.fid             as fid,
+                category.public          as public,
+                category.inheritacl      as inheritacl,
+                category.protected       as protected
+            FROM category
+         LEFT OUTER JOIN category as cat ON cat.categoryid = category.parent
+         WHERE category.parent = #id# OR cat.parent = #id#
+        <isEqual property="usedLanguage" compareValue="1">                        
+            <isEqual compareValue="1" property="sort">
+             ORDER BY category.catname, category.cattitlelng1 ASC
+            </isEqual>
+            <isEqual compareValue="2" property="sort">
+             ORDER BY category.cattitlelng1 ASC
+            </isEqual>
+            <isEqual compareValue="3" property="sort">
+             ORDER BY createdate DESC
+            </isEqual>
+            <isEqual compareValue="4" property="sort">
+             ORDER BY categorydate DESC
+            </isEqual>
+        </isEqual>
+        <isEqual property="usedLanguage" compareValue="2">
+            <isEqual compareValue="1" property="sort">
+             ORDER BY category.catname, category.cattitlelng2 ASC
+            </isEqual>
+            <isEqual compareValue="2" property="sort">
+             ORDER BY category.cattitlelng2 ASC
+            </isEqual>
+            <isEqual compareValue="3" property="sort">
+             ORDER BY createdate DESC
+            </isEqual>
+            <isEqual compareValue="4" property="sort">
+             ORDER BY categorydate DESC
+            </isEqual>
+        </isEqual>
+    </statement>
+
+
+
+    <!--
+    <statement id="getFolderListFromImageVersion" parameterClass="int" resultMap="categoryList">
+        SELECT  folder.folderid,
+                foldertitle,
+                foldername,
+                createdate,
+                createuserid,
+                primaryivid,
+                foldersubtitle,
+                folderdate,
+                count(fhid) as imagecount
+            FROM folder
+         LEFT OUTER JOIN folderholder ON folder.folderid = folderholder.folderid
+         WHERE folderholder.ivid = #value#
+         GROUP BY folder.folderid
+         ORDER BY createdate DESC
+    </statement>
+
+
+    <statement id="getVisibleFolderList" parameterClass="int" resultMap="folderList">
+        SELECT  folder.folderid,
+                foldertitle,
+                foldername,
+                createdate,
+                createuserid,
+                primaryivid,
+                foldersubtitle,
+                folderdate,
+                count(fhid) as imagecount
+            FROM folder
+         LEFT OUTER JOIN folderholder ON folder.folderid = folderholder.folderid
+         GROUP BY folder.folderid
+         HAVING count(fhid) > 0
+         ORDER BY createdate DESC
+    </statement>
+
+    -->
+
+    <select id="getMaxCategoryId"
+        parameterClass="int"
+        resultClass="int">
+        SELECT
+            MAX(categoryid) as value
+        FROM category
+    </select>
+
+    <insert id="addCategory" parameterClass="com.stumpner.mediadesk.image.category.CategoryMultiLang">
+        INSERT INTO
+        category (cattitle,catname,description,parent,changeddate,imagecount,imagecounts,cattitlelng1,cattitlelng2,descriptionlng1,descriptionlng2,icon,sortby,orderby,defaultview,createdate,primaryivid,categorydate,creatoruserid,fid,public,inheritacl,protected)
+        VALUES (#catTitle#,#catName#,#description#,#parent#,#changedDate#,#imageCount#,#imageCountS#,#catTitleLng1#,#catTitleLng2#,#descriptionLng1#,#descriptionLng2#,#icon#,#sortBy#,#orderBy#,#defaultview#,#createDate#,#primaryIvid#,#categoryDate#,#creatorUserId#,#fid#,#publicAcl#,#inheritAcl#,#protectedAcl#)
+    </insert>
+
+    <insert id="addImageToCategory" parameterClass="com.stumpner.mediadesk.image.category.CategoryHolder">
+        INSERT INTO
+        categoryholder (categoryid,ivid)
+        VALUES (#categoryId#,#ivid#)
+    </insert>
+
+    <delete id="deleteImageFromCategory" parameterClass="com.stumpner.mediadesk.image.category.CategoryHolder">
+        DELETE FROM categoryholder
+        WHERE categoryid = #categoryId# AND ivid = #ivid#
+    </delete>
+
+    <delete id="deleteAllImagesFromCategory" parameterClass="int">
+        DELETE FROM categoryholder
+        WHERE categoryid = #categoryId#
+    </delete>
+
+    <delete id="deleteImageFromAllCategories" parameterClass="int">
+        DELETE FROM categoryholder
+        WHERE ivid = #ivid#
+    </delete>
+
+    <delete id="deleteCategoryById" parameterClass="int">
+        DELETE FROM category
+        WHERE categoryid = #categoryId#
+    </delete>
+
+    <update id="saveCategory" parameterClass="com.stumpner.mediadesk.image.category.CategoryMultiLang">
+        UPDATE category
+        SET cattitle = #catTitle#,
+            catname = #catName#,
+            parent = #parent#,
+            description = #description#,
+            descriptionlng1 = #descriptionLng1#,
+            descriptionlng2 = #descriptionLng2#,
+            changeddate = #changedDate#,
+            imagecount = #imageCount#,
+            imagecounts = #imageCountS#,
+            icon = #icon#,
+            sortby = #sortBy#,
+            orderby = #orderBy#,
+            defaultview = #defaultview#,
+            cattitlelng1 = #catTitleLng1#,
+            cattitlelng2 = #catTitleLng2#,
+            createdate = #createDate#,
+            primaryivid = #primaryIvid#,
+            categorydate = #categoryDate#,
+            creatoruserid = #creatorUserId#,
+            fid = #fid#,
+            public = #publicAcl#,
+            protected = #protectedAcl#,
+            inheritacl = #inheritAcl#
+        WHERE categoryid = #categoryId#
+    </update>
+
+    <select id="isImageInCategory"
+        parameterClass="com.stumpner.mediadesk.core.database.sc.loader.HolderClass"
+        resultClass="int">
+        SELECT
+            COUNT(*) as value
+        FROM categoryholder WHERE categoryid = #objectId# AND ivid = #ivid#
+    </select>
+
+    <select id="getCategoryIdByFid"
+        parameterClass="java.lang.String"
+        resultClass="int">
+        SELECT
+            categoryid as value
+        FROM category
+        WHERE fid = #fid#
+    </select>
+
+    <update id="normalizeCatNames">
+        UPDATE category SET catname = REPLACE(catname,'$value$','_') WHERE catname LIKE '%$value$%'
+    </update>
+
+
+</sqlMap>

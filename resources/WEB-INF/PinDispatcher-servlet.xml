@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!--
+  - Application context definition for "springapp" DispatcherServlet.
+  -->
+
+<beans>
+    <bean id="pinView" class="com.stumpner.mediadesk.web.mvc.RedirectLngController">
+        <property name="redirectTo"><value>pinview</value></property>
+    </bean>
+
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="*">pinView</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="messageSource"  class="org.springframework.context.support.ReloadableResourceBundleMessageSource" autowire="byType">
+        <property name="basename"><value>/WEB-INF/classes/messages</value></property>
+        <property name="cacheSeconds"><value>1</value></property>
+    </bean>
+
+</beans>

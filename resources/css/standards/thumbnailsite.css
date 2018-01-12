@@ -1,0 +1,361 @@
+/**************************************/
+/** THUMBNAIL-IMAGE-SITE              */
+/**************************************/
+
+.pageInfo {
+    padding-left:5px;
+    padding-top:2px;
+    float:left;
+}
+
+/* page Header */
+
+.pageHeader {
+    margin-top:10px;
+    padding-top:5px;
+    height:22px;
+    width:100%;
+    clear:both;
+}
+
+.pageHeader input {
+    margin-top:0px;
+}
+
+
+/* Page Selector */
+
+.pageSelector {
+    display:block;
+    float:right;
+}
+
+.pageSelector form {
+    padding:0px;
+    margin:0px;
+    padding-right:5px;
+}
+
+.pageSelector input {
+	width: 28px;
+}
+
+.pageSelector input.goButton {
+    width:24px;
+    height:17px;
+    vertical-align:bottom;
+}
+
+/* Page Info - BlÃ¤ttern, etc...*/
+
+.prevPageLink img {
+    background-image:url('/images/PfeilBraunLinks.gif');
+    display:inline;
+    height:7px;
+    width:17px;
+}
+
+.nextPageLink img {
+    background-image:url('/images/PfeilBraunRechts.gif');
+    display:inline;
+    height:7px;
+    width:17px;
+}
+
+/* image menu */
+
+.imageMenu {
+    float:right;
+    width:100%;
+    clear:both;
+}
+
+.imageMenu ul {
+    padding-left:0px;
+    float:right;
+    clear:both;
+    padding-left:0px;
+    margin-top:10px;
+}
+
+.imageMenu li {
+    border-left-color:black;
+    border-left-style:solid;
+    border-left-width:1px;
+    display:inline;
+    padding-left:10px;
+}
+
+.imageMenu a {
+}
+
+.imageMenu a:hover {
+}
+
+table.filelist {
+    width:100%;
+    text-align:left;
+}
+
+table.filelist tr, table.filelist td {
+    text-align:left;
+}
+
+table.filelist td.fileData {
+}
+
+div.image {
+    width:170px;
+    float:left;
+    margin-bottom:16px;
+    background-image:url('/img/firstcss/thumbliner.gif');
+    background-position:bottom;
+    background-repeat:no-repeat;
+    height:305px;
+    overflow:hidden;
+    padding:3px;
+}
+
+.folderindexContent div.image {
+    height:230px;
+}
+
+div.imageDisplay {
+    height:175px;
+    width:100%;
+    text-align:center;
+}
+
+div.thumbnailView .buttonEdit {
+    background-repeat:no-repeat;
+    text-decoration:none;
+    /*width:40px;*/
+    /*height:11px;*/
+    display:inline;
+    /*float:left;*/
+}
+
+div.thumbnailView .buttonEdit:hover {
+    text-decoration:none !important;
+}
+
+.buttonEdit var {
+    display:none;
+}
+
+.buttonCart {
+    background-repeat:no-repeat;
+    /*width:40px;*/
+    /*height:11px;*/
+    display:inline;
+    /*float:left;*/
+}
+
+.buttonCart:hover {
+    text-decoration:none;
+}
+
+/*
+.imageActionMenu .buttonLightbox {
+    background-repeat:no-repeat;
+    width:59px;
+    height:11px;
+    display:inline;
+    /*float:right;*/
+/*
+}
+*/
+
+.buttonLightbox a:hover {
+    text-decoration:none;
+}
+
+/* Hover Effekt fuer imageActionMenu */
+
+.image:hover .imageActionMenu {
+  visibility:visible;
+}
+
+.image .imageActionMenu {
+  visibility:hidden;
+}
+
+ul.imageActionMenu {
+    height:16px;
+    list-style:none;
+    /*padding:0px;*/
+    /*margin:0px;*/
+    margin-bottom: 3px;
+    /*padding-bottom: 2px;*/
+    width:170px;
+}
+
+ul.imageActionMenu li {
+    display:inline;
+}
+
+div.thumbnailView {
+    margin-top:10px;
+}
+
+div.thumbnailView p {
+    margin-top:2px;
+    margin-bottom:5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+div.thumbnailView p.imgTitle {
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+div.calendar input {
+ 	font-size: 10px;
+	color: #000000;
+	line-height: normal;
+    background-color: #FFFFFF;
+    margin-top:0px;
+}
+
+.buttonSelectImageSel {
+    /* Bild das fÃ¼r -select- verwendet wird */
+    background-image:url('/images/iSelect1.gif');
+    width:170px;
+    height:11px;
+}
+
+.buttonSelectImageDsel {
+    /* Bild das fÃ¼r -deselect- verwendet wird */
+    background-image:url('/images/iDeselect1.gif');
+    width:170px;
+    height:11px;
+}
+
+/** NEU Thumbnail Bildauswahl mit JS und/oder AJAX **/
+
+/** Fileview **/
+td.filelistSelect .selectImage input {
+    display:block;
+    /*float:left;*/
+    margin-top:5px;
+    padding:0px;
+    vertical-align:middle;
+}
+
+/** Thumbnailview */
+div.imageCa .selectImage input {
+    display:block;
+    float:left;
+    margin-top:5px;
+    padding:0px;
+    vertical-align:middle;
+}
+
+.selectImage label {
+    display:block;
+    margin:5px;
+    vertical-align:middle;
+}
+
+form.selectImage {
+  display:table;
+  width:100%;
+  clear:both;
+}
+
+#busyDiv {
+    position:absolute;
+    top:1px;
+    left:1px;
+    height:98%;
+    width:98%;
+    background:url("/img/blind.gif");
+    background-repeat:repeat;
+}
+
+
+
+#loadingDiv {
+    position:fixed;
+    height:15px;
+    width:80px;
+    top:1px;
+    left:1px;
+    padding:5px;
+    background-color:red;
+    color:white;
+    border-style:solid;
+    border-width:1px;
+    border-color:black;
+}
+
+
+
+/** sorter: sortieranzeige **/
+
+div.sorter label {
+    display:inline;
+    float:none;
+    width:auto;
+}
+
+div.sorter {
+    /*float:right;
+    clear:left;*/
+    text-align:right;
+    width:100%;
+}
+
+/**************************************/
+/** Warenkorb/Cart Site               */
+/**************************************/
+
+.cartObject {
+    width: 100%;
+    height: 250px;
+    background-color: lightgray;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.imageCart {
+    float: left;
+    width: 175px;
+    margin-right: 15px;
+}
+
+.imageCartDetail {
+    float: left;
+
+}
+
+.imageCartSelector {
+    clear: both;
+}
+
+/** Hover-Effekt für File List Upload Drop Area List Files **/
+
+#content .upload_form_cont #dropDiv {
+
+    background-image: url("/img/icon/pletzer/2015/ordner-upload.png");
+    background-repeat:no-repeat;
+    background-position:center;
+    background-color:#DDDDDD;
+    /*background:linear-gradient( gray, white);*/
+
+    height: 150px;
+    width: 100%;
+}
+
+#content:hover .upload_form_cont_hideable #dropDiv {
+
+    /* Wenn */
+  visibility:visible;
+
+}
+
+#content .upload_form_cont_hideable #dropDiv {
+  visibility:hidden;
+}

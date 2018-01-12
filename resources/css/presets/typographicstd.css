@@ -1,0 +1,38 @@
+/**************************************/
+/** PRESET: typographicstd.css        */
+/**************************************/
+/*
+
+ Vorgabe für Typografie:
+ - Schriftart
+ - Schriftgrösse
+ - Farbe
+ - usw...
+
+ Standard mit sehr wenig Vorbelegungen
+
+*/
+
+/**************************************/
+/* Standard-Schriftsätze              /*
+/**************************************/
+
+strong {
+ font-weight:bold;
+}
+
+p {
+    margin-top:5px;
+}
+
+/**************************************/
+/* Formulare                          */
+/**************************************/
+
+textarea, select {
+    font-size:10px;
+}
+
+form input {
+	line-height: normal;
+}

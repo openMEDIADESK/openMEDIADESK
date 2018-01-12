@@ -1,0 +1,14 @@
+/**************************************/
+/** PRESET: searchpaneldisabled.std   */
+/**************************************/
+/*
+
+ Vorgabe für Struktur:
+ Such-Panel (im Panel)
+ Standard mit KEINEM Suchfeld
+
+*/
+
+div#imagesearch {
+    display:none;
+}

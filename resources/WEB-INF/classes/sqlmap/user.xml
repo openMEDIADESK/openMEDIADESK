@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="User">
+
+    <select id="getUserById" parameterClass="int" resultClass="com.stumpner.mediadesk.usermanagement.User">
+        SELECT
+            userid      as userid,
+            username    as userName,
+            firstname   as firstName,
+            lastname    as lastName,
+            email       as email,
+            phone       as phone,
+            cellphone   as cellPhone,
+            fax         as fax,
+            company     as company,
+            companytype as companyType,
+            street      as street,
+            city        as city,
+            zipcode     as zipCode,
+            country     as country,
+            role        as role,
+            enabled     as enabled,
+            credits     as credits,
+            securitygroup as securityGroup,
+            homecategoryid as homeCategoryId,
+            mandant     as mandant,
+            activatecode as activateCode,
+            vatp        as vatPercent,
+            uploadnotif as uploadNotification,
+            autologinkey as autologinKey
+        FROM appuser
+        WHERE userid = #value#
+    </select>
+
+    <select id="getPassword" parameterClass="java.lang.String" resultClass="com.stumpner.mediadesk.usermanagement.UserAuthentication">
+        SELECT password, digestpassword, username as userName FROM appuser WHERE username = #value#
+    </select>
+
+    <update id="setPassword" parameterClass="com.stumpner.mediadesk.usermanagement.UserAuthentication">
+        UPDATE appuser SET password = #password#, digestpassword = #digestpassword#, autologinkey = '' WHERE username = #userName#
+    </update>
+
+    <resultMap id="userAtomList" class="com.stumpner.mediadesk.usermanagement.UserAtom">
+        <result property="userId" column="userid"/>
+        <result property="userName" column="username"/>
+        <result property="enabled" column="enabled"/>
+    </resultMap>
+    <statement id="getUserAtomList" parameterClass="int" resultMap="userAtomList">
+        SELECT userid,username,enabled FROM appuser
+    </statement>
+
+    <select id="getUserList" resultClass="com.stumpner.mediadesk.usermanagement.User">
+        SELECT * FROM appuser
+    </select>
+
+    <select id="getUserListMandant" resultClass="com.stumpner.mediadesk.usermanagement.User" parameterClass="java.lang.Integer">
+        SELECT * FROM appuser WHERE mandant = #value#
+    </select>
+
+    <select id="getUserByEmail"
+        parameterClass="java.lang.String"
+        resultClass="com.stumpner.mediadesk.usermanagement.User">
+        SELECT
+            userid      as userid,
+            username    as userName,
+            firstname   as firstName,
+            lastname    as lastName,
+            email       as email,
+            phone       as phone,
+            cellphone   as cellPhone,
+            fax         as fax,
+            company     as company,
+            companytype as companyType,
+            street      as street,
+            city        as city,
+            zipcode     as zipCode,
+            country     as country,
+            role        as role,
+            enabled     as enabled,
+            credits     as credits,
+            securitygroup as securityGroup,
+            homecategoryid as homeCategoryId,
+            mandant     as mandant,
+            activatecode as activateCode,
+            vatp        as vatPercent,
+            uploadnotif as uploadNotification,
+            autologinkey as autologinKey
+        FROM appuser
+        WHERE email = #value#
+    </select>
+
+    <select id="getUserByName"
+        parameterClass="java.lang.String"
+        resultClass="com.stumpner.mediadesk.usermanagement.User">
+        SELECT
+            userid      as userid,
+            username    as userName,
+            firstname   as firstName,
+            lastname    as lastName,
+            email       as email,
+            phone       as phone,
+            cellphone   as cellPhone,
+            fax         as fax,
+            company     as company,
+            companytype as companyType,
+            street      as street,
+            city        as city,
+            zipcode     as zipCode,
+            country     as country,
+            role        as role,
+            enabled     as enabled,
+            credits     as credits,
+            securitygroup as securityGroup,
+            homecategoryid as homeCategoryId,
+            mandant     as mandant,
+            activatecode as activateCode,
+            vatp        as vatPercent,
+            uploadnotif as uploadNotification,
+            autologinkey as autologinKey
+        FROM appuser
+        WHERE username = #value#
+    </select>
+
+    <insert id="addUser" parameterClass="com.stumpner.mediadesk.usermanagement.User">
+        INSERT INTO
+        appuser (username)
+        VALUES (#userName#)
+    </insert>
+
+    <update id="saveUser" parameterClass="com.stumpner.mediadesk.usermanagement.User">
+        UPDATE appuser
+        SET username = #userName#,
+            firstname = #firstName#,
+            lastname = #lastName#,
+            email = #email#,
+            phone = #phone#,
+            cellphone = #cellPhone#,
+            fax = #fax#,
+            company = #company#,
+            companyType = #companyType#,
+            street = #street#,
+            city = #city#,
+            zipcode = #zipCode#,
+            country = #country#,
+            role = #role#,
+            enabled = #enabled#,
+            credits = #credits#,
+            securitygroup = #securityGroup#,
+            homecategoryid = #homeCategoryId#,
+            mandant = #mandant#,
+            activatecode = #activateCode#,
+            vatp = #vatPercent#,
+            uploadnotif = #uploadNotification#,
+            autologinkey = #autologinKey#
+        WHERE userid = #userId#
+    </update>
+
+    <update id="setEmailAsUsername">
+        UPDATE appuser
+        SET oldusername = username, username = email, digestpassword = '' WHERE username != 'admin'
+    </update>
+
+    <update id="setUsernameAsUsername">
+        UPDATE appuser
+        SET username = oldusername, digestpassword = '' WHERE username != 'admin'
+    </update>
+
+    <delete id="deleteUser" parameterClass="int">
+        DELETE FROM appuser WHERE userid = #value#
+    </delete>
+
+    <resultMap id="securityGroupList" class="com.stumpner.mediadesk.usermanagement.SecurityGroup">
+        <result property="id" column="securitygroupid"/>
+        <result property="name" column="name"/>
+    </resultMap>
+    <select id="getSecurityGroupList" parameterClass="int" resultMap="securityGroupList">
+        SELECT
+            securitygroupid,
+            name
+        FROM securitygroup
+        ORDER BY securitygroupid
+    </select>
+
+    <delete id="deleteSecurityGroup" parameterClass="int">
+        DELETE FROM securitygroup WHERE securitygroupid = #value#
+    </delete>
+
+    <insert id="addSecurityGroup" parameterClass="com.stumpner.mediadesk.usermanagement.SecurityGroup">
+        INSERT INTO securitygroup (name) VALUES (#name#)
+    </insert>
+
+</sqlMap>

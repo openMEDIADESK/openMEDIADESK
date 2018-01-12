@@ -1,0 +1,54 @@
+/**************************************/
+/** PRESET: categoryview              */
+/**************************************/
+/*
+
+ Vorgabe für Categoryview:
+ Unter-Kategorieauflistung dreispaltig mit Subkategorien unterhalb
+
+*/
+
+/**************************/
+/* CATEGORY-INDEX         */
+/**************************/
+
+div#categoryList {
+    width:100%;
+    display:table;
+    margin-bottom:20px;
+}
+
+#categoryList ul.catMain {
+    list-style-type:none;
+    list-style-image:none;
+    padding:5px;
+    margin:0px;
+}
+
+#categoryList ul.catSub {
+    padding:0px;
+    margin:0px;
+    font-weight:lighter;
+}
+
+#categoryList li.catSub a {
+    font-weight:lighter;
+}
+
+#categoryList li.catMain {
+    font-weight:bold;
+    display:block;
+    padding-left:20px;
+    margin-bottom:5px;
+    width:150px;
+    height:35px;
+    background-image:url('/img/n_folder.gif');
+    background-position:top left;
+    background-repeat:no-repeat;
+    float:left;
+}
+
+#categoryList li.catSub {
+    display:inline;
+
+}

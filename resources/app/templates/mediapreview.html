@@ -1,0 +1,113 @@
+<!--
+/*********************************************************
+Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
+
+openMEDIADESK is licensed under Apache License Version 2.0
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+limitations under the License.
+
+ *********************************************************/
+ -->
+<!-- ##################################################################################################################################################### -->
+<!-- MODAL PARKING ####################################################################################################################################### -->
+<!-- OBEN UM M�GLICHST KORREKT ZU LAUFEN ################################################################################################################# -->
+<!-- LINK F�RS MODAL <a href="#" data-toggle="modal" data-target="#meinModal">Load me</a> ################################################################ -->
+<!-- Modal -->
+
+<style type="text/css">
+.modal-body img {width:100%;}
+</style>
+<div class="modal-content">
+      <div class="modal-header">
+      <button type="button" ng-click="$close();" class="close" data-dismiss="modal" aria-label="Schlie�en" title="Schliessen"><span aria-hidden="true">&times;</span></button>
+        <!-- <span class="modal-title" id="meinModalLabel"><img src="logo.png" alt="MEDIADESK" title="MEDIADESK" border="0"/></span> -->
+        <!-- BUTTONS OPTIONEN -->
+        <div class="btn-toolbar" role="toolbar" aria-label="Optionen">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Editieren">
+            <button type="button" class="btn btn-default" title="Editieren" ng-click="openMediaEdit(mo.ivid)"><i class="fa fa-pencil-square-o fa-fw text-info"></i></button>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Favoriten">
+            <button type="button" class="btn btn-default" title="zu Favoriten" ng-click="underConstruction()"><i class="fa fa-star fa-fw text-info"></i></button>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Warenkorb">
+            <button type="button" class="btn btn-default" title="zum Warenkorb" ng-click="underConstruction()"><i class="fa fa-shopping-cart fa-fw text-info"></i></button>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Pin">
+            <button type="button" class="btn btn-default" title="Pin-Pics" ng-click="underConstruction()"><i class="fa fa-ticket fa-fw text-info"></i></button>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Sofortdownload">
+            <button type="button" class="btn btn-default" title="Sofortdownload" ng-click="underConstruction()"><i class="fa fa-download fa-fw text-info"></i></button>
+            </div>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Drucken">
+            <button type="button" class="btn btn-default" title="Drucken" ng-click="underConstruction()"><i class="fa fa-print fa-fw text-info"></i></button>
+            </div>
+   		</div>
+        <!-- /BUTTONS OPTIONEN -->
+      </div>
+      <div class="modal-body" ng-hide="moloaded">Daten werden geladen...</div>
+      <div class="modal-body" ng-show="moloaded">
+      <!-- INHALT MODAL -->
+          <div class="container-fluid"><!-- container -->
+          <div class="row"><!-- row -->
+              <div class="col-md-6">
+              <img ng-src="/imageservlet/{{mo.ivid}}/2/{{mo.name}}">
+              </div>
+              <div class="col-md-6">
+				<h4>Titel: {{mo.title}}</h4>
+                <h5>{{mo.subtitle}}</h5>
+                <h6>{{mo.name}}</h6>
+                <p>{{mo.note}}</p>
+                <h5>{{mo.people}}</h5>
+                <p class="text-warning">{{mo.info}}</p>
+                <p class="text-danger">{{mo.restrictions}}</p>
+                <table class="table table-condensed">
+                  <tbody>
+                    <tr>
+                      <th >Ort</th>
+                      <td>{{mo.site}}</td>
+                    </tr>
+                    <tr>
+                      <th>Datum</th>
+                      <td>{{mo.photographDate}}</td>
+                    </tr>
+                    <tr>
+                      <th>Fotograf</th>
+                      <td>{{mo.photographerAlias}}</td>
+                    </tr>
+                    <tr>
+                      <th>Byline</th>
+                      <td>{{mo.byline}}</td>
+                    </tr>
+                    <tr>
+                      <th>Dateigr��e</th>
+                      <td>{{mo.kb}} kb</td>
+                    </tr>
+                    <tr>
+                      <th>Pixel</th>
+                      <td>{{mo.width}} x {{mo.height}}</td>
+                    </tr>
+                    <tr>
+                      <th>Aufl�sung</th>
+                      <td>{{mo.dpi}} dpi</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+          </div><!-- /row -->
+          </div><!-- /container -->
+      <!-- /INHALT MODAL -->
+      </div>
+      </div>
+<!-- /modal -->
+<!-- /MODAL PARKING ####################################################################################################################################### -->
+<!-- ###################################################################################################################################################### -->

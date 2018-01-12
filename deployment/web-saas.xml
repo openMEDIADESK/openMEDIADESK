@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0"
+  xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>/WEB-INF/classes/log4j.properties</param-value>
+    </context-param>
+
+
+    <filter>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>WebdavAuthFilter</filter-name>
+        <filter-class>com.stumpner.mediadesk.web.webdav.WebdavAuthFilter</filter-class>
+    </filter>
+
+    <filter>
+       <filter-name>AbsoluteSendRedirectFilter</filter-name>
+       <filter-class>com.stumpner.mediadesk.web.servlet.filter.MediadeskRedirectFilter</filter-class>
+        <!--
+       <init-param>
+          <param-name>parm1</param-name>
+          <param-value>parm1value</param-value>
+       </init-param>
+       -->
+    </filter>
+
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+       <filter-name>AbsoluteSendRedirectFilter</filter-name>
+       <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>WebdavAuthFilter</filter-name>
+        <url-pattern>/webdav/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+
+    <listener>
+        <listener-class>
+            com.stumpner.mediadesk.core.WebContextListener
+        </listener-class>
+    </listener>
+
+
+    <servlet>
+        <servlet-name>milton</servlet-name>
+        <servlet-class>com.bradmcevoy.http.MiltonServlet</servlet-class>
+        <init-param>
+            <param-name>resource.factory.factory.class</param-name>
+            <param-value>com.stumpner.mediadesk.web.webdav.ResourceMiltonFactoryFactory</param-value>
+        </init-param>
+<!--
+To disable digest authentication uncomment the following. To completely disable
+all authentication provide an empty value. If this init-param is missing milton
+will default to basic and digest authentication.      -->
+                           <!--
+        <init-param>
+            <param-name>authentication.handler.classes</param-name>
+            <param-value>com.bradmcevoy.http.http11.auth.BasicAuthHandler</param-value>
+        </init-param>
+
+-->
+
+        <init-param>
+            <param-name>not.found.url</param-name>
+            <param-value>/404.jsp</param-value>
+        </init-param>
+<!-- Uncomment the following filter to enable request and response logging to your user.home-->
+
+        <init-param>
+            <param-name>filter_0</param-name>
+            <param-value>com.bradmcevoy.http.DebugFilter</param-value>
+        </init-param>
+		<load-on-startup>0</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>imageServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.servlet.ImageServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>splashPageimageServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.servlet.SplashPageImageServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>downloadServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.servlet.DownloadServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>statExportServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.servlet.StatisticExportServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>podcastServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.servlet.PodcastServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>streamServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.servlet.StreamServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>RegisterDispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginDispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PinDispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PinLoginDispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SettingsDispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ErrorDispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CssServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.servlet.CssServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RssServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.servlet.RssServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SitemapServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.servlet.Sitemap</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RobotsTxtServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.servlet.RobotsTxt</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ApiServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.api.ApiServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ApiJsonCategoryContentServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.api.json.CategoryContent</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ApiRemoteLoginServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.api.usermanager.RemoteLogin</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>ApiRestSelectMediaServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.api.rest.SelectMedia</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ApiRestCategoryServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.api.rest.CategoryRestApi</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ApiRestPinServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.api.rest.PinRestApi</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ApiRestSearchresultServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.api.rest.SearchresultRestApi</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ApiRestMediaobjectServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.api.rest.MediaobjectRestApi</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ApiRestCartServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.api.rest.CartRestApi</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ApiRestFavServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.api.rest.FavRestApi</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ApiRestStatServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.api.rest.StatisticRestApi</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ApiRestSplashpageServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.api.rest.SplashpageRestApi</servlet-class>
+    </servlet>
+
+    <!-- ajax servlets -->
+    <servlet>
+        <servlet-name>AjaxCatReorderServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.servlet.ajax.CatReorder</servlet-class>
+    </servlet>
+    <!-- ende ajax servlets -->
+
+
+    <servlet>
+        <servlet-name>SpringDispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>UploadServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.servlet.UploadServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>FaviconServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.servlet.FaviconServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>LogoServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.servlet.LogoServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>MailFunctionBroker</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.servlet.MailFunctionBroker</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>StatusServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.servlet.StatusServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>milton</servlet-name>
+        <url-pattern>/webdav/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ApiServlet</servlet-name>
+        <url-pattern>/gateway/api/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ApiJsonCategoryContentServlet</servlet-name>
+        <url-pattern>/api/json/categorycontent/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ApiRemoteLoginServlet</servlet-name>
+        <url-pattern>/api/remotelogin/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ApiRestSelectMediaServlet</servlet-name>
+        <url-pattern>/api/rest/selectMedia/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ApiRestCategoryServlet</servlet-name>
+        <url-pattern>/api/rest/category/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ApiRestPinServlet</servlet-name>
+        <url-pattern>/api/rest/pin/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ApiRestSearchresultServlet</servlet-name>
+        <url-pattern>/api/rest/searchresult/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ApiRestMediaobjectServlet</servlet-name>
+        <url-pattern>/api/rest/mo/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ApiRestCartServlet</servlet-name>
+        <url-pattern>/api/rest/cart/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ApiRestFavServlet</servlet-name>
+        <url-pattern>/api/rest/fav/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ApiRestStatServlet</servlet-name>
+        <url-pattern>/api/rest/stat/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ApiRestSplashpageServlet</servlet-name>
+        <url-pattern>/api/rest/splashpage/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>AjaxCatReorderServlet</servlet-name>
+        <url-pattern>/ajax/catreorder</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>UploadServlet</servlet-name>
+        <url-pattern>/gateway/upload/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>FaviconServlet</servlet-name>
+        <url-pattern>/favicon.ico</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>LogoServlet</servlet-name>
+        <url-pattern>/logo2.png</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>imageServlet</servlet-name>
+        <url-pattern>/imageservlet/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>splashPageimageServlet</servlet-name>
+        <url-pattern>/splashpageimageservlet/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>downloadServlet</servlet-name>
+        <url-pattern>/download/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>statExportServlet</servlet-name>
+        <url-pattern>/export/statistic/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>podcastServlet</servlet-name>
+        <url-pattern>/podcast/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>streamServlet</servlet-name>
+        <url-pattern>/stream/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>RegisterDispatcher</servlet-name>
+        <url-pattern>/register/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginDispatcher</servlet-name>
+        <url-pattern>/login/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PinDispatcher</servlet-name>
+        <url-pattern>/pinpic/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PinLoginDispatcher</servlet-name>
+        <url-pattern>/pin/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SettingsDispatcher</servlet-name>
+        <url-pattern>/settings/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ErrorDispatcher</servlet-name>
+        <url-pattern>/error/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CssServlet</servlet-name>
+        <url-pattern>/style.css</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RssServlet</servlet-name>
+        <url-pattern>/rss/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SitemapServlet</servlet-name>
+        <url-pattern>/sitemap.xml</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RobotsTxtServlet</servlet-name>
+        <url-pattern>/robots.txt</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SpringDispatcher</servlet-name>
+        <url-pattern>/dispatcher/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>MailFunctionBroker</servlet-name>
+        <url-pattern>/mfb/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>StatusServlet</servlet-name>
+        <url-pattern>/status</url-pattern>
+    </servlet-mapping>
+
+
+    <error-page>
+        <error-code>403</error-code>
+        <location>/error/403</location>
+    </error-page>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/404</location>
+    </error-page>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>
+            /error/500
+        </location>
+    </error-page>
+
+    <error-page>
+        <exception-type>com.stumpner.mediadesk.core.database.sc.exceptions.QuotaExceededException</exception-type>
+        <location>/error/quotaexceeded</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>com.stumpner.mediadesk.web.mvc.exceptions.UndefinedWebStateException</exception-type>
+        <location>/error_undefinedwebstate.jsp</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>com.stumpner.mediadesk.lic.LicenseException</exception-type>
+        <location>/error_licensefailed.jsp</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>com.stumpner.mediadesk.web.mvc.exceptions.Http404Exception</exception-type>
+        <location>/error/404</location>
+    </error-page>
+
+    <session-config>
+        <session-timeout>
+            120
+        </session-timeout>
+    </session-config>
+
+</web-app>

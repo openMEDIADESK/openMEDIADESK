@@ -1,0 +1,50 @@
+/**************************************/
+/** PRESET: structurestd.css               */
+/**************************************/
+/*
+
+ Vorgabe für Struktur:
+ Formulare mit
+ - Logo oben
+ - Menü oben (nachfolgend)
+ - Panel links (200 Breite) 300
+ - Main rechts (690 Breite) 980 bzw. dem Panel nachfolgend (floated)
+ - Content 536 Breite
+
+*/
+/* Auf Standard-Struktur verweisen: */
+@import url('/css/presets/structurestd.css');
+
+#site {
+    /*width:1080px;*/
+}
+
+#panel {
+    width:263px;
+}
+
+#main {
+    width:70%;
+    /*width:690px;*/
+}
+
+#footer {
+    width:544px;
+}
+
+#footerlogin {
+    width:544px;
+/*    height:15px;*/
+}
+
+/**************************************/
+/**  CONTENT                         **/
+/**************************************/
+
+#content {
+    /*width:536px;*/
+    width:99%;
+    min-height:520px;
+    overflow:visible;
+    *height:100%;
+}

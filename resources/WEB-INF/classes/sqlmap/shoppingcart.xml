@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Shoppingcart">
+
+    <resultMap id="imageCartList" class="com.stumpner.mediadesk.image.ImageVersionCartObject">
+        <result property="ivid" column="ivid"/>
+        <result property="version" column="version"/>
+        <result property="versionTitle" column="versiontitle"/>
+        <result property="versionName" column="versionname"/>
+        <result property="info" column="info"/>
+        <result property="imageId" column="imageid"/>
+        <result property="createDate" column="createdate"/>
+        <result property="creatorUserId" column="creatoruserid"/>
+        <result property="note" column="note"/>
+        <result property="versionSubTitle" column="versionsubtitle"/>
+        <result property="imageNumber" column="imagenumber"/>
+        <result property="photographDate" column="photographdate"/>
+        <result property="photographerAlias" column="photographeralias"/>
+        <result property="byline" column="byline"/>
+        <result property="people" column="people"/>
+        <result property="type" column="type"/>
+        <result property="site" column="site"/>
+        <result property="kb" column="kb"/>
+        <result property="width" column="width"/>
+        <result property="height" column="height"/>
+        <result property="dpi" column="dpi"/>
+        <result property="restrictions" column="restrictions"/>
+        <result property="keywords" column="keywords"/>
+        <result property="orientation" column="orientation"/>
+        <result property="perspective" column="perspective"/>
+        <result property="motive" column="motive"/>
+        <result property="gesture" column="gesture"/>
+        <result property="flag" column="flag"/>
+
+        <result property="versionTitleLng1" column="versiontitlelng1"/>
+        <result property="versionTitleLng2" column="versiontitlelng2"/>
+        <result property="versionSubTitleLng1" column="versionsubtitlelng1"/>
+        <result property="versionSubTitleLng2" column="versionsubtitlelng2"/>
+        <result property="versionSubTitleLng1" column="versionsubtitlelng1"/>
+        <result property="versionSubTitleLng2" column="versionsubtitlelng2"/>
+        <result property="infoLng1" column="infolng1"/>
+        <result property="infoLng2" column="infolng2"/>
+        <result property="usedLanguage" column="usedLanguage"/>
+
+        <result property="siteLng1" column="sitelng1"/>
+        <result property="siteLng2" column="sitelng2"/>
+        <result property="noteLng1" column="noteLng1"/>
+        <result property="noteLng2" column="noteLng2"/>
+        <result property="restrictionsLng1" column="restrictionsLng1"/>
+        <result property="restrictionsLng2" column="restrictionsLng2"/>
+
+        <result property="mimeType" column="mimetype"/>
+        <result property="extention" column="extention"/>
+
+        <result property="customList1" column="customlist1"/>
+        <result property="customList2" column="customlist2"/>
+        <result property="customList3" column="customlist3"/>
+
+        <result property="duration" column="duration"/>
+        <result property="artist" column="artist"/>
+
+        <result property="album" column="album"/>
+        <result property="genre" column="genre"/>
+        <result property="bitrate" column="bitrate"/>
+        <result property="channels" column="channels"/>
+        <result property="samplerate" column="samplerate"/>
+        <result property="videocodec" column="videocodec"/>
+        <result property="fid" column="fid"/>
+
+        <result property="customStr1" column="customstr1"/>
+        <result property="customStr2" column="customstr2"/>
+        <result property="customStr3" column="customstr3"/>
+        <result property="customStr4" column="customstr4"/>
+        <result property="customStr5" column="customstr5"/>
+        <result property="customStr6" column="customstr6"/>
+        <result property="customStr7" column="customstr7"/>
+        <result property="customStr8" column="customstr8"/>
+        <result property="customStr9" column="customstr9"/>
+        <result property="customStr10" column="customstr10"/>
+
+        <result property="price" column="price"/>
+        <result property="payTransactionId" column="paytransactionid"/>
+        <result property="userId" column="userid"/>
+    </resultMap>
+
+    <select id="getShoppingCartImageList" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="imageCartList" >
+        SELECT
+            <include refid="imageversionFields"/>,
+            shoppingcart.userid as userid,
+            shoppingcart.paytransactionid as paytransactionid,
+            '$usedLanguage$' as usedLanguage
+        FROM shoppingcart
+        INNER JOIN imageversion ON shoppingcart.ivid = imageversion.ivid
+        WHERE shoppingcart.userid = #id#
+    </select>
+
+    <select id="getShoppingCartUserCount" parameterClass="int" resultClass="int">
+        SELECT count(ivid) FROM shoppingcart WHERE userid = #value#
+    </select>
+
+    <insert id="addImageToShoppingCart" parameterClass="com.stumpner.mediadesk.image.LightboxImageDescriptor">
+        INSERT INTO shoppingcart
+            (userid,ivid)
+            VALUES (#userId#,#ivid#)
+    </insert>
+
+    <delete id="removeImageFromShoppingCart" parameterClass="com.stumpner.mediadesk.image.LightboxImageDescriptor">
+        DELETE FROM shoppingcart
+        WHERE userid = #userId# AND ivid = #ivid#
+    </delete>
+    
+    <delete id="removeImageFromAllShoppingCart" parameterClass="int">
+        DELETE FROM shoppingcart
+        WHERE ivid = #value#
+    </delete>
+
+    <update id="setPayTransactionId" parameterClass="com.stumpner.mediadesk.image.ImageVersionCartObject">
+        UPDATE shoppingcart
+        SET paytransactionid = #payTransactionId#
+        WHERE userid = #userId# and ivid = #ivid#
+    </update>
+
+</sqlMap>

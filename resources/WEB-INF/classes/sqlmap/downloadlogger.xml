@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Downloadlogger">
+
+    <resultMap id="downloadLog" class="com.stumpner.mediadesk.stats.DownloadLogger">
+        <result property="userId" column="userid"/>
+        <result property="userName" column="username"/>
+        <result property="imageNumber" column="imagenumber"/>
+        <result property="downloadDate" column="downloaddate"/>
+        <result property="ivid" column="ivid"/>
+        <result property="formatx" column="formatx"/>
+        <result property="formaty" column="formaty"/>
+        <result property="downloadtype" column="downloadtype"/>
+        <result property="ip" column="ip"/>
+        <result property="dns" column="dns"/>
+        <result property="bytes" column="bytes"/>
+        <result property="mediaName" column="medianame"/>
+        <result property="pinid" column="pinid"/>
+        <result property="pin" column="pin"/>
+        <result property="name" column="name"/>
+        <result property="payTransactionId" column="paytransactionid"/>
+    </resultMap>
+    <statement id="getDownloadLog" parameterClass="com.stumpner.mediadesk.stats.AllPicFilter" resultMap="downloadLog">
+        SELECT downloadlogger.userid as userId, downloadlogger.ivid as ivid,
+            downloadlogger.downloaddate as downloadDate,
+            imageversion.imagenumber as imageNumber, appuser.username as userName,
+            downloadlogger.formatx, downloadlogger.formaty,
+            downloadlogger.downloadtype as downloadtype,
+            downloadlogger.ip as ip,
+            downloadlogger.dns as dns,
+            downloadlogger.bytes as bytes,
+            imageversion.versionname as medianame,
+            downloadlogger.pinid as pinid,
+            pinpic.pin as pin,
+            downloadlogger.paytransactionid as payTransactionId,
+            downloadlogger.name as name
+        FROM downloadlogger
+        LEFT OUTER JOIN appuser ON downloadlogger.userid = appuser.userid
+        LEFT OUTER JOIN imageversion ON downloadlogger.ivid = imageversion.ivid
+        LEFT OUTER JOIN pinpic ON downloadlogger.pinid = pinpic.pinpicid
+        WHERE DATE_SUB(CURDATE(),INTERVAL $interval$) &lt;= downloaddate
+          AND downloadtype = #downloadType#
+        <iterate prepend="AND downloadlogger.userid IN " property="userList" open="(" close=")" conjunction=",">
+            #userList[]#
+        </iterate>
+        ORDER BY downloaddate DESC
+    </statement>
+
+    <insert id="logDownload" parameterClass="com.stumpner.mediadesk.stats.SimpleDownloadLogger">
+        INSERT INTO
+        downloadlogger (userid,ivid,downloaddate,formatx,formaty,downloadtype,ip,dns,bytes,pinid,name,paytransactionid)
+        VALUES (#userId#,#ivid#,#downloadDate#,#formatx#,#formaty#,#downloadtype#,#ip#,#dns#,#bytes#,#pinid#,#name#,#payTransactionId#)
+    </insert>
+
+    <statement id="getDownloadLogMonth" parameterClass="com.stumpner.mediadesk.stats.StatFilter" resultMap="downloadLog">
+        SELECT downloadlogger.userid as userId, downloadlogger.ivid as ivid,
+            downloadlogger.downloaddate as downloadDate,
+            imageversion.imagenumber as imageNumber, appuser.username as userName,
+            downloadlogger.formatx, downloadlogger.formaty,
+            downloadlogger.downloadtype as downloadtype,
+            downloadlogger.ip as ip,
+            downloadlogger.dns as dns,
+            downloadlogger.bytes as bytes,
+            imageversion.versionname as medianame,
+            downloadlogger.paytransactionid as payTransactionId,
+            downloadlogger.name as name
+        FROM downloadlogger
+        INNER JOIN appuser ON downloadlogger.userid = appuser.userid
+        INNER JOIN imageversion ON downloadlogger.ivid = imageversion.ivid
+        WHERE month(downloaddate) = month(#toDate#)
+        ORDER BY downloaddate DESC
+    </statement>
+
+    <resultMap id="xymap" class="com.stumpner.mediadesk.stats.XyMap">
+        <result property="x" column="xval"/>
+        <result property="y" column="yval"/>
+        <result property="downloaddate" column="downloaddate"/>
+    </resultMap>
+    <select id="getAllDownloadedPics" parameterClass="com.stumpner.mediadesk.stats.AllPicFilter" resultMap="xymap">
+        SELECT COUNT(*) as yval, $group$(downloaddate) as xval, downloaddate FROM downloadlogger
+        WHERE DATE_SUB(CURDATE(),INTERVAL $interval$) &lt;= downloaddate
+          AND downloadtype = #downloadType#
+        <isNotEqual property="userId"  compareValue="0">
+            AND userid = #userId#
+        </isNotEqual>
+        GROUP BY $group$(downloaddate)
+    </select>
+
+</sqlMap>

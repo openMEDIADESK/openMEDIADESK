@@ -1,0 +1,10 @@
+User-Agent: *
+Disallow: /index/search
+Disallow: /index/advancedsearch
+Disallow: /index/shoppingcart
+Disallow: /index/sysadmin
+Disallow: /index/formatselector
+Disallow: /de/send
+Disallow: /en/send
+Disallow: /de/search
+Disallow: /en/search

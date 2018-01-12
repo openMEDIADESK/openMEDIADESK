@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Imageversion">
+
+    <sql id="imageversionFields">
+            imageversion.ivid    as ivid,
+            version as version,
+            versiontitle    as versionTitle,
+            versionname     as versionName,
+            info                as info,
+            imageid         as imageId,
+            imageversion.createdate      as createDate,
+            imageversion.creatoruserid   as creatorUserId,
+            imageversion.note            as note,
+            versionsubtitle as versionSubTitle,
+            photographeralias as photographerAlias,
+            photographeruserid as photographerUserId,
+            byline          as byline,
+            photographdate  as photographDate,
+            imagenumber     as imageNumber,
+            restrictions    as restrictions,
+            lastdatachange  as lastDataChange,
+            keywords        as keywords,
+            type            as type,
+            people          as people,
+            site            as site,
+            kb              as kb,
+            orientation         as orientation,
+            perspective         as perspective,
+            motive              as motive,
+            gesture             as gesture,
+            width           as width,
+            height          as height,
+            flag            as flag,
+            dpi             as dpi,
+            
+            versiontitlelng1 as versionTitleLng1,
+            versiontitlelng2 as versionTitleLng2,
+            versionsubtitlelng1 as versionSubTitleLng1,
+            versionsubtitlelng2 as versionSubTitleLng2,
+            infolng1 as infoLng1,
+            infolng2 as infoLng2,
+
+            sitelng1 as siteLng1,
+            sitelng2 as siteLng2,
+            notelng1 as noteLng1,
+            notelng2 as noteLng2,
+            restrictionslng1 as restrictionsLng1,
+            restrictionslng1 as restrictionsLng2,
+            mimetype as mimeType,
+            extention as extention,
+            customlist1 as customList1,
+            customlist2 as customList2,
+            customlist3 as customList3,
+            duration as duration,
+            artist as artist,
+
+            album as album,
+            genre as genre,
+            bitrate as bitrate,
+            channels as channels,
+            samplerate as samplerate,
+            videocodec as videocodec,
+            fid as fid,
+            masterdataid as masterdataId,
+
+            customstr1 as customStr1,
+            customstr2 as customStr2,
+            customstr3 as customStr3,
+            customstr4 as customStr4,
+            customstr5 as customStr5,
+            customstr6 as customStr6,
+            customstr7 as customStr7,
+            customstr8 as customStr8,
+            customstr9 as customStr9,
+            customstr10 as customStr10,
+
+            price as price,
+
+            licvalid as licValid
+    </sql>
+
+    <select id="getImageVersionById" parameterClass="int" resultClass="com.stumpner.mediadesk.image.ImageVersionMultiLang">
+        SELECT
+        <include refid="imageversionFields"/>
+        FROM imageversion
+        WHERE ivid = #value#
+    </select>
+
+    <select id="getImageByNumber" parameterClass="java.lang.String" resultClass="com.stumpner.mediadesk.image.Image">
+        SELECT
+        <include refid="imageversionFields"/>
+        FROM imageversion
+        WHERE imagenumber = #value#
+    </select>
+
+    <resultMap id="imageList" class="com.stumpner.mediadesk.image.ImageVersionMultiLang">
+        <result property="ivid" column="ivid"/>
+        <result property="version" column="version"/>
+        <result property="versionTitle" column="versiontitle"/>
+        <result property="versionName" column="versionname"/>
+        <result property="info" column="info"/>
+        <result property="imageId" column="imageid"/>
+        <result property="createDate" column="createdate"/>
+        <result property="creatorUserId" column="creatoruserid"/>
+        <result property="note" column="note"/>
+        <result property="versionSubTitle" column="versionsubtitle"/>
+        <result property="imageNumber" column="imagenumber"/>
+        <result property="photographDate" column="photographdate"/>
+        <result property="photographerAlias" column="photographeralias"/>
+        <result property="byline" column="byline"/>
+        <result property="people" column="people"/>
+        <result property="type" column="type"/>
+        <result property="site" column="site"/>
+        <result property="kb" column="kb"/>
+        <result property="width" column="width"/>
+        <result property="height" column="height"/>
+        <result property="dpi" column="dpi"/>
+        <result property="restrictions" column="restrictions"/>
+        <result property="keywords" column="keywords"/>
+        <result property="orientation" column="orientation"/>
+        <result property="perspective" column="perspective"/>
+        <result property="motive" column="motive"/>
+        <result property="gesture" column="gesture"/>
+        <result property="flag" column="flag"/>
+        
+        <result property="versionTitleLng1" column="versiontitlelng1"/>
+        <result property="versionTitleLng2" column="versiontitlelng2"/>
+        <result property="versionSubTitleLng1" column="versionsubtitlelng1"/>
+        <result property="versionSubTitleLng2" column="versionsubtitlelng2"/>
+        <result property="versionSubTitleLng1" column="versionsubtitlelng1"/>
+        <result property="versionSubTitleLng2" column="versionsubtitlelng2"/>
+        <result property="infoLng1" column="infolng1"/>
+        <result property="infoLng2" column="infolng2"/>
+        <result property="usedLanguage" column="usedLanguage"/>
+
+        <result property="siteLng1" column="sitelng1"/>
+        <result property="siteLng2" column="sitelng2"/>
+        <result property="noteLng1" column="noteLng1"/>
+        <result property="noteLng2" column="noteLng2"/>
+        <result property="restrictionsLng1" column="restrictionsLng1"/>
+        <result property="restrictionsLng2" column="restrictionsLng2"/>
+
+        <result property="mimeType" column="mimetype"/>
+        <result property="extention" column="extention"/>
+
+        <result property="customList1" column="customlist1"/>
+        <result property="customList2" column="customlist2"/>
+        <result property="customList3" column="customlist3"/>
+
+        <result property="duration" column="duration"/>
+        <result property="artist" column="artist"/>
+
+        <result property="album" column="album"/>
+        <result property="genre" column="genre"/>
+        <result property="bitrate" column="bitrate"/>
+        <result property="channels" column="channels"/>
+        <result property="samplerate" column="samplerate"/>
+        <result property="videocodec" column="videocodec"/>
+        <result property="fid" column="fid"/>
+        <result property="masterdataId" column="masterdataid"/>
+
+        <result property="customStr1" column="customstr1"/>
+        <result property="customStr2" column="customstr2"/>
+        <result property="customStr3" column="customstr3"/>
+        <result property="customStr4" column="customstr4"/>
+        <result property="customStr5" column="customstr5"/>
+        <result property="customStr6" column="customstr6"/>
+        <result property="customStr7" column="customstr7"/>
+        <result property="customStr8" column="customstr8"/>
+        <result property="customStr9" column="customstr9"/>
+        <result property="customStr10" column="customstr10"/>
+
+        <result property="price" column="price"/>
+
+        <result property="licValid" column="licvalid"/>
+    </resultMap>
+
+    <select id="getFolderImages" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="imageList">
+        SELECT
+        <include refid="imageversionFields"/>
+                 , '$usedLanguage$' as usedLanguage
+        FROM folderholder
+        INNER JOIN imageversion ON folderholder.ivid = imageversion.ivid
+        WHERE folderid = #id#
+
+        <isEqual compareValue="1" property="sortBy">
+            ORDER BY photographdate
+        </isEqual>
+        <isEqual compareValue="2" property="sortBy">
+            ORDER BY versiontitle
+        </isEqual>
+        <isEqual compareValue="3" property="sortBy">
+            ORDER BY people
+        </isEqual>
+        <isEqual compareValue="4" property="sortBy">
+            ORDER BY site
+        </isEqual>
+        <isEqual compareValue="5" property="sortBy">
+            ORDER BY byline
+        </isEqual>
+        <isEqual compareValue="6" property="sortBy">
+            ORDER BY createdate
+        </isEqual>
+
+        <isEqual compareValue="1" property="orderBy">
+            ASC
+        </isEqual>
+        <isEqual compareValue="2" property="orderBy">
+            DESC
+        </isEqual>
+
+        <isNotEqual compareValue="-1" property="page">
+            LIMIT $start$, $itemsPerPage$
+        </isNotEqual>
+    </select>
+
+    <select id="getCategoryImages" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="imageList">
+        SELECT
+        <include refid="imageversionFields"/>
+                 , '$usedLanguage$' as usedLanguage
+        FROM categoryholder
+        INNER JOIN imageversion ON categoryholder.ivid = imageversion.ivid
+        WHERE categoryid = #id#
+        <isEqual compareValue="1" property="sortBy">
+            ORDER BY photographdate
+        </isEqual>
+        <isEqual compareValue="2" property="sortBy">
+            ORDER BY versiontitlelng$usedLanguage$
+        </isEqual>
+        <isEqual compareValue="3" property="sortBy">
+            ORDER BY people
+        </isEqual>
+        <isEqual compareValue="4" property="sortBy">
+            ORDER BY sitelng$usedLanguage$
+        </isEqual>
+        <isEqual compareValue="5" property="sortBy">
+            ORDER BY byline
+        </isEqual>
+        <isEqual compareValue="6" property="sortBy">
+            ORDER BY createdate
+        </isEqual>
+
+        <isEqual compareValue="1" property="orderBy">
+            ASC
+        </isEqual>
+        <isEqual compareValue="2" property="orderBy">
+            DESC
+        </isEqual>
+
+        <isNotEqual compareValue="-1" property="page">
+            LIMIT $start$, $itemsPerPage$
+        </isNotEqual>
+
+    </select>
+
+    <select id="getLicValidDue" parameterClass="java.util.Date" resultMap="imageList">
+        SELECT
+        <include refid="imageversionFields"/>
+                 , 1 as usedLanguage
+        FROM imageversion
+        WHERE licvalid &lt;= #value#
+    </select>
+
+    <select id="getImagesByCratedate" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.DateLoaderClass" resultMap="imageList">
+        SELECT
+        <include refid="imageversionFields"/>
+                 , '$usedLanguage$' as usedLanguage
+        FROM imageversion
+        WHERE createdate &gt; #start# AND createdate &lt; #end#
+        ORDER BY createdate DESC
+
+    </select>
+    
+    <select id="getLastImages" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.LastImagesLoaderClass" resultMap="imageList">
+        SELECT         
+        <include refid="imageversionFields"/>
+                 , '$usedLanguage$' as usedLanguage
+        <isEqual compareValue="0" property="userPrincipal">
+            FROM imageversion
+        </isEqual>
+        <isNotEqual compareValue="0" property="userPrincipal">
+            FROM imageversion
+            WHERE imageversion.ivid IN
+             (SELECT DISTINCT aclimage.ivid FROM aclimage WHERE
+
+                ((aclimage.principalid = #groupPrincipal# AND aclimage.principaltype = 1) OR
+                (aclimage.principalid = #userPrincipal# AND aclimage.principaltype = 2))
+
+            )
+        </isNotEqual>
+
+        <isEqual compareValue="1" property="sortBy">
+            ORDER BY photographdate DESC
+        </isEqual>
+        <isNotEqual compareValue="1" property="sortBy">
+            ORDER BY createdate DESC
+        </isNotEqual>
+        LIMIT 0,#count#
+    </select>
+
+    <select id="getImageVersionByImageAndVersion" parameterClass="com.stumpner.mediadesk.image.ImageVersion" resultClass="com.stumpner.mediadesk.image.ImageVersion">
+        SELECT
+            ivid    as ivid,
+            version as version,
+            versiontitle    as versionTitle,
+            versionname     as versionName,
+            imageid         as imageId,
+            createdate      as createDate,
+            creatoruserid   as creatorUserId,
+            note            as note,
+            versionsubtitle as versionSubTitle
+        FROM imageversion
+        WHERE version = #version#
+            AND imageid = #imageId#
+    </select>
+
+    <select id="getMaxVersionFromImageByImageId" parameterClass="int" resultClass="int">
+        SELECT
+            MAX(version) as value
+        FROM imageversion
+        WHERE imageid = #value#
+    </select>
+
+    <insert id="addImageVersion" parameterClass="com.stumpner.mediadesk.image.ImageVersionMultiLang">
+        <selectKey keyProperty="ivid" type="post" resultClass="int">
+		    SELECT LAST_INSERT_ID() AS value
+	    </selectKey>
+        INSERT INTO
+        imageversion (ivid,imageid,version,createdate,creatoruserid,note,info,infolng1,infolng2,notelng1,notelng2,keywords,customlist1,customlist2,customlist3)
+        VALUES (NULL,#imageId#,#version#,#createDate#,#creatorUserId#,#note#,#info#,#infoLng1#,#infoLng2#,#noteLng1#,#noteLng2#,#keywords#,#customList1#,#customList2#,#customList3#)
+    </insert>
+
+    <update id="saveImageVersion" parameterClass="com.stumpner.mediadesk.image.ImageVersionMultiLang">
+        UPDATE imageversion
+        SET versiontitle = #versionTitle#,
+            versiontitlelng1 = #versionTitleLng1#,
+            versiontitlelng2 = #versionTitleLng2#,
+            versionsubtitle = #versionSubTitle#,
+            versionsubtitlelng1 = #versionSubTitleLng1#,
+            versionsubtitlelng2 = #versionSubTitleLng2#,
+            versionname = #versionName#,
+            imageid = #imageId#,
+            note = #note#,
+            kb = #kb#,
+            width = #width#,
+            height = #height#,
+            flag = #flag#,
+            dpi = #dpi#,
+
+            imagenumber = #imageNumber#,
+            info = #info#,
+            photographerAlias = #photographerAlias#,
+            photographerUserId = #photographerUserId#,
+            byline = #byline#,
+            photographdate = #photographDate#,
+            restrictions = #restrictions#,
+            lastdatachange = now(),
+            keywords = #keywords#,
+            type = #type#,
+            people = #people#,
+            orientation = #orientation#,
+            perspective = #perspective#,
+            motive = #motive#,
+            gesture = #gesture#,
+            site = #site#,
+            mimetype = #mimeType#,
+            extention = #extention#,
+
+            infolng1 = #infoLng1#,
+            infolng2 = #infoLng2#,
+            sitelng1 = #siteLng1#,
+            sitelng2 = #siteLng2#,
+            notelng1 = #noteLng1#,
+            notelng2 = #noteLng2#,
+            restrictionslng1 = #restrictionsLng1#,
+            restrictionslng2 = #restrictionsLng2#,
+
+            customlist1 = #customList1#,
+            customlist2 = #customList2#,
+            customList3 = #customList3#,
+
+            duration = #duration#,
+            artist = #artist#,
+
+            album = #album#,
+            genre = #genre#,
+            bitrate = #bitrate#,
+            channels = #channels#,
+            samplerate = #samplerate#,
+            videocodec = #videocodec#,
+            fid = #fid#,
+            masterdataid = #masterdataId#,
+
+            customstr1 = #customStr1#,
+            customstr2 = #customStr2#,
+            customstr3 = #customStr3#,
+            customstr4 = #customStr4#,
+            customstr5 = #customStr5#,
+            customstr6 = #customStr6#,
+            customstr7 = #customStr7#,
+            customstr8 = #customStr8#,
+            customstr9 = #customStr9#,
+            customstr10 = #customStr10#,
+
+            price = #price#,
+
+            licvalid = #licValid#
+
+        WHERE ivid = #ivid#
+    </update>
+
+    <delete id="deleteImageVersion" parameterClass="int">
+        DELETE FROM imageversion WHERE ivid = #value#
+    </delete>
+
+    <delete id="deleteImageVersionsByImageId" parameterClass="int">
+        DELETE FROM imageversion WHERE imageid = #value#
+    </delete>
+
+    <select id="getMediaObjectIdByFid" parameterClass="java.lang.String" resultClass="int">
+        SELECT
+            ivid as value
+        FROM imageversion
+        WHERE fid = #fid#
+    </select>
+
+    <delete id="aclimageDelete">
+        DELETE FROM aclimage
+    </delete>
+
+    <select id="getImageCount" resultClass="int">
+        SELECT count(*) as value FROM imageversion
+    </select>
+
+    <select id="getImageKb" resultClass="int">
+        SELECT SUM(kb) FROM imageversion
+    </select>
+
+    <update id="aclimageUpdate">
+        REPLACE INTO aclimage
+          SELECT imageversion.ivid, categoryid as objectid, objecttype, principalid, principaltype, permission FROM imageversion
+            INNER JOIN categoryholder ON imageversion.ivid = categoryholder.ivid
+            INNER JOIN acldata ON acldata.objectid = categoryholder.categoryid AND objecttype = 10
+    </update>
+
+    <update id="normalizeNames">
+        UPDATE imageversion set versionname = REPLACE(versionname,'$value$','_') WHERE versionname LIKE '%$value$%'
+    </update>
+
+</sqlMap>

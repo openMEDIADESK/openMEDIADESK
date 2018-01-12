@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!--
+  - Application context definition for "springapp" DispatcherServlet.
+  -->
+
+<beans>
+
+    <bean id="splashpageView" class="com.stumpner.mediadesk.web.mvc.SplashpageController">
+        <property name="viewName"><value>/WEB-INF/template/current/pSplashpage.jsp</value></property>
+    </bean>
+
+    <bean id="folderIndexView" class="com.stumpner.mediadesk.web.mvc.FolderIndexViewController">
+        <property name="viewName"><value>/WEB-INF/template/current/pEventIndex.jsp</value></property>
+    </bean>
+    <bean id="folderView" class="com.stumpner.mediadesk.web.mvc.FolderViewController">
+        <property name="viewName"><value>/WEB-INF/template/current/pEvent.jsp</value></property>        
+    </bean>
+    <bean id="popupImageView" class="com.stumpner.mediadesk.web.mvc.PopupImageViewController">
+        <property name="viewName"><value>/WEB-INF/template/current/wPreview.jsp</value></property>
+    </bean>
+    <bean id="lightboxView" class="com.stumpner.mediadesk.web.mvc.LightboxViewController">
+        <property name="viewName"><value>/WEB-INF/template/current/pLightbox.jsp</value></property>
+    </bean>
+    <bean id="shoppingCartView" class="com.stumpner.mediadesk.web.mvc.ShoppingCartViewController">
+        <property name="viewName"><value>/WEB-INF/template/current/pCart.jsp</value></property>        
+    </bean>
+    <bean id="checkoutView" class="com.stumpner.mediadesk.web.mvc.CheckoutViewController">
+        <property name="viewName"><value>/WEB-INF/template/current/pCheckout.jsp</value></property>
+    </bean>
+    <bean id="downloadView" class="com.stumpner.mediadesk.web.mvc.DownloadViewController">
+        <property name="viewName"><value>/WEB-INF/template/current/pDownload.jsp</value></property>
+    </bean>
+    <bean id="messageView" class="com.stumpner.mediadesk.web.mvc.MessageViewController">
+        <property name="viewName"><value>/WEB-INF/template/current/pMessage.jsp</value></property>
+    </bean>
+    <bean id="searchResultView" class="com.stumpner.mediadesk.web.mvc.SearchResultController">
+        <property name="viewName"><value>/WEB-INF/template/current/pSearchresult.jsp</value></property>        
+    </bean>
+    <bean id="viewMetadataView" class="com.stumpner.mediadesk.web.mvc.ViewMetadataController">
+        <property name="viewName"><value>/WEB-INF/template/current/wMetadata.jsp</value></property>
+    </bean>
+    <bean id="advancedSearchView" class="com.stumpner.mediadesk.web.mvc.AdvancedSearchController">
+        <property name="viewName"><value>/WEB-INF/template/current/pSearchadvanced.jsp</value></property>
+    </bean>
+    <bean id="categoryIndexView" class="com.stumpner.mediadesk.web.mvc.CategoryIndexController">
+        <property name="viewName"><value>/WEB-INF/template/current/pCategory.jsp</value></property>
+    </bean>
+    <bean id="categoryIndexMobileView" class="com.stumpner.mediadesk.web.mvc.CategoryIndexController">
+        <property name="viewName"><value>/WEB-INF/template/current/mCategory.jsp</value></property>
+    </bean>
+    <bean id="lastImageView" class="com.stumpner.mediadesk.web.mvc.LastImageViewController">
+        <property name="viewName"><value>/WEB-INF/template/current/pLatest.jsp</value></property>
+    </bean>
+    <bean id="textPopupView" class="com.stumpner.mediadesk.web.mvc.TextPopupController">
+        <property name="viewName"><value>/WEB-INF/template/current/wTextpopup.jsp</value></property>
+    </bean>
+    <bean id="contactForm" class="com.stumpner.mediadesk.web.mvc.ContactFormController">
+        <property name="formView"><value>/WEB-INF/template/current/wContact.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/wContactSuccess.jsp</value></property>
+    </bean>
+    <bean id="formatSelector" class="com.stumpner.mediadesk.web.mvc.FormatSelectorController">
+        <property name="formView"><value>/WEB-INF/template/current/pFormatselector.jsp</value></property>
+        <property name="successView"><value>null</value></property>
+    </bean>
+    <bean id="inlinePreviewViewer" class="com.stumpner.mediadesk.web.mvc.ImageViewController">
+        <property name="viewName"><value>/WEB-INF/template/current/pPreview.jsp</value></property>
+    </bean>
+    <bean id="sendController" class="com.stumpner.mediadesk.web.mvc.SendController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pSend.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/pSendSuccess.jsp</value></property>
+    </bean>
+
+    <!-- settings -->
+
+    <bean id="settingsViewController" class="com.stumpner.mediadesk.web.mvc.SettingsController">
+        <property name="viewName"><value>/WEB-INF/template/current/pSettings.jsp</value></property>
+    </bean>
+    <bean id="applicationSettingsController" class="com.stumpner.mediadesk.web.mvc.ApplicationSettingsController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pSettingsApplication.jsp</value></property>
+        <property name="successView"><value></value></property>
+    </bean>
+    <bean id="webSettingsController" class="com.stumpner.mediadesk.web.mvc.WebSettingsController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pSettingsWeb.jsp</value></property>
+        <property name="successView"><value></value></property>
+    </bean>
+    <bean id="mailSettingsController" class="com.stumpner.mediadesk.web.mvc.MailSettingsController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pSettingsMail.jsp</value></property>
+        <property name="successView"><value></value></property>
+    </bean>
+    <bean id="watermarkSettingsController" class="com.stumpner.mediadesk.web.mvc.WatermarkSettingsController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pSettingsWatermark.jsp</value></property>
+        <property name="successView"><value></value></property>
+    </bean>
+    <bean id="watermarkUploadController" class="com.stumpner.mediadesk.web.mvc.WatermarkUploadController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pFileupload.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
+    </bean>
+    <bean id="metaSettingsController" class="com.stumpner.mediadesk.web.mvc.MetaSettingsController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pSettingsMeta.jsp</value></property>
+        <property name="successView"><value></value></property>
+    </bean>
+    <bean id="templateSettingsController" class="com.stumpner.mediadesk.web.mvc.TemplateSettingsController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pSettingsTemplate.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/pSettingsTemplate.jsp</value></property>
+    </bean>
+    <bean id="templateEditSettingsController" class="com.stumpner.mediadesk.web.mvc.TemplateEditSettingsController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pSettingsTemplateEdit.jsp</value></property>
+        <property name="successView"><value></value></property>
+    </bean>
+    <bean id="templateEditFileSettingsController" class="com.stumpner.mediadesk.web.mvc.TemplateEditSettingsController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pSettingsTemplateEditFile.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/pSettingsTemplateEditFileSuccess.jsp</value></property>
+    </bean>
+    <bean id="templateUploadController" class="com.stumpner.mediadesk.web.mvc.TemplateUploadController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pFileupload.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
+    </bean>
+    <bean id="cssSettingsController" class="com.stumpner.mediadesk.web.mvc.CssSettingsController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pSettingsCss.jsp</value></property>
+        <property name="successView"><value></value></property>
+    </bean>
+    <bean id="importSettingsController" class="com.stumpner.mediadesk.web.mvc.ImportSettingsController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pSettingsImport.jsp</value></property>
+        <property name="successView"><value></value></property>
+    </bean>
+    <bean id="faviconUploadController" class="com.stumpner.mediadesk.web.mvc.FaviconUploadController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pFileupload.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
+    </bean>
+    <bean id="logoUploadController" class="com.stumpner.mediadesk.web.mvc.LogoUploadController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="filename"><value>logo.gif</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pFileupload.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
+    </bean>
+    <bean id="logo2UploadController" class="com.stumpner.mediadesk.web.mvc.LogoUploadController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="filename"><value>logo2.png</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pFileupload.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
+    </bean>
+    <bean id="textSettingsController" class="com.stumpner.mediadesk.web.mvc.TextSettingsController">
+        <property name="viewName"><value>/WEB-INF/template/current/pSettingsText.jsp</value></property>
+    </bean>
+    <bean id="textEditSettingsController" class="com.stumpner.mediadesk.web.mvc.TextEditSettingsController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pSettingsTextEdit.jsp</value></property>
+        <property name="successView"><value></value></property>
+    </bean>
+    <bean id="languageSettingsController" class="com.stumpner.mediadesk.web.mvc.LanguageSettingsController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pSettingsLanguage.jsp</value></property>
+        <property name="successView"><value></value></property>
+    </bean>
+    <bean id="menuSettingsController" class="com.stumpner.mediadesk.web.mvc.MenuSettingsController">
+        <property name="viewName"><value>/WEB-INF/template/current/pSettingsMenu.jsp</value></property>
+    </bean>
+    <bean id="menuEditSettingsController" class="com.stumpner.mediadesk.web.mvc.MenuEditSettingsController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pSettingsMenuEdit.jsp</value></property>
+        <property name="successView"><value></value></property>
+    </bean>
+    <bean id="maintenanceSettingsController" class="com.stumpner.mediadesk.web.mvc.MaintenanceSettingsController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pSettingsMaintenance.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
+    </bean>
+    <bean id="formatListController" class="com.stumpner.mediadesk.web.mvc.FormatListController">
+        <property name="viewName"><value>/WEB-INF/template/current/pSettingsFormatlist.jsp</value></property>
+    </bean>
+    <bean id="formatEditController" class="com.stumpner.mediadesk.web.mvc.FormatEditController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pSettingsFormatEdit.jsp</value></property>
+        <property name="successView"><value></value></property>
+    </bean>
+    <bean id="customFieldSettingsController" class="com.stumpner.mediadesk.web.mvc.CustomFieldSettingsController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pSettingsCustomFields.jsp</value></property>
+        <property name="successView"><value></value></property>
+    </bean>
+    <bean id="pluginSettingsController" class="com.stumpner.mediadesk.web.mvc.PluginSettingsController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pSettingsPlugin.jsp</value></property>
+        <property name="successView"><value></value></property>
+    </bean>
+
+    <!-- e settings -->
+
+    <bean id="localeResolver" class="com.stumpner.mediadesk.web.LocaleResolver"/>
+    <!--
+    <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <property name="paramName"><value>lang</value></property>
+    </bean>
+    -->
+
+    <!-- ### Image Import Controllers -->
+
+    <bean id="imageImportChoose" class="com.stumpner.mediadesk.web.mvc.ImportChooseController">
+        <property name="viewName"><value>/WEB-INF/template/current/pUpload.jsp</value></property>
+    </bean>
+
+    <bean id="imageImportFilesystem" class="com.stumpner.mediadesk.web.mvc.ImportFilesystemController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pUploadFs.jsp</value></property>
+        <property name="successView"><value>null</value></property>
+    </bean>
+
+    <bean id="imageImportWebupload" class="com.stumpner.mediadesk.web.mvc.ImageImportWebuploadController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pUploadWeb.jsp</value></property>
+        <property name="successView"><value>null</value></property>
+    </bean>
+
+    <bean id="uploadSelector" class="com.stumpner.mediadesk.web.mvc.UploadSelectorController">
+        <property name="viewName"><value>/WEB-INF/template/current/pUploadSelector.jsp</value></property>
+    </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+    <!-- ### inbox -->
+
+    <bean id="inboxView" class="com.stumpner.mediadesk.web.mvc.InboxViewController">
+        <property name="viewName"><value>/WEB-INF/template/current/pInbox.jsp</value></property>
+    </bean>
+
+    <!-- ### sysadmin -->
+
+    <bean id="userManagerView" class="com.stumpner.mediadesk.web.mvc.UserManagerController">
+        <property name="viewName"><value>/WEB-INF/template/current/pUserManager.jsp</value></property>
+    </bean>
+    <bean id="userEditController" class="com.stumpner.mediadesk.web.mvc.UserEditController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pUserEdit.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
+    </bean>
+    <bean id="userDeleteController" class="com.stumpner.mediadesk.web.mvc.UserDeleteController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/gMessageYesNo.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
+    </bean>
+
+    <!-- ### folder -->
+
+    <!--
+    <bean id="folderlistView" class="com.stumpner.mediadesk.web.mvc.FolderListController">
+    </bean>
+    -->
+    <bean id="folderEditController" class="com.stumpner.mediadesk.web.mvc.FolderEditController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pEventEdit.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
+    </bean>
+    <bean id="folderBreakupController" class="com.stumpner.mediadesk.web.mvc.FolderBreakupController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/gMessageYesNo.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
+    </bean>
+    <!--
+    <bean id="categorylistView" class="com.stumpner.mediadesk.web.mvc.CategoryListController">
+    </bean>
+    -->
+    <bean id="categoryEditController" class="com.stumpner.mediadesk.web.mvc.CategoryEditController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pCategoryEdit.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
+    </bean>
+    <bean id="categoryBreakupController" class="com.stumpner.mediadesk.web.mvc.CategoryBreakupController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/gMessageYesNo.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
+    </bean>
+    <bean id="categorySelectorController" class="com.stumpner.mediadesk.web.mvc.CategorySelectorController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pCategorySelector.jsp</value></property>
+        <property name="successView"><value>null</value></property>
+    </bean>
+    <bean id="treeAclControllerController" class="com.stumpner.mediadesk.web.mvc.TreeAclController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pTreeAcl.jsp</value></property>
+        <property name="successView"><value>null</value></property>
+    </bean>
+    <bean id="mediaDetailEditController" class="com.stumpner.mediadesk.web.mvc.ImageEditController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pMediaDetailEdit.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
+    </bean>
+    <bean id="imageDeleteController" class="com.stumpner.mediadesk.web.mvc.ImageDeleteController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pDeleteMedia.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
+    </bean>
+    <bean id="statViewController" class="com.stumpner.mediadesk.web.mvc.StatViewController">
+        <property name="viewName"><value>/WEB-INF/template/current/pStatistic.jsp</value></property>
+    </bean>
+    <bean id="pinlistView" class="com.stumpner.mediadesk.web.mvc.PinListController">
+        <property name="viewName"><value>/WEB-INF/template/current/pPinManager.jsp</value></property>
+    </bean>
+    <bean id="pinDeleteController" class="com.stumpner.mediadesk.web.mvc.PinDeleteController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/gMessageYesNo.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
+    </bean>
+    <bean id="pinEditController" class="com.stumpner.mediadesk.web.mvc.PinEditController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pPinEdit.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
+    </bean>
+
+    <bean id="pinLoginView" class="com.stumpner.mediadesk.web.mvc.PinLoginController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pPinLogin.jsp</value></property>
+        <property name="successView"><value>null</value></property>
+    </bean>
+    <bean id="pinView" class="com.stumpner.mediadesk.web.mvc.PinPicViewController">
+        <property name="viewName"><value>/WEB-INF/template/current/pPinView.jsp</value></property>
+        <property name="viewNameDirectDownload"><value>/WEB-INF/template/current/pPinDirectDownload.jsp</value></property>
+    </bean>
+
+    <bean id="pinWizardController" class="com.stumpner.mediadesk.web.mvc.PinWizardController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pPinwizard.jsp</value></property>
+        <property name="successView"><value>null</value></property>
+    </bean>
+    <bean id="passwordEditController" class="com.stumpner.mediadesk.web.mvc.PasswordEditController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pPassword.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
+    </bean>
+    <bean id="bulkModificationController" class="com.stumpner.mediadesk.web.mvc.BulkModificationController">
+        <property name="formView"><value>/WEB-INF/template/current/pBulkmodification.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/pBulkmodification.jsp</value></property>
+    </bean>
+    <bean id="aclEditController" class="com.stumpner.mediadesk.web.mvc.AclEditController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pAclEdit.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
+    </bean>
+
+    <!--- ## login ## -->
+
+    <bean id="loginView" class="com.stumpner.mediadesk.web.mvc.LoginController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pLoginForm.jsp</value></property>
+        <property name="requiredView"><value>/WEB-INF/template/current/pLoginRequiredForm.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/pLoginSuccess.jsp</value></property>
+    </bean>
+    <bean id="loginMobileView" class="com.stumpner.mediadesk.web.mvc.LoginController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pLoginForm.jsp</value></property>
+        <property name="requiredView"><value>/WEB-INF/template/current/pLoginRequiredForm.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/mLoginSuccess.jsp</value></property>
+    </bean>
+    <bean id="loginForgotView" class="com.stumpner.mediadesk.web.mvc.LoginForgotController">
+        <property name="sessionForm"><value>false</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pLoginForgot.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
+    </bean>
+
+    <bean id="registerForm" class="com.stumpner.mediadesk.web.mvc.RegisterController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pRegister.jsp</value></property>
+        <property name="successView"><value>/WEB-INF/template/current/pRegisterSuccess.jsp</value></property>
+    </bean>
+
+    <bean id="splashPageEditController" class="com.stumpner.mediadesk.web.mvc.SplashPageEditController">
+        <property name="viewName"><value>/WEB-INF/template/current/pSplashPageEdit.jsp</value></property>
+    </bean>
+
+
+
+
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <!--
+        <property name="interceptors">
+            <list>
+                <ref bean="localeChangeInterceptor"/>
+            </list>
+        </property>
+        -->
+        <property name="mappings">
+            <props>
+
+                <prop key="/login">loginView</prop>
+                <prop key="/mlogin">loginMobileView</prop>
+                <prop key="/loginforgot">loginForgotView</prop>
+                <prop key="/register">registerForm</prop>
+
+                <prop key="/*">splashpageView</prop>
+                <!-- <prop key="/folder">folderView</prop> -->
+                <prop key="/wpreview">popupImageView</prop>
+                <prop key="/ppreview">inlinePreviewViewer</prop>
+                <prop key="/lightbox*">lightboxView</prop>
+                <prop key="/f*">lightboxView</prop>
+                <prop key="/shop*">shoppingCartView</prop>
+                <prop key="/checkout">checkoutView</prop>
+                <prop key="/download">downloadView</prop>
+                <prop key="/message">messageView</prop>
+                <prop key="/search*">searchResultView</prop>
+                <prop key="/viewmetadata">viewMetadataView</prop>
+                <prop key="/advancedsearch">advancedSearchView</prop>
+                <prop key="/c*">categoryIndexView</prop>
+                <prop key="/mc*">categoryIndexMobileView</prop>
+                <prop key="/last">lastImageView</prop>
+                <prop key="/popup/*">textPopupView</prop>
+                <prop key="/contact">contactForm</prop>
+                <prop key="/formatselector">formatSelector</prop>
+                <prop key="/send">sendController</prop>
+
+                <prop key="/upload">imageImportChoose</prop>
+                <prop key="/uploadfs">imageImportFilesystem</prop>
+                <prop key="/uploadweb">imageImportWebupload</prop>
+                <prop key="/uploadselector">uploadSelector</prop>
+
+                <!-- <prop key="/inbox">inboxView</prop> -->
+
+                <prop key="/usermanager">userManagerView</prop>
+                <prop key="/useredit">userEditController</prop>
+                <prop key="/userdelete">userDeleteController</prop>
+                <!--<prop key="/folderlist">folderlistView</prop>-->
+                <prop key="/folderedit">folderEditController</prop>
+                <prop key="/folderbreakup">folderBreakupController</prop>
+                <!--<prop key="/categorylist">categorylistView</prop>-->
+                <prop key="/categoryedit">categoryEditController</prop>
+                <prop key="/categorybreakup">categoryBreakupController</prop>
+                <prop key="/categoryselector">categorySelectorController</prop>
+                <prop key="/treeacl">treeAclControllerController</prop>
+                <prop key="/mediadetailedit">mediaDetailEditController</prop> <!-- edit media tags/beschlagwortung -->
+                <prop key="/deletemedia">imageDeleteController</prop>
+                <prop key="/stat">statViewController</prop>
+                <prop key="/pinlist">pinlistView</prop>
+                <prop key="/pindelete">pinDeleteController</prop>
+                <prop key="/pinedit">pinEditController</prop>
+                <prop key="/pin">pinLoginView</prop>
+                <prop key="/p*">pinView</prop>
+                <prop key="/password">passwordEditController</prop>
+                <prop key="/bulkmodification">bulkModificationController</prop>
+                <prop key="/pinwizard">pinWizardController</prop>
+                <prop key="/acl">aclEditController</prop>
+
+                <!-- settings -->
+                <prop key="/settings">settingsViewController</prop>
+                <prop key="/setapplication">applicationSettingsController</prop>
+                <prop key="/setweb">webSettingsController</prop>
+                <prop key="/setmail">mailSettingsController</prop>
+                <prop key="/setwatermark">watermarkSettingsController</prop>
+                <prop key="/setwatermark/upload">watermarkUploadController</prop>
+                <prop key="/setmeta">metaSettingsController</prop>
+                <prop key="/settemplates">templateSettingsController</prop>
+                <prop key="/settemplateedit">templateEditSettingsController</prop>
+                <prop key="/settemplateeditfile">templateEditFileSettingsController</prop>
+                <prop key="/settemplateupload">templateUploadController</prop>
+                <prop key="/setcss">cssSettingsController</prop>
+                <prop key="/setimport">importSettingsController</prop>
+                <prop key="/setfavicon">faviconUploadController</prop>
+                <prop key="/setlogo">logoUploadController</prop>
+                <prop key="/setlogo2">logo2UploadController</prop>
+                <prop key="/settext">textSettingsController</prop>
+
+                <prop key="/settext/*">textEditSettingsController</prop>
+                <prop key="/setlanguage">languageSettingsController</prop>
+                <prop key="/setmenu">menuSettingsController</prop>
+                <prop key="/setmenu/edit">menuEditSettingsController</prop>
+                <prop key="/setformat">formatListController</prop>
+                <prop key="/setformatedit">formatEditController</prop>
+                <prop key="/setcustomfields">customFieldSettingsController</prop>
+
+                <prop key="/setmaintenance">maintenanceSettingsController</prop>
+
+                <prop key="/setplugin">pluginSettingsController</prop>
+
+                <prop key="/splashpageedit">splashPageEditController</prop>
+                <!-- e settings -->
+            </props>
+        </property>
+    </bean>
+
+    <bean id="messageSource"  class="org.springframework.context.support.ReloadableResourceBundleMessageSource" autowire="byType">
+        <property name="basename"><value>/WEB-INF/classes/messages</value></property>
+        <property name="cacheSeconds"><value>60</value></property>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="fallbackToSystemLocale" value="false"/>
+    </bean>
+    
+</beans>

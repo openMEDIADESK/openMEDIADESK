@@ -1,0 +1,81 @@
+/**************************************/
+/** PRESET: icontango.css               */
+/**************************************/
+/*
+
+ Vorgabe für Struktur:
+ Iconset-Tango
+
+ NOCH UNFERTIG!!
+
+*/
+
+.buttonAdd {
+    background-image:url("/img/icon/Mini_Pixel_Icons/add-page-red.gif");
+    background-repeat:no-repeat;
+    background-position:center;
+    vertical-align:middle;
+    height:15px;
+    width:15px;
+}
+
+.buttonEdit {
+
+    background-image:url('/img/icon/tango/default/16x16/apps/accessories-text-editor.png');
+    /*background-image:url('/img/icon/Mini_Pixel_Icons/edit-page-yellow.gif') !important;*/
+    width:14px !important;
+    height:14px !important;
+
+    /* OLD
+    background-image:url("/img/icon/Mini_Pixel_Icons/edit-page-yellow.gif");
+    background-repeat:no-repeat;
+    background-position:center;
+    height:15px;
+    width:15px;
+    */
+}
+
+.buttonDelete {
+    background-image:url("/img/icon/Mini_Pixel_Icons/delete-page-red.gif");
+    background-repeat:no-repeat;
+    background-position:center;
+    height:15px;
+    width:15px;
+}
+
+.buttonUpload {
+    background-image:url("/img/icon/Mini_Pixel_Icons/upload-page-yellow.gif");
+    background-repeat:no-repeat;
+    background-position:center;
+    height:15px;
+    width:15px;
+}
+
+/** icons von maddox */
+
+div.imageCa .buttonEdit {
+    background-image:url('/img/icon/tango/default/16x16/apps/accessories-text-editor.png');
+    /*background-image:url('/img/icon/Mini_Pixel_Icons/edit-page-yellow.gif') !important;*/
+    width:14px !important;
+    height:14px !important;
+}
+
+.buttonCart {
+    background-image:url('/img/icon/tango/default/16x16/mimetypes/package-x-generic.png');
+    /*background-image:url('/img/icon/Mini_Pixel_Icons/shopping-cart.gif') !important;*/
+    width:14px !important;
+    height:15px !important;
+}
+
+.buttonLightbox {
+    background-image:url('/img/icon/tango/default/16x16/places/user-desktop.png');
+    /*background-image:url('/img/icon/Mini_Pixel_Icons/popular.gif') !important;*/
+    width:14px !important;
+    height:14px !important;
+}
+
+.buttonDownload {
+    background-image:url('/img/icon/Mini_Pixel_Icons/download-page-grey.gif') !important;
+    width:14px !important;
+    height:14px !important;
+}

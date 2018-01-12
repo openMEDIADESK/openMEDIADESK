@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!--
+  - Application context definition for "springapp" DispatcherServlet.
+  -->
+
+<beans>
+    <bean id="error403" class="com.stumpner.mediadesk.web.mvc.Error403Controller">
+        <property name="viewName"><value>/WEB-INF/template/current/errorpage403.jsp</value></property>
+    </bean>
+    <bean id="error404" class="com.stumpner.mediadesk.web.mvc.Error404Controller">
+        <property name="viewName"><value>/WEB-INF/template/current/errorpage404.jsp</value></property>
+    </bean>
+    <bean id="error500" class="com.stumpner.mediadesk.web.mvc.Error500Controller">
+        <property name="viewName"><value>/WEB-INF/template/current/errorpage500.jsp</value></property>
+    </bean>
+
+    <bean id="quotaExceeded" class="com.stumpner.mediadesk.web.mvc.ErrorQuotaExceeded">
+        <property name="viewName"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
+    </bean>
+
+    <bean id="undefinedWebStateError" class="com.stumpner.mediadesk.web.mvc.ErrorUndefinedWebStateController">
+        <property name="viewName"><value>/WEB-INF/template/current/errorpageWebstate.jsp</value></property>
+    </bean>
+
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="/403">error403</prop>
+                <prop key="/404">error404</prop>
+                <prop key="/500">error500</prop>
+                <prop key="/quotaexceeded">quotaExceeded</prop>
+                <prop key="/undefinedWebState">undefinedWebStateError</prop> 
+            </props>
+        </property>
+    </bean>
+
+    <bean id="messageSource"  class="org.springframework.context.support.ReloadableResourceBundleMessageSource" autowire="byType">
+        <property name="basename"><value>/WEB-INF/classes/messages</value></property>
+        <property name="cacheSeconds"><value>1</value></property>
+    </bean>
+
+</beans>

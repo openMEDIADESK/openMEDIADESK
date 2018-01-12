@@ -1,0 +1,1 @@
+<i class="fa fa-picture-o fa-fw"></i>

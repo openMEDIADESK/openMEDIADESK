@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Config">
+
+    <select id="getConfig" parameterClass="java.lang.String" resultClass="java.lang.String">
+        SELECT
+            appproperty as value
+        FROM appconfig
+        WHERE appkey = #value#
+    </select>
+
+    <update id="saveConfig" parameterClass="com.stumpner.mediadesk.core.ConfigProperty">
+        UPDATE appconfig
+        SET appproperty = #property#
+        WHERE appkey = #key#
+    </update>
+
+    <insert id="addConfig" parameterClass="com.stumpner.mediadesk.core.ConfigProperty">
+        INSERT INTO
+        appconfig (appkey,appproperty)
+        VALUES (#key#,#property#)
+    </insert>
+
+    <delete id="deleteConfig" parameterClass="com.stumpner.mediadesk.core.ConfigProperty">
+        DELETE FROM appconfig
+        WHERE appkey = #key#
+    </delete>
+
+</sqlMap>

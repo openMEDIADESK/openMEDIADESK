@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Image">
+<!--
+    <select id="getImageById" parameterClass="int" resultClass="com.stumpner.mediadesk.image.Image">
+        SELECT
+            imageid             as imageId,
+            createdate          as createDate,
+            imagetitle          as imageTitle,
+            imagename           as imageName,
+            info                as info,
+            photographeralias   as photographerAlias,
+            photographeruserid  as photographerUserId,
+            byline              as byline,
+            photographdate      as photographDate,
+            imagesubtitle       as imageSubTitle,
+            imagenumber         as imageNumber,
+            restrictions        as restrictions,
+            lastdatachange      as lastDataChange,
+            note                as note,
+            keywords            as keywords,
+            type                as type,
+            people              as people,
+            orientation         as orientation,
+            perspective         as perspective,
+            motive              as motive,
+            gesture             as gesture,
+            site                as site,
+            mimetype            as mimeType,
+            extention           as extention
+        FROM image
+        WHERE imageid = #value#
+    </select>
+
+    <select id="getImageByNumber" parameterClass="java.lang.String" resultClass="com.stumpner.mediadesk.image.Image">
+        SELECT
+            imageid             as imageId,
+            createdate          as createDate,
+            imagetitle          as imageTitle,
+            imagename           as imageName,
+            info                as info,
+            photographeralias   as photographerAlias,
+            photographeruserid  as photographerUserId,
+            byline              as byline,
+            photographdate      as photographDate,
+            imagesubtitle       as imageSubTitle,
+            imagenumber         as imageNumber,
+            restrictions        as restrictions,
+            lastdatachange      as lastDataChange,
+            note                as note,
+            keywords            as keywords,
+            type                as type,
+            people              as people,
+            orientation         as orientation,
+            perspective         as perspective,
+            motive              as motive,
+            gesture             as gesture,
+            site                as site,
+            mimetype            as mimeType,
+            extention           as extention
+        FROM image
+        WHERE imagenumber = #value#
+    </select>
+
+    <select id="getImageCount" resultClass="int">
+        SELECT count(*) as value FROM image
+    </select>
+
+    <insert id="addImage" parameterClass="com.stumpner.mediadesk.image.Image">
+        INSERT INTO
+        image (createdate,imagenumber,note,notelng1,notelng2,info,infolng1,infolng2)
+        VALUES (#createDate#,#imageNumber#,'','','','','','')
+    </insert>
+
+    <select id="getImageKb" resultClass="int">
+        SELECT SUM(kb) FROM imageversion
+    </select>
+
+    <update id="saveImage" parameterClass="com.stumpner.mediadesk.image.Image">
+        UPDATE image
+        SET imagetitle = #imageTitle#,
+            imagename = #imageName#,
+            imagenumber = #imageNumber#,
+            info = #info#,
+            photographerAlias = #photographerAlias#,
+            photographerUserId = #photographerUserId#,
+            byline = #byline#,
+            photographdate = #photographDate#,
+            imagesubtitle = #imageSubTitle#,
+            restrictions = #restrictions#,
+            lastdatachange = now(),
+            note = #note#,
+            keywords = #keywords#,
+            type = #type#,
+            people = #people#,
+            orientation = #orientation#,
+            perspective = #perspective#,
+            motive = #motive#,
+            gesture = #gesture#,
+            site = #site#,
+            mimetype = #mimeType#,
+            extention = #extention#
+        WHERE imageid = #imageId#
+    </update>
+    
+    <update id="saveImageMultiLang" parameterClass="com.stumpner.mediadesk.image.ImageVersionMultiLang">
+        UPDATE image
+        SET infolng1 = #infoLng1#,
+            infolng2 = #infoLng2#,
+            sitelng1 = #siteLng1#,
+            sitelng2 = #siteLng2#,
+            notelng1 = #noteLng1#,
+            notelng2 = #noteLng2#,
+            restrictionslng1 = #restrictionsLng1#,
+            restrictionslng2 = #restrictionsLng2#,
+                    lastdatachange = now()
+        WHERE imageid = #imageId#
+    </update>
+
+    <delete id="deleteImage" parameterClass="int">
+        DELETE FROM image WHERE imageid = #value#
+    </delete>
+-->
+</sqlMap>

@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Search">
+
+    <resultMap id="imageList" class="com.stumpner.mediadesk.image.ImageVersionMultiLang">
+        <result property="ivid" column="ivid"/>
+        <result property="version" column="version"/>
+        <result property="versionTitle" column="versiontitle"/>
+        <result property="versionName" column="versionname"/>
+        <result property="info" column="info"/>
+        <result property="imageId" column="imageid"/>
+        <result property="createDate" column="createdate"/>
+        <result property="creatorUserId" column="creatoruserid"/>
+        <result property="note" column="note"/>
+        <result property="versionSubTitle" column="versionsubtitle"/>
+        <result property="imageNumber" column="imagenumber"/>
+        <result property="photographDate" column="photographdate"/>
+        <result property="photographerAlias" column="photographeralias"/>
+        <result property="byline" column="byline"/>
+        <result property="people" column="people"/>
+        <result property="type" column="type"/>
+        <result property="site" column="site"/>
+        <result property="kb" column="kb"/>
+        <result property="width" column="width"/>
+        <result property="height" column="height"/>
+        <result property="dpi" column="dpi"/>
+        <result property="restrictions" column="restrictions"/>
+        <result property="keywords" column="keywords"/>
+        <result property="orientation" column="orientation"/>
+        <result property="perspective" column="perspective"/>
+        <result property="motive" column="motive"/>
+        <result property="gesture" column="gesture"/>
+        <result property="flag" column="flag"/>
+
+        <result property="versionTitleLng1" column="versiontitlelng1"/>
+        <result property="versionTitleLng2" column="versiontitlelng2"/>
+        <result property="versionSubTitleLng1" column="versionsubtitlelng1"/>
+        <result property="versionSubTitleLng2" column="versionsubtitlelng2"/>
+        <result property="versionSubTitleLng1" column="versionsubtitlelng1"/>
+        <result property="versionSubTitleLng2" column="versionsubtitlelng2"/>
+        <result property="infoLng1" column="infolng1"/>
+        <result property="infoLng2" column="infolng2"/>
+        <result property="usedLanguage" column="usedLanguage"/>
+
+        <result property="siteLng1" column="sitelng1"/>
+        <result property="siteLng2" column="sitelng2"/>
+        <result property="noteLng1" column="noteLng1"/>
+        <result property="noteLng2" column="noteLng2"/>
+        <result property="restrictionsLng1" column="restrictionsLng1"/>
+        <result property="restrictionsLng2" column="restrictionsLng2"/>
+
+        <result property="mimeType" column="mimetype"/>
+        <result property="extention" column="extention"/>
+    </resultMap>
+
+    <sql id="queryFields">
+            imageversion.ivid    as ivid,
+            version as version,
+            versiontitle    as versionTitle,
+            versionname     as versionName,
+            info                as info,
+            imageid         as imageId,
+            imageversion.createdate      as createDate,
+            imageversion.creatoruserid   as creatorUserId,
+            imageversion.note            as note,
+            versionsubtitle as versionSubTitle,
+            photographeralias as photographerAlias,
+            photographeruserid as photographerUserId,
+            byline          as byline,
+            photographdate  as photographDate,
+            imagenumber     as imageNumber,
+            restrictions    as restrictions,
+            lastdatachange  as lastDataChange,
+            keywords        as keywords,
+            type            as type,
+            people          as people,
+            site            as site,
+            kb              as kb,
+            orientation         as orientation,
+            perspective         as perspective,
+            motive              as motive,
+            gesture             as gesture,
+            width           as width,
+            height          as height,
+            flag            as flag,
+            dpi             as dpi,
+
+            versiontitlelng1 as versionTitleLng1,
+            versiontitlelng2 as versionTitleLng2,
+            versionsubtitlelng1 as versionSubTitleLng1,
+            versionsubtitlelng2 as versionSubTitleLng2,
+            infolng1 as infoLng1,
+            infolng2 as infoLng2,
+
+            sitelng1 as siteLng1,
+            sitelng2 as siteLng2,
+            notelng1 as noteLng1,
+            notelng2 as noteLng2,
+            restrictionslng1 as restrictionsLng1,
+            restrictionslng1 as restrictionsLng2,
+            mimetype as mimeType,
+            extention as extention
+    </sql>
+
+
+    <select id="getImageQuery" parameterClass="com.stumpner.mediadesk.search.SearchProperty" resultMap="imageList">
+        SELECT
+        <include refid="queryFields"/>
+                 , '$usedLanguage$' as usedLanguage
+        FROM searchtmp
+        INNER JOIN imageversion ON searchtmp.ivid = imageversion.ivid
+        WHERE
+          suid = #suid#
+        ORDER BY photographdate DESC, imagenumber ASC 
+        <isGreaterThan property="itemCount" compareValue="-1">
+        LIMIT #startItem#,#itemCount#
+        </isGreaterThan>
+    </select>
+
+    <update id="prepareImageQuery" parameterClass="com.stumpner.mediadesk.search.KeywordSearchProperty">
+       INSERT INTO searchtmp
+        SELECT DISTINCT null as stid, #suid# as suid, imageversion.ivid as ivid, now() as searchtime,
+        (0
+            + ((MATCH(versionsubtitlelng1,versionsubtitlelng2,versiontitlelng1,versiontitlelng2,keywords,byline,sitelng1,sitelng2,infolng1,infolng2,people) AGAINST (#keywords# IN BOOLEAN MODE)))
+        ) as score
+        <!-- acl section -->
+        <isEqual compareValue="true" property="aclEnabled">
+        <!-- poor performance FROM (SELECT DISTINCT ivid FROM aclimage WHERE principalid = #principalId#) AS aclimage -->
+        FROM aclimage
+        INNER JOIN imageversion on aclimage.ivid = imageversion.ivid AND
+            ((aclimage.principalid = #groupPrincipal# AND aclimage.principaltype = 1) OR (aclimage.principalid = #userPrincipal# AND aclimage.principaltype = 2))
+        </isEqual>
+        <!-- \acl section -->
+        <!-- NON-acl section -->
+        <isEqual compareValue="false" property="aclEnabled">
+        FROM imageversion
+        </isEqual>
+        <!-- \NON-acl section -->
+        WHERE
+        MATCH(versionsubtitlelng1,versionsubtitlelng2,versiontitlelng1,versiontitlelng2,keywords,byline,sitelng1,sitelng2,infolng1,infolng2,people) AGAINST (#keywords# IN BOOLEAN MODE)
+    </update>
+
+    <select id="getImageNumberQuery" parameterClass="com.stumpner.mediadesk.search.SearchProperty" resultMap="imageList">
+        SELECT
+        <include refid="queryFields"/>
+         , '$usedLanguage$' as usedLanguage
+        <!-- acl section -->
+        <isEqual compareValue="true" property="aclEnabled">
+        <!-- poor performance FROM (SELECT DISTINCT ivid FROM aclimage WHERE principalid = #principalId#) AS aclimage -->
+        FROM aclimage
+        INNER JOIN imageversion on aclimage.ivid = imageversion.ivid AND
+            ((aclimage.principalid = #groupPrincipal# AND aclimage.principaltype = 1) OR (aclimage.principalid = #userPrincipal# AND aclimage.principaltype = 2))
+        </isEqual>
+        <!-- \acl section -->
+        <!-- NON-acl section -->
+        <isEqual compareValue="false" property="aclEnabled">
+        FROM imageversion
+        </isEqual>
+        <!-- \NON-acl section -->
+        WHERE
+        imagenumber = #keywords#
+        LIMIT 0,1000
+    </select>
+
+    <update id="prepareImageNumberQuery" parameterClass="com.stumpner.mediadesk.search.SearchProperty">
+       INSERT INTO searchtmp
+        SELECT DISTINCT null as stid, #suid# as suid, imageversion.ivid as ivid, now() as searchtime, 100 as score
+        <!-- acl section -->
+        <isEqual compareValue="true" property="aclEnabled">
+        <!-- poor performance FROM (SELECT DISTINCT ivid FROM aclimage WHERE principalid = #principalId#) AS aclimage -->
+        FROM aclimage
+        INNER JOIN imageversion on aclimage.ivid = imageversion.ivid AND
+            ((aclimage.principalid = #groupPrincipal# AND aclimage.principaltype = 1) OR (aclimage.principalid = #userPrincipal# AND aclimage.principaltype = 2))
+        </isEqual>
+        <!-- \acl section -->
+        <!-- NON-acl section -->
+        <isEqual compareValue="false" property="aclEnabled">
+        FROM imageversion
+        </isEqual>
+        <!-- \NON-acl section -->
+        WHERE
+        imagenumber = #keywords#
+        LIMIT 0,1000
+    </update>
+
+    <update id="prepareReQuery" parameterClass="com.stumpner.mediadesk.search.SearchProperty">
+       INSERT INTO searchtmp
+        SELECT DISTINCT null as stid, #requery# as suid, imageversion.ivid as ivid, now() as searchtime,
+        (0
+            + ((MATCH(versionsubtitlelng1,versionsubtitlelng2,versiontitlelng1,versiontitlelng2,keywords,byline,sitelng1,sitelng2,infolng1,infolng2,people) AGAINST (#keywords# IN BOOLEAN MODE)))
+        ) as score
+        FROM searchtmp
+        INNER JOIN imageversion ON searchtmp.ivid = imageversion.ivid
+        WHERE
+        (
+        MATCH(versionsubtitlelng1,versionsubtitlelng2,versiontitlelng1,versiontitlelng2,keywords,byline,sitelng1,sitelng2,infolng1,infolng2,people) AGAINST (#keywords# IN BOOLEAN MODE)
+        )
+        AND searchtmp.suid = #suid#
+    </update>
+    
+    <update id="prepareOrphanedQuery" parameterClass="com.stumpner.mediadesk.search.SearchProperty">
+       INSERT INTO searchtmp
+        SELECT null as stid, #suid# as suid, imageversion.ivid as ivid, now() as searchtime, 1 as score
+        FROM imageversion
+        LEFT OUTER JOIN categoryholder ON categoryholder.ivid = imageversion.ivid
+        LEFT OUTER JOIN folderholder ON folderholder.ivid = imageversion.ivid
+        LEFT OUTER JOIN pinpicholder ON pinpicholder.ivid = imageversion.ivid
+        LEFT OUTER JOIN inbox ON inbox.ivid = imageversion.ivid
+        WHERE fhid IS NULL AND chid IS NULL AND phid IS NULL AND inboxid IS NULL
+    </update>
+
+    <select id="getImageQueryCount" parameterClass="com.stumpner.mediadesk.search.SearchProperty" resultClass="java.lang.Integer" >
+        SELECT
+            count(*)
+        FROM searchtmp
+        WHERE suid = #suid#
+    </select>
+
+    <update id="prepareAdvancedImageQuery" parameterClass="com.stumpner.mediadesk.search.ImageVersionSearchProperty">
+       INSERT INTO searchtmp
+        SELECT DISTINCT null as stid, #suid# as suid, imageversion.ivid as ivid, now() as searchtime,
+            (
+            0
+        <isNotEmpty property="site">
+            + MATCH(site) AGAINST (#site# IN BOOLEAN MODE)
+        </isNotEmpty>
+        <isNotEmpty property="people">
+            + MATCH(people) AGAINST (#people# IN BOOLEAN MODE)
+        </isNotEmpty>
+        <isNotEmpty property="keywords">
+            + ((MATCH(versionsubtitlelng1,versionsubtitlelng2,versiontitlelng1,versiontitlelng2,keywords,byline,sitelng1,sitelng2,infolng1,infolng2,people) AGAINST (#keywords# IN BOOLEAN MODE)))
+        </isNotEmpty>
+            )
+            as score
+        <!-- acl section -->
+        <isEqual compareValue="true" property="aclEnabled">
+        <!-- poor performance FROM (SELECT DISTINCT ivid FROM aclimage WHERE principalid = #principalId#) AS aclimage -->
+        FROM aclimage
+        INNER JOIN imageversion on aclimage.ivid = imageversion.ivid AND
+            ((aclimage.principalid = #groupPrincipal# AND aclimage.principaltype = 1) OR (aclimage.principalid = #userPrincipal# AND aclimage.principaltype = 2))
+        </isEqual>
+        <!-- \acl section -->
+        <!-- NON-acl section -->
+        <isEqual compareValue="false" property="aclEnabled">
+        FROM imageversion
+        </isEqual>
+        <!-- \NON-acl section -->
+        WHERE
+        (
+        1 = 1
+        <isNotEmpty property="keywords">
+        AND
+            (
+        MATCH(versionsubtitlelng1,versionsubtitlelng2,versiontitlelng1,versiontitlelng2,keywords,byline,sitelng1,sitelng2,infolng1,infolng2,people) AGAINST (#keywords# IN BOOLEAN MODE)
+            )
+        </isNotEmpty>
+        <isNotEmpty property="site">
+        AND
+            MATCH(sitelng1,sitelng2) AGAINST (#site# IN BOOLEAN MODE)
+        </isNotEmpty>
+        <isNotEmpty property="people">
+        AND
+            MATCH(people) AGAINST (#people# IN BOOLEAN MODE)
+        </isNotEmpty>
+        )
+        <isNotEmpty property="periodInterval">
+        AND (DATE_SUB(CURDATE(),INTERVAL $periodInterval$) &lt; photographDate)
+        </isNotEmpty>
+        <isNotEqual compareValue="0" property="orientation">
+            AND orientation = #orientation#
+        </isNotEqual>
+        <isNotEmpty property="photographerAlias">
+            AND photographeralias LIKE #photographerAlias#
+        </isNotEmpty>
+        <isNotEqual compareValue="0" property="perspective">
+            AND perspective = #perspective#
+        </isNotEqual>
+        <isNotEqual compareValue="0" property="motive">
+            AND motive = #motive#
+        </isNotEqual>
+        <isNotEqual compareValue="0" property="gesture">
+            AND gesture = #gesture#
+        </isNotEqual>
+        <isNotEqual compareValue="0" property="customList1">
+            AND customlist1 = #customList1#
+        </isNotEqual>
+        <isNotEqual compareValue="0" property="customList2">
+            AND customlist2 = #customList2#
+        </isNotEqual>
+        <isNotEqual compareValue="0" property="customList3">
+            AND customlist3 = #customList3#
+        </isNotEqual>
+        <isNotEmpty property="dateFrom">
+            AND photographdate &gt;= #dateFrom#
+        </isNotEmpty>
+        <isNotEmpty property="dateTo">
+            AND photographdate &lt;= #dateTo#
+        </isNotEmpty>
+        <isNotEmpty property="licValid">
+            AND licvalid &lt;= #licValid#
+        </isNotEmpty>
+        LIMIT 0,1000
+    </update>
+
+    <update id="aclImagelist">
+                <!--
+                ACL-Section: erstellt einen temp-table mit den images für eine security-group
+                |ivid|principaltype|principalid|
+                 -->
+        INNER JOIN categoryholder ON imageversion.ivid = categoryholder.ivid
+        INNER JOIN acldata ON acldata.objectid = categoryholder.categoryid
+            AND (objecttype = 10 OR objecttype = 11)
+            AND principalid = 0
+            AND permission = "read"
+        <!-- \end ACL-Section -->
+    </update>
+
+    <update id="resetSearch">
+        DELETE FROM searchtmp WHERE searchtime &lt; DATE_SUB(now(),INTERVAL 30 MINUTE) 
+    </update>
+
+</sqlMap>

@@ -1,0 +1,71 @@
+/**************************/
+/* SETTINGSPAGE           */
+/**************************/
+
+div#settingspage {
+    /*list-style-position:inside;*/
+}
+
+div#settingspage a {
+    font-weight:bold;
+}
+
+div#settingsindex li {
+    margin-top:8px;
+    margin-bottom:7px;
+    padding-left:35px;
+    background-position:left top;
+    background-repeat:no-repeat;
+}
+
+/**************************/
+/* SETTINGS               */
+/**************************/
+
+div#settingspage legend {
+    font-weight:bold;
+}
+
+div#settingspage label {
+    width:200px;
+    display:block;
+    float:left;
+    clear:both;
+}
+
+p#enableStaticSites label {
+    display:inline;
+    float:none;
+}
+
+p#staticUrlPrefix {
+    margin-top:15px;
+}
+
+fieldset#setAppUser label {
+    margin-bottom:10px;
+}
+
+div#settingspage p {
+    float:none;
+    clear:both;
+    margin:25px;
+}
+
+div#settingspage input.textField {
+    width:270px;
+}
+
+div#settingspage textarea {
+    clear:both;
+    height:200px;
+    width:520px;
+}
+
+div#settingspage textarea#textKeywords {
+    height:25px;
+}
+
+div#settingspage textarea#textDescription {
+    height:25px;
+}

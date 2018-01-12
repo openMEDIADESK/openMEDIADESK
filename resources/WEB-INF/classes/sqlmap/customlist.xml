@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="customlist">
+
+    <select id="getCustomListEntry" parameterClass="int" resultClass="com.stumpner.mediadesk.list.CustomListEntry">
+        SELECT
+            id as id,
+            clid as clid,
+            name as name,
+            titlelng1 as titleLng1,
+            titlelng2 as titleLng2
+        FROM customlistholder
+        WHERE id = #value#
+    </select>
+
+    <resultMap id="customListEntryList" class="com.stumpner.mediadesk.list.CustomListEntry">
+        <result property="id" column="id"/>
+        <result property="clid" column="clid"/>
+        <result property="name" column="name"/>
+        <result property="titleLng1" column="titlelng1"/>
+        <result property="titleLng2" column="titlelng2"/>
+        <result property="usedLanguage" column="usedLanguage"/>
+    </resultMap>
+    <statement id="getCustomListEntries" parameterClass="com.stumpner.mediadesk.list.LoaderClass" resultMap="customListEntryList">
+        SELECT  id,
+                clid,
+                name,
+                titlelng1 as titleLng1,
+                titlelng2 as titleLng2
+                 , '$usedLanguage$' as usedLanguage
+            FROM customlistholder
+         WHERE clid = #clid#
+    </statement>
+
+    <insert id="addCustomListEntry" parameterClass="com.stumpner.mediadesk.list.CustomListEntry">
+        INSERT INTO
+        customlistholder (clid,name,titlelng1,titlelng2)
+        VALUES (#clid#, #name#, #titleLng1#, #titleLng2#)
+    </insert>
+
+    <delete id="deleteCustomListEntry" parameterClass="com.stumpner.mediadesk.list.CustomListEntry">
+        DELETE FROM customlistholder
+        WHERE id = #id#
+    </delete>
+
+    <update id="saveCustomListEntry" parameterClass="com.stumpner.mediadesk.list.CustomListEntry">
+        UPDATE customlistholder
+        SET
+            name = #name#,
+            titlelng1 = #titleLng1#,
+            titlelng2 = #titleLng2#
+        WHERE id = #id#
+    </update>
+
+</sqlMap>

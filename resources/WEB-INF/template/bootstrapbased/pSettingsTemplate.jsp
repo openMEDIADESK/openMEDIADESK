@@ -1,0 +1,136 @@
+<%@ page import="com.stumpner.mediadesk.core.Config"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://jakarta.apache.org/taglibs/datetime-1.0" prefix="dt" %>
+<%@page contentType="text/html;charset=utf-8" language="java" %>
+
+<jsp:include page="header.jsp"/>
+
+<!-- spalte2 -->
+<div class="col-sm-10 main"> <!-- col-sm-10 main SPALTE 2 FÜR INHALT -->
+<!-- ###################################################################################################################################################### -->
+<!-- HIER STARTET DER INHALTSBEREICH ###################################################################################################################### -->
+<!-- AB HIER GANZ NEU MIT NEUER EINTEILUNG !!! ############################################################################################################ -->
+<!-- breadcrumbs -->
+<ol class="breadcrumb">
+	<li><a href="<c:url value="${home}"/>"><i class="fa fa-folder-o fa-fw"></i> Home</a></li>
+    <li><a href="<c:url value="/${lng}/settings"/>"><i class="fa fa-sliders fa-fw"></i> <spring:message code="menu.settings"/></a></li>
+    <li class="active"><i class="fa fa-cubes fa-fw"></i> <spring:message code="set.template"/></li>
+</ol>
+<!-- /breadcrumbs -->
+<!-- ordnertitel und infos -->
+<h3><spring:message code="set.template"/></h3>
+<h4><spring:message code="set.headline"/></h4>
+<!-- /ordnertitel und infos -->
+<!-- mediadesk abstand -->
+<div class="md-space">&nbsp;</div>
+<!-- /mediadesk abstand -->
+<!-- ###################################################################################################################################################### -->
+
+
+<div class="row">
+	<div class="col-sm-12">
+	<!-- FORMS FÜR EDIT -->
+
+
+    <form method="post" action="<c:url value="settemplates"/>">
+    <input type="hidden" name="JSESSIONID" value="<c:out value="${pageContext.request.session.id}"/>"/>
+
+    <spring:bind path="command.template">
+        <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
+        <label for="input<c:out value="${status.expression}"/>"><spring:message code="set.template.path"/></label>
+                <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
+                    <option value="bootstrap"<c:if test="${status.value=='bootstrap'}"> selected</c:if>>bootstrap (Built-in)</option>
+                    <c:forEach items="${customTemplateList}" var="template">
+                      <option value="<c:out value="${template.name}"/>"<c:if test="${status.value==template.name}"> selected</c:if>><c:out value="${template.name}"/></option>
+                    </c:forEach>
+                </select>
+        </div>
+    </spring:bind>
+
+    <div class="form-group">
+        <p class="help-block">Hilfe für die Template-Einstellungen sind im <a href="https://wiki.openmediadesk.net/en/Template" target="_blank">Wiki</a> zu finden.</p>
+    </div>
+
+    <button type="submit" name="edit" class="btn btn-default">bearbeiten</button>
+    <button type="submit" name="Submit" class="btn btn-default">verwenden</button>
+
+    <spring:hasBindErrors name="command">
+    <div class="alert alert-danger" role="alert">
+      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+      <span class="sr-only">Fehler</span>
+            <spring:bind path="command">
+                <div class="formErrorSummary">
+                <c:forEach items="${status.errorMessages}" var="error">
+                    <c:out value="${error}"/><br>
+                </c:forEach>
+                </div>
+            </spring:bind>
+    </div>
+    </spring:hasBindErrors>
+
+    <c:if test="${not empty errorMessage}">
+    <div class="alert alert-danger" role="alert">
+      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+      <span class="sr-only">Fehler</span>
+            <code><pre>Fehler2  <c:out value="${errorMessage}"/></pre></code>
+    </div>
+    </c:if>
+
+    </form>
+
+    <h3>Neues Template erstellen</h3>
+
+    <form method="post" action="<c:url value="settemplates"/>">
+    <input type="hidden" name="JSESSIONID" value="<c:out value="${pageContext.request.session.id}"/>"/>
+    <input type="hidden" name="baseTemplate" value="bootstrap"/>
+
+    <div class="form-group">
+        <label for="text">Name</label>
+        <input type="text" class="form-control input-sm" id="text" name="name">
+    </div>
+
+        <!--
+    <div class="form-group">
+        <p class="help-block">Hilfe für die Template-Einstellungen sind im <a href="https://wiki.openmediadesk.net/en/Template" target="_blank">Wiki</a> zu finden.</p>
+    </div>
+    -->
+
+    <button type="submit" name="new" class="btn btn-default">erstellen</button>
+
+    <spring:hasBindErrors name="command">
+    <div class="alert alert-danger" role="alert">
+      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+      <span class="sr-only">Fehler</span>
+            <spring:bind path="command">
+                <div class="formErrorSummary">
+                <c:forEach items="${status.errorMessages}" var="error">
+                    <c:out value="${error}"/><br>
+                </c:forEach>
+                </div>
+            </spring:bind>
+    </div>
+    </spring:hasBindErrors>
+
+    </form>
+
+
+
+    <!-- /FORMS FÜR EDIT -->
+	</div>
+</div>      <!-- /row -->
+<!-- ENDE EDIT BILD -->
+<!-- ###################################################################################################################################################### -->
+
+
+
+<!-- mediadesk abstand -->
+<div class="md-space-lg">&nbsp;</div>
+<!-- /mediadesk abstand -->
+
+
+	</div> <!-- /col-sm-10 main SPALTE 2 FÜR INHALT ZU -->
+<!-- ###################################################################################################################################################### -->
+<!-- HIER ENDE INHALTSBEREICH ############################################################################################################################# -->
+
+<jsp:include page="footer.jsp"/>

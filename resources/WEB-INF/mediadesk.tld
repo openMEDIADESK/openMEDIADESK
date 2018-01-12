@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+
+<taglib>
+	<tlib-version>1.1.1</tlib-version>
+
+	<jsp-version>1.2</jsp-version>
+
+	<short-name>mediaDESK</short-name>
+
+	<uri>/mediadesk</uri>
+
+    <tag>
+        <name>login</name>
+        <tag-class>com.stumpner.mediadesk.web.tags.LoginCheckTag</tag-class>
+        <body-content>JSP</body-content>
+
+        <attribute>
+            <name>role</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>andRoleExact</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>roleNot</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>notLoggedIn</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>imgselector</name>
+        <tag-class>com.stumpner.mediadesk.web.tags.ImageSelectorTag</tag-class>
+        <body-content>JSP</body-content>
+
+        <attribute>
+            <name>ifSelected</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+
+        <attribute>
+            <name>ifNotSelected</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>text</name>
+        <tag-class>com.stumpner.mediadesk.web.tags.TextTag</tag-class>
+        <body-content>JSP</body-content>
+
+        <attribute>
+            <name>code</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+</taglib>

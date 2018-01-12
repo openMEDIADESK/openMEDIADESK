@@ -1,0 +1,17 @@
+.x-tree-node .x-tree-node-over {background-color:transparent;}
+
+.x-tree-selected {
+    background-color:#696969 !important;
+}
+
+.x-tree-node .x-tree-selected a span {
+  color:#FFFFFF;
+}
+
+.treeIconPublic {
+    background: url('/img/icon/pletzer/2015/folder-oeffentlich.png') no-repeat center center !important;
+}
+
+.treeIconProtected {
+    background: url('/img/icon/pletzer/2015/folder-gesperrt.png') no-repeat center center !important;
+}
