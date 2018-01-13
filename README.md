@@ -36,7 +36,7 @@ Bitte lesen Sie [CONTRIBUTING.md](CONTRIBUTING.md) für Details zu unserem Verha
 
 This project is licensed under the Apache 2 License - see the [LICENSE](LICENSE) file for details
 
-Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
+Copyright 2018 by Franz STUMPNER (franz@stumpner.com)
 
 Frameworks used by openMEDIADESK
 
