@@ -124,7 +124,7 @@ public class MailSettingsController extends SimpleFormControllerMd {
         Config.smtpPassword = settings.getSmtpPassword();
         Config.mailReceiverAdminEmail = settings.getMailAdminEmail();
 
-        System.out.println("Mail Einstellungen ge�ndert:");
+        System.out.println("Mail Einstellungen geändert:");
         System.out.println(" * mailserver   = "+Config.mailserver);
         System.out.println(" * smtpUsername = "+Config.smtpUsername);
         System.out.println(" * smtpPassword = "+Config.smtpPassword);
@@ -133,9 +133,9 @@ public class MailSettingsController extends SimpleFormControllerMd {
 
         UserService userService = new UserService();
         User admin = (User)userService.getByName("admin");
-        if (admin.getEmail().equalsIgnoreCase("office@mediadesk.net")) {
-            //Admin Email auch �ndern!!!
-            System.out.println(" * admin User Email ge�ndert auf "+Config.mailReceiverAdminEmail);
+        if (admin.getEmail().equalsIgnoreCase("office@openmediadesk.org")) {
+            //Admin Email auch ändern!!!
+            System.out.println(" * admin User Email geändert auf "+Config.mailReceiverAdminEmail);
             admin.setEmail(Config.mailReceiverAdminEmail);
             userService.save(admin);
         }

@@ -442,18 +442,13 @@ public class WebContextListener implements ServletContextListener {
         UserService userService = new UserService();
             User user = new User();
             user.setUserName("admin");
-            user.setEmail("office@mediadesk.net");
+            user.setEmail("office@openmediadesk.org");
             user.setEnabled(true);
             user.setRole(User.ROLE_ADMIN);
             try {
                 userService.add(user);
                 Authenticator auth = new Authenticator();
-                try {
-                auth.setPasswordAndSend("admin","admin");
-                } catch (MessagingException e) {
-                    e.printStackTrace();
-                    logger.fatal("User admin can not be created: Send Mail failed");
-                }
+                auth.setPassword("admin","admin");
             } catch (IOServiceException e1) {
                 e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }  catch (ObjectNotFoundException e) {

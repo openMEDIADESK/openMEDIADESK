@@ -60,7 +60,7 @@ public class SettingsController extends AbstractPageController {
             System.out.println("todo Logo "+icoFile.getAbsolutePath());
             todoLogo = true;
         }
-        if (Config.mailReceiverAdminEmail.equalsIgnoreCase("office@mediadesk.net") || Config.mailReceiverAdminEmail.equalsIgnoreCase("")) {
+        if (Config.mailReceiverAdminEmail.equalsIgnoreCase("office@openmediadesk.org") || Config.mailReceiverAdminEmail.equalsIgnoreCase("")) {
             todoEmail = true;
         }
 
