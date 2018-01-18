@@ -45,49 +45,6 @@ public abstract class AbstractImageLoaderController extends AbstractPageControll
         return super.handleRequestInternal(httpServletRequest, httpServletResponse);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    /**
-     * Gibt alle Bilder dieser Ansicht zurück,
-     * also nicht nur jene die auf dieser Seite zu sehen sind!
-     * @param httpServletRequest
-     * @param httpServletResponse
-     * @return Alle Bilder
-     */
-    protected List loadAllImageList(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws LoadThumbnailException {
-        return this.loadThumbnailImageList(
-                getSortBy(httpServletRequest),
-                getOrderBy(httpServletRequest),
-                httpServletRequest,
-                httpServletResponse);
-    }
-
-    /**
-     * Gibt eine Liste von Bildern für diese Seite zurück
-     * Es muss also nicht sein, dass hier alle Bilder zurück gegeben werden
-     * @param httpServletRequest
-     * @param httpServletResponse
-     * @return Bilder dieser Seite
-     * @deprecated use loadThumbnailImageListSorted
-     */
-    protected List loadThumbnailImageList(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws LoadThumbnailException {
-        return this.loadThumbnailImageList(
-                getSortBy(httpServletRequest),
-                getOrderBy(httpServletRequest),
-                httpServletRequest,
-                httpServletResponse);
-    }
-
-    /**
-     * Gibt nur die Bilder der aktuellen Seite zurück
-     * @param sortBy
-     * @param orderBy
-     * @param httpServletRequest
-     * @param httpServletResponse
-     * @return
-     * @throws LoadThumbnailException
-     */
-    protected abstract List loadThumbnailImageList(int sortBy, int orderBy, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws LoadThumbnailException;
-
-
     protected String getDependendKey(HttpServletRequest request) {
         return this.getClass().getName();
     }

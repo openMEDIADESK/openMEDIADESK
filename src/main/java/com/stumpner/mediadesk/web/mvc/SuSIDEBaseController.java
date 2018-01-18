@@ -34,13 +34,6 @@ import javax.servlet.http.HttpServletResponse;
 public interface SuSIDEBaseController {
 
     /**
-     * @deprecated Template Files werden nichtmehr benutzt
-     * @param jspFile
-     * @param httpServletRequest
-     */
-    void setContentTemplateFile(String jspFile, HttpServletRequest httpServletRequest);
-
-    /**
      * Gibt true zurück wenn der User eingeloggt ist
      * @param httpServletRequest
      * @return

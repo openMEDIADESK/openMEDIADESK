@@ -175,31 +175,6 @@ public class AbstractPageController extends ParameterizableViewController implem
 
     }
 
-    /**
-     * @deprecated Template files werden nichtmehr benötigt
-     * @param jspFile
-     * @param httpServletRequest
-     */
-    public void setContentTemplateFile(String jspFile, HttpServletRequest httpServletRequest) {
-
-        if (permitOnlyLoggedIn==true) {
-            if (isLoggedIn(httpServletRequest)) {
-                if (hasMinimumRole(httpServletRequest,permitMinimumRole)) {
-                    httpServletRequest.setAttribute("contentTemplateFile",jspFile);
-                } else {
-                    httpServletRequest.setAttribute("contentTemplateFile","notallowed.jsp");
-                }
-            } else {
-                httpServletRequest.setAttribute("contentTemplateFile","notallowed.jsp");
-            }
-        } else {
-            httpServletRequest.setAttribute("contentTemplateFile",jspFile);
-        }
-
-        //ACL-Context erstellen für das jeweilige Principal
-        AclContextFactory.createAclContext(httpServletRequest,this);
-
-    }
 
     /**
      * Checks if a user is logged in

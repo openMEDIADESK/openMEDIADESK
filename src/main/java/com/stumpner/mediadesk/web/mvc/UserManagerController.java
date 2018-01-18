@@ -126,7 +126,6 @@ public class UserManagerController extends AbstractPageController {
             httpServletRequest.setAttribute("canSetPassword",true);
         }
 
-        this.setContentTemplateFile("admin_userlist.jsp",httpServletRequest);
         return super.handleRequestInternal(httpServletRequest, httpServletResponse);    //To change body of overridden methods use File | Settings | File Templates.
     }
 

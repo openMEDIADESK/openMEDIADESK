@@ -14,9 +14,6 @@
     <bean id="folderIndexView" class="com.stumpner.mediadesk.web.mvc.FolderIndexViewController">
         <property name="viewName"><value>/WEB-INF/template/current/pEventIndex.jsp</value></property>
     </bean>
-    <bean id="folderView" class="com.stumpner.mediadesk.web.mvc.FolderViewController">
-        <property name="viewName"><value>/WEB-INF/template/current/pEvent.jsp</value></property>        
-    </bean>
     <bean id="popupImageView" class="com.stumpner.mediadesk.web.mvc.PopupImageViewController">
         <property name="viewName"><value>/WEB-INF/template/current/wPreview.jsp</value></property>
     </bean>
@@ -235,12 +232,6 @@
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
 
-    <!-- ### inbox -->
-
-    <bean id="inboxView" class="com.stumpner.mediadesk.web.mvc.InboxViewController">
-        <property name="viewName"><value>/WEB-INF/template/current/pInbox.jsp</value></property>
-    </bean>
-
     <!-- ### sysadmin -->
 
     <bean id="userManagerView" class="com.stumpner.mediadesk.web.mvc.UserManagerController">
@@ -256,27 +247,6 @@
         <property name="formView"><value>/WEB-INF/template/current/gMessageYesNo.jsp</value></property>
         <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
     </bean>
-
-    <!-- ### folder -->
-
-    <!--
-    <bean id="folderlistView" class="com.stumpner.mediadesk.web.mvc.FolderListController">
-    </bean>
-    -->
-    <bean id="folderEditController" class="com.stumpner.mediadesk.web.mvc.FolderEditController">
-        <property name="sessionForm"><value>true</value></property>
-        <property name="formView"><value>/WEB-INF/template/current/pEventEdit.jsp</value></property>
-        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
-    </bean>
-    <bean id="folderBreakupController" class="com.stumpner.mediadesk.web.mvc.FolderBreakupController">
-        <property name="sessionForm"><value>true</value></property>
-        <property name="formView"><value>/WEB-INF/template/current/gMessageYesNo.jsp</value></property>
-        <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
-    </bean>
-    <!--
-    <bean id="categorylistView" class="com.stumpner.mediadesk.web.mvc.CategoryListController">
-    </bean>
-    -->
     <bean id="categoryEditController" class="com.stumpner.mediadesk.web.mvc.CategoryEditController">
         <property name="sessionForm"><value>true</value></property>
         <property name="formView"><value>/WEB-INF/template/current/pCategoryEdit.jsp</value></property>
@@ -404,7 +374,6 @@
                 <prop key="/register">registerForm</prop>
 
                 <prop key="/*">splashpageView</prop>
-                <!-- <prop key="/folder">folderView</prop> -->
                 <prop key="/wpreview">popupImageView</prop>
                 <prop key="/ppreview">inlinePreviewViewer</prop>
                 <prop key="/lightbox*">lightboxView</prop>
@@ -428,16 +397,9 @@
                 <prop key="/uploadfs">imageImportFilesystem</prop>
                 <prop key="/uploadweb">imageImportWebupload</prop>
                 <prop key="/uploadselector">uploadSelector</prop>
-
-                <!-- <prop key="/inbox">inboxView</prop> -->
-
                 <prop key="/usermanager">userManagerView</prop>
                 <prop key="/useredit">userEditController</prop>
                 <prop key="/userdelete">userDeleteController</prop>
-                <!--<prop key="/folderlist">folderlistView</prop>-->
-                <prop key="/folderedit">folderEditController</prop>
-                <prop key="/folderbreakup">folderBreakupController</prop>
-                <!--<prop key="/categorylist">categorylistView</prop>-->
                 <prop key="/categoryedit">categoryEditController</prop>
                 <prop key="/categorybreakup">categoryBreakupController</prop>
                 <prop key="/categoryselector">categorySelectorController</prop>

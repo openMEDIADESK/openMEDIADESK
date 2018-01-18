@@ -408,7 +408,7 @@ public class Config {
     public static String emailImportLastError = "";
     public static int autoImportEmailCat = 0;
 
-    public static int itemCountPerPage = 99999;
+    public static int itemCountPerPage = 45;
 
     // Licence
     //siehe Class License
@@ -642,20 +642,6 @@ public class Config {
         } else {
             ThumbnailModuleController.setDefaultViewMode(ThumbnailModuleController.USE_THUMBNAIL);
         }
-
-        if (itemCountPerPage == 12) { itemCountPerPage = 48; } //Alte Einstellung autom. upgraden!
-
-        //ImportPluginClassname wird nicht mehr aus mediaDESK.conf geladen
-        /*
-        String importPluginClassname = iniFile.getProperty("importPluginClassname");
-        if (importPluginClassname!=null) {
-            System.out.println("importPluginClassname="+importPluginClassname);
-            Config.importPluginClass = importPluginClassname.split(",");
-        } */
-
-
-        //ACHTUNG!!! - LIZENZ!!!
-
 
         License.initLic(iniFile);
 

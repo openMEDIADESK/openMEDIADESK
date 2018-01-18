@@ -62,7 +62,6 @@ public class MenuSettingsController extends AbstractPageController {
         httpServletRequest.setAttribute("footer3Links",menuService.getMenu(MenuType.FOOTER3));
         httpServletRequest.setAttribute("footer4Links",menuService.getMenu(MenuType.FOOTER4));
         httpServletRequest.setAttribute("footer5Links",menuService.getMenu(MenuType.FOOTER5));
-        this.setContentTemplateFile("settings_menu.jsp",httpServletRequest);
         return super.handleRequestInternal(httpServletRequest, httpServletResponse);    //To change body of overridden methods use File | Settings | File Templates.
     }
 

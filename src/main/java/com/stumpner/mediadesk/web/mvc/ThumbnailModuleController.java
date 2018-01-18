@@ -41,6 +41,7 @@ public class ThumbnailModuleController extends AbstractController {
 
     private static int defaultViewMode = 1;
 
+    //TODO: Delete this class
 
     /**
      * Einstellen des Anzeige-Modus der Thumbnail-Anzeige:

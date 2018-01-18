@@ -385,21 +385,6 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
 
     }
 
-    protected String getListViewCustom(HttpServletRequest request) {
-
-        Category category = (Category)request.getAttribute("category");
-        final int defaultView = category.getDefaultview();
-        switch (defaultView) {
-            case Category.VIEW_LIST:
-                return TEMPLATEFILE_LISTVIEW;
-            case Category.VIEW_THUMBNAILS:
-                return TEMPLATEFILE_THUMBNAILS;
-        }
-
-        return null;
-
-    }
-
     protected void insert(ImageVersion image, HttpServletRequest request) throws DublicateEntry {
 
         CategoryService categoryService = new CategoryService();
@@ -502,30 +487,6 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
 
     }
 
-    /**
-     * Bilder in dieser Kategorie laden und als Liste zurückgeben
-     * @param httpServletRequest
-     * @param httpServletResponse
-     * @return List der Bilder in einer PaginatedList
-     */
-    protected List loadThumbnailImageList(int sortBy, int orderBy, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-
-
-        List imageList = loadImageList(sortBy, orderBy, httpServletRequest, httpServletResponse);
-
-        //Nur aktuelle Seite zurückgeben:
-        int start = (getPageIndex(httpServletRequest)-1)*getImageCountPerPage();
-        int end = getPageIndex(httpServletRequest) * getImageCountPerPage();
-        if (end>=imageList.size()) { end = imageList.size(); }
-        if (start>end) { return new LinkedList(); /* ungültige seitenanzahl */ }
-        return imageList.subList(start, end);
-    }
-
-
-    protected List loadAllImageList(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-
-        return loadImageList(getSortBy(httpServletRequest),getOrderBy(httpServletRequest),httpServletRequest, httpServletResponse);
-    } 
 
     private int getCategoryId(HttpServletRequest httpServletRequest) {
 

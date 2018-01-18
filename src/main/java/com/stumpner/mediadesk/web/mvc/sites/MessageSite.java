@@ -44,7 +44,6 @@ public class MessageSite {
         this.controller = controller;
         this.model = model;
 
-        controller.setContentTemplateFile("message.jsp",request);
     }
 
     /*

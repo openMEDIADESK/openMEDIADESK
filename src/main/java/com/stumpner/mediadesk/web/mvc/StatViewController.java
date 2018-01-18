@@ -143,10 +143,7 @@ public class StatViewController extends AbstractPageController {
 
         httpServletRequest.setAttribute("chartTitle", chartTitle);
 
-        Properties prop = System.getProperties();
 
-
-        this.setContentTemplateFile("admin_stat.jsp",httpServletRequest);
         return super.handleRequestInternal(httpServletRequest, httpServletResponse);    //To change body of overridden methods use File | Settings | File Templates.
     }
 

@@ -87,7 +87,6 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
 
         httpServletRequest.setCharacterEncoding("UTF-8");
 
-        //todo: für diese klasse eine gemeinsame basisklass mit FolderViewController machen
         //im request kennzeichnen dass es sich um die such-seite handelt
         httpServletRequest.setAttribute("isSearch","true");
 
@@ -135,7 +134,6 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
             }
         }
 
-        this.setContentTemplateFile("searchresult.jsp", httpServletRequest);
 
         //boolean expired = false;
 
@@ -244,7 +242,7 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
                         //suche durchführen...
                         KeywordSearchProperty ksp = new KeywordSearchProperty();
                         ksp.setKeywords(query);
-                        searchResult = imageSearch.getImageQuery(ksp,viewPage,getImageCountPerPage(),this.getUser(httpServletRequest));
+                        searchResult = imageSearch.getImageQuery(ksp,viewPage,Integer.MAX_VALUE,this.getUser(httpServletRequest));
                         httpServletRequest.getSession().setAttribute("search", searchResult);
                     } else {
                         //requery: suche in suche
@@ -256,7 +254,7 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
                         }
                         ISearchProperty ksp = (ISearchProperty)searchResult.getSearchProperty();
                         ksp.setKeywords(query);
-                        searchResult = imageSearch.getReQuery(ksp,viewPage,getImageCountPerPage());
+                        searchResult = imageSearch.getReQuery(ksp,viewPage,Integer.MAX_VALUE);
                     }
                 }
 
@@ -268,7 +266,7 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
 
                     ISearchProperty osp = new SimpleSearchProperty();
 
-                    searchResult = imageSearch.getOrphanedQuery(osp,viewPage,getImageCountPerPage());
+                    searchResult = imageSearch.getOrphanedQuery(osp,viewPage,Integer.MAX_VALUE);
                     httpServletRequest.getSession().setAttribute("search", searchResult);
 
                 } else {
@@ -358,7 +356,7 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
 
                     searchString = ksp.getKeywords() + " " +ksp.getPeople()+ " " +ksp.getSite()+ " ";
 
-                    searchResult = imageSearch.getAdvancedImageQuery(ksp,viewPage,getImageCountPerPage(),this.getUser(httpServletRequest));
+                    searchResult = imageSearch.getAdvancedImageQuery(ksp,viewPage,Integer.MAX_VALUE,this.getUser(httpServletRequest));
                     httpServletRequest.getSession().setAttribute("search", searchResult);
                 }
             }
@@ -393,7 +391,7 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
      */
     private SearchResult getSearchResultFromSession(int viewPage, HttpServletRequest httpServletRequest) throws SearchResultExpired {
 
-        return SearchresultRestApi.getSearchResultFromSession(viewPage, getImageCountPerPage(), httpServletRequest);
+        return SearchresultRestApi.getSearchResultFromSession(viewPage, Integer.MAX_VALUE, httpServletRequest);
 
     }
 
@@ -460,40 +458,5 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
             return 0;  //To change body of implemented methods use File | Settings | File Templates.
         }
     }
-
-    /*
-    protected int getNumberOfPages(List imageList) {
-
-        Logger logger = Logger.getLogger(SearchResultController.class);
-        logger.debug("Anzahl der Ergebnis-Seiten bereichnen: ");
-
-        SearchResult result = (SearchResult)imageList;
-        int imageCount = result.getResultCount();
-        int pages = imageCount / getImageCountPerPage();
-        logger.debug("getNumberOfPages: "+imageCount+" / "+getImageCountPerPage()+" = "+pages);
-        if (imageCount%getImageCountPerPage()>0) { pages++; }
-        return pages;
-    }
-
-    protected int getNextPage(List imageList, HttpServletRequest request) {
-        int actualPage = this.getPageIndex(request);
-        if (actualPage<getNumberOfPages(imageList)) {
-            //nächste seite existiert
-            return actualPage+1;
-        } else {
-            return 0;
-        }
-    }
-
-    protected int getPrevPage(List imageList, HttpServletRequest request) {
-        int actualPage = this.getPageIndex(request);
-        if (actualPage>0) {
-            return actualPage-1;
-        } else {
-            return actualPage;
-        }
-    }
-
-        */
 
 }

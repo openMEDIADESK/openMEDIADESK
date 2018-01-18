@@ -81,7 +81,6 @@ public class PinListController extends AbstractPageController {
             httpServletRequest.setAttribute("pinList",pinpicList);
             //model.put("pinList",pinpicList);
 
-            this.setContentTemplateFile("admin_pinlist.jsp",httpServletRequest);
         } else {
             //Keine Berechtigung
             httpServletResponse.sendError(403,"Nicht erlaubt oder nicht eingeloggt");

@@ -63,7 +63,6 @@ public class AdvancedSearchController extends AbstractPageController {
         httpServletRequest.setAttribute("customList2",customListService.getCustomListEntries(2));
         httpServletRequest.setAttribute("customList3",customListService.getCustomListEntries(3));
 
-        this.setContentTemplateFile("advancedsearch.jsp",httpServletRequest);
         return super.handleRequestInternal(httpServletRequest, httpServletResponse);    //To change body of overridden methods use File | Settings | File Templates.
     }
 

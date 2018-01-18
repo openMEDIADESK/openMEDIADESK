@@ -164,21 +164,4 @@ public class LightboxViewController extends AbstractThumbnailAjaxController {
         return lightboxService.getLightboxUserCount(getUser(request).getUserId());
     }
 
-    protected List loadThumbnailImageList(int sortBy, int orderBy, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-
-        LightboxService lightboxService = new LightboxService();
-        LngResolver lngResolver = new LngResolver();
-        lightboxService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-        PaginatedList imageList = lightboxService.getLightboxImagesPaginatedList(
-                getUser(httpServletRequest).getUserId(),getImageCountPerPage());
-
-        imageList.gotoPage(this.getPageIndex(httpServletRequest)-1);
-
-        return imageList;
-    }
-
-    protected boolean showSelect(HttpServletRequest request) {
-        return true;
-    }
-
 }

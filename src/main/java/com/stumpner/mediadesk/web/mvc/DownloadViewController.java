@@ -185,7 +185,7 @@ public class DownloadViewController extends AbstractPageController {
                             );
                             return null;
                         } else {
-                            this.setContentTemplateFile("download.jsp",httpServletRequest);
+                            //this.setContentTemplateFile("download.jsp",httpServletRequest);
                         }
                     }
                 } else {
@@ -211,7 +211,7 @@ public class DownloadViewController extends AbstractPageController {
                 //back-"request" from formatSelector-page
                 httpServletRequest.setAttribute("formatSelector",httpServletRequest.getSession().getAttribute("formatSelector"));
                 httpServletRequest.setAttribute("useFormatSelector",new Boolean(true));
-                this.setContentTemplateFile("download.jsp",httpServletRequest);
+                //this.setContentTemplateFile("download.jsp",httpServletRequest);
             }
 
             return super.handleRequestInternal(httpServletRequest, httpServletResponse);    //To change body of overridden methods use File | Settings | File Templates.

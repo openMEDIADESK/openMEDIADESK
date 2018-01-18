@@ -82,7 +82,6 @@ public class FormatListController extends AbstractPageController {
         List formatList = Config.downloadRes;
         httpServletRequest.setAttribute("formatList",formatList);
 
-        this.setContentTemplateFile("admin_formatlist.jsp",httpServletRequest);
         return super.handleRequestInternal(httpServletRequest, httpServletResponse);    //To change body of overridden methods use File | Settings | File Templates.
     }
 

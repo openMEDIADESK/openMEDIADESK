@@ -44,26 +44,7 @@ import com.ibatis.common.util.PaginatedList;
  */
 public class LastImageViewController extends AbstractThumbnailAjaxController {
 
-    protected MediaMenu mediaMenuBaker(User user, HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        MediaMenu mediaMenu = getMediaMenu(request);
-        //mediaMenu.setDelete(true);
-        //mediaMenu.setDeleteFromDB(true);
-        //mediaMenu.setDeleteFromCategory(false);
-        mediaMenu.setSelection(true);
-        mediaMenu.setSelectionMarkAll(true);
-        mediaMenu.setSelectionMarkSite(true);
-        mediaMenu.setSelectionUnmarkAll(true);
-        mediaMenu.setSelectionCopy(false);
-        mediaMenu.setSelectionMove(false);
-        if (Config.quickDownload) { mediaMenu.setDownloadSelected(true); }
-
-        return mediaMenu;
-    }
-
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-
-        this.setContentTemplateFile("lastimageview.jsp",httpServletRequest);
 
         UserService userService = new UserService();
         if (userService.processAutologin(httpServletRequest)) {
@@ -101,33 +82,4 @@ public class LastImageViewController extends AbstractThumbnailAjaxController {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    protected List loadThumbnailImageList(int sortBy, int orderBy, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-
-        ImageVersionService ivs = new ImageVersionService();
-        LngResolver lngResolver = new LngResolver();
-        ivs.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-        PaginatedList imageList = null;
-        imageList = ivs.getLastImagesPagesAcl(48,this.getUser(httpServletRequest));
-
-        imageList.gotoPage(this.getPageIndex(httpServletRequest)-1);
-        return imageList;
-    }
-
-    protected List loadAllImageList(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws LoadThumbnailException {
-
-        ImageVersionService ivs = new ImageVersionService();
-        LngResolver lngResolver = new LngResolver();
-        ivs.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-        List imageList = null;
-        imageList = ivs.getLastImagesAcl(48,this.getUser(httpServletRequest));
-        return imageList;
-    }
-
-    protected boolean showSelect(HttpServletRequest request) {
-        if (Config.quickDownload) {
-            return this.getUser(request).getRole() >= User.ROLE_USER;
-        } else {
-            return this.getUser(request).getRole() > User.ROLE_EDITOR;
-        }
-    }
 }

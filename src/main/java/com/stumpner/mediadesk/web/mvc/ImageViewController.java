@@ -39,7 +39,6 @@ public class ImageViewController extends AbstractImagePreviewController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 
-        this.setContentTemplateFile("imageview.jsp",httpServletRequest);
 
         httpServletRequest.setAttribute("pageNavTop",true);
         httpServletRequest.setAttribute("pageNavBottom",true);

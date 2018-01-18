@@ -257,7 +257,7 @@ public class ShoppingCartViewController extends AbstractThumbnailAjaxController 
     }
 
     protected String getDetailViewJsp(HttpServletRequest request) {
-        return "listThumbnailCartDetail.jsp";
+        return "";
     }
 
     /*

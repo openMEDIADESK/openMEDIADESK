@@ -40,7 +40,6 @@ public class TextSettingsController extends AbstractPageController {
     }
 
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-        this.setContentTemplateFile("admin_text.jsp",httpServletRequest);
         return super.handleRequestInternal(httpServletRequest, httpServletResponse);    //To change body of overridden methods use File | Settings | File Templates.
     }
 

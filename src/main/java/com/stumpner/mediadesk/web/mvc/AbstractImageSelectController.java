@@ -57,22 +57,7 @@ public abstract class AbstractImageSelectController extends AbstractImageLoaderC
             logger.debug("AbstractImageSelectController: calling deselectMedia(...)");
             this.deselectImage(Integer.parseInt(httpServletRequest.getParameter("deselect")),httpServletRequest);
         }
-        if (httpServletRequest.getParameter("mark")!=null) {
-            String action = httpServletRequest.getParameter("mark");
-            if (action.equalsIgnoreCase("all")) {
-                //Alle markieren
-                logger.debug("AbstractImageSelectController: calling markAll(...)");
-                this.markAll(httpServletRequest,httpServletResponse);
-            }
-            if (action.equalsIgnoreCase("site")) {
-                this.markSite(httpServletRequest,httpServletResponse);
-            }
-        }
-        if (httpServletRequest.getParameter("unmark")!=null) {
-            //Alle abwählen (alle!)
-            logger.debug("AbstractImageSelectController: calling unmarkAll(...)");
-            this.unmarkAll(httpServletRequest,httpServletResponse);
-        }
+
 
         //Anzahl der selektierten (markierten) Bilder in den Request schreiben
         List imageList = this.getSelectedImageList(httpServletRequest.getSession());
@@ -96,78 +81,6 @@ public abstract class AbstractImageSelectController extends AbstractImageLoaderC
     public static void deselectImage(int ivid, HttpServletRequest request) {
 
         MediaObjectService.deselectMedia(ivid, request);
-    }
-
-    /**
-     * Bilder der aktuellen Seite auswählen
-     * @param request
-     * @param response
-     */
-    private void markSite(HttpServletRequest request, HttpServletResponse response) throws LoadThumbnailException {
-
-        List imageList = this.loadThumbnailImageList(
-                getSortBy(request),
-                getOrderBy(request),
-                request,response
-                );
-
-        Iterator images = imageList.iterator();
-        while (images.hasNext()) {
-            Object siteObject = images.next();
-            if (siteObject instanceof ImageVersion) {
-                ImageVersion image = (ImageVersion)siteObject;
-                this.selectImage(image.getIvid(),request);
-            }
-        }
-
-    }
-
-    /**
-     * Alle Bilder markieren, muss vom ImageLoader Controller gemacht werden, weil
-     * nur der ja die Bilder dieser ansicht lädt.
-     * Vorher kann niemand sagen welche Bilder markiert werden sollen
-     */
-    protected void markAll(HttpServletRequest request,HttpServletResponse response) {
-        /*
-        List imageList = this.loadThumbnailImageList(request,response);
-        */
-        List imageList = null;
-        try {
-            List allImageList = this.loadAllImageList(request,response);
-            if (allImageList.size()>1000) {
-                //Liste kürzen
-                imageList = allImageList.subList(0,999);
-            } else {
-                //volle liste
-                imageList = allImageList;
-            }
-            Iterator images = imageList.iterator();
-            boolean select = true;
-
-            while (images.hasNext()) {
-                Object siteObject = images.next();
-                if (siteObject instanceof ImageVersion) {
-                    ImageVersion image = (ImageVersion)siteObject;
-                    if (select)
-                    {   this.selectImage(image.getIvid(),request); }
-                    else
-                    {   this.deselectImage(image.getIvid(),request); }
-                }
-            }
-        } catch (LoadThumbnailException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-    }
-
-    /**
-     * ALLE Bilder abwählen
-     * @param request
-     * @param response
-     */
-    protected void unmarkAll(HttpServletRequest request, HttpServletResponse response) {
-        request.getSession().removeAttribute(Resources.SESSIONVAR_SELECTED_IMAGES_FROM);
-        request.getSession().removeAttribute(Resources.SESSIONVAR_SELECTED_IMAGES);
     }
 
     /**

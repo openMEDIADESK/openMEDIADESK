@@ -2,7 +2,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <!--
-  - Application context definition for "springapp" DispatcherServlet.  FolderListController
+  - Application context definition for "springapp" DispatcherServlet.
   -->
 
 <beans>
@@ -16,15 +16,6 @@
         <property name="sessionForm"><value>true</value></property>
     </bean>
 
-    <bean id="folderlistView" class="com.stumpner.mediadesk.web.mvc.FolderListController">
-    </bean>
-    <bean id="folderEditController" class="com.stumpner.mediadesk.web.mvc.FolderEditController">
-        <property name="sessionForm"><value>true</value></property>
-    </bean>
-    <bean id="folderBreakupController" class="com.stumpner.mediadesk.web.mvc.FolderBreakupController">
-        <property name="sessionForm"><value>true</value></property>
-    </bean>
-    <bean id="categorylistView" class="com.stumpner.mediadesk.web.mvc.CategoryListController"></bean>
     <bean id="categoryEditController" class="com.stumpner.mediadesk.web.mvc.CategoryEditController"></bean>
     <bean id="categoryBreakupController" class="com.stumpner.mediadesk.web.mvc.CategoryBreakupController">
         <property name="sessionForm"><value>true</value></property>
@@ -61,10 +52,6 @@
                 <prop key="/userlist">userlistView</prop>
                 <prop key="/useredit">userEditController</prop>
                 <prop key="/userdelete">userDeleteController</prop>
-                <prop key="/folderlist">folderlistView</prop>
-                <prop key="/folderedit">folderEditController</prop>
-                <prop key="/folderbreakup">folderBreakupController</prop>
-                <prop key="/categorylist">categorylistView</prop>
                 <prop key="/categoryedit">categoryEditController</prop>
                 <prop key="/categorybreakup">categoryBreakupController</prop>
                 <prop key="/imageedit">imageEditController</prop>

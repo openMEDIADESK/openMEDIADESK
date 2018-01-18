@@ -69,7 +69,6 @@ public class SettingsController extends AbstractPageController {
         httpServletRequest.setAttribute("todoLogo",todoLogo);
         httpServletRequest.setAttribute("todoEmail",todoEmail);
 
-        this.setContentTemplateFile("admin_settings.jsp",httpServletRequest);
         return super.handleRequestInternal(httpServletRequest, httpServletResponse);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
