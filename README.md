@@ -16,6 +16,13 @@ openMEDIADESK ist eine Foto und Filehosting Webapplikation.
 
 openMEDIADESK wird mit der IDE [Intellij IDEA](https://www.jetbrains.com/idea/download) entwickelt. Das Projektfile lautet mediadesk.ipr
 
+Um die Dateien für die Entwicklungsumgebung zu generieren muss der Gradle Task devenv ausgeführt werden:
+
+```
+cd deployment
+gradlew devenv
+```
+
 ## Deployment
 
 Die aktuellste stabile Version kann unter http://get.openmediadesk.org/stable heruntergeladen werden. Die .war - Datei wird dann in den Tomcat eingebunden. Eine genaue Installationsanleitung ist im [Wiki](https://wiki.openmediadesk.net/en/Installation) zu finden 
