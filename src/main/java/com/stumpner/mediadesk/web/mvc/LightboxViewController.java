@@ -53,46 +53,6 @@ public class LightboxViewController extends AbstractThumbnailAjaxController {
 
     }
 
-    protected MediaMenu mediaMenuBaker(User user, HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        MediaMenu mediaMenu = getMediaMenu(request);
-
-        mediaMenu.setVisible(true);
-
-        mediaMenu.setView(true);
-
-        mediaMenu.setSelection(true);
-        mediaMenu.setSelectionMarkAll(true);
-        mediaMenu.setSelectionMarkSite(true);
-        mediaMenu.setSelectionUnmarkAll(true);
-
-        if (getUser(request).getRole()>=User.ROLE_PINMAKLER) {
-            mediaMenu.setSelectionToPin(true);
-        }
-
-        if (getUser(request).getRole()>=User.ROLE_EDITOR) {
-            mediaMenu.setSelectionDeleteMedia(true);
-        }
-
-        mediaMenu.setDownloadSelected(true);
-
-        mediaMenu.setSelectionRemoveMedia(true);
-
-        /*
-        mediaMenu.setDeleteAll(true);
-        mediaMenu.setDeleteFromLightbox(true);
-        mediaMenu.setSelection(true);
-        mediaMenu.setSelectionMarkAll(true);
-        mediaMenu.setSelectionUnmarkAll(true);
-        mediaMenu.setSelectionToShoppingcart(true);
-        mediaMenu.setAllToShoppingcart(true);
-        mediaMenu.setDownloadSelected(true);
-        */
-
-        return mediaMenu;
-
-    }
-
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 
         LightboxService lightboxService = new LightboxService();

@@ -65,6 +65,7 @@ public abstract class AbstractThumbnailViewController extends AbstractImageActio
 
         //Neue GUI verwende nur mehr view (1=
         httpServletRequest.setAttribute("view", getView(httpServletRequest));
+        httpServletRequest.setAttribute("showSelect", new Boolean(showSelect(httpServletRequest)));
 
                 //Preis anzeigen wenn Bezahlsystem aktiv
         if (!Config.currency.isEmpty()) {
@@ -76,6 +77,14 @@ public abstract class AbstractThumbnailViewController extends AbstractImageActio
         //httpServletRequest.getSession().setAttribute("thumbnailListObject",this.getThumbnailListObject(httpServletRequest));
 
         return modelAndView;    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    protected boolean showSelect(HttpServletRequest request) {
+        if (Config.quickDownload) {
+            return this.getUser(request).getRole() >= User.ROLE_USER;
+        } else {
+            return this.getUser(request).getRole() > User.ROLE_EDITOR;
+        }
     }
 
     private String getView(HttpServletRequest request) {

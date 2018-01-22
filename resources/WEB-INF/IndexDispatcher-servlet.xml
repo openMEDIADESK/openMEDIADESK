@@ -44,9 +44,6 @@
     <bean id="categoryIndexView" class="com.stumpner.mediadesk.web.mvc.CategoryIndexController">
         <property name="viewName"><value>/WEB-INF/template/current/pCategory.jsp</value></property>
     </bean>
-    <bean id="categoryIndexMobileView" class="com.stumpner.mediadesk.web.mvc.CategoryIndexController">
-        <property name="viewName"><value>/WEB-INF/template/current/mCategory.jsp</value></property>
-    </bean>
     <bean id="lastImageView" class="com.stumpner.mediadesk.web.mvc.LastImageViewController">
         <property name="viewName"><value>/WEB-INF/template/current/pLatest.jsp</value></property>
     </bean>
@@ -386,7 +383,6 @@
                 <prop key="/viewmetadata">viewMetadataView</prop>
                 <prop key="/advancedsearch">advancedSearchView</prop>
                 <prop key="/c*">categoryIndexView</prop>
-                <prop key="/mc*">categoryIndexMobileView</prop>
                 <prop key="/last">lastImageView</prop>
                 <prop key="/popup/*">textPopupView</prop>
                 <prop key="/contact">contactForm</prop>

@@ -51,18 +51,6 @@ public class LastImageViewController extends AbstractThumbnailAjaxController {
             System.out.println("autologin processed");
         }
 
-        MediaMenu mediaMenu = getMediaMenu(httpServletRequest);
-        //mediaMenu.setDelete(true);
-        //mediaMenu.setDeleteFromDB(true);
-        //mediaMenu.setDeleteFromCategory(false);
-        mediaMenu.setSelection(true);
-        mediaMenu.setSelectionMarkAll(true);
-        mediaMenu.setSelectionMarkSite(true);
-        mediaMenu.setSelectionUnmarkAll(true);
-        mediaMenu.setSelectionCopy(false);
-        mediaMenu.setSelectionMove(false);
-        if (Config.quickDownload) { mediaMenu.setDownloadSelected(true); }
-
         return super.handleRequestInternal(httpServletRequest, httpServletResponse);    //To change body of overridden methods use File | Settings | File Templates.
     }
 

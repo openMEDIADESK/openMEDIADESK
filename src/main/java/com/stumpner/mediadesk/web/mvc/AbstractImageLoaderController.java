@@ -37,9 +37,6 @@ import com.stumpner.mediadesk.web.mvc.common.MediaMenu;
  */
 public abstract class AbstractImageLoaderController extends AbstractPageController {
 
-    static int ORDERTYPE_DATE = 1;
-    static int ORDERTYPE_NAME = 1;
-
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 
         return super.handleRequestInternal(httpServletRequest, httpServletResponse);    //To change body of overridden methods use File | Settings | File Templates.
@@ -132,18 +129,6 @@ public abstract class AbstractImageLoaderController extends AbstractPageControll
      */
     protected int getDefaultOrder(HttpServletRequest request) {
         return 0;
-    }
-
-    protected MediaMenu getMediaMenu(HttpServletRequest request) {
-
-        MediaMenu properties = new MediaMenu();
-        if (request.getAttribute("mediamenu")!=null) {
-            properties = (MediaMenu)request.getAttribute("mediamenu");
-        } else {
-            request.setAttribute("mediamenu",properties);
-        }
-        return properties;
-
     }
 
 

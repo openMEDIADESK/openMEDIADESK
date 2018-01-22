@@ -54,35 +54,6 @@ import java.io.UnsupportedEncodingException;
  */
 public class SearchResultController extends AbstractThumbnailAjaxController {
 
-    protected MediaMenu mediaMenuBaker(User user, HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        MediaMenu mediaMenu = getMediaMenu(request);
-
-        mediaMenu.setVisible(true);
-        mediaMenu.setView(true);
-
-        if (getUser(request).getRole()>=User.ROLE_USER) {
-
-            mediaMenu.setSelection(true);
-            mediaMenu.setSelectionMarkAll(true);
-            mediaMenu.setSelectionMarkSite(true);
-            mediaMenu.setSelectionUnmarkAll(true);
-            if (Config.quickDownload) mediaMenu.setDownloadSelected(true);
-
-            if (getUser(request).getRole()>=User.ROLE_EDITOR) {
-                mediaMenu.setSelectionDeleteMedia(true);
-                if (Config.pinPicEnabled) { mediaMenu.setSelectionToPin(true); }
-            }
-
-            if (getUser(request).getRole()>=User.ROLE_ADMIN) {
-                mediaMenu.setBulkModification(true);
-            }
-
-        }
-
-        return mediaMenu;
-    }
-
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 
         httpServletRequest.setCharacterEncoding("UTF-8");

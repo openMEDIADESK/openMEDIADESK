@@ -195,35 +195,6 @@ public class ShoppingCartViewController extends AbstractThumbnailAjaxController 
 
     }
 
-    protected MediaMenu mediaMenuBaker(User user, HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        MediaMenu mediaMenu = getMediaMenu(request);
-
-        mediaMenu.setVisible(true);
-
-        mediaMenu.setSelection(false);
-        mediaMenu.setSelectionMarkAll(false);
-        mediaMenu.setSelectionMarkSite(false);
-        mediaMenu.setSelectionUnmarkAll(false);
-
-        mediaMenu.setDownloadSelected(false);
-
-        mediaMenu.setSelectionRemoveMedia(false);
-
-        /*
-        mediaMenu.setDeleteAll(true);
-        mediaMenu.setDeleteFromLightbox(true);
-        mediaMenu.setSelection(true);
-        mediaMenu.setSelectionMarkAll(true);
-        mediaMenu.setSelectionUnmarkAll(true);
-        mediaMenu.setSelectionToShoppingcart(true);
-        mediaMenu.setAllToShoppingcart(true);
-        mediaMenu.setDownloadSelected(true);
-        */
-
-        return mediaMenu;
-    }
-
     protected void insert(ImageVersion image, HttpServletRequest request) {
         //To change body of implemented methods use File | Settings | File Templates.
     }

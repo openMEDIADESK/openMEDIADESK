@@ -234,6 +234,53 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
 
         putOpenGraphDataAttributes(request);
 
+        //Berechtigungen/Links/Menüs
+        if (getUser(request).getRole()>=User.ROLE_EDITOR) {
+
+            int catId = getCategoryId(request);
+            if (catId==0 && Config.categoryLatestOnRoot) {
+                //In der Root Kategorie wenn die aktuellsten Objekte angezeigt werden sollen, kein Upload zeigen
+                request.setAttribute("canUploadContext",new Boolean(false)); //Wird in der alten GUI verwendet
+                request.setAttribute("uploadEnabled",new Boolean(false)); //Wird in der neuen GUI verwendet
+            } else {
+
+                if (getUser(request).getRole()<User.ROLE_HOME_EDITOR) {
+                    //Lieferant, Redakteur von den ACL Settings abhängig
+
+                    AclControllerContext aclCtx = AclContextFactory.getAclContext(request);
+                    boolean canUploadContext = aclCtx.checkPermission(new AclPermission("write"), category);
+
+                    request.setAttribute("canUploadContext",new Boolean(canUploadContext)); //Wird in der alten GUI verwendet
+                    request.setAttribute("uploadEnabled",new Boolean(canUploadContext));
+                } else {
+                    //Chef-Redakteur, Admin
+                    request.setAttribute("canUploadContext",new Boolean(true)); //Wird in der alten GUI verwendet
+                    request.setAttribute("uploadEnabled",new Boolean(true)); //Wird in der neuen GUI verwendet
+                }
+            }
+        }
+
+        if (getUser(request).getRole()>=User.ROLE_HOME_EDITOR) {
+            //Nur wenn es eine Subkategorie der Home-Kategorie ist, kann der Benutzer die Kategorie ändern
+            boolean isCanModifyCategory = categoryService.isCanModifyCategory(getUser(request),getCategoryId(request));
+
+            if (isCanModifyCategory) {
+                request.setAttribute("canModifyCategory",true);
+                //Eigene Kategorien verändern/erstellen/löschen
+            }
+        }
+
+        if (getUser(request).getRole()>=User.ROLE_MASTEREDITOR) {
+            request.setAttribute("canModifyCategory",true);
+
+            //Category category = (Category)getContainerObject(request);
+            if (category.getParent()==0) {
+                //mediaMenu.setActionIconCls("buttonAddCat");
+            } else {
+                //mediaMenu.setActionIconCls("buttonEditCat");
+            }
+        }
+
         return super.handleRequestInternal(request, response);
     }
 
@@ -269,122 +316,6 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
         return sb.toString();
     }
 
-    protected MediaMenu mediaMenuBaker(User user, HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        MediaMenu mediaMenu = getMediaMenu(request);
-
-        //if (getUser(request).getRole()>=User.ROLE_USER) {
-            mediaMenu.setVisible(true);
-        //} else {
-        //    mediaMenu.setVisible(false);    //Nicht angemeldete Benutzer sehen kein Menü
-        //}
-
-        if (getUser(request).getRole()>=User.ROLE_USER) {
-            mediaMenu.setSelection(true);
-            mediaMenu.setSelectionMarkAll(true);
-            mediaMenu.setSelectionMarkSite(true);
-            mediaMenu.setSelectionUnmarkAll(true);
-
-            mediaMenu.setDownloadSelected(true);
-
-            if (Config.quickDownload) { mediaMenu.setDownloadSelected(true); }
-        } else {
-            //Öffentlich (nicht angemeldete Benutzer
-        }
-
-        mediaMenu.setView(true);
-        mediaMenu.setShare(true);
-
-
-        if (getUser(request).getRole()>=User.ROLE_EDITOR) {
-            mediaMenu.setSelectionRemoveMedia(true);
-            mediaMenu.setSelectionDeleteMedia(true);
-            mediaMenu.setSelectionAsCatImage(true);
-
-            mediaMenu.setSelectionCopy(true);
-            mediaMenu.setSelectionMove(true);
-        }
-
-        if (getUser(request).getRole()>=User.ROLE_PINMAKLER) {
-            mediaMenu.setSelectionToPin(true);
-        }
-
-        if (getUser(request).getRole()>=User.ROLE_EDITOR) {
-
-            int catId = getCategoryId(request);
-            if (catId==0 && Config.categoryLatestOnRoot) {
-                //In der Root Kategorie wenn die aktuellsten Objekte angezeigt werden sollen, kein Upload zeigen
-                request.setAttribute("canUploadContext",new Boolean(false)); //Wird in der alten GUI verwendet
-                request.setAttribute("uploadEnabled",new Boolean(false)); //Wird in der neuen GUI verwendet
-            } else {
-
-                if (getUser(request).getRole()<User.ROLE_HOME_EDITOR) {
-                //Lieferant, Redakteur von den ACL Settings abhängig
-
-                    Category category = getCategory(request);
-                    AclControllerContext aclCtx = AclContextFactory.getAclContext(request);
-                    boolean canUploadContext = aclCtx.checkPermission(new AclPermission("write"), category);
-
-                    request.setAttribute("canUploadContext",new Boolean(canUploadContext)); //Wird in der alten GUI verwendet
-                    request.setAttribute("uploadEnabled",new Boolean(canUploadContext));
-                } else {
-                    //Chef-Redakteur, Admin
-                    request.setAttribute("canUploadContext",new Boolean(true)); //Wird in der alten GUI verwendet
-                    request.setAttribute("uploadEnabled",new Boolean(true)); //Wird in der neuen GUI verwendet
-                }
-                mediaMenu.setAction(true);
-                mediaMenu.setActionUpload(true);
-            }
-        }
-
-        if (getUser(request).getRole()>=User.ROLE_HOME_EDITOR) {
-            //Nur wenn es eine Subkategorie der Home-Kategorie ist, kann der Benutzer die Kategorie ändern
-            CategoryService categoryService = new CategoryService();
-            boolean isCanModifyCategory = categoryService.isCanModifyCategory(getUser(request),getCategoryId(request));
-
-            if (isCanModifyCategory) {
-                request.setAttribute("canModifyCategory",true);
-                //Eigene Kategorien verändern/erstellen/löschen
-                mediaMenu.setAction(true);
-                mediaMenu.setActionEditCat(true);
-                mediaMenu.setActionNewCat(true);
-                mediaMenu.setActionDeleteCat(true);
-            }
-        }
-
-        if (getUser(request).getRole()>=User.ROLE_MASTEREDITOR) {
-            request.setAttribute("canModifyCategory",true);
-            mediaMenu.setAction(true);
-            mediaMenu.setActionEditCat(true);
-            mediaMenu.setActionNewCat(true);
-            mediaMenu.setActionDeleteCat(true);
-
-            Category category = (Category)getContainerObject(request);
-            if (category.getParent()==0) {
-                mediaMenu.setActionIconCls("buttonAddCat");
-            } else {
-                mediaMenu.setActionIconCls("buttonEditCat");
-            }
-        }
-
-        if (getUser(request).getRole()>=User.ROLE_MASTEREDITOR) {
-            if (getCategoryId(request)==0 && Config.categoryLatestOnRoot) {
-                mediaMenu.setAction(true);
-                mediaMenu.setActionDeleteCat(false);
-                mediaMenu.setSelectionCopy(false);
-                mediaMenu.setSelectionMove(false);
-            }
-
-            if (getCategoryId(request)==0) { //Die Root Kategorie kann nicht bearbeitet werden
-                mediaMenu.setActionEditCat(false);
-                mediaMenu.setActionDeleteCat(false);
-            }
-        }
-
-        return mediaMenu;
-
-    }
-
     protected void insert(ImageVersion image, HttpServletRequest request) throws DublicateEntry {
 
         CategoryService categoryService = new CategoryService();
@@ -406,85 +337,8 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
         return 0;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    protected boolean showSelect(HttpServletRequest request) {
-        if (Config.quickDownload) {
-            return this.getUser(request).getRole() >= User.ROLE_USER;
-        } else {
-            return this.getUser(request).getRole() > User.ROLE_EDITOR;
-        }
-    }
-
     protected int getContainerId(HttpServletRequest request) {
         return getCategoryId(request);
-    }
-
-    private List loadImageList(int sortBy, int orderBy, HttpServletRequest request, HttpServletResponse response) {
-
-        LngResolver lngResolver = new LngResolver();
-        ImageVersionService imageService = new ImageVersionService();
-        imageService.setUsedLanguage(lngResolver.resolveLng(request));
-
-        List imageList = null;
-        //Loader-Class: definieren was geladen werden soll
-        SimpleLoaderClass loaderClass = new SimpleLoaderClass();
-        if (sortBy!=-1) { loaderClass.setSortBy(sortBy); }
-        if (sortBy!=-1) { loaderClass.setOrderBy(orderBy); }
-        loaderClass.setId(getCategoryId(request));
-
-        logger.debug("{loadThumbnailImageList} sortBy="+sortBy +", categoryId="+loaderClass.getId());
-
-
-        if (getCategoryId(request)!=0) {
-            //Wenn es eine Unterkategorie ist immer die Kategoriebilder zeigen
-            //imageList = imageService.getCategoryImagesPages(loaderClass,filesPerPage);
-            //if (Config.showSubCategoryInListView) {
-                imageList = imageService.getCategoryImages(loaderClass);
-            //} else {
-                //todo: bei Performance-Problemen eventuell die alte Logik (unterhalb) wiederherstellen und über SQL Category+Images der Seite laden
-            //    imageList = imageService.getCategoryImagesPage(loaderClass,getImageCountPerPage(),this.getPageIndex(request));
-            //}
-        } else {
-            //Wenn es die Hauptkategorie ist, anhand den einstellungen prüfen ob
-            //die Kategoriebilder gezeigt werden oder die Neuesten
-            if (Config.categoryLatestOnRoot) {
-                imageList = imageService.getLastImagesAcl(48,getUser(request));
-            } else {
-                imageList = imageService.getCategoryImages(loaderClass);
-            }
-        }
-
-        /** Kategorie-Liste für den Thumbnail-View **/
-        AclCategoryService categoryService = new AclCategoryService(request);
-        categoryService.setUsedLanguage(lngResolver.resolveLng(request));
-
-        boolean showCategoriesInList = false;
-        if (Config.showSubCategoryInListView) {
-            if (Config.showSubCategoryInListViewOnlyWhenEmpty && imageList.size()==0) { showCategoriesInList = true; }
-            if (!Config.showSubCategoryInListViewOnlyWhenEmpty) { showCategoriesInList = true; }
-
-            if (showCategoriesInList) {
-
-                List categoryList = new ArrayList();
-                try {
-                    categoryList = categoryService.getCategorySubTree(getCategoryId(request),0);
-                } catch (ObjectNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOServiceException e) {
-                    e.printStackTrace();
-                }
-
-                //Kategorien zur gesamtliste hinzufügen
-                imageList.addAll(0,categoryList);
-            }
-        }
-
-        //Prüfung Ob der Yahoo-Verzeichnis-Anzeige der Kategorien angezeigt wird: WIRD ANGEZEIGT WENN
-        //  - Wenn Kategorie-Tree deaktiviert und keine Kategorien in der Liste angezeigt werden.
-        request.setAttribute("showCategoryDirectory",
-                !Config.showCategoryTree && !showCategoriesInList ? true : false);
-
-        return imageList;
-
     }
 
 
