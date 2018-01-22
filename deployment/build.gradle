@@ -39,7 +39,7 @@ war {
             version = '2018n' + getCurrentTimestamp()
         }
 
-        webXml = file('web-saas.xml')
+        webXml = file('web.xml')
 
         manifest {
             attributes("Implementation-Title": "mediaDESK",
@@ -145,6 +145,28 @@ task precompile {
 
     }
 
+}
+
+task(devenv) {
+    doLast {
+        println "Create/Update the development environment"
+        copy {
+            from "web.xml"
+            into "../resources/WEB-INF/"
+        }
+        copy {
+            from "create.sql"
+            into "../resources/WEB-INF/"
+        }
+        copy {
+            from "messages.dms"
+            into "../resources/WEB-INF/messages/media/"
+        }
+        copy {
+            from "messages.img"
+            into "../resources/WEB-INF/messages/image/"
+        }
+    }
 }
 
 repositories {
