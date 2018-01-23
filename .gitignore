@@ -1,2 +1,4 @@
 exploded/
 resources/WEB-INF/mediaDESK.conf
+resources/WEB-INF/web.xml
+resources/WEB-INF/messages/

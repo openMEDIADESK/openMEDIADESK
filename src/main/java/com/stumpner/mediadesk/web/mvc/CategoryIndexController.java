@@ -240,7 +240,6 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
             int catId = getCategoryId(request);
             if (catId==0 && Config.categoryLatestOnRoot) {
                 //In der Root Kategorie wenn die aktuellsten Objekte angezeigt werden sollen, kein Upload zeigen
-                request.setAttribute("canUploadContext",new Boolean(false)); //Wird in der alten GUI verwendet
                 request.setAttribute("uploadEnabled",new Boolean(false)); //Wird in der neuen GUI verwendet
             } else {
 
@@ -250,11 +249,9 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
                     AclControllerContext aclCtx = AclContextFactory.getAclContext(request);
                     boolean canUploadContext = aclCtx.checkPermission(new AclPermission("write"), category);
 
-                    request.setAttribute("canUploadContext",new Boolean(canUploadContext)); //Wird in der alten GUI verwendet
                     request.setAttribute("uploadEnabled",new Boolean(canUploadContext));
                 } else {
                     //Chef-Redakteur, Admin
-                    request.setAttribute("canUploadContext",new Boolean(true)); //Wird in der alten GUI verwendet
                     request.setAttribute("uploadEnabled",new Boolean(true)); //Wird in der neuen GUI verwendet
                 }
             }
