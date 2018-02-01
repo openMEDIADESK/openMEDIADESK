@@ -390,8 +390,8 @@ public class Config {
     public static boolean complexPasswords = true; //Kompexe Passwörter verwenden
     public static boolean robotsAllow = true; //Robots.txt Suchroboter erlauben
     //@deprecated: categorySort
-    public static boolean categorySortByName = false; //@deprecated: Category Sort By Name
-    public static int categorySort = 1; //Category Sort: 1 = Name, 2 = Titel, 3 = createDate, 4 = categoryDate
+    public static boolean categorySortByName = false; //@deprecated: Folder Sort By Name
+    public static int categorySort = 1; //Folder Sort: 1 = Name, 2 = Titel, 3 = createDate, 4 = categoryDate
     public static File webroot = null;
 
     public static int homeCategoryId = -1; //CategoryId in denen sich die "Home-Verzeichnisse/Kategorien" der User befinden, bei -1 wird die homecategory funktion nicht verwendet

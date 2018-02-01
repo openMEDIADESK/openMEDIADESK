@@ -1,9 +1,9 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.category.FolderMultiLang;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
 import com.stumpner.mediadesk.core.database.sc.CategoryService;
-import com.stumpner.mediadesk.image.category.CategoryMultiLang;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,9 +51,9 @@ public class UploadSelectorController extends AbstractPageController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         CategoryService categoryService = new CategoryService();
-        List<CategoryMultiLang> allowedCategoryList = new LinkedList<CategoryMultiLang>();
-        List<CategoryMultiLang> allCategoryList = categoryService.getAllCategoryList();
-        for (CategoryMultiLang c : allCategoryList) {
+        List<FolderMultiLang> allowedCategoryList = new LinkedList<FolderMultiLang>();
+        List<FolderMultiLang> allCategoryList = categoryService.getAllCategoryList();
+        for (FolderMultiLang c : allCategoryList) {
             if (isUserPermittetForCategory(c, request)) {
                 allowedCategoryList.add(c);
             }
@@ -62,7 +62,7 @@ public class UploadSelectorController extends AbstractPageController {
         return super.handleRequestInternal(request, response);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    private boolean isUserPermittetForCategory(CategoryMultiLang c, HttpServletRequest request) {
+    private boolean isUserPermittetForCategory(FolderMultiLang c, HttpServletRequest request) {
 
         try {
             AclControllerContext aclCtx = AclContextFactory.getAclContext(request);

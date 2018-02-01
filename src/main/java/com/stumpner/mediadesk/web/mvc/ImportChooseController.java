@@ -6,13 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.stumpner.mediadesk.usermanagement.User;
-import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.QuotaExceededException;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.lic.LicenceChecker;
-import com.stumpner.mediadesk.image.folder.Folder;
-import com.stumpner.mediadesk.image.category.Category;
+import com.stumpner.mediadesk.image.category.Folder;
 import com.stumpner.mediadesk.image.AutoImageAssigner;
 
 /*********************************************************
@@ -69,26 +67,20 @@ public class ImportChooseController extends AbstractPageController {
             httpServletRequest.setAttribute("serverName",httpServletRequest.getServerName());
         }
 
-        if (httpServletRequest.getParameter("folderid")!=null) {
-            //bilder automatisch in einen folder laden...
-            FolderService folderService = new FolderService();
-            Folder folder = folderService.getFolderById(Integer.parseInt(httpServletRequest.getParameter("folderid")));
-            assigner.setDestination(httpServletRequest,folder);
-        }
         if (httpServletRequest.getParameter("catid")!=null) {
             //bilder automatisch in eine kategorie laden...
             CategoryService categoryService = new CategoryService();
-            Category category = new Category();
+            Folder folder = new Folder();
             if (!httpServletRequest.getParameter("catid").equalsIgnoreCase("")) {
                 if (httpServletRequest.getParameter("catid").equalsIgnoreCase("0")) {
                     //Root-Kategory existiert nicht...
-                    category.setCategoryId(0);
+                    folder.setCategoryId(0);
                 } else {
-                    category = categoryService.getCategoryById(Integer.parseInt(
+                    folder = categoryService.getCategoryById(Integer.parseInt(
                             httpServletRequest.getParameter("catid")
                     ));
                 }
-                assigner.setDestination(httpServletRequest,category);
+                assigner.setDestination(httpServletRequest, folder);
             }
         }
 

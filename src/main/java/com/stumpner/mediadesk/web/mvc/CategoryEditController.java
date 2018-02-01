@@ -1,8 +1,10 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.category.Category;
-import com.stumpner.mediadesk.image.category.CategoryMultiLang;
+import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.category.FolderMultiLang;
 import com.stumpner.mediadesk.image.category.CategoryEditValidator;
+import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.category.FolderMultiLang;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.SecurityGroup;
 import com.stumpner.mediadesk.core.database.sc.CategoryService;
@@ -64,7 +66,7 @@ public class CategoryEditController extends AbstractAutoFillController {
 
     public CategoryEditController() {
 
-        this.setCommandClass(CategoryMultiLang.class);
+        this.setCommandClass(FolderMultiLang.class);
         this.setSessionForm(true);
         this.setBindOnNewForm(true);
         this.setValidator(new CategoryEditValidator());
@@ -77,7 +79,7 @@ public class CategoryEditController extends AbstractAutoFillController {
 
     protected Object formBackingObject(HttpServletRequest httpServletRequest) throws Exception {
 
-        Category category = new CategoryMultiLang();
+        Folder folder = new FolderMultiLang();
 
         if (!isFormSubmission(httpServletRequest)) {
 
@@ -87,38 +89,38 @@ public class CategoryEditController extends AbstractAutoFillController {
             if (httpServletRequest.getParameter("categoryid")!=null) {
                 //kategorie editieren
                 int categoryId = Integer.parseInt(httpServletRequest.getParameter("categoryid"));
-                category = folderService.getCategoryById(categoryId);
+                folder = folderService.getCategoryById(categoryId);
             } else {
                 //kategorie erstellen
                 if (httpServletRequest.getParameter("parentCat")!=null && !"".equalsIgnoreCase(httpServletRequest.getParameter("parentCat"))) {
-                    category.setParent(Integer.parseInt(httpServletRequest.getParameter("parentCat")));
+                    folder.setParent(Integer.parseInt(httpServletRequest.getParameter("parentCat")));
                 } else {
                     User user = getUser(httpServletRequest);
                     if (user.getRole()==User.ROLE_HOME_EDITOR) {
-                        category.setParent(user.getHomeCategoryId());
+                        folder.setParent(user.getHomeCategoryId());
                     }
                     if (user.getRole()>=User.ROLE_MASTEREDITOR) {
-                        category.setParent(0);
+                        folder.setParent(0);
                     }
                 }
-                category.setCategoryId(CATEGORY_NEW);
+                folder.setCategoryId(CATEGORY_NEW);
             }
 
             //Hilfsweise das Objekt sofort in die Session speichern...
             HttpSession session = httpServletRequest.getSession();
-            session.setAttribute(getClass().getName()+".FORM."+this.getCommandName(),category);
-            return category;
+            session.setAttribute(getClass().getName()+".FORM."+this.getCommandName(), folder);
+            return folder;
 
         } else {
             HttpSession session = httpServletRequest.getSession();
-            category = (CategoryMultiLang)session.getAttribute(getClass().getName()+".FORM."+this.getCommandName());
-            System.out.println("Form Submission - Returning category"+category);
-            if (category==null) {
-                category = new CategoryMultiLang();
-                session.setAttribute(getClass().getName()+".FORM."+this.getCommandName(),category);
+            folder = (FolderMultiLang)session.getAttribute(getClass().getName()+".FORM."+this.getCommandName());
+            System.out.println("Form Submission - Returning folder"+ folder);
+            if (folder ==null) {
+                folder = new FolderMultiLang();
+                session.setAttribute(getClass().getName()+".FORM."+this.getCommandName(), folder);
             }
-            //return category;
-            return category;
+            //return folder;
+            return folder;
         }
     }
 
@@ -130,7 +132,7 @@ public class CategoryEditController extends AbstractAutoFillController {
 
     protected void onBind(HttpServletRequest httpServletRequest, Object o) throws Exception {
 
-        CategoryMultiLang c = (CategoryMultiLang)o;
+        FolderMultiLang c = (FolderMultiLang)o;
         if (httpServletRequest.getParameter("inheritAcl")==null) {
             c.setInheritAcl(false);
         }
@@ -152,8 +154,8 @@ public class CategoryEditController extends AbstractAutoFillController {
         /*
         UserService userService = new UserService();
         httpServletRequest.setAttribute("securityGroupList",userService.getSecurityGroupList());
-        Category category = (Category)this.getCommand(httpServletRequest);
-        Acl acl = AclController.getAcl(category);
+        Folder folder = (Folder)this.getCommand(httpServletRequest);
+        Acl acl = AclController.getAcl(folder);
         Map aclMap = new HashMap();
         Iterator acls = acl.iterator();
         while (acls.hasNext()) {
@@ -164,20 +166,20 @@ public class CategoryEditController extends AbstractAutoFillController {
         httpServletRequest.setAttribute("acl",aclMap);
         */
 
-        Category category = (Category)this.getCommand(httpServletRequest);
-        if (category==null) {
-            //System.out.println("No Category Object!");
+        Folder folder = (Folder)this.getCommand(httpServletRequest);
+        if (folder ==null) {
+            //System.out.println("No Folder Object!");
         }
-        Acl acl = AclController.getAcl(category);
+        Acl acl = AclController.getAcl(folder);
         httpServletRequest.setAttribute("aclInfo",acl);
 
         CategoryService categoryService = new CategoryService();
         List parentCategoryList = new ArrayList();
         try {
-            if (category.getCategoryId()!=0) {
-                parentCategoryList = categoryService.getParentCategoryList(category.getCategoryId());
+            if (folder.getCategoryId()!=0) {
+                parentCategoryList = categoryService.getParentCategoryList(folder.getCategoryId());
             } else {
-                parentCategoryList = categoryService.getParentCategoryList(category.getParent());
+                parentCategoryList = categoryService.getParentCategoryList(folder.getParent());
             }
             httpServletRequest.setAttribute("parentCategoryList",parentCategoryList);
         } catch (ObjectNotFoundException e2) {
@@ -239,7 +241,7 @@ public class CategoryEditController extends AbstractAutoFillController {
             return null;
         }
 
-        CategoryMultiLang category = (CategoryMultiLang)o;
+        FolderMultiLang category = (FolderMultiLang)o;
         if (category.getCategoryId()==CATEGORY_NEW) {
             //kategorie creator setzen
             User user = (User)httpServletRequest.getSession().getAttribute("user");
@@ -247,7 +249,7 @@ public class CategoryEditController extends AbstractAutoFillController {
 
         IOServiceException ioServiceException = null;
         try {
-            this.saveCategory((Category)o);
+            this.saveCategory((Folder)o);
         } catch (IOServiceException ex) {
             ioServiceException = ex;
         }
@@ -305,18 +307,18 @@ public class CategoryEditController extends AbstractAutoFillController {
         return null;
     }
 
-    private void inheritAclToChilds(CategoryMultiLang category) {
+    private void inheritAclToChilds(FolderMultiLang category) {
 
         Acl acl = AclController.getAcl(category);
         inheritAclToChildsRekursive(category, acl);
         System.out.println("...done!");
     }
 
-    private void inheritAclToChildsRekursive(CategoryMultiLang category, Acl acl) {
+    private void inheritAclToChildsRekursive(FolderMultiLang category, Acl acl) {
 
         CategoryService categoryService = new CategoryService();
-        List<CategoryMultiLang> list = categoryService.getCategoryList(category.getCategoryId());
-        for (CategoryMultiLang c : list) {
+        List<FolderMultiLang> list = categoryService.getCategoryList(category.getCategoryId());
+        for (FolderMultiLang c : list) {
             System.out.println("working c "+c.getCategoryId());
             AclController.setAcl(c, acl);
             inheritAclToChildsRekursive(c, acl);
@@ -331,13 +333,13 @@ public class CategoryEditController extends AbstractAutoFillController {
         
     }
 
-    private void inheritAclFromParent(CategoryMultiLang category) throws ObjectNotFoundException, IOServiceException {
+    private void inheritAclFromParent(FolderMultiLang category) throws ObjectNotFoundException, IOServiceException {
 
         CategoryService categoryService = new CategoryService();
         if (category.getParent()!=0) { //Von der Root Kategorie können keine ACls übernommen werden
-            Category parentCategory = categoryService.getCategoryById(category.getParent());
+            Folder parentFolder = categoryService.getCategoryById(category.getParent());
 
-            Acl acl = AclController.getAcl(parentCategory);
+            Acl acl = AclController.getAcl(parentFolder);
             AclController.setAcl(category, acl);
             try {
                 AclEditController.renewCategoryPublicProtectedStatus(category);
@@ -401,27 +403,27 @@ public class CategoryEditController extends AbstractAutoFillController {
 
     }
 
-    private void saveCategory(Category category) throws IOServiceException {
+    private void saveCategory(Folder folder) throws IOServiceException {
 
         CategoryService categoryService = new CategoryService();
 
-        if (category.getCatTitle().equalsIgnoreCase("")) {
+        if (folder.getCatTitle().equalsIgnoreCase("")) {
             //Kategorietitel auf den Kategorienamen setzen, wenn kein titel eingegeben wurde!
-            category.setCatTitle(category.getCatName());
+            folder.setCatTitle(folder.getCatName());
         }
 
-        if (category.getCategoryId()==CategoryEditController.CATEGORY_NEW) {
-            categoryService.addCategory(category);
+        if (folder.getCategoryId()==CategoryEditController.CATEGORY_NEW) {
+            categoryService.addCategory(folder);
             //TODO: ACL von Elternkategorie kopieren:
         } else {
-            categoryService.save(category);
+            categoryService.save(folder);
         }
 
     }
 
 
     void doNameAsTitle(Object o) {
-        CategoryMultiLang category = (CategoryMultiLang)o;
+        FolderMultiLang category = (FolderMultiLang)o;
 
         //Wenn kein Name angegeben wurde, den Titel LNG1 als Name verwenden
         if (category.getCatName().length()==0 && category.getCatTitleLng1().length()>0) {
@@ -443,7 +445,7 @@ public class CategoryEditController extends AbstractAutoFillController {
     }
 
     void doAutoFill(Object o) {
-        CategoryMultiLang category = (CategoryMultiLang)o;
+        FolderMultiLang category = (FolderMultiLang)o;
         category.setCatTitleLng1(
                 doAutoFillField(category.getCatTitleLng1(),
                         category.getCatTitleLng2(),
@@ -469,7 +471,7 @@ public class CategoryEditController extends AbstractAutoFillController {
         Map referenceData = new HashMap();
 
         CategoryService categoryService = new CategoryService();
-        List<CategoryMultiLang> list = categoryService.getCategoryList(0);
+        List<FolderMultiLang> list = categoryService.getCategoryList(0);
 
         referenceData.put("parentList", list);
 

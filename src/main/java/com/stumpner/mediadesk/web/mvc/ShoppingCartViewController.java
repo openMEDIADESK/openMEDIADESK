@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.ShoppingCartService;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.image.category.Folder;
 import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.web.LngResolver;
@@ -83,7 +83,7 @@ public class ShoppingCartViewController extends AbstractThumbnailAjaxController 
         ImageVersionService imageService = new ImageVersionService();
         imageService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
         Folder folder = new Folder();
-        folder.setFolderTitle("Shopping Cart");
+        folder.setCatTitle("Shopping Cart");
 
         //Settings/Config
         httpServletRequest.setAttribute("currency", Config.currency);

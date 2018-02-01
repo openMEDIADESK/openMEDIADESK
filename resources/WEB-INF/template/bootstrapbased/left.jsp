@@ -1,8 +1,5 @@
 <%@ page import="com.stumpner.mediadesk.core.Config"%>
 <%@ page import="com.stumpner.mediadesk.usermanagement.User"%>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Iterator" %>
-<%@ page import="com.stumpner.mediadesk.image.category.Category" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="/mediadesk" prefix="mediadesk" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -34,7 +31,7 @@
         <ul id="adminmenu">
             <c:if test="${showMenuUpload}">
             <c:url value="/${lng}/uploadweb" var="uploadUrl">
-                <c:param name="catid" value="${category.categoryId}"/>
+                <c:param name="catid" value="${folder.categoryId}"/>
                 <c:param name="pinid" value="${pin.pinpicId}"/>
             </c:url>
             <li><a href="<c:out value="${uploadUrl}"/>" class="menuImageimport"><spring:message code="menu.imageimport"/></a></li>
@@ -120,7 +117,7 @@
     if (Config.showCategoryTree) {
 %>
 <!--
- CSS Anweisungen für den Category-Tree liegen unter /css/presets/extjs-tree.css und werden in headercss.jsp geladen
+ CSS Anweisungen für den Folder-Tree liegen unter /css/presets/extjs-tree.css und werden in headercss.jsp geladen
 -->
 
     <jsp:include page="categorytree.jsp" flush="true" />

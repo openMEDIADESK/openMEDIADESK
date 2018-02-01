@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.category.Folder;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.stumpner.mediadesk.core.database.sc.PinpicService;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.image.pinpics.Pinpic;
-import com.stumpner.mediadesk.image.category.Category;
 import com.stumpner.mediadesk.usermanagement.User;
 
 import java.util.*;
@@ -63,7 +63,7 @@ public class PinListController extends AbstractPageController {
                     pinpic.setCreateDate(new Date());
                     pinpic.setCreatorUserId(this.getUser(httpServletRequest).getUserId());
                     pinpic.setEmailnotification(this.getUser(httpServletRequest).getEmail());
-                    pinpic.setDefaultview(Category.VIEW_UNDEFINED);
+                    pinpic.setDefaultview(Folder.VIEW_UNDEFINED);
                     folderService.add(pinpic);
                 }
             }

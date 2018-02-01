@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.core.service;
 
+import com.stumpner.mediadesk.image.category.Folder;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,6 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.image.ImageVersionMultiLang;
-import com.stumpner.mediadesk.image.category.Category;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
@@ -77,9 +77,9 @@ public class MediaObjectService {
             if (folderId!=-1) {
                 try {
                     CategoryService categoryService = new CategoryService();
-                    Category category = categoryService.getCategoryById(folderId);
-                    fromMap.put(imageVersion,category);
-                    logger.debug("selectMedia: Herkunfts-Containterobject: "+category.getCategoryId()+" saved");
+                    Folder folder = categoryService.getCategoryById(folderId);
+                    fromMap.put(imageVersion, folder);
+                    logger.debug("selectMedia: Herkunfts-Containterobject: "+ folder.getCategoryId()+" saved");
                 } catch (ObjectNotFoundException e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 } catch (IOServiceException e) {

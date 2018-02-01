@@ -1,6 +1,5 @@
 <%@ page import="java.util.Enumeration,
-                 java.util.List,
-                 com.stumpner.mediadesk.image.folder.Folder"%>
+                 java.util.List"%>
 <%@ page import="com.stumpner.mediadesk.core.Config"%>
 <%@ page import="com.stumpner.mediadesk.image.ImageVersion" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

@@ -15,7 +15,6 @@ import com.stumpner.mediadesk.lic.LicenseException;
 import com.stumpner.mediadesk.web.stack.WebStack;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
 import com.stumpner.mediadesk.web.mvc.util.BreadCrumbItem;
-import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.web.mvc.common.GlobalRequestDataProvider;
 
 /*********************************************************
@@ -229,9 +228,6 @@ public class AbstractPageController extends ParameterizableViewController implem
                 finalBreadCrumb.add(new BreadCrumbItem(it.next()));
             }
             httpServletRequest.getSession().setAttribute("breadCrumb",finalBreadCrumb);
-        }
-        if (breadCrumb instanceof Folder) {
-            finalBreadCrumb.add(new BreadCrumbItem(breadCrumb));
         }
     }
 

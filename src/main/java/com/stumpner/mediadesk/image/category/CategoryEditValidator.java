@@ -36,7 +36,7 @@ public class CategoryEditValidator implements Validator {
 
     public void validate(Object o, Errors errors) {
 
-        CategoryMultiLang category = (CategoryMultiLang)o;
+        FolderMultiLang category = (FolderMultiLang)o;
         if (!NameValidator.validate(category.getCatName())) {
             errors.rejectValue("catName","edit.namenotvalid");
         }

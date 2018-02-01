@@ -1,12 +1,12 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.category.Folder;
 import com.stumpner.mediadesk.web.mvc.commandclass.settings.ImportSettings;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
-import com.stumpner.mediadesk.image.category.Category;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -170,8 +170,6 @@ public class ImportSettingsController extends SimpleFormControllerMd {
 
         Config.putDmsConfigToRequest(httpServletRequest);
 
-        //FolderService folderService = new FolderService();
-        //httpServletRequest.setAttribute("folderList",folderService.getFolderList(1000));
         CategoryService categoryService = new CategoryService();
         LngResolver lngResolver = new LngResolver();
         categoryService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
@@ -180,7 +178,7 @@ public class ImportSettingsController extends SimpleFormControllerMd {
         ImportSettings settings = (ImportSettings)e.getTarget();
         if (settings.getAutoImportFtpCat()!=0) {
             try {
-                Category cat = categoryService.getCategoryById(settings.getAutoImportFtpCat());
+                Folder cat = categoryService.getCategoryById(settings.getAutoImportFtpCat());
                 if (cat.getParent()!=0) {
                     categoryList.add(cat);
                 }
@@ -263,8 +261,8 @@ public class ImportSettingsController extends SimpleFormControllerMd {
         metadataHeaders.add("Province/State");
         metadataHeaders.add("Country/Primary Location");
         metadataHeaders.add("Original Transmission Reference");
-        metadataHeaders.add("Category");
-        metadataHeaders.add("Supplemental Category(s)");
+        metadataHeaders.add("Folder");
+        metadataHeaders.add("Supplemental Folder(s)");
         metadataHeaders.add("Urgency");
         metadataHeaders.add("Keywords");
         metadataHeaders.add("Filename");

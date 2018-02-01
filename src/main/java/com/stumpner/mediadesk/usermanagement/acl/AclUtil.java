@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.usermanagement.acl;
 
+import com.stumpner.mediadesk.image.category.Folder;
 import net.stumpner.security.acl.AclControllerContext;
 import net.stumpner.security.acl.AclPermission;
 import net.stumpner.security.acl.AclController;
@@ -10,10 +11,7 @@ import java.util.Iterator;
 import java.security.acl.AclNotFoundException;
 
 import com.stumpner.mediadesk.core.database.sc.CategoryService;
-import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.image.ImageVersionMultiLang;
-import com.stumpner.mediadesk.image.folder.Folder;
-import com.stumpner.mediadesk.image.category.Category;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
@@ -64,34 +62,19 @@ public class AclUtil {
         if (AclController.isEnabled()) {
             List permittedImages = new LinkedList();
             CategoryService categoryService = new CategoryService();
-            FolderService folderService = new FolderService();
             Iterator downloadListImages = downloadList.iterator();
             while (downloadListImages.hasNext()) {
                 boolean permitted = false;
                 ImageVersionMultiLang imageVersion = (ImageVersionMultiLang)downloadListImages.next();
 
-                //Kategorien prüfen
+                //Ordner prüfen
                 List categoryList = categoryService.getCategoryListFromImageVersion(imageVersion.getIvid());
                 Iterator categories = categoryList.iterator();
-                //todo: Zugriffverhalten wenn in keiner kategorie!? (z.b. neueste Bilder)
+                //todo: Zugriffverhalten wenn in keinem Ordner!? (z.b. neueste Bilder)
                 while (categories.hasNext()) {
-                    Category category = (Category)categories.next();
+                    Folder folder = (Folder)categories.next();
                     try {
-                        if (aclContext.checkPermission(new AclPermission(permission),category)) {
-                            permitted = true;
-                        }
-                    } catch (AclNotFoundException e) {
-                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                    }
-                }
-
-                //Folder prüfen
-                List folderList = folderService.getFolderListFromImageVersion(imageVersion.getIvid());
-                Iterator folders = folderList.iterator();
-                while (folders.hasNext()) {
-                    Folder folder = (Folder)folders.next();
-                    try {
-                        if (aclContext.checkPermission(new AclPermission(permission),folder)) {
+                        if (aclContext.checkPermission(new AclPermission(permission), folder)) {
                             permitted = true;
                         }
                     } catch (AclNotFoundException e) {

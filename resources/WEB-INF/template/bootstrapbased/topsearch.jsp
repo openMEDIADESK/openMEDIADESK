@@ -1,8 +1,3 @@
-<%@ page import="com.stumpner.mediadesk.core.Config"%>
-<%@ page import="com.stumpner.mediadesk.usermanagement.User"%>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Iterator" %>
-<%@ page import="com.stumpner.mediadesk.image.category.Category" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="/mediadesk" prefix="mediadesk" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

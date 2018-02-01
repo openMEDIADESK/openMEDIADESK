@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.category.Folder;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,7 +24,7 @@ import com.stumpner.mediadesk.image.util.SizeExceedException;
 import com.stumpner.mediadesk.image.util.MetadataReadException;
 import com.stumpner.mediadesk.image.pinpics.Pinpic;
 import com.stumpner.mediadesk.image.AutoImageAssigner;
-import com.stumpner.mediadesk.image.category.Category;
+import com.stumpner.mediadesk.image.category.Folder;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
@@ -133,10 +134,10 @@ public class ImageImportWebuploadController extends ModelFormPageController {
     private boolean isUserPermittetForCategory(HttpServletRequest request) {
 
         try {
-            Category category = getImportCategory(request);
-            if (category==null) { return false; }
+            Folder folder = getImportCategory(request);
+            if (folder ==null) { return false; }
             AclControllerContext aclCtx = AclContextFactory.getAclContext(request);
-            return aclCtx.checkPermission(new AclPermission("write"), category);
+            return aclCtx.checkPermission(new AclPermission("write"), folder);
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         } catch (AclNotFoundException e) {
@@ -157,9 +158,9 @@ public class ImageImportWebuploadController extends ModelFormPageController {
         if (request.getParameter("catid")!=null) {
             if (!request.getParameter("catid").equalsIgnoreCase("")) {
                 autoImageAssigner.clear(request);
-                Category category = getImportCategory(request);
-                request.setAttribute("category",category);
-                if (category!=null) { autoImageAssigner.setDestination(request,category); }
+                Folder folder = getImportCategory(request);
+                request.setAttribute("folder", folder);
+                if (folder !=null) { autoImageAssigner.setDestination(request, folder); }
             }
         }
         if (request.getParameter("pinid")!=null) {
@@ -389,27 +390,27 @@ public class ImageImportWebuploadController extends ModelFormPageController {
         }
     }
 
-    private Category getImportCategory(HttpServletRequest request) throws ObjectNotFoundException, IOServiceException {
+    private Folder getImportCategory(HttpServletRequest request) throws ObjectNotFoundException, IOServiceException {
 
         if (request.getParameter("catid")!=null) {
             if (!request.getParameter("catid").equalsIgnoreCase("")) {
                 //bilder automatisch in eine kategorie laden...
                 CategoryService categoryService = new CategoryService();
-                Category category = new Category();
+                Folder folder = new Folder();
                 if (request.getParameter("catid").equalsIgnoreCase("0")) {
                     //Root-Kategory existiert nicht...
-                    category.setCategoryId(0);
+                    folder.setCategoryId(0);
                 } else {
-                    category = categoryService.getCategoryById(Integer.parseInt(
+                    folder = categoryService.getCategoryById(Integer.parseInt(
                             request.getParameter("catid")
                     ));
                 }
-                return category;
+                return folder;
             }
         } else {
             Object autoImportObject = autoImageAssigner.getAutoImportObject(request);
             //System.out.println("auto import object: "+autoImportObject.getClass().getName());
-            return (Category)autoImportObject; 
+            return (Folder)autoImportObject;
         }
 
         return null;

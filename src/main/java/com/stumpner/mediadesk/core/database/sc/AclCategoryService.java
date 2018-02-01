@@ -3,10 +3,10 @@ package com.stumpner.mediadesk.core.database.sc;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.Config;
+import com.stumpner.mediadesk.image.category.Folder;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
 import com.stumpner.mediadesk.usermanagement.acl.AclUserContext;
-import com.stumpner.mediadesk.image.category.Category;
 
 import java.util.List;
 import java.util.LinkedList;
@@ -60,7 +60,7 @@ public class AclCategoryService extends CategoryService {
 
     public List getCategorySubTree(int parentId, int maxSubElements) throws ObjectNotFoundException, IOServiceException {
 
-        List<Category> categorySubTree = super.getCategorySubTree(parentId, maxSubElements);
+        List<Folder> folderSubTree = super.getCategorySubTree(parentId, maxSubElements);
 
         //Wenn Home-Kategorien aktiviert sind, die Home-Kategorie unten dran hängen (nur bei root!)
         if (Config.homeCategoryId!=-1) {
@@ -70,11 +70,11 @@ public class AclCategoryService extends CategoryService {
                 if (user.getHomeCategoryId()!=-1) {
                     if (Config.homeCategoryAsRoot) {
                         //Home-Kategorie wird gleich als "Root/Hauptkategorie" angezeigt, andere Kategorien werden nicht angezeigner
-                        categorySubTree = super.getCategorySubTree(user.getHomeCategoryId(),maxSubElements);
+                        folderSubTree = super.getCategorySubTree(user.getHomeCategoryId(),maxSubElements);
                     } else {
                         //Home-Kategorie wird neben den anderen Hauptkategorien angezeigt
-                        Category homeCategory = this.getCategoryById(user.getHomeCategoryId());
-                        categorySubTree.add(homeCategory);
+                        Folder homeFolder = this.getCategoryById(user.getHomeCategoryId());
+                        folderSubTree.add(homeFolder);
                     }
                 }
             }
@@ -82,14 +82,14 @@ public class AclCategoryService extends CategoryService {
 
         if (onlyShowPermittetObjects()) {
             AclPermission[] permissions = AclContextFactory.getViewAndReadPermission();
-            categorySubTree = aclCtx.getPermittedList(permissions,categorySubTree);
+            folderSubTree = aclCtx.getPermittedList(permissions, folderSubTree);
 /*
-            categorySubTree = aclCtx.getPermittedList(
-                    new AclPermission("read"),categorySubTree);
+            folderSubTree = aclCtx.getPermittedList(
+                    new AclPermission("read"),folderSubTree);
  */
         }
 
-        return categorySubTree;    //To change body of overridden methods use File | Settings | File Templates.
+        return folderSubTree;    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     public List getAllCategoryList() {
@@ -121,14 +121,14 @@ public class AclCategoryService extends CategoryService {
             Iterator categories = list.iterator();
             boolean homeFoundInParent = false;
             while (categories.hasNext()) {
-                Category category = (Category)categories.next();
+                Folder folder = (Folder)categories.next();
                 if (homeFoundInParent) {
-                    mangledList.add(category);
+                    mangledList.add(folder);
                 }
-                if (category.getCategoryId()==getUser().getHomeCategoryId()) {
+                if (folder.getCategoryId()==getUser().getHomeCategoryId()) {
                     homeFoundInParent = true;
                     if (!Config.homeCategoryAsRoot) {
-                        mangledList.add(category);
+                        mangledList.add(folder);
                     }
                 }
             }

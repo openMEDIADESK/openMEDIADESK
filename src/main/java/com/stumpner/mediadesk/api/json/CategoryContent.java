@@ -6,7 +6,7 @@ import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.image.ImageVersionMultiLang;
-import com.stumpner.mediadesk.image.category.Category;
+import com.stumpner.mediadesk.image.category.Folder;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
 
@@ -41,15 +41,15 @@ import net.stumpner.security.acl.AclPermission;
 
  *********************************************************/
 /**
- * Abgreifen der Files in einer Kategorie via JSON:
+ * Abgreifen der Files in einem Ordner via JSON:
  * http://localhost:8080/api/json/categorycontent/<categoryId>
  * oder mit jsessionid
  * http://localhost:8080/api/json/categorycontent/<categoryId>;jsessionid=<sessionid>
- * Ber�cksichtigt wird, ob der eingeloggte Benutzer auch Zugriff auf diese Files hat.
+ * Berücksichtigt wird, ob der eingeloggte Benutzer auch Zugriff auf diese Files hat.
  * Mit dem Paramter ?callback=function wird das JSON-Array mit einer Callback-Funktion aufgerufen
  *   callbackFunction(...json...)
  *
- * [{"id":"3391","title":"Sicherheits- und Montagehinweise SPRECON-E Englisch","mime":"application/pdf","downloadUrl":"/de/download?download=ivid&amp;ivid=3391"}, ... ]
+ * [{"id":"3391","title":"Meine PDF-Datei","mime":"application/pdf","downloadUrl":"/de/download?download=ivid&amp;ivid=3391"}, ... ]
  *
  * User: stumpner
  * Date: 28.09.2011
@@ -78,13 +78,13 @@ public class CategoryContent extends HttpServlet {
             response.getWriter().write(responseString);
 
         } catch (ObjectNotFoundException e) {
-            response.sendError(404,"Category not found: " + categoryId + " - " + e.getMessage());
+            response.sendError(404,"Folder not found: " + categoryId + " - " + e.getMessage());
         } catch (IOServiceException e) {
             throw new ServletException("IOServiceException e: " + e.getMessage());
         } catch (AclNotFoundException e) {
             throw new ServletException("AclNotFoundException e: " + e.getMessage());
         } catch (NumberFormatException e) {
-            response.sendError(400,"Category-ID is not a number: " + categoryId + " - " + e.getMessage());
+            response.sendError(400,"Folder-ID is not a number: " + categoryId + " - " + e.getMessage());
         }
 
     }
@@ -104,10 +104,10 @@ public class CategoryContent extends HttpServlet {
         StringBuffer jsonOutput = new StringBuffer("[");
 
         CategoryService categoryService = new CategoryService();
-            Category category = categoryService.getCategoryById(categoryId);
+            Folder folder = categoryService.getCategoryById(categoryId);
 
             AclControllerContext aclCtx = AclContextFactory.getAclContext(request);
-            if (aclCtx.checkPermission(new AclPermission("read"), category)) {
+            if (aclCtx.checkPermission(new AclPermission("read"), folder)) {
 
                 LngResolver lngResolver = new LngResolver();
                 ImageVersionService mediaService = new ImageVersionService();

@@ -1,6 +1,7 @@
 package com.stumpner.mediadesk.web.mvc.commandclass;
 
-import com.stumpner.mediadesk.image.category.Category;
+import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.category.Folder;
 
 import java.util.List;
 import java.util.LinkedList;
@@ -63,16 +64,16 @@ public class TreeAclCommand {
     }
 
     public static class TreeAclCommandEntity {
-        private Category category = null;
+        private Folder folder = null;
         private String permissionString = "read";
         private int stufe = 0;
 
-        public Category getCategory() {
-            return category;
+        public Folder getFolder() {
+            return folder;
         }
 
-        public void setCategory(Category category) {
-            this.category = category;
+        public void setFolder(Folder folder) {
+            this.folder = folder;
         }
 
         public String getPermissionString() {

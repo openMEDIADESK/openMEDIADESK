@@ -29,9 +29,9 @@ import java.util.Date;
  * Time: 22:37:21
  * To change this template use File | Settings | File Templates.
  */
-public class Category implements AccessObject {
+public class Folder implements AccessObject {
 
-    private static int CATEGORY_ACCESS_OBJECT_TYPEID = 10;
+    private static int FOLDER_ACCESS_OBJECT_TYPEID = 10;
 
     public static final int VIEW_UNDEFINED = 0;
     public static final int VIEW_THUMBNAILS = 1;
@@ -47,18 +47,18 @@ public class Category implements AccessObject {
     int defaultview = 0;
 
     private Date changedDate = new Date();
-    private int imageCount = 0; //Anzahl der Bilder in dieser Kategorie (ohne Unterkategorien)
-    private int imageCountS = 0; //Anzahl der Bilder in dieser Kategorie + Unterkategorien
+    private int imageCount = 0; //Anzahl der Bilder in diesem Ordner (ohne Unterordner)
+    private int imageCountS = 0; //Anzahl der Bilder in diesem Ordner + Unterordner
 
     private String icon = "";
 
     private Date createDate = new Date();
-    private int primaryIvid = 0; //Icon/Ordnerbild f�r diese Kategorie
+    private int primaryIvid = 0; //Icon/Ordnerbild für diesen Ordner
     private Date categoryDate = new Date();
     private int creatorUserId = 0;
     private String fid = ""; //Foreign ID in Foreign Systems (Sync)
 
-    private boolean publicAcl = false; //�ber die ACL ist die Kategorie als �ffentlich gesetzt
+    private boolean publicAcl = false; //Über die ACL ist der Ordner als öffentlich gesetzt
     private boolean inheritAcl = false;
     private boolean childInheritAcl = false;
     private boolean protectedAcl = false;
@@ -132,7 +132,7 @@ public class Category implements AccessObject {
     }
 
     public int getAclObjectTypeId() {
-        return CATEGORY_ACCESS_OBJECT_TYPEID;  //To change body of implemented methods use File | Settings | File Templates.
+        return FOLDER_ACCESS_OBJECT_TYPEID;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public String getIcon() {

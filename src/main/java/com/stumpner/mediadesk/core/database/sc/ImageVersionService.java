@@ -425,14 +425,12 @@ public class ImageVersionService extends ImageService {
 
         try {
             CategoryService categoryService = new CategoryService();
-            FolderService folderService = new FolderService();
             LightboxService lightboxService = new LightboxService();
             ShoppingCartService shoppingCartService = new ShoppingCartService();
             InboxService inboxService = new InboxService();
             /* Kategorieverknüpfungen lösen: bild(er) aus ordner und kategorien löschen */
             logger.debug("deleteImageVersion: delete image from all categories, folders, lightbox, shoppingcart, inbox");
             categoryService.deleteImageFromAllCategories(imageVersion.getIvid());
-            folderService.deleteImageFromAllFolders(imageVersion.getIvid());
             lightboxService.deleteImageFromAllLightbox(imageVersion.getIvid());
             shoppingCartService.deleteImageFromAllShoppingCart(imageVersion.getIvid());
             inboxService.removeImage(imageVersion.getIvid());

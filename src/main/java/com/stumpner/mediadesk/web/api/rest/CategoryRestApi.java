@@ -1,5 +1,7 @@
 package com.stumpner.mediadesk.web.api.rest;
 
+import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.category.FolderMultiLang;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.core.database.sc.*;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
@@ -9,8 +11,6 @@ import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.image.category.Category;
-import com.stumpner.mediadesk.image.category.CategoryMultiLang;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -206,15 +206,15 @@ public class CategoryRestApi extends RestBaseServlet {
 
         CategoryService folderService = new CategoryService();
         try {
-            CategoryMultiLang folder = null;
+            FolderMultiLang folder = null;
             if (folderId!=0) { //0 = neuer Folder, den kann es ja noch nicht geben
-                folder = (CategoryMultiLang)folderService.getById(folderId);
+                folder = (FolderMultiLang)folderService.getById(folderId);
             }
 
             if (editmode) {
 
                 HttpSession session = request.getSession();
-                CategoryMultiLang sessionObject = (CategoryMultiLang)session.getAttribute(CategoryEditController.class.getName()+".FORM.command");
+                FolderMultiLang sessionObject = (FolderMultiLang)session.getAttribute(CategoryEditController.class.getName()+".FORM.command");
 
                 if (sessionObject!=null) {
                     if (sessionObject.getCategoryId()==sessionObject.getCategoryId()) {
@@ -327,7 +327,7 @@ public class CategoryRestApi extends RestBaseServlet {
 
         CategoryService categoryService = new CategoryService();
         try {
-            Category c = categoryService.getCategoryById(categoryId);
+            Folder c = categoryService.getCategoryById(categoryId);
             if (list.size()>0) {
                 ImageVersion mo = list.get(0);
                 c.setPrimaryIvid(mo.getIvid());
@@ -458,15 +458,15 @@ public class CategoryRestApi extends RestBaseServlet {
             while (folders.hasNext()) {
 
                 boolean checkedValue = false;
-                Category category = (Category)folders.next();
-                String categoryTitle = category.getCatTitle(); //category.getCatTitle().replace('"',' ');
+                Folder folder = (Folder)folders.next();
+                String categoryTitle = folder.getCatTitle(); //folder.getCatTitle().replace('"',' ');
 
                 out.println("  {");
-                out.println("    \"id\":\""+category.getCategoryId()+"\",");
-                out.println("    \"name\":\""+StringEscapeUtils.escapeJson(category.getCatName())+"\",");
+                out.println("    \"id\":\""+ folder.getCategoryId()+"\",");
+                out.println("    \"name\":\""+StringEscapeUtils.escapeJson(folder.getCatName())+"\",");
                 out.println("    \"title\":\""+StringEscapeUtils.escapeJson(categoryTitle)+"\",");
-                out.println("    \"pivid\":\""+category.getPrimaryIvid()+"\",");
-                out.println("    \"parent\":\""+category.getParent()+"\",");
+                out.println("    \"pivid\":\""+ folder.getPrimaryIvid()+"\",");
+                out.println("    \"parent\":\""+ folder.getParent()+"\",");
                 //out.println("    \"items\":[{\"folder\":\"a\", \"id\":\"1\", \"info\":\"nix\"}],");
                 out.println("    \"text\":\""+StringEscapeUtils.escapeJson(categoryTitle)+"\"");
 
@@ -544,19 +544,19 @@ public class CategoryRestApi extends RestBaseServlet {
             while (folders.hasNext()) {
 
                 boolean checkedValue = false;
-                Category category = (Category)folders.next();
-                String categoryTitle = category.getCatTitle(); // category.getCatTitle().replace('"',' ');
+                Folder folder = (Folder)folders.next();
+                String categoryTitle = folder.getCatTitle(); // folder.getCatTitle().replace('"',' ');
 
                 out.println("  {");
-                out.println("    \"id\":\""+category.getCategoryId()+"\",");
+                out.println("    \"id\":\""+ folder.getCategoryId()+"\",");
                 out.println("    \"title\":\""+StringEscapeUtils.escapeJson(categoryTitle)+"\",");
 
-                List folderList2 = categoryService.getCategorySubTree(category.getCategoryId(),0);
+                List folderList2 = categoryService.getCategorySubTree(folder.getCategoryId(),0);
                 StringBuffer sb = new StringBuffer();
 
                 Iterator folders2 = folderList2.iterator();
                 while (folders2.hasNext()) {
-                    Category cat2 = (Category)folders2.next();
+                    Folder cat2 = (Folder)folders2.next();
                     sb = sb.append("{");
                     sb = sb.append("\"folder\":\""+StringEscapeUtils.escapeJson(cat2.getCatTitle())+"\", \"id\":\""+cat2.getCategoryId()+"\", \"info\":\"nix\"");
                     sb = sb.append("}");

@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.category.Folder;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,19 +13,14 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.image.category.Category;
 import com.stumpner.mediadesk.image.pinpics.Pinpic;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.web.LngResolver;
-import com.stumpner.mediadesk.web.mvc.exceptions.LoadThumbnailException;
-import com.stumpner.mediadesk.web.mvc.common.MediaMenu;
 
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Iterator;
-import java.io.IOException;
 
 import com.ibatis.common.util.PaginatedList;
 
@@ -111,7 +107,7 @@ public class PinPicViewController extends AbstractThumbnailViewController {
         LngResolver lngResolver = new LngResolver();
         pinpicService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
         Folder folder = new Folder();
-        folder.setFolderTitle("Pin");
+        folder.setCatTitle("Pin");
         User user = (User)httpServletRequest.getSession().getAttribute("user");
 
         if (httpServletRequest.getParameter("lightbox")!=null) {

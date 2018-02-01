@@ -96,8 +96,6 @@ public class ImageEditController extends AbstractAutoFillController {
          * Bilder in Ordner und Kategorien...
          */
         LngResolver lngResolver = new LngResolver();
-        FolderService folderService = new FolderService();
-        folderService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
         CategoryService categoryService = new CategoryService();
         categoryService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
         int ivid = ((ImageVersionMetadata)e.getTarget()).getImageVersion().getIvid();

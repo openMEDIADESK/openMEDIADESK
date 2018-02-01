@@ -11,13 +11,12 @@ import com.stumpner.mediadesk.usermanagement.Authenticator;
 import com.stumpner.mediadesk.media.MimeCssMap;
 import com.stumpner.mediadesk.web.mvc.AclEditController;
 import com.stumpner.mediadesk.image.util.ImageImport;
-import com.stumpner.mediadesk.image.category.CategoryMultiLang;
+import com.stumpner.mediadesk.image.category.FolderMultiLang;
 
 import javax.servlet.ServletContextListener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;
-import javax.mail.MessagingException;
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.ScheduledExecutorService;
@@ -420,8 +419,8 @@ public class WebContextListener implements ServletContextListener {
         System.out.println("["+Config.instanceName+"]: renewCategoryPublicProtectedStatus "+categoryId);
 
         CategoryService cService = new CategoryService();
-        List<CategoryMultiLang> l = cService.getCategoryList(categoryId);
-        for (CategoryMultiLang c : l) {
+        List<FolderMultiLang> l = cService.getCategoryList(categoryId);
+        for (FolderMultiLang c : l) {
             try {
                 AclEditController.renewCategoryPublicProtectedStatus(c);
                 renewCategoryPublicProtectedStatusRekursiv(c.getCategoryId());

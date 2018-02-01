@@ -1,12 +1,4 @@
-<%@ page import="com.stumpner.mediadesk.usermanagement.User,
-                 com.stumpner.mediadesk.image.Image,
-                 com.stumpner.mediadesk.image.ImageVersion,
-                 com.stumpner.mediadesk.image.filmreel.FilmReel,
-                 com.stumpner.mediadesk.image.filmreel.FilmReelImageList,
-                 com.stumpner.mediadesk.core.database.sc.*,
-                 com.stumpner.mediadesk.image.folder.Folder,
-                 com.stumpner.mediadesk.image.folder.FolderImageList,
-                 com.stumpner.mediadesk.core.Config"%><%@ page import="java.util.*" %><%
+<%@ page import="com.stumpner.mediadesk.core.Config"%><%@ page import="java.util.*" %><%
 
     /*********************************************************
      Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
@@ -41,7 +33,7 @@
             //PIN-Download speziell behandeln: - nicht eingeloggt = pin / eingeloggt = cat
             if (Config.redirectStartPage.equalsIgnoreCase("/index/pin")) {
                 if (session.getAttribute("user")!=null) {
-                    //eingeloggt = category
+                    //eingeloggt = folder
                     redirectUrl = lngUrl + "/c";
                 }
             }

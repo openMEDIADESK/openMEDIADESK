@@ -1,12 +1,10 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.category.Folder;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.stumpner.mediadesk.image.folder.Folder;
-import com.stumpner.mediadesk.image.category.Category;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
@@ -44,9 +42,6 @@ public class ImageViewController extends AbstractImagePreviewController {
         httpServletRequest.setAttribute("pageNavBottom",true);
 
         Object thumbnailListObject = httpServletRequest.getSession().getAttribute("thumbnailListObject");
-        if (thumbnailListObject instanceof Category) {
-            //System.out.println("Kategorie-Image");
-        }
         if (thumbnailListObject instanceof Folder) {
             //System.out.println("Kategorie-Image");
         }

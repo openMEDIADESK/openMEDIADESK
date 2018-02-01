@@ -1,14 +1,13 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.category.FolderMultiLang;
 import com.stumpner.mediadesk.web.mvc.common.SimpleFormControllerMd;
 import com.stumpner.mediadesk.util.MaintenanceService;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.web.mvc.commandclass.settings.MaintenanceSettings;
-import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
-import com.stumpner.mediadesk.image.category.CategoryMultiLang;
-import com.stumpner.mediadesk.image.category.Category;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 
@@ -56,9 +55,6 @@ public class MaintenanceSettingsController extends SimpleFormControllerMd {
 
         MaintenanceSettings ms = new MaintenanceSettings();
 
-        //Anzahl der Events
-        FolderService folderService = new FolderService();
-        ms.setEventCount(folderService.getFolderList(10000).size());        
         ms.setResetAclStatus(MaintenanceService.getInstance().getResetAclState());
         ms.setResetAclActive(MaintenanceService.getInstance().isResetAclActive());
 
@@ -68,11 +64,6 @@ public class MaintenanceSettingsController extends SimpleFormControllerMd {
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse httpServletResponse, Object o, BindException e) throws Exception {
 
         MaintenanceSettings set = (MaintenanceSettings)o;
-        /*
-        if (!set.getEtoc().equalsIgnoreCase("")) {
-            //System.out.println("onSubmitEtoc: "+set.getEtoc());
-            MaintenanceService.getInstance().etocStart(getUser(request).getUserId());
-        } */
         if (!set.getAcl().equalsIgnoreCase("")) {
             if (!MaintenanceService.getInstance().isResetAclActive()) {
                 MaintenanceService.getInstance().resetAclStart();
@@ -80,11 +71,10 @@ public class MaintenanceSettingsController extends SimpleFormControllerMd {
         }
 
         if (!set.getCatviewauto().equalsIgnoreCase("")) {
-            //System.out.println("Catviewauto: "+set.getEtoc());
             setCategoryViewToAuto();
         }
 
-        //F�r Message OK
+        //Für Message OK
         request.setAttribute("headline","message.wartung");
         request.setAttribute("subheadline","message.wartung.sub");
         request.setAttribute("text","message.wartung.text");
@@ -106,9 +96,9 @@ public class MaintenanceSettingsController extends SimpleFormControllerMd {
     }
 
     private void setCategoryViewToAuto(int categoryId, CategoryService cs) throws IOServiceException {
-        List<CategoryMultiLang> categoryList = cs.getCategoryList(categoryId);
-        for (CategoryMultiLang cat : categoryList) {
-            cat.setDefaultview(Category.VIEW_UNDEFINED);
+        List<FolderMultiLang> categoryList = cs.getCategoryList(categoryId);
+        for (FolderMultiLang cat : categoryList) {
+            cat.setDefaultview(Folder.VIEW_UNDEFINED);
             cs.save(cat);
             setCategoryViewToAuto(cat.getCategoryId(),cs);
         }

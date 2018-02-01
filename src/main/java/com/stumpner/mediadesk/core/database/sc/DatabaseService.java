@@ -48,7 +48,7 @@ public class DatabaseService {
 
         if (triggerStage1) {
 
-            logger.debug("DatabaseService: updateing Category Image Count");
+            logger.debug("DatabaseService: updateing Folder Image Count");
             CategoryService categoryService = new CategoryService();
             categoryService.calcImageCount(0);
 

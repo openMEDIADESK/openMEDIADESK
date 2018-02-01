@@ -28,24 +28,24 @@ import java.util.ArrayList;
  * Time: 20:33:12
  * To change this template use File | Settings | File Templates.
  */
-public class CategoryTreeElement extends Category {
+public class FolderTreeElement extends Folder {
 
     List subCategoryList = new ArrayList();
 
-    public CategoryTreeElement(Category category) {
-        this.setCategoryId(category.getCategoryId());
-        this.setCatTitle(category.getCatTitle());
-        this.setCatName(category.getCatName());
-        this.setDescription(category.getDescription());
-        this.setParent(category.getParent());
-        this.setImageCount(category.getImageCount());
-        this.setImageCountS(category.getImageCountS());
-        this.setIcon(category.getIcon());
-        this.setCategoryDate(category.getCategoryDate());
-        this.setCreateDate(category.getCreateDate());
-        this.setPrimaryIvid(category.getPrimaryIvid());
-        this.setPublicAcl(category.isPublicAcl());
-        this.setProtectedAcl(category.isProtectedAcl());
+    public FolderTreeElement(Folder folder) {
+        this.setCategoryId(folder.getCategoryId());
+        this.setCatTitle(folder.getCatTitle());
+        this.setCatName(folder.getCatName());
+        this.setDescription(folder.getDescription());
+        this.setParent(folder.getParent());
+        this.setImageCount(folder.getImageCount());
+        this.setImageCountS(folder.getImageCountS());
+        this.setIcon(folder.getIcon());
+        this.setCategoryDate(folder.getCategoryDate());
+        this.setCreateDate(folder.getCreateDate());
+        this.setPrimaryIvid(folder.getPrimaryIvid());
+        this.setPublicAcl(folder.isPublicAcl());
+        this.setProtectedAcl(folder.isProtectedAcl());
     }
 
     public List getSubCategoryList() {

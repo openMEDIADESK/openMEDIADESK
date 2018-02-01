@@ -17,7 +17,7 @@
     </bean>
 
     <bean id="categoryEditController" class="com.stumpner.mediadesk.web.mvc.CategoryEditController"></bean>
-    <bean id="categoryBreakupController" class="com.stumpner.mediadesk.web.mvc.CategoryBreakupController">
+    <bean id="categoryBreakupController" class="com.stumpner.mediadesk.web.mvc.FolderBreakupController">
         <property name="sessionForm"><value>true</value></property>
     </bean>
     <bean id="imageEditController" class="com.stumpner.mediadesk.web.mvc.ImageEditController">

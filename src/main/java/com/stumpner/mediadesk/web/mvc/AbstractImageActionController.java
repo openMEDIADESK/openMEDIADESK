@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.category.Folder;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.log4j.Logger;
 
@@ -12,8 +13,7 @@ import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.core.database.sc.*;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.image.category.Category;
-import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.image.category.Folder;
 import com.stumpner.mediadesk.usermanagement.User;
 
 import java.util.*;
@@ -243,17 +243,11 @@ public abstract class AbstractImageActionController extends AbstractImageSelectC
         } else {
             if (fromContainerObject instanceof Folder) {
                 Folder folder = (Folder)fromContainerObject;
-                logger.debug("Original war ein Folder: "+folder.getFolderId()+" "+folder.getFolderName());
-                FolderService folderService = new FolderService();
-                folderService.deleteImageFromFolder(folder,image);
-            }
-            if (fromContainerObject instanceof Category) {
-                Category category = (Category)fromContainerObject;
-                //if (category.getCategoryId()!=-1) {
-                System.out.println("Original war eine Cat: "+category.getCategoryId()+" "+category.getCatName());
-                    logger.debug("Original war eine Cat: "+category.getCategoryId()+" "+category.getCatName());
+                //if (folder.getCategoryId()!=-1) {
+                System.out.println("Original war eine Cat: "+ folder.getCategoryId()+" "+ folder.getCatName());
+                    logger.debug("Original war eine Cat: "+ folder.getCategoryId()+" "+ folder.getCatName());
                     CategoryService categoryService = new CategoryService();
-                    categoryService.deleteImageFromCategory(category,image);
+                    categoryService.deleteImageFromCategory(folder,image);
                 //} else {
                 //    logger.debug("Original war eine 00: Aktuellste Bilder - entfernen nicht moeglich");
                 //}

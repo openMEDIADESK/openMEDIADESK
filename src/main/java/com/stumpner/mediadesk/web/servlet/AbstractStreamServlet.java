@@ -3,7 +3,6 @@ package com.stumpner.mediadesk.web.servlet;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.CategoryService;
-import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.DownloadLoggerService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
@@ -12,9 +11,8 @@ import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
 import com.stumpner.mediadesk.usermanagement.acl.AclUtil;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
-import com.stumpner.mediadesk.image.category.Category;
+import com.stumpner.mediadesk.image.category.Folder;
 import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.image.folder.Folder;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -159,12 +157,12 @@ public abstract class AbstractStreamServlet extends HttpServlet {
                     if (type.equalsIgnoreCase("category")) {
 
                         CategoryService categoryService = new CategoryService();
-                        Category category = categoryService.getCategoryById(id);
+                        Folder folder = categoryService.getCategoryById(id);
                         aclContext.setDebug(true);
 
                         //Berechtigung pr�fen:
-                        if (aclContext.checkPermission(new AclPermission("view"),category) ||
-                            aclContext.checkPermission(new AclPermission("read"),category)) {
+                        if (aclContext.checkPermission(new AclPermission("view"), folder) ||
+                            aclContext.checkPermission(new AclPermission("read"), folder)) {
 
                             SimpleLoaderClass loader = new SimpleLoaderClass();
                             loader.setId(id);
@@ -188,38 +186,13 @@ public abstract class AbstractStreamServlet extends HttpServlet {
                                     return (ImageVersion)imageList.get(0);
                                 }
                             } else {
-                                //System.err.println("Category "+id+" does not contain any mediafiles");
-                                httpServletResponse.sendError(404,"Category "+id+" does not contain any mediafiles");
-                                return null;
-                            }
-                        } else {
-                            //keine Berechtigung
-                            httpServletResponse.sendError(403,"No Visitor Access (ACL) for CategoryId="+id);
-                            return null;
-                        }
-                    } else if (type.equalsIgnoreCase("folder")) {
-
-                        FolderService folderService = new FolderService();
-                        Folder folder = folderService.getFolderById(id);
-
-                        //Berechtigung pr�fen:
-                        if (aclContext.checkPermission(new AclPermission(AclPermission.READ),folder)) {
-
-                            SimpleLoaderClass loader = new SimpleLoaderClass();
-                            loader.setId(id);
-                            loader.setOrderBy(Config.orderByFolder);
-                            loader.setSortBy(Config.sortByFolder);
-                            List imageList = imageService.getFolderImages(loader);
-                            if (imageList.size()>0) {
-                                //download((ImageVersion)imageList.get(0),httpServletRequest,httpServletResponse);
-                                return (ImageVersion)imageList.get(0);
-                            } else {
+                                //System.err.println("Folder "+id+" does not contain any mediafiles");
                                 httpServletResponse.sendError(404,"Folder "+id+" does not contain any mediafiles");
                                 return null;
                             }
                         } else {
                             //keine Berechtigung
-                            httpServletResponse.sendError(403,"No Visitor Access (ACL) for FolderId="+id);
+                            httpServletResponse.sendError(403,"No Visitor Access (ACL) for CategoryId="+id);
                             return null;
                         }
                     } else if (type.equalsIgnoreCase("object")) {

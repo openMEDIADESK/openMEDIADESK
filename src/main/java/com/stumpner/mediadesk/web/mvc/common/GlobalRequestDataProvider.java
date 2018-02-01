@@ -228,7 +228,7 @@ public class GlobalRequestDataProvider {
                     if (baseController instanceof CategoryIndexController) {
                         //Wenn es in einer Kategorie ist
                         CategoryIndexController c = ((CategoryIndexController)baseController);
-                        Category category = c.getCategory(request);
+                        Folder category = c.getFolder(request);
                         AclControllerContext aclCtx = AclContextFactory.getAclContext(request);
                         try {
                             return aclCtx.checkPermission(new AclPermission("write"), category);

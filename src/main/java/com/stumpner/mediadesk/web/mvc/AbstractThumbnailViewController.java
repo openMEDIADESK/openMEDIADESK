@@ -1,22 +1,12 @@
 package com.stumpner.mediadesk.web.mvc;
 
 import org.springframework.web.servlet.ModelAndView;
-import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.List;
-import java.util.Iterator;
 
-import com.stumpner.mediadesk.web.mvc.exceptions.LoadThumbnailException;
-import com.stumpner.mediadesk.web.mvc.common.MediaMenu;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.core.Resources;
 import com.stumpner.mediadesk.usermanagement.User;
-import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.image.category.CategoryTreeElement;
-import com.ibatis.common.util.PaginatedList;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)

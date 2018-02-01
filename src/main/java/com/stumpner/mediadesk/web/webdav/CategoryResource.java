@@ -14,9 +14,11 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundExceptio
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.category.Category;
-import com.stumpner.mediadesk.image.category.CategoryMultiLang;
+import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.category.FolderMultiLang;
 import com.stumpner.mediadesk.image.ImageVersionMultiLang;
+import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.category.FolderMultiLang;
 import com.stumpner.mediadesk.image.inbox.InboxService;
 import com.stumpner.mediadesk.image.util.SizeExceedException;
 import com.stumpner.mediadesk.usermanagement.User;
@@ -64,36 +66,36 @@ public class CategoryResource implements MakeCollectionableResource, PropFindabl
     List categoryList = null;
     String categoryName = "empty";
     int id = 0;
-    Category category = null;
+    Folder folder = null;
     private String username;
 
 
-    public CategoryResource(WebdavResourceFactory resourceFactory, Category category) {
-        this.category = category;
+    public CategoryResource(WebdavResourceFactory resourceFactory, Folder folder) {
+        this.folder = folder;
         this.resourceFactory = resourceFactory;
 
-        this.id = category.getCategoryId();
-        this.categoryName = category.getCatName();
+        this.id = folder.getCategoryId();
+        this.categoryName = folder.getCatName();
 
         CategoryService categoryService = new CategoryService();
-        categoryList = categoryService.getCategoryList(category.getCategoryId());
+        categoryList = categoryService.getCategoryList(folder.getCategoryId());
     }
 
     public CategoryResource(WebdavResourceFactory resourceFactory, String categoryPath) {
-        category = new CategoryMultiLang();
-        category.setCatName("root");
-        category.setCategoryId(0);
+        folder = new FolderMultiLang();
+        folder.setCatName("root");
+        folder.setCategoryId(0);
         this.resourceFactory = resourceFactory;
         this.id = 0;
         this.categoryName = "root";
 
         CategoryService categoryService = new CategoryService();
-        // leerer CategoryPath = Root, ansonsten Category ausfindig machen:
+        // leerer CategoryPath = Root, ansonsten Folder ausfindig machen:
         if (!categoryPath.equalsIgnoreCase("")) {
             try {
-                Category category = categoryService.getCategoryByPath(categoryPath);
-                this.id = category.getCategoryId();
-                this.categoryName = category.getCatName();
+                Folder folder = categoryService.getCategoryByPath(categoryPath);
+                this.id = folder.getCategoryId();
+                this.categoryName = folder.getCatName();
             } catch (ObjectNotFoundException e) {
                 System.err.println("Pfad: "+categoryPath+" nicht gefunden");
             }
@@ -103,7 +105,7 @@ public class CategoryResource implements MakeCollectionableResource, PropFindabl
     }
 
     public Date getCreateDate() {
-        return category.getChangedDate();
+        return folder.getChangedDate();
     }
 
     public String getUniqueId() {
@@ -126,7 +128,7 @@ public class CategoryResource implements MakeCollectionableResource, PropFindabl
 
         user = WebdavResourceFactory.getUsernameFromAuthHeader(request,method,auth);
         aclCtx = WebdavResourceFactory.createAclContext(user);
-        return WebdavResourceFactory.authroise(request,category,user,aclCtx);
+        return WebdavResourceFactory.authroise(request, folder,user,aclCtx);
     }
 
     public String getRealm() {
@@ -142,13 +144,13 @@ public class CategoryResource implements MakeCollectionableResource, PropFindabl
     }
 
     public Resource child(String s) {
-        System.out.println("Webdav CategoryResource.child: [string="+s+"]  ,categoryid="+category.getCategoryId()+",name="+category.getCatName());
+        System.out.println("Webdav CategoryResource.child: [string="+s+"]  ,categoryid="+ folder.getCategoryId()+",name="+ folder.getCatName());
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public List<? extends Resource> getChildren() {
 
-        System.out.println("Webdav CategoryResource.getChildren: ,categoryid="+category.getCategoryId()+",name="+category.getCatName());
+        System.out.println("Webdav CategoryResource.getChildren: ,categoryid="+ folder.getCategoryId()+",name="+ folder.getCatName());
 
         List<Resource> list = new LinkedList<Resource>();
         AclCategoryService categoryService = new AclCategoryService(aclCtx);
@@ -158,14 +160,14 @@ public class CategoryResource implements MakeCollectionableResource, PropFindabl
         
         //Home bzw Mandanten-Kategorie pr�fen: OB NUR HOME_DIR angezeigt werden sol
         if (Config.homeCategoryId!=-1) {
-            if (category.getCategoryId()==0) {
+            if (folder.getCategoryId()==0) {
                 //Aktuelle Kategorie = ROOT
                 if (user.getHomeCategoryId()!=-1) {
                     //Benutzer hat eine Home-Kategorie
                     if (Config.homeCategoryAsRoot) {
                         //Soll als Root angezeigt werden, daher nur Config.homeCategoryId anzeigen
                         try {
-                            CategoryMultiLang category = (CategoryMultiLang)categoryService.getCategoryById(Config.homeCategoryId);
+                            FolderMultiLang category = (FolderMultiLang)categoryService.getCategoryById(Config.homeCategoryId);
                             list.add(new CategoryResource(resourceFactory, category));
                             return list;
                         } catch (ObjectNotFoundException e) {
@@ -176,14 +178,14 @@ public class CategoryResource implements MakeCollectionableResource, PropFindabl
                     }
                 }
             }
-            if (category.getCategoryId()==Config.homeCategoryId) {
+            if (folder.getCategoryId()==Config.homeCategoryId) {
                 //Aktuelle Kategorie = Home-Categorie Container, nur die Home-Kategorie des aktuellen Users anzeigen
                 if (user.getHomeCategoryId()!=-1) {
                     if (Config.homeCategoryAsRoot) {
                         //Soll als Root angezeigt werden, daher nur Config.homeCategoryId anzeigen
                         try {
-                            List<Category> categoryList = categoryService.getCategorySubTree(category.getCategoryId(),0);
-                            for (Category catListElem : categoryList) {
+                            List<Folder> folderList = categoryService.getCategorySubTree(folder.getCategoryId(),0);
+                            for (Folder catListElem : folderList) {
                                 list.add(new CategoryResource(resourceFactory, catListElem));
                             }
                             return list;
@@ -198,9 +200,9 @@ public class CategoryResource implements MakeCollectionableResource, PropFindabl
         }
 
 
-        //categoryList = categoryService.getCategoryList(category.getCategoryId());
+        //categoryList = categoryService.getCategoryList(folder.getCategoryId());
         try {
-            categoryList = categoryService.getCategorySubTree(category.getCategoryId(),0);
+            categoryList = categoryService.getCategorySubTree(folder.getCategoryId(),0);
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (IOServiceException e) {
@@ -208,8 +210,8 @@ public class CategoryResource implements MakeCollectionableResource, PropFindabl
         }
 
         for (Object aCategory : categoryList) {
-            Category category = (Category) aCategory;
-            list.add(new CategoryResource(resourceFactory,category));
+            Folder folder = (Folder) aCategory;
+            list.add(new CategoryResource(resourceFactory, folder));
         }
 
         ImageVersionService imageService = new ImageVersionService();
@@ -220,7 +222,7 @@ public class CategoryResource implements MakeCollectionableResource, PropFindabl
         for (Object aCategoryMedia : categoryMediaList) {
             ImageVersionMultiLang media = (ImageVersionMultiLang)aCategoryMedia;
             //System.out.println(" [+] mediaObjectResource: "+media.getVersionName());
-            list.add(new MediaObjectResource(this.category,media));
+            list.add(new MediaObjectResource(this.folder,media));
         }
 
         return list;
@@ -234,7 +236,7 @@ public class CategoryResource implements MakeCollectionableResource, PropFindabl
         //    return null;
         //}
 
-        System.out.println("Webdav CategoryResource.createNew: ["+newName+",length="+length+",contentType="+contentType+"] ,catid="+category.getCategoryId()+",catname="+category.getCatName());
+        System.out.println("Webdav CategoryResource.createNew: ["+newName+",length="+length+",contentType="+contentType+"] ,catid="+ folder.getCategoryId()+",catname="+ folder.getCatName());
 
         int ivid = -1;
         int overwrittenIvId = -1;
@@ -260,7 +262,7 @@ public class CategoryResource implements MakeCollectionableResource, PropFindabl
                         }
                     } else {
                         overwrittenIvId = res.getMediaObject().getIvid();
-                        categoryService.deleteImageFromCategory(category.getCategoryId(),res.getMediaObject().getIvid());
+                        categoryService.deleteImageFromCategory(folder.getCategoryId(),res.getMediaObject().getIvid());
                     }
 
                     //return null;
@@ -283,11 +285,11 @@ public class CategoryResource implements MakeCollectionableResource, PropFindabl
             //EmptyMediaObject anlegen dass dann �berschrieben werden kann
             ImageVersionMultiLang media = createEmptyMediaObject(newName);
             try {
-                categoryService.addImageToCategory(category.getCategoryId(),media.getIvid());
+                categoryService.addImageToCategory(folder.getCategoryId(),media.getIvid());
             } catch (DublicateEntry dublicateEntry) {
                 dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
-            return new MediaObjectResource(category,media);
+            return new MediaObjectResource(folder,media);
         }
 
         if (alreadyExistingResource==null) {
@@ -322,7 +324,7 @@ public class CategoryResource implements MakeCollectionableResource, PropFindabl
                 File file = new File(Config.getTempPath()+File.separator+olFileName);
                 file.delete();
 
-                categoryService.addImageToCategory(category.getCategoryId(),ivid);
+                categoryService.addImageToCategory(folder.getCategoryId(),ivid);
 
             }  catch (MimeTypeNotSupportedException e) {
                 System.out.println("Diese Datei wird nicht unterst�tzt");
@@ -353,7 +355,7 @@ public class CategoryResource implements MakeCollectionableResource, PropFindabl
             inboxService.removeImage(media.getIvid());
 
             System.out.println("  [+] fertig...");
-            return new MediaObjectResource(category,media);
+            return new MediaObjectResource(folder,media);
 
         } else {
             return alreadyExistingResource;
@@ -365,8 +367,8 @@ public class CategoryResource implements MakeCollectionableResource, PropFindabl
     private void renewLinkedCategories(ImageVersionMultiLang media, int overwrittenIvId) {
 
         CategoryService categoryService = new CategoryService();
-        List<Category> linkedCategoryList = categoryService.getCategoryListFromImageVersion(overwrittenIvId);
-        for (Category linkedCat : linkedCategoryList) {
+        List<Folder> linkedFolderList = categoryService.getCategoryListFromImageVersion(overwrittenIvId);
+        for (Folder linkedCat : linkedFolderList) {
             categoryService.deleteImageFromCategory(linkedCat.getCategoryId(), overwrittenIvId);
             try {
                 categoryService.addImageToCategory(linkedCat.getCategoryId(), media.getIvid());
@@ -436,13 +438,13 @@ public class CategoryResource implements MakeCollectionableResource, PropFindabl
         CategoryService categoryService = new CategoryService();
         boolean isCreateAllowed = true;
 
-        //if (user.getRole()==User.ROLE_HOME_EDITOR) { isCreateAllowed = categoryService.isCanModifyCategory(user,category.getCategoryId()); }
+        //if (user.getRole()==User.ROLE_HOME_EDITOR) { isCreateAllowed = categoryService.isCanModifyCategory(user,folder.getCategoryId()); }
         //if (user.getRole()>=User.ROLE_MASTEREDITOR) { isCreateAllowed = true; } //Erst ab Rolle Editor darf jemand neue Objekte anlegen
 
         if (isCreateAllowed) {
 
-            CategoryMultiLang newCategory = new CategoryMultiLang();
-            newCategory.setParent(category.getCategoryId());
+            FolderMultiLang newCategory = new FolderMultiLang();
+            newCategory.setParent(folder.getCategoryId());
             newCategory.setCatName(s);
             newCategory.setCatTitle(s);
             newCategory.setCatTitleLng1(s);
@@ -466,23 +468,23 @@ public class CategoryResource implements MakeCollectionableResource, PropFindabl
         CategoryService categoryService = new CategoryService();
         boolean isMoveAllowed = true;
 
-        //if (user.getRole()==User.ROLE_HOME_EDITOR) { isMoveAllowed = categoryService.isCanModifyCategory(user,category.getCategoryId()); }
+        //if (user.getRole()==User.ROLE_HOME_EDITOR) { isMoveAllowed = categoryService.isCanModifyCategory(user,folder.getCategoryId()); }
         //if (user.getRole()>=User.ROLE_MASTEREDITOR) { isMoveAllowed = true; } //Erst ab Rolle Editor darf jemand neue Objekte anlegen
 
         if (isMoveAllowed) {
             System.out.println("Webdav moveTo: cat="+this.getUniqueId()+"...res="+collectionResource.getUniqueId()+" s="+s);
-            if (String.valueOf(category.getParent()).equalsIgnoreCase(collectionResource.getUniqueId())) {
+            if (String.valueOf(folder.getParent()).equalsIgnoreCase(collectionResource.getUniqueId())) {
 
                 try {
                     //Umbenennen
-                    CategoryMultiLang categoryML = (CategoryMultiLang)categoryService.getCategoryById(category.getCategoryId());
-                    if (categoryML.getCatTitle().equalsIgnoreCase(category.getCatName())) {
+                    FolderMultiLang categoryML = (FolderMultiLang)categoryService.getCategoryById(folder.getCategoryId());
+                    if (categoryML.getCatTitle().equalsIgnoreCase(folder.getCatName())) {
                         categoryML.setCatTitle(s);
                     }
-                    if (categoryML.getCatTitleLng1().equalsIgnoreCase(category.getCatName())) {
+                    if (categoryML.getCatTitleLng1().equalsIgnoreCase(folder.getCatName())) {
                         categoryML.setCatTitleLng1(s);
                     }
-                    if (categoryML.getCatTitleLng2().equalsIgnoreCase(category.getCatName())) {
+                    if (categoryML.getCatTitleLng2().equalsIgnoreCase(folder.getCatName())) {
                         categoryML.setCatTitleLng2(s);
                     }
                     categoryML.setCatName(s);
@@ -496,9 +498,9 @@ public class CategoryResource implements MakeCollectionableResource, PropFindabl
 
             } else {
                 //Verschieben
-                category.setParent(Integer.parseInt(collectionResource.getUniqueId()));
+                folder.setParent(Integer.parseInt(collectionResource.getUniqueId()));
                 try {
-                    categoryService.save(category);
+                    categoryService.save(folder);
                 } catch (IOServiceException e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }
@@ -512,7 +514,7 @@ public class CategoryResource implements MakeCollectionableResource, PropFindabl
         //if (user.getRole()>=User.ROLE_MASTEREDITOR) { //Erst ab Rolle Editor darf jemand neue Objekte anlegen
             CategoryService categoryService = new CategoryService();
             try {
-                categoryService.deleteById(category.getCategoryId());
+                categoryService.deleteById(folder.getCategoryId());
             } catch (IOServiceException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }

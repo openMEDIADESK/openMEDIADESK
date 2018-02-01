@@ -29,7 +29,7 @@ import net.stumpner.security.acl.AccessObject;
  * Time: 07:48:47
  * To change this template use File | Settings | File Templates.
  */
-public class CategoryMultiLang extends Category implements IMultiLangObject, AccessObject {
+public class FolderMultiLang extends Folder implements IMultiLangObject, AccessObject {
 
     private static final int ACL_TYPE_ID = 12;
 

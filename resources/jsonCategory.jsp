@@ -1,13 +1,7 @@
-<%@ page import="com.stumpner.mediadesk.core.database.sc.CategoryService" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
-<%@ page import="com.stumpner.mediadesk.image.category.Category" %>
-<%@ page import="com.stumpner.mediadesk.image.category.CategoryMultiLang" %>
 <%@ page import="com.stumpner.mediadesk.usermanagement.User" %>
-<%@ page import="net.stumpner.security.acl.AclControllerContext" %>
-<%@ page import="com.stumpner.mediadesk.usermanagement.acl.AclContextFactory" %>
 <%@ page import="net.stumpner.security.acl.AclPermission" %>
-<%@ page import="com.stumpner.mediadesk.core.Config" %>
 <%@ page import="com.stumpner.mediadesk.web.LngResolver" %>
 <%@ page import="com.stumpner.mediadesk.core.database.sc.AclCategoryService" %>
 <%@ page import="net.stumpner.security.acl.AclController" %>
@@ -15,7 +9,7 @@
 <%@ page import="com.stumpner.mediadesk.core.database.sc.UserService" %>
 <%@ page import="com.stumpner.mediadesk.usermanagement.SecurityGroup" %>
 <%@ page import="com.stumpner.mediadesk.web.mvc.util.WebHelper" %>
-<%@ page import="java.util.Date" %>
+<%@ page import="com.stumpner.mediadesk.image.category.Folder" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html;charset=utf-8" language="java" %>
 <%
@@ -53,39 +47,39 @@
         if (user.getRole()>=User.ROLE_EDITOR) {
             showCustomFolderIcons = true;
         }
-        List categoryList = null;
+        List folderList = null;
         if (user.getUserId()==-1) { //Gast - Public
             if (application.getAttribute("publicCategoryListTime"+node)==null) {
-                categoryList = categoryService.getCategorySubTree(node,0);
-                application.setAttribute("publicCategoryList"+node, categoryList);
+                folderList = categoryService.getCategorySubTree(node,0);
+                application.setAttribute("publicCategoryList"+node, folderList);
                 application.setAttribute("publicCategoryListTime"+node, System.currentTimeMillis());
                 // System.out.println("jsonCategory.jsp: fill cache"+node);
             } else {
                 //System.out.println("jsonCategory.jsp: using cache "+node);
-                categoryList = (List)application.getAttribute("publicCategoryList"+node);
+                folderList = (List)application.getAttribute("publicCategoryList"+node);
                 long lastUpdate = (Long)application.getAttribute("publicCategoryListTime"+node);
                 if (System.currentTimeMillis()-lastUpdate > 10000) { //Millisekunden zum cachen
                     application.removeAttribute("publicCategoryListTime"+node);
                 }
             }
         } else {
-            categoryList = categoryService.getCategorySubTree(node,0);
+            folderList = categoryService.getCategorySubTree(node,0);
         }
 
-        Iterator categories = categoryList.iterator();
+        Iterator categories = folderList.iterator();
     %>
 
     [<% while (categories.hasNext()) { %>{
     <%
         boolean checkedValue = false;
-        Category category = (Category)categories.next();
-        request.setAttribute("jsonCategory",category);
+        Folder folder = (Folder)categories.next();
+        request.setAttribute("jsonCategory", folder);
         if (request.getParameter("lng")!=null) { request.setAttribute("lng",request.getParameter("lng")); }
         else { request.setAttribute("lng","index"); }
-        String categoryTitle = category.getCatTitle().replace('"',' ');
+        String categoryTitle = folder.getCatTitle().replace('"',' ');
         if (request.getParameter("type")!=null) {
             if (request.getParameter("type").equalsIgnoreCase("ACL")) {
-                Acl acl = AclController.getAcl(category);
+                Acl acl = AclController.getAcl(folder);
                 UserService userService = new UserService();
                 SecurityGroup securityGroup = userService.getSecurityGroupById(Integer.parseInt(request.getParameter("id")));
                 AclPermission permission = new AclPermission(AclPermission.READ);
@@ -103,7 +97,7 @@
     <c:url value="/${lng}/categoryedit" var="editUrl">
         <c:param name="categoryid" value="${jsonCategory.categoryId}"/>
     </c:url>
-            "id": "<%= category.getCategoryId() %>",
+            "id": "<%= folder.getCategoryId() %>",
             "text": "<%=  categoryTitle %>",
 <%          if (request.getParameter("checked")==null) { %>
             "uiProvider": 'col',
@@ -119,18 +113,18 @@
             %>"checked": <c:out value="${checkedValue}"/>,<% } %>
             "leaf": false
     <%
-        if (category.isPublicAcl() && showCustomFolderIcons) {
+        if (folder.isPublicAcl() && showCustomFolderIcons) {
     %>
             ,"iconCls": "treeIconPublic" 
     <%
-        } else if (category.isProtectedAcl() && showCustomFolderIcons) {
+        } else if (folder.isProtectedAcl() && showCustomFolderIcons) {
     %>
             ,"iconCls": "treeIconProtected"
     <%
         }
     %>
-    <% if (category.getIcon().length()>0) { %>
-            ,"icon": "<%= category.getIcon() %>"
+    <% if (folder.getIcon().length()>0) { %>
+            ,"icon": "<%= folder.getIcon() %>"
     <% } %>
         }<% if (categories.hasNext()) { %>,<% } } %>]
 <%

@@ -17,7 +17,6 @@ import java.io.FileOutputStream;
 
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.lic.LicenceChecker;
-import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.QuotaExceededException;
 import com.stumpner.mediadesk.image.util.ImageImport;
@@ -271,8 +270,6 @@ public class ImportFilesystemController extends ModelFormPageController {
         fileList.setAutoImportEnabled(Config.autoimportFtp);
         fileList.setAutoImportFtpCat(Config.autoImportFtpCat);
 
-        FolderService folderService = new FolderService();
-        fileList.setFolderList(folderService.getFolderList(1000));
         CategoryService categoryService = new CategoryService();
         fileList.setCategoryList(categoryService.getCategoryList(0));
 

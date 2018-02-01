@@ -50,8 +50,6 @@ public class BulkModificationController extends SimpleFormControllerMd {
         this.setCommandClass(BulkModification.class);
         this.setSessionForm(true);
         this.setBindOnNewForm(true);
-//        this.setValidator(new FolderEditValidator());
-//        this.setValidateOnBinding(true);
 
         this.permitOnlyLoggedIn=true;
         this.permitMinimumRole= User.ROLE_ADMIN;

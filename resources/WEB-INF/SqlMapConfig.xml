@@ -25,15 +25,14 @@
     <sqlMap resource="sqlmap/imageversion.xml"/>
     <sqlMap resource="sqlmap/imagemetadata.xml"/>
     <sqlMap resource="sqlmap/filmreel.xml"/>
-    <sqlMap resource="sqlmap/folder.xml"/>
     <sqlMap resource="sqlmap/inbox.xml"/>
     <sqlMap resource="sqlmap/pinpic.xml"/>
     <sqlMap resource="sqlmap/lightbox.xml"/>
     <sqlMap resource="sqlmap/shoppingcart.xml"/>
     <sqlMap resource="sqlmap/downloadlogger.xml"/>
     <sqlMap resource="sqlmap/search.xml"/>
-    <sqlMap resource="sqlmap/category.xml"/>
     <sqlMap resource="sqlmap/menu.xml"/>
     <sqlMap resource="sqlmap/config.xml"/>
+    <sqlMap resource="sqlmap/category.xml"/>
     <sqlMap resource="sqlmap/customlist.xml"/>
 </sqlMapConfig>

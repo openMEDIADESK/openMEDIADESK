@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.category.FolderMultiLang;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 
@@ -13,7 +14,7 @@ import com.stumpner.mediadesk.web.mvc.exceptions.UndefinedWebStateException;
 import com.stumpner.mediadesk.core.database.sc.UserService;
 import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
-import com.stumpner.mediadesk.image.category.CategoryMultiLang;
+import com.stumpner.mediadesk.image.category.FolderMultiLang;
 import net.stumpner.security.acl.*;
 import com.stumpner.mediadesk.web.mvc.common.SimpleFormControllerMd;
 
@@ -68,7 +69,7 @@ public class AclEditController extends SimpleFormControllerMd {
         if (httpServletRequest.getSession().getAttribute("accessObject")==null)
             throw new UndefinedWebStateException("No ACL-Object set.");
         AccessObject accessObject = (AccessObject)httpServletRequest.getSession().getAttribute("accessObject");
-        //Category category = new Category();
+        //Folder category = new Folder();
         //category.getCategoryId();
         Acl acl = AclController.getAcl(accessObject);
         return acl;
@@ -151,8 +152,8 @@ public class AclEditController extends SimpleFormControllerMd {
         httpServletRequest.getSession().removeAttribute("accessObject");
         httpServletRequest.getSession().removeAttribute("redirectTo");
 
-        if (accessObject instanceof CategoryMultiLang) {
-            CategoryMultiLang c = (CategoryMultiLang)accessObject;
+        if (accessObject instanceof FolderMultiLang) {
+            FolderMultiLang c = (FolderMultiLang)accessObject;
             //Public true/false setzen
             renewCategoryPublicProtectedStatus(c);
             //Auf Vererbende ACLs pr�fen
@@ -165,11 +166,11 @@ public class AclEditController extends SimpleFormControllerMd {
         //return super.onSubmit(httpServletRequest, httpServletResponse, object, bindException);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    private void inheritAclToChildsRekursive(Acl acl, CategoryMultiLang c) {
+    private void inheritAclToChildsRekursive(Acl acl, FolderMultiLang c) {
 
             CategoryService categoryService = new CategoryService();
-            List<CategoryMultiLang> list = categoryService.getCategoryList(c.getCategoryId());
-            for (CategoryMultiLang ic : list) {
+            List<FolderMultiLang> list = categoryService.getCategoryList(c.getCategoryId());
+            for (FolderMultiLang ic : list) {
                 if (ic.isInheritAcl()) {
                     System.out.println("inherit acl to cat: "+ic.getCategoryId()+" "+ic.getCatName());
                     AclController.setAcl(ic, acl);
@@ -186,7 +187,7 @@ public class AclEditController extends SimpleFormControllerMd {
 
     }
 
-    public static void renewCategoryPublicProtectedStatus(CategoryMultiLang c) throws AclNotFoundException, IOServiceException {
+    public static void renewCategoryPublicProtectedStatus(FolderMultiLang c) throws AclNotFoundException, IOServiceException {
 
         UserService userService = new UserService();
         //Public true/false setzen

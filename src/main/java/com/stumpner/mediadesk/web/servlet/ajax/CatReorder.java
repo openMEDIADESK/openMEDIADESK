@@ -3,7 +3,8 @@ package com.stumpner.mediadesk.web.servlet.ajax;
 import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
-import com.stumpner.mediadesk.image.category.Category;
+import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.category.Folder;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
 import com.stumpner.mediadesk.usermanagement.User;
 
@@ -74,7 +75,7 @@ public class CatReorder extends HttpServlet {
             CategoryService cs = new CategoryService();
 
             try {
-                Category cat = cs.getCategoryById(Integer.parseInt(movingNode));
+                Folder cat = cs.getCategoryById(Integer.parseInt(movingNode));
                 cat.setParent(Integer.parseInt(newParent));
                 cs.save(cat);
 

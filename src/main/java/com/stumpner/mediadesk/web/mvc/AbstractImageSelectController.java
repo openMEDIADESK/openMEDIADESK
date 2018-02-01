@@ -1,9 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.core.Resources;
-import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.image.category.Category;
-import com.stumpner.mediadesk.web.mvc.exceptions.LoadThumbnailException;
+import com.stumpner.mediadesk.image.category.Folder;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
@@ -73,7 +70,7 @@ public abstract class AbstractImageSelectController extends AbstractImageLoaderC
         Object container = getContainerObject(request);
         Integer categoryId = null;
         if (container!=null) {
-            categoryId = ((Category)container).getCategoryId();
+            categoryId = ((Folder)container).getCategoryId();
         }
         MediaObjectService.selectMedia(ivid, categoryId, request);
     }

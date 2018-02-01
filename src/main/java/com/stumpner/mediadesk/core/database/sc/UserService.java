@@ -5,9 +5,10 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.core.database.AppSqlMap;
 import com.stumpner.mediadesk.core.Config;
+import com.stumpner.mediadesk.image.category.FolderMultiLang;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.SecurityGroup;
-import com.stumpner.mediadesk.image.category.CategoryMultiLang;
+import com.stumpner.mediadesk.image.category.FolderMultiLang;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
 
 import java.sql.SQLException;
@@ -229,7 +230,7 @@ public class UserService implements IServiceClass {
             String homeCategoryName = user.getName()+user.getUserId();
 
             CategoryService categoryService = new CategoryService();
-            CategoryMultiLang category = new CategoryMultiLang();
+            FolderMultiLang category = new FolderMultiLang();
             category.setParent(Config.homeCategoryId);
             category.setCatName(homeCategoryName);
             category.setCatTitle(user.getName());
@@ -238,7 +239,7 @@ public class UserService implements IServiceClass {
             categoryService.addCategory(category);
 
             try {
-                category = (CategoryMultiLang)categoryService.getCategoryByName(homeCategoryName);
+                category = (FolderMultiLang)categoryService.getCategoryByName(homeCategoryName);
                 user.setHomeCategoryId(category.getCategoryId());
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

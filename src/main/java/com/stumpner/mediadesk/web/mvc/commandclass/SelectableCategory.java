@@ -1,6 +1,7 @@
 package com.stumpner.mediadesk.web.mvc.commandclass;
 
-import com.stumpner.mediadesk.image.category.Category;
+import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.category.Folder;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
@@ -31,14 +32,14 @@ import com.stumpner.mediadesk.image.category.Category;
 public class SelectableCategory {
 
     private boolean selected = false;
-    private Category category = null;
+    private Folder folder = null;
 
-    public Category getCategory() {
-        return category;
+    public Folder getFolder() {
+        return folder;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setFolder(Folder folder) {
+        this.folder = folder;
     }
 
     public boolean isSelected() {

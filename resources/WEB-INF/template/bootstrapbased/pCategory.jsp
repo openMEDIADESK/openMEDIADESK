@@ -27,14 +27,14 @@
             <li><a href="<c:out value="${thisCatLink}"/>"><i class="fa fa-folder-open-o fa-fw"></i> <c:out value="${navItem.catTitle}"/></a></li>
         </c:if>
         <c:if test="${loop.last}">
-            <li class="active"><i class="fa fa-folder-open-o fa-fw"></i> <c:out value="${category.catTitle}"/></li>
+            <li class="active"><i class="fa fa-folder-open-o fa-fw"></i> <c:out value="${folder.catTitle}"/></li>
         </c:if>
     </c:forEach>
 </ol>
 <!-- /breadcrumbs -->
 <!-- ordnertitel und infos -->
-<h3><c:out value="${category.catTitle}"/><small>&nbsp;<c:out value="${category.imageCount}"/> <spring:message code="stat.pics"/></small></h3>
-<h4><c:out value="${category.description}"/></h4>
+<h3><c:out value="${folder.catTitle}"/><small>&nbsp;<c:out value="${folder.imageCount}"/> <spring:message code="stat.pics"/></small></h3>
+<h4><c:out value="${folder.description}"/></h4>
 <!-- /ordnertitel und infos -->
 <!-- mediadesk abstand -->
 <div class="md-space">&nbsp;</div>

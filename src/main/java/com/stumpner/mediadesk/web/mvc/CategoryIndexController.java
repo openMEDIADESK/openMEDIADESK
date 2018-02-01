@@ -1,5 +1,7 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.category.FolderMultiLang;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.log4j.Logger;
 
@@ -14,8 +16,8 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.core.Resources;
-import com.stumpner.mediadesk.image.category.Category;
-import com.stumpner.mediadesk.image.category.CategoryMultiLang;
+import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.category.FolderMultiLang;
 import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
@@ -123,7 +125,7 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
         categoryService.setUsedLanguage(lngResolver.resolveLng(request));
         int id = 0;
         boolean showSorter = true;
-        Category category = new Category();
+        Folder folder = new Folder();
         List parentCategoryList = new ArrayList();
 
         try {
@@ -131,14 +133,14 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
             id = getCategoryId(request);
 
             if (id!=0) {
-                category = categoryService.getCategoryById(id);
-                request.setAttribute("category",category);
+                folder = categoryService.getCategoryById(id);
+                request.setAttribute("folder", folder);
             } else {
-                category.setCategoryId(0);
-                category.setCatTitle("");
-                category.setDescription("");
-                category.setDefaultview(Config.categoryDefaultViewOnRoot);
-                request.setAttribute("category",category);
+                folder.setCategoryId(0);
+                folder.setCatTitle("");
+                folder.setDescription("");
+                folder.setDefaultview(Config.categoryDefaultViewOnRoot);
+                request.setAttribute("folder", folder);
             }
 
 
@@ -156,13 +158,13 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
 
         if (Config.podcastEnabled) {
             request.setAttribute("podcastEnabled",new Boolean(true));
-            request.setAttribute("podcastUrl","/rss/podcast/category/"+category.getCategoryId());
+            request.setAttribute("podcastUrl","/rss/podcast/folder/"+ folder.getCategoryId());
         } else {
             request.setAttribute("podcastEnabled",new Boolean(false));
         }
 
         //Für die Sharer Links
-        request.setAttribute("sharerTitle", URLEncoder.encode(category.getCatTitle(),"UTF-8"));
+        request.setAttribute("sharerTitle", URLEncoder.encode(folder.getCatTitle(),"UTF-8"));
 
         try {
             parentCategoryList = categoryService.getParentCategoryList(id);
@@ -186,7 +188,7 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
 
             if (id != 0) {
                 AclControllerContext aclCtx = AclContextFactory.getAclContext(request);
-                if (!aclCtx.checkPermissionsOr(AclContextFactory.getViewAndReadPermission(),category)) {
+                if (!aclCtx.checkPermissionsOr(AclContextFactory.getViewAndReadPermission(), folder)) {
                     this.denyByAcl(response);
                 }
             }
@@ -201,8 +203,8 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
                 if (images.hasNext()) {
                     ImageVersion image = (ImageVersion) images.next();
                     if (image.getMayorMime().equalsIgnoreCase("image")) {
-                        category.setPrimaryIvid(image.getIvid());
-                        categoryService.save(category);
+                        folder.setPrimaryIvid(image.getIvid());
+                        categoryService.save(folder);
                         request.setAttribute("showInfoMessage","folderview.action.ividset");
                     } else {
                         request.setAttribute("showInfoMessage","folderview.action.notselected");
@@ -223,14 +225,14 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
         /* Kategorien laden und in das Model speichern */
         request.setAttribute("parentCategoryList",parentCategoryList);
         request.setAttribute("folderPathArray",getFolderPathArray(parentCategoryList));
-        request.setAttribute("folderId", category.getCategoryId());
+        request.setAttribute("folderId", folder.getCategoryId());
         request.setAttribute("categoryList",categoryListTree);
         //todo: auslagern in AbstractThumbnailViewController
         request.setAttribute("showSorter",new Boolean(showSorter));
         request.setAttribute("showInsertUrl",new Boolean(isShowInsertUrl(request)));
         request.setAttribute("showRemoveUrl",new Boolean(isShowRemoveUrl(request)));
 
-        request.setAttribute("webSiteTitle", category.getCatTitle());
+        request.setAttribute("webSiteTitle", folder.getCatTitle());
 
         putOpenGraphDataAttributes(request);
 
@@ -247,7 +249,7 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
                     //Lieferant, Redakteur von den ACL Settings abhängig
 
                     AclControllerContext aclCtx = AclContextFactory.getAclContext(request);
-                    boolean canUploadContext = aclCtx.checkPermission(new AclPermission("write"), category);
+                    boolean canUploadContext = aclCtx.checkPermission(new AclPermission("write"), folder);
 
                     request.setAttribute("uploadEnabled",new Boolean(canUploadContext));
                 } else {
@@ -270,8 +272,8 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
         if (getUser(request).getRole()>=User.ROLE_MASTEREDITOR) {
             request.setAttribute("canModifyCategory",true);
 
-            //Category category = (Category)getContainerObject(request);
-            if (category.getParent()==0) {
+            //Folder folder = (Folder)getContainerObject(request);
+            if (folder.getParent()==0) {
                 //mediaMenu.setActionIconCls("buttonAddCat");
             } else {
                 //mediaMenu.setActionIconCls("buttonEditCat");
@@ -286,7 +288,7 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
         Map og = new HashMap();
 
         if (request.getAttribute("category")!=null) {
-            Category c = (Category)request.getAttribute("category");
+            Folder c = (Folder)request.getAttribute("category");
             og.put("url",WebHelper.getServerNameUrlPathWithQueryString(request));
             og.put("type","article");
             og.put("title",c.getCatTitle());
@@ -306,7 +308,7 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
         StringBuffer sb = new StringBuffer("[");
         for (int a=0;a<parentCategoryList.size();a++) {
             if (a>0) { sb = sb.append(","); }
-            CategoryMultiLang folder = (CategoryMultiLang)parentCategoryList.get(a);
+            FolderMultiLang folder = (FolderMultiLang)parentCategoryList.get(a);
             sb = sb.append(folder.getCategoryId());
         }
         sb = sb.append("]");
@@ -355,18 +357,18 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
         return id;
     }
 
-    public Category getCategory(HttpServletRequest request) {
-        return (Category)getContainerObject(request);
+    public Folder getCategory(HttpServletRequest request) {
+        return (Folder)getContainerObject(request);
     }
 
     protected Object getContainerObject(HttpServletRequest request) {
 
         CategoryService categoryService = new CategoryService();
-        Category category = new Category();
+        Folder folder = new Folder();
         //Wenn es "nur" um die Root Kategorie geht, muss sie garnicht geladen werden
         if (getContainerId(request)!=0) {
             try {
-                category = categoryService.getCategoryById(this.getContainerId(request));
+                folder = categoryService.getCategoryById(this.getContainerId(request));
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 return super.getContainerObject(request);
@@ -376,9 +378,9 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
             }
         } else {
             //"Hauptkategorie = 0"
-            category.setCategoryId(0);
+            folder.setCategoryId(0);
         }
-        return category;
+        return folder;
     }
 
     private boolean isShowRemoveUrl(HttpServletRequest request) {
@@ -407,21 +409,21 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
     }
 
     protected int getDefaultSort(HttpServletRequest request) {
-        Category category = (Category)getContainerObject(request);
-        if (category.getSortBy()==0) {
+        Folder folder = (Folder)getContainerObject(request);
+        if (folder.getSortBy()==0) {
             return Config.sortByCategory;
         } else {
-            return category.getSortBy();
+            return folder.getSortBy();
         }
     }
 
     protected int getDefaultOrder(HttpServletRequest request) {
 
-        Category category = (Category)getContainerObject(request);
-        if (category.getOrderBy()==0) {
+        Folder folder = (Folder)getContainerObject(request);
+        if (folder.getOrderBy()==0) {
             return Config.orderByCategory;
         } else {
-            return category.getOrderBy();
+            return folder.getOrderBy();
         }
     }
     

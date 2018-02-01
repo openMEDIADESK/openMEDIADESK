@@ -9,11 +9,9 @@ import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.LightboxService;
 import com.stumpner.mediadesk.core.database.sc.ShoppingCartService;
 import com.stumpner.mediadesk.core.Resources;
-import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.image.category.Folder;
 import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.usermanagement.User;
-import com.stumpner.mediadesk.web.LngResolver;
-import com.stumpner.mediadesk.web.mvc.common.MediaMenu;
 
 import java.util.List;
 
@@ -58,7 +56,7 @@ public class LightboxViewController extends AbstractThumbnailAjaxController {
         LightboxService lightboxService = new LightboxService();
         ImageVersionService imageService = new ImageVersionService();
         Folder folder = new Folder();
-        folder.setFolderTitle("Lightbox");
+        folder.setCatTitle("Lightbox");
         User user = getUser(httpServletRequest);
 
         if (httpServletRequest.getParameter("remove")!=null) {

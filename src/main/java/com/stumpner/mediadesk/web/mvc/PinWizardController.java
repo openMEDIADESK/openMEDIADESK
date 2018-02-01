@@ -2,7 +2,7 @@ package com.stumpner.mediadesk.web.mvc;
 
 import com.stumpner.mediadesk.image.pinpics.Pinpic;
 import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.image.category.Category;
+import com.stumpner.mediadesk.image.category.Folder;
 import com.stumpner.mediadesk.image.inbox.InboxService;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.web.mvc.commandclass.PinWizard;
@@ -52,7 +52,6 @@ public class PinWizardController extends SimpleFormControllerMd {
         this.setCommandClass(PinWizard.class);
         this.setSessionForm(true);
         this.setBindOnNewForm(true);
-        //this.setValidator(new FolderEditValidator());
         this.setValidateOnBinding(true);
 
         this.permitOnlyLoggedIn=true;
@@ -111,7 +110,7 @@ public class PinWizardController extends SimpleFormControllerMd {
             Pinpic pinpic = new Pinpic();
             pinpic.setCreatorUserId(user.getUserId());
             pinpic.setEmailnotification(this.getUser(httpServletRequest).getEmail());
-            pinpic.setDefaultview(Category.VIEW_UNDEFINED);
+            pinpic.setDefaultview(Folder.VIEW_UNDEFINED);
             pinpic = pinpicService.add(pinpic);
             addImagesToPin(pinWizard.getImageList(),pinpic.getPinpicId());
             httpServletResponse.sendRedirect("pinedit?pinid="+pinpic.getPinpicId());

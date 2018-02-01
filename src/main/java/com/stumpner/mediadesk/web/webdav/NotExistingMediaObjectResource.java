@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.LinkedList;
 import java.io.*;
 
-import com.stumpner.mediadesk.image.category.Category;
+import com.stumpner.mediadesk.image.category.Folder;
 import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.image.util.SizeExceedException;
 import com.stumpner.mediadesk.core.Config;
@@ -52,15 +52,15 @@ import com.stumpner.mediadesk.upload.FileRejectException;
  */
 public class NotExistingMediaObjectResource implements FileResource, PutableResource {
 
-    Category category = null;
+    Folder folder = null;
     Path path = null;
     String name = "";
 
-    public NotExistingMediaObjectResource(Category linkedCategory, Path path) {
+    public NotExistingMediaObjectResource(Folder linkedFolder, Path path) {
 
-        System.out.println("creating new object in cat: "+linkedCategory.getCategoryId()+" path: "+path);
+        System.out.println("creating new object in cat: "+ linkedFolder.getCategoryId()+" path: "+path);
 
-        this.category = linkedCategory;
+        this.folder = linkedFolder;
         this.path = path;
     }
 
@@ -113,7 +113,7 @@ public class NotExistingMediaObjectResource implements FileResource, PutableReso
             File file = new File(Config.getTempPath()+File.separator+olFileName);
             file.delete();
             CategoryService categoryService = new CategoryService();
-            categoryService.addImageToCategory(category.getCategoryId(),ivid);
+            categoryService.addImageToCategory(folder.getCategoryId(),ivid);
 
         }  catch (MimeTypeNotSupportedException e) {
             System.out.println("Diese Datei wird nicht unterst�tzt");
@@ -127,7 +127,7 @@ public class NotExistingMediaObjectResource implements FileResource, PutableReso
 
         ImageVersionService imageService = new ImageVersionService();
         ImageVersionMultiLang media = (ImageVersionMultiLang)imageService.getImageVersionById(ivid);
-        return new MediaObjectResource(category,media);
+        return new MediaObjectResource(folder,media);
     }
 
     public Resource child(String s) {

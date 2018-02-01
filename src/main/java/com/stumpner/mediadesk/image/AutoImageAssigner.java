@@ -1,8 +1,7 @@
 package com.stumpner.mediadesk.image;
 
+import com.stumpner.mediadesk.image.category.Folder;
 import com.stumpner.mediadesk.image.inbox.InboxService;
-import com.stumpner.mediadesk.image.category.Category;
-import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.pinpics.Pinpic;
 import com.stumpner.mediadesk.core.database.sc.*;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
@@ -67,19 +66,9 @@ public class AutoImageAssigner {
         if (autoImportObject!=null) {
             if (isAutoImportCategory(autoImportObject)) {
                 CategoryService categoryService = new CategoryService();
-                Category category = (Category)autoImportObject;
-                try {
-                    categoryService.addImageToCategory(category.getCategoryId(),ivid);
-                    inboxService.removeImage(ivid);
-                } catch (DublicateEntry dublicateEntry) {
-                    dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                }
-            }
-            if (isAutoImportFolder(autoImportObject)) {
-                FolderService folderService = new FolderService();
                 Folder folder = (Folder)autoImportObject;
                 try {
-                    folderService.addImageToFolder(folder.getFolderId(),ivid);
+                    categoryService.addImageToCategory(folder.getCategoryId(),ivid);
                     inboxService.removeImage(ivid);
                 } catch (DublicateEntry dublicateEntry) {
                     dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -152,21 +141,11 @@ public class AutoImageAssigner {
 
     public boolean isAutoImportCategory(Object o) {
 
-        if (o instanceof Category) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean isAutoImportFolder(Object o) {
-
         if (o instanceof Folder) {
             return true;
         } else {
             return false;
         }
-
     }
 
     public boolean isAutoImportPin(Object o) {
@@ -200,12 +179,8 @@ public class AutoImageAssigner {
     public String getRedirectOfAutoImport(Object autoImportObject) throws IOException {
 
             if (isAutoImportCategory(autoImportObject)) {
-                Category category = (Category)autoImportObject;
-                return "c?id="+category.getCategoryId();
-            }
-            if (isAutoImportFolder(autoImportObject)) {
                 Folder folder = (Folder)autoImportObject;
-                return "folder?id="+folder.getFolderId();
+                return "c?id="+ folder.getCategoryId();
             }
             if (isAutoImportPin(autoImportObject)) {
                 Pinpic pinpic = (Pinpic)autoImportObject;

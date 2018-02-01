@@ -1,11 +1,11 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.category.FolderMultiLang;
 import com.stumpner.mediadesk.web.mvc.common.SimpleFormControllerMd;
 import net.stumpner.security.acl.AclController;
 import net.stumpner.security.acl.Acl;
 import net.stumpner.security.acl.AclPermission;
 import com.stumpner.mediadesk.image.pinpics.Pinpic;
-import com.stumpner.mediadesk.image.category.CategoryMultiLang;
 import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.SecurityGroup;
@@ -56,8 +56,6 @@ public class CategorySelectorController extends SimpleFormControllerMd {
         this.setCommandClass(CategorySelection.class);
         this.setSessionForm(true);
         this.setBindOnNewForm(true);
-        //this.setValidator(new FolderEditValidator());
-        //this.setValidateOnBinding(true);
 
         this.permitOnlyLoggedIn=true;
         this.permitMinimumRole = User.ROLE_PINMAKLER;
@@ -68,7 +66,7 @@ public class CategorySelectorController extends SimpleFormControllerMd {
         CategoryService categoryService = new AclCategoryService(request);
         LngResolver lngResolver = new LngResolver();
         categoryService.setUsedLanguage(lngResolver.resolveLng(request));
-        List<CategoryMultiLang> categoryTree = categoryService.getAllCategoryList();
+        List<FolderMultiLang> categoryTree = categoryService.getAllCategoryList();
 
         List<SelectableCategory> selectableCategoryList = getSelectableCategoryList(request.getParameter("type"), categoryTree, request);
         CategorySelection categorySelection = new CategorySelection();
@@ -130,24 +128,24 @@ public class CategorySelectorController extends SimpleFormControllerMd {
      * @param typeParameter
      * @return
      */
-    private List<SelectableCategory> getSelectableCategoryList(String typeParameter, List<CategoryMultiLang> categoryTree, HttpServletRequest request) {
+    private List<SelectableCategory> getSelectableCategoryList(String typeParameter, List<FolderMultiLang> categoryTree, HttpServletRequest request) {
 
         List<SelectableCategory> selectableCategoryList = new ArrayList<SelectableCategory>();
 
         if (typeParameter.equalsIgnoreCase("PIN")) {
 
-            for (CategoryMultiLang category : categoryTree) {
+            for (FolderMultiLang category : categoryTree) {
                 SelectableCategory selCat = new SelectableCategory();
-                selCat.setCategory(category);
+                selCat.setFolder(category);
                 selCat.setSelected(false);
                 selectableCategoryList.add(selCat);
             }
         }
 
         if (typeParameter.equalsIgnoreCase("ACL")) {
-            for (CategoryMultiLang category : categoryTree) {
+            for (FolderMultiLang category : categoryTree) {
                 SelectableCategory selCat = new SelectableCategory();
-                selCat.setCategory(category);
+                selCat.setFolder(category);
 
                 Acl acl = AclController.getAcl(category);
                 UserService userService = new UserService();
@@ -176,7 +174,7 @@ public class CategorySelectorController extends SimpleFormControllerMd {
         CategorySelection categorySelection = (CategorySelection)o;
         for (SelectableCategory category : categorySelection.getCategoryList()) {
             if (category.isSelected()) {
-                //System.out.println("Selected: "+category.getCategory().getCategoryId());
+                //System.out.println("Selected: "+category.getFolder().getCategoryId());
 
                 /**
                  * Kategorie-Inhalte einem PIN zuweisen
@@ -185,7 +183,7 @@ public class CategorySelectorController extends SimpleFormControllerMd {
                 if (categorySelection.getType().equalsIgnoreCase("PIN")) {
                     PinpicService pinService = new PinpicService();
                     int pinId = ((Integer)httpServletRequest.getSession().getAttribute("pinid")).intValue();
-                    SimpleLoaderClass slc = new SimpleLoaderClass(category.getCategory().getCategoryId());
+                    SimpleLoaderClass slc = new SimpleLoaderClass(category.getFolder().getCategoryId());
                     List mediaList = mediaService.getCategoryImages(slc);
                     Iterator mediaObjects = mediaList.iterator();
                     while (mediaObjects.hasNext()) {
@@ -199,7 +197,7 @@ public class CategorySelectorController extends SimpleFormControllerMd {
              */
 
             if (categorySelection.getType().equalsIgnoreCase("ACL")) {
-                Acl acl = AclController.getAcl(category.getCategory());
+                Acl acl = AclController.getAcl(category.getFolder());
                 UserService userService = new UserService();
                 SecurityGroup securityGroup = userService.getSecurityGroupById(categorySelection.getId());
                 AclPermission permission = new AclPermission(AclPermission.READ);
@@ -209,22 +207,22 @@ public class CategorySelectorController extends SimpleFormControllerMd {
                     //Hat Zugriff
                     if (category.isSelected()) {
                         //nichts �ndern
-                        System.out.println("nichts tun (hatte bereits zugriff)"+category.getCategory().getCategoryId());
+                        System.out.println("nichts tun (hatte bereits zugriff)"+category.getFolder().getCategoryId());
                     } else {
                         //zugriff entfernen
-                        System.out.println("Zugriff entfernen: "+category.getCategory().getCategoryId());
+                        System.out.println("Zugriff entfernen: "+category.getFolder().getCategoryId());
                         acl.removePermission(securityGroup, permission);
                         if (permission.getAction().equalsIgnoreCase("read")) {
                             acl.removePermission(securityGroup, new AclPermission("view"));
                             acl.removePermission(securityGroup, new AclPermission("write"));
                         }
-                        AclController.setAcl(category.getCategory(),acl);
+                        AclController.setAcl(category.getFolder(),acl);
                     }
                 } else {
                     //Hat nicht Zugriff
                     if (category.isSelected()) {
                         //zugriff geben
-                        System.out.println("Zugriff geben (hatte nicht)"+category.getCategory().getCategoryId());
+                        System.out.println("Zugriff geben (hatte nicht)"+category.getFolder().getCategoryId());
                         //acl.removePermission(securityGroup,  new AclPermission("view")); //eventuell existierende view berechtigungen entfernen
                         acl.addPermission(securityGroup, permission);
                         if (permission.getAction().equalsIgnoreCase("read")) {
@@ -232,10 +230,10 @@ public class CategorySelectorController extends SimpleFormControllerMd {
                                 acl.addPermission(securityGroup, new AclPermission("view"));
                             }
                         }
-                        AclController.setAcl(category.getCategory(),acl);
+                        AclController.setAcl(category.getFolder(),acl);
                     } else {
                         //nichts �ndern
-                        System.out.println("Hatte keinen Zugriff, braucht auch keinen: "+category.getCategory().getCategoryId());
+                        System.out.println("Hatte keinen Zugriff, braucht auch keinen: "+category.getFolder().getCategoryId());
                     }
                 }
             }

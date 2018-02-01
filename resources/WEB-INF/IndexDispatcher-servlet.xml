@@ -11,9 +11,6 @@
         <property name="viewName"><value>/WEB-INF/template/current/pSplashpage.jsp</value></property>
     </bean>
 
-    <bean id="folderIndexView" class="com.stumpner.mediadesk.web.mvc.FolderIndexViewController">
-        <property name="viewName"><value>/WEB-INF/template/current/pEventIndex.jsp</value></property>
-    </bean>
     <bean id="popupImageView" class="com.stumpner.mediadesk.web.mvc.PopupImageViewController">
         <property name="viewName"><value>/WEB-INF/template/current/wPreview.jsp</value></property>
     </bean>
@@ -249,7 +246,7 @@
         <property name="formView"><value>/WEB-INF/template/current/pCategoryEdit.jsp</value></property>
         <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
     </bean>
-    <bean id="categoryBreakupController" class="com.stumpner.mediadesk.web.mvc.CategoryBreakupController">
+    <bean id="folderBreakupController" class="com.stumpner.mediadesk.web.mvc.FolderBreakupController">
         <property name="sessionForm"><value>true</value></property>
         <property name="formView"><value>/WEB-INF/template/current/gMessageYesNo.jsp</value></property>
         <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
@@ -397,7 +394,7 @@
                 <prop key="/useredit">userEditController</prop>
                 <prop key="/userdelete">userDeleteController</prop>
                 <prop key="/categoryedit">categoryEditController</prop>
-                <prop key="/categorybreakup">categoryBreakupController</prop>
+                <prop key="/categorybreakup">folderBreakupController</prop>
                 <prop key="/categoryselector">categorySelectorController</prop>
                 <prop key="/treeacl">treeAclControllerController</prop>
                 <prop key="/mediadetailedit">mediaDetailEditController</prop> <!-- edit media tags/beschlagwortung -->

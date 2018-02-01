@@ -7,7 +7,7 @@ import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.category.Category;
+import com.stumpner.mediadesk.image.category.Folder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.validation.BindException;
@@ -187,9 +187,9 @@ public class UserEditController extends SimpleFormControllerMd {
             CategoryService categoryService = new CategoryService();
 
             try {
-                Category category = categoryService.getCategoryById(user.getHomeCategoryId());
-                category.setCatName(category.getCatName()+".bak."+(new Date().getDay()));
-                categoryService.save(category);
+                Folder folder = categoryService.getCategoryById(user.getHomeCategoryId());
+                folder.setCatName(folder.getCatName()+".bak."+(new Date().getDay()));
+                categoryService.save(folder);
             } catch (IOServiceException e1) {
                 e.printStackTrace();
             } catch (ObjectNotFoundException e2) {

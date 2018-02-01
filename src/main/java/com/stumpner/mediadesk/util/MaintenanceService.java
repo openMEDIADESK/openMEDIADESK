@@ -2,15 +2,13 @@ package com.stumpner.mediadesk.util;
 
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
-import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.UserService;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.folder.FolderMultiLang;
-import com.stumpner.mediadesk.image.category.CategoryMultiLang;
-import com.stumpner.mediadesk.image.category.Category;
+import com.stumpner.mediadesk.image.category.FolderMultiLang;
+import com.stumpner.mediadesk.image.category.Folder;
 import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.usermanagement.SecurityGroup;
 import com.stumpner.mediadesk.web.mvc.AclEditController;
@@ -53,8 +51,6 @@ import net.stumpner.security.acl.exceptions.PermissionAlreadyExistException;
  */
 public class MaintenanceService {
 
-    //private Thread etocThread = new Thread();
-    private String etocState = "";
     private String resetAclState = "";
     private boolean resetAclActive = false;
     private Thread resetAclThread = new Thread();
@@ -78,39 +74,9 @@ public class MaintenanceService {
         return instance;
     }
 
-    /*
-    public boolean etocActive() {
-        return etocThread.getState()!=Thread.State.NEW && etocThread.getState()!=Thread.State.TERMINATED;
-    } */
-
     public boolean isResetAclActive() {
         return resetAclActive;
     }
-
-    /*
-    public synchronized boolean etocStart(final int defaultUserId) {
-
-        System.out.println("etocStart");
-        if (!etocActive()) {
-            System.out.println("creating Thread");
-            etocThread = new Thread() {
-                public void run() {
-                    try {
-                        etocState = "in Arbeit...";
-                        migrateEventsToCategories(defaultUserId);
-                        etocState = "Abgeschlossen um "+new Date();
-                    } catch (IOServiceException e) {
-                        e.printStackTrace();
-                        etocState = e.getMessage();
-                    }
-                }
-            };
-            etocThread.start();
-            return true;
-        } else {
-            return false;
-        }
-    } */
 
     public synchronized boolean resetAclStart() {
 
@@ -158,8 +124,8 @@ public class MaintenanceService {
     }
 
     private void setResetAcl(int categoryId, CategoryService categoryService, List securityGroupList) throws IOServiceException, AclNotFoundException {
-        List<CategoryMultiLang> categoryList = categoryService.getCategoryList(categoryId);
-        for (CategoryMultiLang cat : categoryList) {
+        List<FolderMultiLang> categoryList = categoryService.getCategoryList(categoryId);
+        for (FolderMultiLang cat : categoryList) {
             Acl acl = AclController.getAcl(cat);
 
             Iterator securityGroups = securityGroupList.iterator();
@@ -191,92 +157,8 @@ public class MaintenanceService {
 
     }
 
-    public String getEtocState() {
-        return etocState;
-    }
-
     public String getResetAclState() {
         return resetAclState;
-    }
-
-    /**
-     * Events werden in Kategorien konvertiert
-     */
-    private void migrateEventsToCategories(int defaultUserId) throws IOServiceException {
-
-        System.out.println("migrateEventsToCategories wurde gestartet");
-        FolderService folderService = new FolderService();
-        List folderList = folderService.getFolderList(Integer.MAX_VALUE);
-        Iterator folders = folderList.iterator();
-        while (folders.hasNext()) {
-            FolderMultiLang folder = (FolderMultiLang)folders.next();
-            int dublicateCounter = 0;
-            boolean retry = true;
-
-            while (retry) {
-                retry = false;
-                this.etocState = "In Arbeit: "+folder.getFolderName()+" wird umgewandelt...";
-                try {
-                    migrateEventToCategory(folder, dublicateCounter, defaultUserId);
-                } catch (DublicateEntry e) {
-                    //Eine Kategorie mit diesem Namen gibt es bereits, z�hlen
-                    dublicateCounter = dublicateCounter+1;
-                    this.etocState = "In Arbeit: "+folder.getFolderName()+"[dublicateCounter="+dublicateCounter+"]";
-                    System.out.println("Dublicate Name: "+folder.getFolderName()+" dublicateCounter = "+dublicateCounter);
-                    if (dublicateCounter>=Integer.MAX_VALUE) { throw new IOServiceException("trying to migrate folder "+folder.getFolderId()+", giving up at "+dublicateCounter+" retry."); }
-                    retry = true;
-                }
-            }
-        }
-    }
-
-    private void migrateEventToCategory(FolderMultiLang folder, int dublicateCounter, int defaultUserId) throws IOServiceException {
-
-        CategoryService categoryService = new CategoryService();
-        FolderService folderService = new FolderService();
-
-        CategoryMultiLang category = new CategoryMultiLang();
-        category.setCatName(folder.getFolderName() + (dublicateCounter>0 ? dublicateCounter : ""));
-        category.setCatTitle(folder.getFolderTitle());
-        category.setCatTitleLng1(folder.getFolderTitleLng1());
-        category.setCatTitleLng2(folder.getFolderTitleLng2());
-        category.setDescription(folder.getFolderSubTitle());
-        category.setDescriptionLng1(folder.getFolderSubTitleLng1());
-        category.setDescriptionLng2(folder.getFolderSubTitleLng2());
-        if (folder.getCreateUserId()!=-1) { category.setCreatorUserId(folder.getCreateUserId()); }
-        else { category.setCreatorUserId(defaultUserId); }
-        category.setCreateDate(folder.getCreateDate());
-        category.setCategoryDate(folder.getFolderDate());
-        category.setParent(0);
-        category.setPrimaryIvid(folder.getPrimaryIvid());
-        category.setDefaultview(Category.VIEW_THUMBNAILS);
-        System.out.println("Prepare Folder "+folder.getFolderId());
-
-        //Wenn die neue Kategorie nicht angelegt werden kann, gibt es eine IOServiceException
-        categoryService.addCategory(category);
-
-        System.out.println("Kategorie "+category.getCategoryId()+" erstellt");
-        //inhalt �bernehmen
-        ImageVersionService imageService = new ImageVersionService();
-        SimpleLoaderClass loaderClass = new SimpleLoaderClass();
-        loaderClass.setId(folder.getFolderId());
-        List imageList = imageService.getFolderImages(loaderClass);
-
-        System.out.println("Medienobjekte des Events in die Kategorie "+category.getCategoryId()+" migrieren, [size="+imageList.size()+"]");
-        
-        Iterator images = imageList.iterator();
-        while (images.hasNext()) {
-            ImageVersionMultiLang image = (ImageVersionMultiLang)images.next();
-            categoryService.addImageToCategory(category.getCategoryId(), image);
-            //System.out.println("Medienobjekt: "+category.getCategoryId()+" wird in die Kategorie aufgenommen.");
-            //Image aus Folder entfernen
-            folderService.deleteImageFromFolder(folder,image);
-        }
-        //acl �bernehmen
-        Acl acl = AclController.getAcl(folder);
-        AclController.setAcl(category,acl);
-        //delete folder
-        folderService.deleteById(folder.getFolderId());
     }
 
 }

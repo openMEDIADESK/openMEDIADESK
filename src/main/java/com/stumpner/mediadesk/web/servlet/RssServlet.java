@@ -1,15 +1,13 @@
 package com.stumpner.mediadesk.web.servlet;
 
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
-import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.image.category.Category;
+import com.stumpner.mediadesk.image.category.Folder;
 import com.stumpner.mediadesk.web.LngResolver;
 
 import javax.servlet.http.HttpServlet;
@@ -56,12 +54,6 @@ public class RssServlet extends HttpServlet {
 
         if (Config.rss) {
 
-            if (httpServletRequest.getPathInfo().equalsIgnoreCase("/folder.js")) {
-                this.serviceJS(httpServletRequest,httpServletResponse);
-            }
-            if (httpServletRequest.getPathInfo().equalsIgnoreCase("/folder.xml")) {
-                this.serviceXML(httpServletRequest,httpServletResponse);
-            }
             if (httpServletRequest.getPathInfo().startsWith("/podcast/")) {
                 if (Config.podcastEnabled) {
                     this.servicePodcast(httpServletRequest,httpServletResponse);
@@ -118,33 +110,6 @@ public class RssServlet extends HttpServlet {
 
         List itemList = new ArrayList();
 
-        if (request.getPathInfo().startsWith("/podcast/folder/")) {
-
-            String tokens[] = request.getPathInfo().split("/");
-            int folderId = Integer.parseInt(tokens[tokens.length-1]);
-
-            ImageVersionService imageService = new ImageVersionService();
-            SimpleLoaderClass loaderClass = new SimpleLoaderClass();
-            loaderClass.setId(folderId);
-            loaderClass.setOrderBy(Config.orderByFolder);
-            loaderClass.setSortBy(Config.sortByFolder);
-            itemList = imageService.getFolderImages(loaderClass);
-
-            FolderService folderService = new FolderService();
-            folderService.setUsedLanguage(lngResolver.resolveLng(request));
-            try {
-                Folder folder = folderService.getFolderById(folderId);
-                writePodcastHeader(writer, httpBase,
-                        folder.getFolderTitle(),folder.getFolderSubTitle(),"","",true);
-            } catch (ObjectNotFoundException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            } catch (IOServiceException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
-            //writePodcastHeader(writer, true);
-            //FolderService folderService = new FolderService();
-            //itemList = folderService.getFolderList(10);
-        }
         if (request.getPathInfo().startsWith("/podcast/category/")) {
 
             String tokens[] = request.getPathInfo().split("/");
@@ -161,22 +126,22 @@ public class RssServlet extends HttpServlet {
             CategoryService categoryService = new CategoryService();
             categoryService.setUsedLanguage(lngResolver.resolveLng(request));
             try {
-                Category category = new Category();
+                Folder folder = new Folder();
                 if (folderId!=0) {
-                    category = categoryService.getCategoryById(folderId);
+                    folder = categoryService.getCategoryById(folderId);
                 }
                 //todo: cheat
                 //Cheat: Description ;http://logourl/logo.gif wird dann also logo im podcast angezeigt
                 String logoUrl = Config.instanceLogo;
-                String description = category.getDescription();
-                String[] descriptionTokens = category.getDescription().split(";http://");
+                String description = folder.getDescription();
+                String[] descriptionTokens = folder.getDescription().split(";http://");
                 if (descriptionTokens.length>1) {
                     description = descriptionTokens[0];
                     logoUrl = "http://"+descriptionTokens[1];
                 }
 
                 writePodcastHeader(writer, httpBase,
-                        category.getCatTitle(),description,"",logoUrl,true);
+                        folder.getCatTitle(),description,"",logoUrl,true);
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             } catch (IOServiceException e) {
@@ -286,150 +251,6 @@ public class RssServlet extends HttpServlet {
 
     }
 
-    protected void serviceXML(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-
-        String httpBase = "http://";
-        httpBase = httpBase + httpServletRequest.getServerName();
-        if (httpServletRequest.getServerPort()!=80) {
-            httpBase = httpBase + ":" + Integer.toString(httpServletRequest.getServerPort());
-        }
-        httpBase = httpBase + "/";
-
-
-        httpServletResponse.setHeader("Content-type","application/xhtml+xml");
-        httpServletRequest.setCharacterEncoding("ISO-8859-1");
-
-        PrintWriter writer = httpServletResponse.getWriter();
-        writer.print("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" ?>");
-        writer.print("<rss version=\"2.0\">\n"); /*         xmlns:media=\"http://search.yahoo.com/mrss/\"\n" +
-                "\txmlns:dc=\"http://purl.org/dc/elements/1.1/\" >\n");*/
-        writer.print("<channel>\n");
-
-        writer.print("<title>"+Config.webTitle+" RSS-Feed</title>\n");
-        writer.print("<link>"+httpBase+"</link>\n");
-        writer.print("<description>Serves the last Folders created with mediaDESK</description>\n");
-
-          //writer.print("<generator>http://www.flickr.com/</generator>\n");
-
-        writer.print("<language>de-de</language>\n");
-        writer.print("<copyright>"+Config.webTitle+"</copyright>\n");
-        writer.print("<image><url>"+Config.instanceLogo+"</url><title>logo</title><link>"+httpBase+"</link></image>\n");
-
-        /*
-        writer.print("\n<item>\n");
-        writer.print("<title>t2</title>\n");
-        writer.print("<link>http://www.flickr.com/photos/8903873@N03/1378294166/</link>\n");
-        //writer.print("<description>abc</description>\n");
-        writer.print("<description>&lt;p&gt;&lt;a href=&quot;http://www.flickr.com/people/familievanaalst/&quot;&gt;Familie van Aalst&lt;/a&gt; hat ein Foto gepostet:&lt;/p&gt; &lt;p&gt;&lt;a href=&quot;http://www.flickr.com/photos/familievanaalst/1377485535/&quot; title=&quot;IMG_1820&quot;&gt;&lt;img src=&quot;http://farm2.static.flickr.com/1276/1377485535_3bc7aa165e_m.jpg&quot; width=&quot;240&quot; height=&quot;180&quot; alt=&quot;IMG_1820&quot; /&gt;&lt;/a&gt;&lt;/p&gt;</description>\n");
-        writer.print("<pubDate>Fri, 14 Sep 2007 00:26:17 -0800</pubDate>\n");
-        writer.print("<dc:date.Taken>2007-09-14T00:26:17-08:00</dc:date.Taken>\n");
-        writer.print("<author>nobody@flickr.com (lady_in_the_water1991)</author>\n");
-        writer.print("<guid isPermaLink=\"false\">tag:flickr.com,2004:/photo/1378294166</guid>\n");
-        writer.print("<media:content url=\"http://farm2.static.flickr.com/1051/1378294166_c9f2fdc414_o.jpg\" \n");
-        writer.print("\t\t\t\t       type=\"image/jpeg\"\n");
-        writer.print("\t\t\t\t       height=\"640\"\n");
-        writer.print("\t\t\t\t       width=\"480\"/>\n");
-        writer.print("\t\t\t<media:title>t2</media:title>\n");
-        writer.print("<media:text type=\"html\">&lt;p&gt;&lt;a href=&quot;http://www.flickr.com/people/familievanaalst/&quot;&gt;Familie van Aalst&lt;/a&gt; hat ein Foto gepostet:&lt;/p&gt; &lt;p&gt;&lt;a href=&quot;http://www.flickr.com/photos/familievanaalst/1377485535/&quot; title=&quot;IMG_1820&quot;&gt;&lt;img src=&quot;http://farm2.static.flickr.com/1276/1377485535_3bc7aa165e_m.jpg&quot; width=&quot;240&quot; height=&quot;180&quot; alt=&quot;IMG_1820&quot; /&gt;&lt;/a&gt;&lt;/p&gt;</media:text>\n");
-        writer.print("<media:thumbnail url=\"http://farm2.static.flickr.com/1051/1378294166_f53c274c76_s.jpg\" height=\"75\" width=\"75\" />\n");
-        writer.print("<media:credit role=\"photographer\">lady_in_the_water1991</media:credit>\n");
-        writer.print("</item>\n");
-        */
-        //folders:
-
-        SimpleDateFormat sdf = new SimpleDateFormat("EE, dd MMM yyyy kk:mm", Locale.US);
-        FolderService folderService = new FolderService();
-        List folderList = folderService.getFolderList(10);
-        Iterator folders = folderList.iterator();
-        while (folders.hasNext()) {
-            Folder folder = (Folder)folders.next();
-
-            writer.print("\n<item>\n");
-            writer.print("<guid isPermaLink=\"false\">"+httpBase+"index/folder?id="+folder.getFolderId()+"</guid>\n");
-            writer.print("<title>"+folder.getFolderTitle().replace("&"," ")+"</title>\n");
-            writer.print("<description>\n");
-            writer.print("\t<![CDATA[\n");
-            writer.print("<p>"+folder.getFolderSubTitle().replace("&"," ")+"</p>\n");
-            if (folder.getPrimaryIvid()!=-1) {
-                writer.print("<img src=\""+httpBase+"imageservlet/"+folder.getPrimaryIvid()+"/1/image.jpg\""+"/>");
-            }
-            //writer.print("&lt;img src=&quot;")
-            writer.print(" ]]>\n");
-            writer.print("</description>\n");
-            if (folder.getPrimaryIvid()!=-1) {
-                //writer.print("<enclosure url=\""+httpBase+"imageservlet/"+folder.getPrimaryIvid()+"/1/image.jpg\" type=\"image/jpeg\"/>\n");
-            }
-            writer.print("<link>"+httpBase+"index/folder?id="+folder.getFolderId()+"</link>\n");
-            writer.print("<pubDate>"+sdf.format(folder.getFolderDate())+"</pubDate>\n");
-            writer.print("</item>\n");
-        }
-
-
-
-        writer.print("</channel>\n");
-        writer.print("</rss>\n");
-
-        writer.flush();
-        writer.close();
-
-        //super.service(httpServletRequest, httpServletResponse);    //To change body of overridden methods use File | Settings | File Templates.
-    }
-
-    protected void serviceJS(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-
-
-
-
-        httpServletResponse.setHeader("Content-type","text/html");
-
-        PrintWriter writer = httpServletResponse.getWriter();
-        //writer.print(" alert('included');");
-        //writer.print("function susideSyndPic(folderPos,target,cssClass) {\n");
-        //writer.print(" document.write(\"<a href='"+Config.httpBase+"folder?id=\"+folderId[folderPos]+\"'><img src='"+Config.httpBase+"/imageservlet/\"+folderIvid[folderPos]+\"'>\"\n");
-        //writer.print(" alert('hallo');");
-        //writer.print("}\n");
-        /*
-        writer.print("<title>Mein RSS-Feed</title>");
-        writer.print("<link>http://www.suside.net</link>");
-        writer.print("<description>Meine tolle site</description>");
-        writer.print("<language>de-de</language>");
-        writer.print("<copyright>2005 by suside.net</copyright>");
-        writer.print("<image><url>"+Config.instanceLogo+"</url><title>logo</title><link>http://www.suside.net</link></image>");
-        */
-
-        //folders:
-        FolderService folderService = new FolderService();
-        List allFolderList = folderService.getFolderList(3);
-        //only take folder who are empty
-        List folderList = new LinkedList();
-        Iterator allFolders = allFolderList.iterator();
-        while (allFolders.hasNext()) {
-            Folder folder = (Folder)allFolders.next();
-            if (folder.getImageCount()>0) {
-                folderList.add(folder);
-            }
-        }
-        Iterator folders = folderList.iterator();
-        writer.print("var folderImage = new Array("+folderList.size()+");\n");
-        writer.print("var folderLink = new Array("+folderList.size()+");\n");
-        writer.print("var folderText = new Array("+folderList.size()+");\n");
-        while (folders.hasNext()) {
-            Folder folder = (Folder)folders.next();
-
-           writer.print("folderImage["+folderList.indexOf(folder)+"] = \""+Config.httpBase+"imageservlet/"+folder.getPrimaryIvid()+"/1/image.jpg\";\n");
-           writer.print("folderLink["+folderList.indexOf(folder)+"] = \""+Config.httpBase+"index/folder?id="+folder.getFolderId()+"\";\n");
-           writer.print("folderText["+folderList.indexOf(folder)+"] = \""+(folder.getFolderTitle()).replaceAll("\"","&quot;")+"\";\n");
-
-           //writer.print("folderSubTitle["+folderList.indexOf(folder)+"] = "+folder.getFolderSubTitle()+";\n");
-
-        }
-
-
-        writer.flush();
-        writer.close();
-
-        //super.service(httpServletRequest, httpServletResponse);    //To change body of overridden methods use File | Settings | File Templates.
-    }
 
 
 

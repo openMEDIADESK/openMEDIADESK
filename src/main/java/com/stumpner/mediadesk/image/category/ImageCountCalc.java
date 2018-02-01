@@ -36,11 +36,11 @@ public class ImageCountCalc {
         this.categoryList = categoryList;
     }
 
-    public Category getCategory(int categoryId) {
+    public Folder getCategory(int categoryId) {
 
         Iterator it = categoryList.iterator();
         while (it.hasNext()) {
-            Category cat = (Category)it.next();
+            Folder cat = (Folder)it.next();
             if (cat.getCategoryId()==categoryId) {
                 return cat;
             }
@@ -55,7 +55,7 @@ public class ImageCountCalc {
 
         Iterator it = categoryList.iterator();
         while (it.hasNext()) {
-            Category cat = (Category)it.next();
+            Folder cat = (Folder)it.next();
             if (cat.getParent()==parentId) {
                 childList.add(cat);
             }
@@ -76,23 +76,23 @@ public class ImageCountCalc {
         Iterator it = childList.iterator();
 
         while (it.hasNext()) {
-            Category cat = (Category)it.next();
+            Folder cat = (Folder)it.next();
             int catCount = getImageCountRec(cat.getCategoryId());
             count += catCount;
         }
 
         if (categoryId!=0) {
-            Category category = getCategory(categoryId);
+            Folder folder = getCategory(categoryId);
 
             /* Prüfen ob die Cumulative Bildanzahl (Unterkategorien) stimmt, ansonsten in die Update-Liste geben */
 
             /* Derzeit wird IMMER upgedatet, weil es sonst zu fehlern/updateproblemen kommt */
-            //if (category.getImageCountS()!=category.getImageCount()+count) {
-                category.setImageCountS(category.getImageCount()+count);
-                updateCategoryList.add(category);
+            //if (folder.getImageCountS()!=folder.getImageCount()+count) {
+                folder.setImageCountS(folder.getImageCount()+count);
+                updateCategoryList.add(folder);
             //}
 
-            return category.getImageCount()+count;
+            return folder.getImageCount()+count;
         } else {
             return count;
         }

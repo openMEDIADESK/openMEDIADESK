@@ -116,7 +116,7 @@ public class DownloadViewController extends AbstractPageController {
                 }
                 selectedToDownloadList = (selectedToDownloadList ==null) ? new LinkedList() : selectedToDownloadList;
 
-                //Check ACL - Access of the images (Category)
+                //Check ACL - Access of the images (Folder)
                 //System.out.println("shopping-cart: ausgewähtle bilder zum download: "+selectedToDownloadList.size());
                 //List downloadList = new LinkedList(selectedToDownloadList);
                 //List deniedList = new LinkedList();

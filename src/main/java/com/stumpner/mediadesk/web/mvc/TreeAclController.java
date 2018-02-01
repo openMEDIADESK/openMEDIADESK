@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.category.FolderMultiLang;
 import com.stumpner.mediadesk.web.mvc.common.SimpleFormControllerMd;
 import net.stumpner.security.acl.Acl;
 import net.stumpner.security.acl.AclController;
@@ -9,7 +10,6 @@ import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.SecurityGroup;
 import com.stumpner.mediadesk.core.database.sc.*;
-import com.stumpner.mediadesk.image.category.CategoryMultiLang;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,8 +52,6 @@ public class TreeAclController extends SimpleFormControllerMd {
         this.setCommandClass(TreeAclCommand.class);
         this.setSessionForm(true);
         this.setBindOnNewForm(true);
-        //this.setValidator(new FolderEditValidator());
-        //this.setValidateOnBinding(true);
 
         this.permitOnlyLoggedIn=true;
         this.permitMinimumRole = User.ROLE_PINMAKLER;
@@ -64,7 +62,7 @@ public class TreeAclController extends SimpleFormControllerMd {
         CategoryService categoryService = new AclCategoryService(request);
         LngResolver lngResolver = new LngResolver();
         categoryService.setUsedLanguage(lngResolver.resolveLng(request));
-        List<CategoryMultiLang> categoryTree = categoryService.getAllCategoryList();
+        List<FolderMultiLang> categoryTree = categoryService.getAllCategoryList();
 
         List<TreeAclCommand.TreeAclCommandEntity> selectableCategoryList = getSelectableCategoryList(request.getParameter("type"), categoryTree, request);
         TreeAclCommand categorySelection = new TreeAclCommand();
@@ -118,7 +116,7 @@ public class TreeAclController extends SimpleFormControllerMd {
      * @param typeParameter
      * @return
      */
-    private List<TreeAclCommand.TreeAclCommandEntity> getSelectableCategoryList(String typeParameter, List<CategoryMultiLang> categoryTree, HttpServletRequest request) {
+    private List<TreeAclCommand.TreeAclCommandEntity> getSelectableCategoryList(String typeParameter, List<FolderMultiLang> categoryTree, HttpServletRequest request) {
 
         List<TreeAclCommand.TreeAclCommandEntity> selectableCategoryList = new ArrayList<TreeAclCommand.TreeAclCommandEntity>();
 
@@ -130,7 +128,7 @@ public class TreeAclController extends SimpleFormControllerMd {
         int stufe = 0;
 
         if (typeParameter.equalsIgnoreCase("ACL")) {
-            for (CategoryMultiLang category : categoryTree) {
+            for (FolderMultiLang category : categoryTree) {
 
                 if (lastParent!=category.getParent()) {
 
@@ -145,7 +143,7 @@ public class TreeAclController extends SimpleFormControllerMd {
                 lastCategory = category.getCategoryId();
 
                 TreeAclCommand.TreeAclCommandEntity selCat = new TreeAclCommand.TreeAclCommandEntity();
-                selCat.setCategory(category);
+                selCat.setFolder(category);
                 selCat.setStufe(stufe);
 
                 Acl acl = AclController.getAcl(category);
@@ -187,7 +185,7 @@ public class TreeAclController extends SimpleFormControllerMd {
              */
 
             if (categorySelection.getType().equalsIgnoreCase("ACL")) {
-                Acl acl = AclController.getAcl(category.getCategory());
+                Acl acl = AclController.getAcl(category.getFolder());
                 UserService userService = new UserService();
                 SecurityGroup securityGroup = userService.getSecurityGroupById(categorySelection.getId());
 
@@ -228,7 +226,7 @@ public class TreeAclController extends SimpleFormControllerMd {
                     }
                 }
 
-                AclController.setAcl(category.getCategory(),acl);
+                AclController.setAcl(category.getFolder(),acl);
             }
         }
 

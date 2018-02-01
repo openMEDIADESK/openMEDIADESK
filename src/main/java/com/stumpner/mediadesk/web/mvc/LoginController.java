@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import com.stumpner.mediadesk.usermanagement.UserAuthentication;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.core.database.sc.UserService;
-import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.web.mvc.common.SimpleFormControllerMd;
@@ -175,23 +174,6 @@ public class LoginController extends SimpleFormControllerMd {
      * @throws Exception
      */
     protected Map onSubmitReferenceData(HttpServletRequest httpServletRequest, Object o, Errors errors) throws Exception {
-
-        //Prüfen/Setzen dass nach dem Login, nach ca 3 Sekunden auf die Startseite umgeleitet werden soll
-        boolean showEventMigrateInfo = false;
-        if (this.getUser(httpServletRequest).getRole()==User.ROLE_ADMIN) {
-            FolderService folderService = new FolderService();
-            if (folderService.getFolderList(10000).size()>0) {
-                showEventMigrateInfo = true;
-            }
-        }
-
-        if (!showEventMigrateInfo) {
-            httpServletRequest.setAttribute("isAutoRedirect",
-                    !Config.redirectStartPage.equalsIgnoreCase("/login"));
-        } else {
-            //Info für Event-Migrieren zeigen
-            httpServletRequest.setAttribute("showEventMigrateInfo",true);
-        }
 
         return super.onSubmitReferenceData(httpServletRequest, o, errors);    //To change body of overridden methods use File | Settings | File Templates.
     }

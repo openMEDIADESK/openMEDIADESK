@@ -53,8 +53,6 @@ public class FormatSelectorController extends SimpleFormControllerMd {
         this.setCommandClass(FormatSelector.class);
         this.setSessionForm(true);
         this.setBindOnNewForm(true);
-        //this.setValidator(new FolderEditValidator());
-        //this.setValidateOnBinding(true);
 
         this.permitOnlyLoggedIn=true;
 

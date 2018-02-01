@@ -5,6 +5,8 @@ import com.bradmcevoy.http.Resource;
 import com.bradmcevoy.http.Request;
 import com.bradmcevoy.http.Auth;
 import com.bradmcevoy.common.Path;
+import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.category.FolderMultiLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,8 +20,8 @@ import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.category.Category;
-import com.stumpner.mediadesk.image.category.CategoryMultiLang;
+import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.category.FolderMultiLang;
 import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
@@ -84,7 +86,7 @@ public class WebdavResourceFactory implements ResourceFactory {
             //System.out.println("path not root");
             CategoryService categoryService = new CategoryService();
             try {
-                CategoryMultiLang category = (CategoryMultiLang)categoryService.getCategoryByPath(path.toString());
+                FolderMultiLang category = (FolderMultiLang)categoryService.getCategoryByPath(path.toString());
                 //Unterkategorie
                 System.out.println("Webdav Resource Request: ["+path+"] = CATEGORY,id="+category.getCategoryId()+",name="+category.getCatName());
                 return new CategoryResource(this,category);
@@ -94,18 +96,18 @@ public class WebdavResourceFactory implements ResourceFactory {
                 //finden des medienobjects
                 try {
 
-                    Category category = null;
+                    Folder folder = null;
 
                     if (!path.getParent().toString().equalsIgnoreCase("")) {
-                        category = categoryService.getCategoryByPath(path.getParent().toString());
+                        folder = categoryService.getCategoryByPath(path.getParent().toString());
                     } else {
-                        category = new Category();
-                        category.setCategoryId(0);
+                        folder = new Folder();
+                        folder.setCategoryId(0);
                     }
 
                     ImageVersionService imageService = new ImageVersionService();
                     SimpleLoaderClass loader = new SimpleLoaderClass();
-                    loader.setId(category.getCategoryId());
+                    loader.setId(folder.getCategoryId());
                     List categoryMediaList = imageService.getCategoryImages(loader);
 
                     for (Object aCategoryMedia : categoryMediaList) {
@@ -113,13 +115,13 @@ public class WebdavResourceFactory implements ResourceFactory {
                         //System.out.println("    suche gerade in: "+media.getVersionName()+" -> "+path.getName());
                         if (media.getVersionName().equalsIgnoreCase(path.getName())) {
                             System.out.println("Webdav Resource Request: ["+path+"] ist MediaObjekt: "+media.getVersionName());
-                            return new MediaObjectResource(category,media);
+                            return new MediaObjectResource(folder,media);
                         }
                     }
 
                     //MediaObject gibt es nicht (neu/anlegen)?
                     System.out.println("Webdav Resource Request: ["+path+"] NICHT GEFUNDEN, null");
-                    return null;// new NotExistingMediaObjectResource(category,path);
+                    return null;// new NotExistingMediaObjectResource(folder,path);
 
                 } catch (ObjectNotFoundException e1) {
                     //System.err.println("Parent-kategorie des medienobjekts nicht gefunden");
@@ -219,10 +221,10 @@ public class WebdavResourceFactory implements ResourceFactory {
         }
     }
 
-    public static boolean authroise(Request request, Category category, User user, AclControllerContext aclCtx) {
+    public static boolean authroise(Request request, Folder folder, User user, AclControllerContext aclCtx) {
 
         //muss nach dem ACL Context initialisieren erfolgen, da der ACL Context noch ben�tigt wird
-        if (category.getCategoryId()==0) { return true; } //Root-Kategorie immer berechtigen
+        if (folder.getCategoryId()==0) { return true; } //Root-Kategorie immer berechtigen
 
         //---------------------
         if (aclCtx==null) { return false; }
@@ -255,7 +257,7 @@ public class WebdavResourceFactory implements ResourceFactory {
                 } else {
 
                     if (user.getRole() == User.ROLE_IMPORTER || user.getRole() == User.ROLE_EDITOR) {
-                        if (aclCtx.checkPermission(new AclPermission("write"),category)) {
+                        if (aclCtx.checkPermission(new AclPermission("write"), folder)) {
                             return true;
                         } else {
                             return false;
@@ -269,14 +271,14 @@ public class WebdavResourceFactory implements ResourceFactory {
 
             } else if (request.getMethod() == Request.Method.GET) {
 
-                if (aclCtx.checkPermission(new AclPermission("read"),category)) {
+                if (aclCtx.checkPermission(new AclPermission("read"), folder)) {
                     return true;
                 } else {
                     return false;
                 }
                 
             } else {
-                if (aclCtx.checkPermission(new AclPermission("view"),category)) {
+                if (aclCtx.checkPermission(new AclPermission("view"), folder)) {
                     return true;
                 } else {
                     return false;

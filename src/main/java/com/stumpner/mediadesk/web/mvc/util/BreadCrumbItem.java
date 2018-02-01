@@ -1,7 +1,6 @@
 package com.stumpner.mediadesk.web.mvc.util;
 
-import com.stumpner.mediadesk.image.category.Category;
-import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.image.category.Folder;
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,19 +17,12 @@ public class BreadCrumbItem {
     private boolean showFolder = false;
 
     public BreadCrumbItem(Object obj) {
-        if (obj instanceof Category) {
-            Category category = (Category)obj;
-            url = "/index/cat";
-            id = category.getCategoryId();
-            title = category.getCatTitle();
-            showFolder = true;
-        }
         if (obj instanceof Folder) {
             Folder folder = (Folder)obj;
-            url = "/index/folder";
-            id = folder.getFolderId();
-            title = folder.getFolderTitle();
-            showFolder = false;            
+            url = "/index/cat";
+            id = folder.getCategoryId();
+            title = folder.getCatTitle();
+            showFolder = true;
         }
     }
 
