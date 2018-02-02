@@ -17,7 +17,6 @@ import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.search.*;
 import com.stumpner.mediadesk.web.mvc.exceptions.SearchResultExpired;
 import com.stumpner.mediadesk.web.mvc.exceptions.LoadThumbnailException;
-import com.stumpner.mediadesk.web.mvc.common.MediaMenu;
 import com.stumpner.mediadesk.web.api.rest.SearchresultRestApi;
 import com.stumpner.mediadesk.web.LngResolver;
 
@@ -66,47 +65,7 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
             System.out.println("autologin processed");
         }
 
-        String searchString = ""; //Für die Angabe nach was gesucht wurde...
-
-        String query = "";
-        String q = "";
-        String people = "";
-        String location = "";
-
-        ImageSearchService imageSearch = new ImageSearchService();
-
-        if (httpServletRequest.getParameter("lightbox") != null) {
-
-            HttpSession session = httpServletRequest.getSession();
-            if (session.getAttribute("user") != null) {
-                //user eingeloggt
-                User user = (User) session.getAttribute("user");
-                LightboxService lightboxService = new LightboxService();
-                if (httpServletRequest.getParameter("lightbox").equals("add")) {
-                    //hinzufügen
-                    lightboxService.addImageToLightbox(Integer.parseInt((String) httpServletRequest.getParameter("ivid")), user.getUserId());
-                } else {
-                    //löschen
-                    lightboxService.removeImageToLightbox(Integer.parseInt((String) httpServletRequest.getParameter("ivid")), user.getUserId());
-                }
-            }
-        }
-        if (httpServletRequest.getParameter("shoppingCart") != null) {
-
-            HttpSession session = httpServletRequest.getSession();
-            if (session.getAttribute("user") != null) {
-                //user eingeloggt
-                User user = (User) session.getAttribute("user");
-                ShoppingCartService shoppingCartService = new ShoppingCartService();
-                if (httpServletRequest.getParameter("shoppingCart").equals("add")) {
-                    //hinzufügen
-                    shoppingCartService.addImageToShoppingCart(Integer.parseInt((String) httpServletRequest.getParameter("ivid")), user.getUserId());
-                }
-            }
-        }
-
-
-        //boolean expired = false;
+        loadSearchResult(httpServletRequest);
 
         try {
             return super.handleRequestInternal(httpServletRequest, httpServletResponse);    //To change body of overridden methods use File | Settings | File Templates.
@@ -133,7 +92,7 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
         }
     }
 
-    protected List loadThumbnailImageList(int sortBy, int orderBy, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws LoadThumbnailException {
+    protected List loadSearchResult(HttpServletRequest httpServletRequest) throws LoadThumbnailException {
 
         //angewählte Seite identifizieren
         int viewPage = 0;
