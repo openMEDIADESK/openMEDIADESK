@@ -156,7 +156,7 @@ public class CategoryRestApi extends RestBaseServlet {
     }
 
     /**
-     * TODO: Wird aktuell nicht verwendet, war geplant f�r pCategoryEdit.jsp mit Jackson usw, siehe https://podio.com/stumpnercom/mediadesk-dev/apps/bugs/items/99
+     * TODO: Wird aktuell nicht verwendet, war geplant f�r pCEdit.jsp mit Jackson usw, siehe https://podio.com/stumpnercom/mediadesk-dev/apps/bugs/items/99
      * @param request
      * @param response
      * @throws ServletException
