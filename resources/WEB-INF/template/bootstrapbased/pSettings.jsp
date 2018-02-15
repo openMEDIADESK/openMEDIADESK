@@ -49,8 +49,8 @@
         <p class="list-group-item-text"><spring:message code="set.customfields.info"/></p>
     </a>
 
-    <a href="<c:if test="${fn:contains(licFunc, '-thumbsize')}"><c:url value="setformat"/></c:if><c:if test="${!fn:contains(licFunc, '-thumbsize')}"><c:url value="https://openmediadesk.net/signup/premium.do?id=${licId}&url=${url}"/>" target="_blank</c:if>" class="list-group-item">
-        <h4 class="list-group-item-heading"><spring:message code="set.format"/> <c:if test="${!fn:contains(licFunc, '-thumbsize')}"><button class="btn btn-warning">Upgrade!</button></c:if></h4>
+    <a href="<c:url value="setformat"/>" class="list-group-item">
+        <h4 class="list-group-item-heading"><spring:message code="set.format"/></h4>
         <p class="list-group-item-text"><spring:message code="set.format.info"/></p>
     </a>
 
@@ -105,6 +105,12 @@
         <h4 class="list-group-item-heading"><spring:message code="menu.maintenance"/></h4>
         <p class="list-group-item-text"><spring:message code="set.maintenance"/></p>
     </a>
+
+    <a href="<c:if test="${fn:contains(licFunc, '-noads')}"><c:url value="setformat"/></c:if><c:if test="${!fn:contains(licFunc, '-noads')}"><c:url value="https://openmediadesk.net/signup/premium.do?id=${licId}&url=${url}"/>" target="_blank</c:if>" class="list-group-item">
+        <h4 class="list-group-item-heading">Werbung im Footer entfernen <c:if test="${!fn:contains(licFunc, '-noads')}"><button class="btn btn-warning">Upgrade!</button></c:if></h4>
+        <p class="list-group-item-text">Die Links auf openMEDIADESK.org im Footer und in den Emails entfernen.</p>
+    </a>
+
 </div>
 <!-- mediadesk abstand -->
 <div class="md-space">&nbsp;</div>

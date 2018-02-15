@@ -210,15 +210,11 @@
 
                 <!-- Mailserver Einstellungen -->
 
-                <c:if test="${!fn:contains(licFunc, '-mailserver')}">
-                    <span class="help-block">Diese Funktion steht nur in der Enterprise Edition zur Verfügung!</span>
-                    <a href="<c:url value="https://openmediadesk.net/signup/premium.do?id=${licId}&url=${url}"/>" target="_blank" class="btn btn-warning">Upgrade!</a>
-                </c:if>
 
                 <spring:bind path="command.senderMailaddresse">
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
                     <label for="text<c:out value="${status.expression}"/>"><spring:message code="set.mail.senderMailaddresse"/></label>
-                    <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if><c:if test="${!fn:contains(licFunc, '-mailserver')}"> readonly="true"</c:if>>
+                    <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
                     <c:if test="${status.error}">
                       <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                       <span id="eingabefeldFehler2Status" class="sr-only">(Fehler)</span>
@@ -229,7 +225,7 @@
                 <spring:bind path="command.mailServer">
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
                     <label for="text<c:out value="${status.expression}"/>"><spring:message code="set.mail.mailServer"/></label>
-                    <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if><c:if test="${!fn:contains(licFunc, '-mailserver')}"> readonly="true"</c:if>>
+                    <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
                     <c:if test="${status.error}">
                       <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                       <span id="eingabefeldFehler2Status" class="sr-only">(Fehler)</span>
@@ -250,7 +246,7 @@
                 <spring:bind path="command.smtpUsername">
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
                     <label for="text<c:out value="${status.expression}"/>">SMTP Username</label>
-                    <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if><c:if test="${!fn:contains(licFunc, '-mailserver')}"> readonly="true"</c:if>>
+                    <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
                     <c:if test="${status.error}">
                       <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                       <span id="eingabefeldFehler2Status" class="sr-only">(Fehler)</span>
@@ -261,7 +257,7 @@
                 <spring:bind path="command.smtpPassword">
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
                     <label for="text<c:out value="${status.expression}"/>">SMTP Password</label>
-                    <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if><c:if test="${!fn:contains(licFunc, '-mailserver')}"> readonly="true"</c:if>>
+                    <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
                     <c:if test="${status.error}">
                       <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                       <span id="eingabefeldFehler2Status" class="sr-only">(Fehler)</span>
