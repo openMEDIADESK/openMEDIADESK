@@ -33,6 +33,6 @@
     <sqlMap resource="sqlmap/search.xml"/>
     <sqlMap resource="sqlmap/menu.xml"/>
     <sqlMap resource="sqlmap/config.xml"/>
-    <sqlMap resource="sqlmap/category.xml"/>
+    <sqlMap resource="sqlmap/folder.xml"/>
     <sqlMap resource="sqlmap/customlist.xml"/>
 </sqlMapConfig>

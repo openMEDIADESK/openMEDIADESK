@@ -363,13 +363,13 @@
         VALUES (#catTitle#,#catName#,#description#,#parent#,#changedDate#,#imageCount#,#imageCountS#,#catTitleLng1#,#catTitleLng2#,#descriptionLng1#,#descriptionLng2#,#icon#,#sortBy#,#orderBy#,#defaultview#,#createDate#,#primaryIvid#,#categoryDate#,#creatorUserId#,#fid#,#publicAcl#,#inheritAcl#,#protectedAcl#)
     </insert>
 
-    <insert id="addImageToCategory" parameterClass="com.stumpner.mediadesk.image.category.CategoryHolder">
+    <insert id="addImageToCategory" parameterClass="com.stumpner.mediadesk.image.category.FolderHolder">
         INSERT INTO
         categoryholder (categoryid,ivid)
         VALUES (#categoryId#,#ivid#)
     </insert>
 
-    <delete id="deleteImageFromCategory" parameterClass="com.stumpner.mediadesk.image.category.CategoryHolder">
+    <delete id="deleteImageFromCategory" parameterClass="com.stumpner.mediadesk.image.category.FolderHolder">
         DELETE FROM categoryholder
         WHERE categoryid = #categoryId# AND ivid = #ivid#
     </delete>
