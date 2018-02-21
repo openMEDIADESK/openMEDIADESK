@@ -2,9 +2,7 @@ package com.stumpner.mediadesk.web.mvc;
 
 import com.stumpner.mediadesk.image.category.Folder;
 import com.stumpner.mediadesk.image.category.FolderMultiLang;
-import com.stumpner.mediadesk.image.category.CategoryEditValidator;
-import com.stumpner.mediadesk.image.category.Folder;
-import com.stumpner.mediadesk.image.category.FolderMultiLang;
+import com.stumpner.mediadesk.image.category.FolderEditValidator;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.SecurityGroup;
 import com.stumpner.mediadesk.core.database.sc.CategoryService;
@@ -69,7 +67,7 @@ public class CategoryEditController extends AbstractAutoFillController {
         this.setCommandClass(FolderMultiLang.class);
         this.setSessionForm(true);
         this.setBindOnNewForm(true);
-        this.setValidator(new CategoryEditValidator());
+        this.setValidator(new FolderEditValidator());
         this.setValidateOnBinding(true);
 
         this.permitOnlyLoggedIn=true;

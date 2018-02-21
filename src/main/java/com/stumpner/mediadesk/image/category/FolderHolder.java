@@ -25,7 +25,7 @@ package com.stumpner.mediadesk.image.category;
  * Time: 22:41:09
  * To change this template use File | Settings | File Templates.
  */
-public class CategoryHolder {
+public class FolderHolder {
 
     private int categoryId = -1;
     private int ivid = -1;

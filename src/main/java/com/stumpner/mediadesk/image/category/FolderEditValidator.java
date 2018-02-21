@@ -28,7 +28,7 @@ import org.springframework.validation.Errors;
  * Time: 18:25:33
  * To change this template use File | Settings | File Templates.
  */
-public class CategoryEditValidator implements Validator {
+public class FolderEditValidator implements Validator {
 
     public boolean supports(Class aClass) {
         return true;

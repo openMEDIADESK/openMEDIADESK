@@ -397,7 +397,7 @@ public class CategoryService extends MultiLanguageService implements IServiceCla
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
 
-        CategoryHolder folderHolder = new CategoryHolder();
+        FolderHolder folderHolder = new FolderHolder();
         folderHolder.setCategoryId(folderId);
         folderHolder.setIvid(ivid);
         //folderHolder.setImageTitleAlias("");
@@ -455,7 +455,7 @@ public class CategoryService extends MultiLanguageService implements IServiceCla
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
 
-        CategoryHolder folderHolder = new CategoryHolder();
+        FolderHolder folderHolder = new FolderHolder();
         folderHolder.setCategoryId(categoryId);
         folderHolder.setIvid(imageVersion.getIvid());
 
@@ -504,7 +504,7 @@ public class CategoryService extends MultiLanguageService implements IServiceCla
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
 
-        CategoryHolder folderHolder = new CategoryHolder();
+        FolderHolder folderHolder = new FolderHolder();
         folderHolder.setCategoryId(categoryId);
         folderHolder.setIvid(ivid);
 
