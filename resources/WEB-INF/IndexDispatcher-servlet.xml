@@ -39,7 +39,7 @@
         <property name="viewName"><value>/WEB-INF/template/current/pSearchadvanced.jsp</value></property>
     </bean>
     <bean id="categoryIndexView" class="com.stumpner.mediadesk.web.mvc.CategoryIndexController">
-        <property name="viewName"><value>/WEB-INF/template/current/pC.jsp</value></property>
+        <property name="viewName"><value>/WEB-INF/template/current/pFolder.jsp</value></property>
     </bean>
     <bean id="lastImageView" class="com.stumpner.mediadesk.web.mvc.LastImageViewController">
         <property name="viewName"><value>/WEB-INF/template/current/pLatest.jsp</value></property>
@@ -243,7 +243,7 @@
     </bean>
     <bean id="categoryEditController" class="com.stumpner.mediadesk.web.mvc.CategoryEditController">
         <property name="sessionForm"><value>true</value></property>
-        <property name="formView"><value>/WEB-INF/template/current/pCEdit.jsp</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pFolderEdit.jsp</value></property>
         <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
     </bean>
     <bean id="folderBreakupController" class="com.stumpner.mediadesk.web.mvc.FolderBreakupController">
@@ -253,7 +253,7 @@
     </bean>
     <bean id="categorySelectorController" class="com.stumpner.mediadesk.web.mvc.CategorySelectorController">
         <property name="sessionForm"><value>true</value></property>
-        <property name="formView"><value>/WEB-INF/template/current/pCSelector.jsp</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pFolderSelector.jsp</value></property>
         <property name="successView"><value>null</value></property>
     </bean>
     <bean id="treeAclControllerController" class="com.stumpner.mediadesk.web.mvc.TreeAclController">
