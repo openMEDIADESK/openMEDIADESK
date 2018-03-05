@@ -1,7 +1,8 @@
 package com.stumpner.mediadesk.web.servlet;
 
-import com.stumpner.mediadesk.image.category.Folder;
-import com.stumpner.mediadesk.image.category.FolderMultiLang;
+import com.stumpner.mediadesk.core.database.sc.FolderService;
+import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.image.folder.FolderMultiLang;
 import net.sf.webdav.ITransaction;
 import net.sf.webdav.StoredObject;
 import net.sf.webdav.exceptions.WebdavException;
@@ -14,7 +15,6 @@ import java.util.Iterator;
 import java.util.Date;
 import java.security.Principal;
 
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
@@ -72,7 +72,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
     public String[] getChildrenNames(ITransaction iTransaction, String s) throws WebdavException {
         String[] childrenNames =  new String[] {};    //To change body of overridden methods use File | Settings | File Templates.
 
-            CategoryService categoryService = new CategoryService();
+            FolderService folderService = new FolderService();
         Folder folder = null;
 
         //System.out.println("getChildrenNames (s = "+s);
@@ -83,7 +83,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
         } else {
             // folder-name
             try {
-                folder = categoryService.getCategoryByPath(s.substring(1));
+                folder = folderService.getCategoryByPath(s.substring(1));
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             } 
@@ -94,7 +94,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
 
                 loaderClass.setId(folder.getCategoryId());
                 List imageList = imageService.getCategoryImages(loaderClass);
-        List categoryList = categoryService.getCategoryList(folder.getCategoryId());
+        List categoryList = folderService.getCategoryList(folder.getCategoryId());
 
                 childrenNames = new String[imageList.size()+categoryList.size()];
                 Iterator images = imageList.iterator();
@@ -136,11 +136,11 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
     public void removeObject(ITransaction iTransaction, String s) {
         //To change body of implemented methods use File | Settings | File Templates.
 
-        CategoryService categoryService = new CategoryService();
+        FolderService folderService = new FolderService();
         try {
-            FolderMultiLang category = (FolderMultiLang)categoryService.getCategoryByPath(s.substring(1));
+            FolderMultiLang category = (FolderMultiLang) folderService.getCategoryByPath(s.substring(1));
             try {
-                categoryService.deleteById(category.getCategoryId());
+                folderService.deleteById(category.getCategoryId());
             } catch (IOServiceException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
@@ -150,7 +150,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
             String pathName = s.substring(0,s.lastIndexOf("/"));
             if (imageVersion!=null) {
                 ImageVersionService imageService = new ImageVersionService();
-                List categoryList = categoryService.getCategoryListFromImageVersion(imageVersion.getIvid());
+                List categoryList = folderService.getCategoryListFromImageVersion(imageVersion.getIvid());
                 if (categoryList.size()==0) {
                     //Bilddatei löschen
                     try {
@@ -159,11 +159,11 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
                         e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     }
                 } else {
-                    //verknüfpung aus category löschen
+                    //verknüfpung aus folder löschen
                     try {
                         FolderMultiLang category = null;
-                        category = (FolderMultiLang)categoryService.getCategoryByPath(pathName.substring(1));
-                        categoryService.deleteImageFromCategory(category,imageVersion);
+                        category = (FolderMultiLang) folderService.getCategoryByPath(pathName.substring(1));
+                        folderService.deleteImageFromCategory(category,imageVersion);
                         System.out.println("Datei: "+imageVersion.getVersionName()+" aus kategorie "+pathName+" gelöscht");
                     } catch (ObjectNotFoundException e1) {
                         e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -242,7 +242,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
     public void createFolder(ITransaction iTransaction, String s) throws WebdavException {
         //System.out.println("Create Folder "+s);
 
-        CategoryService categoryService = new CategoryService();
+        FolderService folderService = new FolderService();
         int lastIndexOf = s.lastIndexOf("/");
 
         //Daten in die neue Kategorie füllen:
@@ -261,8 +261,8 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
             String pathName = s.substring(1,lastIndexOf);
             //System.out.println("Create Folder at Path: "+pathName);
             try {
-                Folder parentFolder = categoryService.getCategoryByPath(pathName);
-                //System.out.println(" new category hast parentid="+parentFolder.getCategoryId());
+                Folder parentFolder = folderService.getCategoryByPath(pathName);
+                //System.out.println(" new folder hast parentid="+parentFolder.getCategoryId());
                 category.setParent(parentFolder.getCategoryId());
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -272,7 +272,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
 
         //Kategorie anlegen/speichern:
             try {
-                categoryService.addCategory(category);
+                folderService.addCategory(category);
             } catch (IOServiceException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
@@ -331,10 +331,10 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
 
                 //Bild automatisch der Kategorie zuweisen:
                 String categoryPath = s.substring(1,s.lastIndexOf("/"));
-                CategoryService categoryService = new CategoryService();
-                Folder folder = categoryService.getCategoryByPath(categoryPath);
+                FolderService folderService = new FolderService();
+                Folder folder = folderService.getCategoryByPath(categoryPath);
                 logger.debug("setResourceContent: Speichern in Kategorie: "+categoryPath+" id="+ folder.getCategoryId());
-                categoryService.addImageToCategory(folder.getCategoryId(),ivid);
+                folderService.addImageToCategory(folder.getCategoryId(),ivid);
 
                 InboxService inboxService = new InboxService();
                 inboxService.removeImage(ivid);
@@ -389,14 +389,14 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
 
         //System.out.println("getStoredObject2 "+s);
         ImageVersionService imageService = new ImageVersionService();
-        CategoryService categoryService = new CategoryService();
+        FolderService folderService = new FolderService();
         Folder folder = null;
         if (s.equalsIgnoreCase("")) { s="/"; }
         StoredObject storedObject = new StoredObject();
         try {
             if (!s.equalsIgnoreCase("/")) {
                 //System.out.println("getFolder");
-                folder = categoryService.getCategoryByPath(s.substring(1));
+                folder = folderService.getCategoryByPath(s.substring(1));
                 storedObject.setFolder(true);
                 storedObject.setCreationDate(new Date());
                 storedObject.setLastModified(new Date());
@@ -444,7 +444,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
     private ImageVersion getImage(String s) {
 
         //StoredObject storedObject = new StoredObject();
-        CategoryService categoryService = new CategoryService();
+        FolderService folderService = new FolderService();
         ImageVersionService imageService = new ImageVersionService();
         ImageVersion foundImage = null;
         //System.out.println("No Folder found, searching for file ");
@@ -461,7 +461,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
         try {
             Folder folder2 = new Folder();
             if (!categoryPathString.equalsIgnoreCase("")) {
-                folder2 = categoryService.getCategoryByPath(categoryPathString);
+                folder2 = folderService.getCategoryByPath(categoryPathString);
             } else {
                 folder2 = new Folder();
                 folder2.setCategoryId(0);

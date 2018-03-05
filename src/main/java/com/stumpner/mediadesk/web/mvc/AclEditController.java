@@ -1,6 +1,7 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.category.FolderMultiLang;
+import com.stumpner.mediadesk.core.database.sc.FolderService;
+import com.stumpner.mediadesk.image.folder.FolderMultiLang;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 
@@ -12,9 +13,7 @@ import com.stumpner.mediadesk.usermanagement.SecurityGroup;
 import com.stumpner.mediadesk.web.stack.WebStack;
 import com.stumpner.mediadesk.web.mvc.exceptions.UndefinedWebStateException;
 import com.stumpner.mediadesk.core.database.sc.UserService;
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
-import com.stumpner.mediadesk.image.category.FolderMultiLang;
 import net.stumpner.security.acl.*;
 import com.stumpner.mediadesk.web.mvc.common.SimpleFormControllerMd;
 
@@ -69,8 +68,8 @@ public class AclEditController extends SimpleFormControllerMd {
         if (httpServletRequest.getSession().getAttribute("accessObject")==null)
             throw new UndefinedWebStateException("No ACL-Object set.");
         AccessObject accessObject = (AccessObject)httpServletRequest.getSession().getAttribute("accessObject");
-        //Folder category = new Folder();
-        //category.getCategoryId();
+        //Folder folder = new Folder();
+        //folder.getCategoryId();
         Acl acl = AclController.getAcl(accessObject);
         return acl;
 
@@ -168,8 +167,8 @@ public class AclEditController extends SimpleFormControllerMd {
 
     private void inheritAclToChildsRekursive(Acl acl, FolderMultiLang c) {
 
-            CategoryService categoryService = new CategoryService();
-            List<FolderMultiLang> list = categoryService.getCategoryList(c.getCategoryId());
+            FolderService folderService = new FolderService();
+            List<FolderMultiLang> list = folderService.getCategoryList(c.getCategoryId());
             for (FolderMultiLang ic : list) {
                 if (ic.isInheritAcl()) {
                     System.out.println("inherit acl to cat: "+ic.getCategoryId()+" "+ic.getCatName());
@@ -197,8 +196,8 @@ public class AclEditController extends SimpleFormControllerMd {
         } else {
             //�ndern
             c.setPublicAcl(publicAcl);
-            CategoryService categoryService = new CategoryService();
-            categoryService.save(c);
+            FolderService folderService = new FolderService();
+            folderService.save(c);
         }
 
         boolean protecedAcl = !AclController.checkPermission(userService.getSecurityGroupVisitors(),new AclPermission("view"), c);
@@ -207,8 +206,8 @@ public class AclEditController extends SimpleFormControllerMd {
         } else {
             //�ndern
             c.setProtectedAcl(protecedAcl);
-            CategoryService categoryService = new CategoryService();
-            categoryService.save(c);
+            FolderService folderService = new FolderService();
+            folderService.save(c);
         }
 
     }

@@ -6,7 +6,7 @@
 
 <sqlMap namespace="Category">
 
-    <select id="getCategoryById" parameterClass="int" resultClass="com.stumpner.mediadesk.image.category.FolderMultiLang">
+    <select id="getCategoryById" parameterClass="int" resultClass="com.stumpner.mediadesk.image.folder.FolderMultiLang">
         SELECT
             categoryid      as categoryId,
             cattitle        as catTitle,
@@ -36,7 +36,7 @@
         WHERE categoryid = #value#
     </select>
     
-    <select id="getCategoryByName" parameterClass="java.lang.String" resultClass="com.stumpner.mediadesk.image.category.FolderMultiLang">
+    <select id="getCategoryByName" parameterClass="java.lang.String" resultClass="com.stumpner.mediadesk.image.folder.FolderMultiLang">
         SELECT
             categoryid      as categoryId,
             cattitle        as catTitle,
@@ -68,7 +68,7 @@
         WHERE catname = #value#
     </select>
 
-    <resultMap id="folderList" class="com.stumpner.mediadesk.image.category.FolderMultiLang">
+    <resultMap id="folderList" class="com.stumpner.mediadesk.image.folder.FolderMultiLang">
         <result property="categoryId" column="categoryid"/>
         <result property="catTitle" column="cattitle"/>
         <result property="catName" column="catname"/>
@@ -97,7 +97,7 @@
         <result property="inheritAcl" column="inheritacl"/>
         <result property="protectedAcl" column="protected"/>
     </resultMap>
-    <statement id="getCategoryList" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.CategoryLoaderClass" resultMap="folderList">
+    <statement id="getCategoryList" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.FolderLoaderClass" resultMap="folderList">
         SELECT  category.categoryid,
                 cattitle,
                 catname,
@@ -237,7 +237,7 @@
     <!-- with mysql 4.1 (subselects) -->
     <!--
     <statement id="getCategorySubTree" parameterClass="int" resultMap="folderList">
-        SELECT  category.categoryid,
+        SELECT  folder.categoryid,
                 cattitle,
                 catname,
                 description,
@@ -249,7 +249,7 @@
     </statement>
     -->
     <!-- without subselects -->
-    <statement id="getCategorySubTree" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.CategoryLoaderClass" resultMap="folderList">
+    <statement id="getCategorySubTree" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.FolderLoaderClass" resultMap="folderList">
         SELECT DISTINCT 
                 category.categoryid,
                 category.cattitle,
@@ -313,7 +313,7 @@
 
     <!--
     <statement id="getFolderListFromImageVersion" parameterClass="int" resultMap="folderList">
-        SELECT  category.folderid,
+        SELECT  folder.folderid,
                 foldertitle,
                 foldername,
                 createdate,
@@ -323,15 +323,15 @@
                 folderdate,
                 count(fhid) as imagecount
             FROM folder
-         LEFT OUTER JOIN folderholder ON category.folderid = folderholder.folderid
+         LEFT OUTER JOIN folderholder ON folder.folderid = folderholder.folderid
          WHERE folderholder.ivid = #value#
-         GROUP BY category.folderid
+         GROUP BY folder.folderid
          ORDER BY createdate DESC
     </statement>
 
 
     <statement id="getVisibleFolderList" parameterClass="int" resultMap="folderList">
-        SELECT  category.folderid,
+        SELECT  folder.folderid,
                 foldertitle,
                 foldername,
                 createdate,
@@ -341,8 +341,8 @@
                 folderdate,
                 count(fhid) as imagecount
             FROM folder
-         LEFT OUTER JOIN folderholder ON category.folderid = folderholder.folderid
-         GROUP BY category.folderid
+         LEFT OUTER JOIN folderholder ON folder.folderid = folderholder.folderid
+         GROUP BY folder.folderid
          HAVING count(fhid) > 0
          ORDER BY createdate DESC
     </statement>
@@ -357,19 +357,19 @@
         FROM category
     </select>
 
-    <insert id="addCategory" parameterClass="com.stumpner.mediadesk.image.category.FolderMultiLang">
+    <insert id="addCategory" parameterClass="com.stumpner.mediadesk.image.folder.FolderMultiLang">
         INSERT INTO
         category (cattitle,catname,description,parent,changeddate,imagecount,imagecounts,cattitlelng1,cattitlelng2,descriptionlng1,descriptionlng2,icon,sortby,orderby,defaultview,createdate,primaryivid,categorydate,creatoruserid,fid,public,inheritacl,protected)
         VALUES (#catTitle#,#catName#,#description#,#parent#,#changedDate#,#imageCount#,#imageCountS#,#catTitleLng1#,#catTitleLng2#,#descriptionLng1#,#descriptionLng2#,#icon#,#sortBy#,#orderBy#,#defaultview#,#createDate#,#primaryIvid#,#categoryDate#,#creatorUserId#,#fid#,#publicAcl#,#inheritAcl#,#protectedAcl#)
     </insert>
 
-    <insert id="addImageToCategory" parameterClass="com.stumpner.mediadesk.image.category.FolderHolder">
+    <insert id="addImageToCategory" parameterClass="com.stumpner.mediadesk.image.folder.FolderHolder">
         INSERT INTO
         categoryholder (categoryid,ivid)
         VALUES (#categoryId#,#ivid#)
     </insert>
 
-    <delete id="deleteImageFromCategory" parameterClass="com.stumpner.mediadesk.image.category.FolderHolder">
+    <delete id="deleteImageFromCategory" parameterClass="com.stumpner.mediadesk.image.folder.FolderHolder">
         DELETE FROM categoryholder
         WHERE categoryid = #categoryId# AND ivid = #ivid#
     </delete>
@@ -389,7 +389,7 @@
         WHERE categoryid = #categoryId#
     </delete>
 
-    <update id="saveCategory" parameterClass="com.stumpner.mediadesk.image.category.FolderMultiLang">
+    <update id="saveCategory" parameterClass="com.stumpner.mediadesk.image.folder.FolderMultiLang">
         UPDATE category
         SET cattitle = #catTitle#,
             catname = #catName#,

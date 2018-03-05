@@ -1,9 +1,9 @@
 package com.stumpner.mediadesk.api;
 
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
+import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.image.ImageVersionMultiLang;
@@ -102,8 +102,8 @@ public class MediaObjectApi extends ApiBase {
         StringBuffer sb = new StringBuffer();
         int ivid = Integer.parseInt(parameter[0]);
         ImageVersionService imageService = new ImageVersionService();
-        CategoryService categoryService = new CategoryService();
-        List categoryList = categoryService.getCategoryListFromImageVersion(ivid);
+        FolderService folderService = new FolderService();
+        List categoryList = folderService.getCategoryListFromImageVersion(ivid);
         Iterator categories = categoryList.iterator();
         while (categories.hasNext()) {
             Folder folder = (Folder)categories.next();

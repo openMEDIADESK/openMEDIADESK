@@ -1,10 +1,9 @@
 package com.stumpner.mediadesk.web.servlet.ajax;
 
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
+import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
-import com.stumpner.mediadesk.image.category.Folder;
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
 import com.stumpner.mediadesk.usermanagement.User;
 
@@ -72,7 +71,7 @@ public class CatReorder extends HttpServlet {
                 response.sendError(400, "Zyklus: Parent Node ist er selbst");
             }
 
-            CategoryService cs = new CategoryService();
+            FolderService cs = new FolderService();
 
             try {
                 Folder cat = cs.getCategoryById(Integer.parseInt(movingNode));

@@ -67,7 +67,7 @@ public class Menu implements IMultiLangObject {
                 return "/index/";
             case '4': //folder
                 return "/index/folder";
-            case '5': //category
+            case '5': //folder
                 return "/index/cat";
         }
         if (linkType.length>1) {
@@ -90,7 +90,7 @@ public class Menu implements IMultiLangObject {
                 break;
             case '4': //folder
                 return "id";
-            case '5': //category
+            case '5': //folder
                 return "id";
         }
         return "";
@@ -109,7 +109,7 @@ public class Menu implements IMultiLangObject {
                 break;
             case '4': //folder
                 return linkType[1];
-            case '5': //category
+            case '5': //folder
                 return linkType[1];
         }
         return "";

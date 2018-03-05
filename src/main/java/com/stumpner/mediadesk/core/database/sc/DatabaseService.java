@@ -49,8 +49,8 @@ public class DatabaseService {
         if (triggerStage1) {
 
             logger.debug("DatabaseService: updateing Folder Image Count");
-            CategoryService categoryService = new CategoryService();
-            categoryService.calcImageCount(0);
+            FolderService folderService = new FolderService();
+            folderService.calcImageCount(0);
 
             //AclImage Neu aufbauen:
             logger.debug("DatabseService: updateing ImageACL");

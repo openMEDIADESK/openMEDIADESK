@@ -1,9 +1,8 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.category.Folder;
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.usermanagement.User;
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
+import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.UserService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
@@ -83,16 +82,16 @@ public class FolderBreakupController extends SimpleFormControllerMd {
         WebStack webStack = new WebStack(httpServletRequest);
         webStack.push();
 
-        CategoryService userService = new CategoryService();
+        FolderService userService = new FolderService();
         //Prüfen ob ein Parameter übergeben wurde
-        if (httpServletRequest.getParameter("categoryid")==null) {
+        if (httpServletRequest.getParameter("id")==null) {
             httpServletRequest.setAttribute("categoryNotExists",true);
             return null;
             
         } else {
 
             try {
-                int userId = Integer.parseInt(httpServletRequest.getParameter("categoryid"));
+                int userId = Integer.parseInt(httpServletRequest.getParameter("id"));
                 Folder folder = null;
                 try {
                     folder = (Folder)userService.getCategoryById(userId);
@@ -203,7 +202,7 @@ public class FolderBreakupController extends SimpleFormControllerMd {
 
     private void deleteFolder(Folder folder) {
 
-        CategoryService folderService = new CategoryService();
+        FolderService folderService = new FolderService();
         try {
             if (getChilds(folder)>0) {
                 folderService.deleteRecursiv(folder.getCategoryId());
@@ -218,8 +217,8 @@ public class FolderBreakupController extends SimpleFormControllerMd {
 
     private int getChilds(Folder folder) {
 
-        CategoryService categoryService = new CategoryService();
-        int childs = categoryService.getCategoryList(folder.getCategoryId()).size();
+        FolderService folderService = new FolderService();
+        int childs = folderService.getCategoryList(folder.getCategoryId()).size();
         return childs;
     }
 

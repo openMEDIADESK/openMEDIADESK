@@ -10,16 +10,15 @@ import java.util.Map;
 import java.util.Iterator;
 import java.io.*;
 
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.core.database.sc.FolderService;
+import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.DownloadLoggerService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
-import com.stumpner.mediadesk.image.category.Folder;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.stats.SimpleDownloadLogger;
 import net.stumpner.security.acl.AclControllerContext;
@@ -119,8 +118,8 @@ public class MediaObjectResource implements FileResource {
 
         if (user.getRole()>=User.ROLE_EDITOR) { //Erst ab Rolle Editor darf jemand neue Objekte anlegen
             System.out.println("Webdav Delete Request: ["+media.getVersionName()+"] linkedFolder="+ linkedFolder.getCategoryId());
-            CategoryService categoryService = new CategoryService();
-            categoryService.deleteImageFromCategory(linkedFolder.getCategoryId(),media.getIvid());
+            FolderService folderService = new FolderService();
+            folderService.deleteImageFromCategory(linkedFolder.getCategoryId(),media.getIvid());
         }
     }
 
@@ -181,7 +180,7 @@ public class MediaObjectResource implements FileResource {
 
             int moveToCategoryId = Integer.parseInt(collectionResource.getUniqueId());
             ImageVersionService mediaService = new ImageVersionService();
-            CategoryService categoryService = new CategoryService();
+            FolderService folderService = new FolderService();
             if (linkedFolder.getCategoryId()==moveToCategoryId) {
                 //Umbenennen
                 if (media.getVersionTitle().equalsIgnoreCase(media.getVersionName())) {
@@ -203,8 +202,8 @@ public class MediaObjectResource implements FileResource {
             } else {
                 //Verschieben
                 try {
-                    categoryService.addImageToCategory(moveToCategoryId,media.getIvid());
-                    categoryService.deleteImageFromCategory(linkedFolder,media);
+                    folderService.addImageToCategory(moveToCategoryId,media.getIvid());
+                    folderService.deleteImageFromCategory(linkedFolder,media);
                 } catch (DublicateEntry dublicateEntry) {
                     dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }

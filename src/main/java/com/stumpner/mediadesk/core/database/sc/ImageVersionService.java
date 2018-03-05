@@ -3,7 +3,7 @@ package com.stumpner.mediadesk.core.database.sc;
 import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.image.Image;
 import com.stumpner.mediadesk.image.ImageVersionMultiLang;
-import com.stumpner.mediadesk.image.category.NameValidator;
+import com.stumpner.mediadesk.image.folder.NameValidator;
 import com.stumpner.mediadesk.image.inbox.InboxService;
 import com.stumpner.mediadesk.core.database.AppSqlMap;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
@@ -424,13 +424,13 @@ public class ImageVersionService extends ImageService {
         logger.info("ImageVersionService: deleteImageVersion, ivid="+imageVersion.getIvid());
 
         try {
-            CategoryService categoryService = new CategoryService();
+            FolderService folderService = new FolderService();
             LightboxService lightboxService = new LightboxService();
             ShoppingCartService shoppingCartService = new ShoppingCartService();
             InboxService inboxService = new InboxService();
             /* Kategorieverknüpfungen lösen: bild(er) aus ordner und kategorien löschen */
             logger.debug("deleteImageVersion: delete image from all categories, folders, lightbox, shoppingcart, inbox");
-            categoryService.deleteImageFromAllCategories(imageVersion.getIvid());
+            folderService.deleteImageFromAllCategories(imageVersion.getIvid());
             lightboxService.deleteImageFromAllLightbox(imageVersion.getIvid());
             shoppingCartService.deleteImageFromAllShoppingCart(imageVersion.getIvid());
             inboxService.removeImage(imageVersion.getIvid());

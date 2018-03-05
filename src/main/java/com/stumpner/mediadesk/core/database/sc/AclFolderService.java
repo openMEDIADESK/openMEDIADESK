@@ -3,7 +3,7 @@ package com.stumpner.mediadesk.core.database.sc;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
 import com.stumpner.mediadesk.usermanagement.acl.AclUserContext;
@@ -41,20 +41,20 @@ import javax.servlet.http.HttpServletRequest;
  * Date: 28.07.2008
  * Time: 17:59:17
  *
- * Spezielle CategoryService-Klasse zum laden der Informationen und Listen unter
+ * Spezielle FolderService-Klasse zum laden der Informationen und Listen unter
  * Berücksichtigung der ACL (Berechtigungen)
  */
-public class AclCategoryService extends CategoryService {
+public class AclFolderService extends FolderService {
 
     private AclControllerContext aclCtx = null;
     private HttpServletRequest request = null;
 
-    public AclCategoryService(HttpServletRequest request) {
+    public AclFolderService(HttpServletRequest request) {
         this.request = request;
         aclCtx = AclContextFactory.getAclContext(request);
     }
 
-    public AclCategoryService(AclControllerContext acl) {
+    public AclFolderService(AclControllerContext acl) {
         aclCtx = acl;
     }
 

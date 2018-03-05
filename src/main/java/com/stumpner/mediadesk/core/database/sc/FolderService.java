@@ -4,13 +4,13 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundExceptio
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
-import com.stumpner.mediadesk.core.database.sc.loader.CategoryLoaderClass;
+import com.stumpner.mediadesk.core.database.sc.loader.FolderLoaderClass;
 import com.stumpner.mediadesk.core.database.sc.loader.HolderClass;
 import com.stumpner.mediadesk.core.database.AppSqlMap;
 import com.stumpner.mediadesk.core.CronService;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.image.category.*;
+import com.stumpner.mediadesk.image.folder.*;
 import com.stumpner.mediadesk.usermanagement.SecurityGroup;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -47,7 +47,7 @@ import net.stumpner.security.acl.*;
  * Time: 22:43:33
  * To change this template use File | Settings | File Templates.
  */
-public class CategoryService extends MultiLanguageService implements IServiceClass {
+public class FolderService extends MultiLanguageService implements IServiceClass {
 
     public Object getById(int id) throws ObjectNotFoundException, IOServiceException {
         return getCategoryById(id);  //To change body of implemented methods use File | Settings | File Templates.
@@ -105,7 +105,7 @@ public class CategoryService extends MultiLanguageService implements IServiceCla
         List allCategoryList = new ArrayList();
         Map categoryMap = new HashMap();
 
-        CategoryLoaderClass loaderClass = new CategoryLoaderClass();
+        FolderLoaderClass loaderClass = new FolderLoaderClass();
         loaderClass.setSort(Config.categorySort);
         loaderClass.setId(parentId);
         loaderClass.setUsedLanguage(getUsedLanguage());
@@ -120,8 +120,8 @@ public class CategoryService extends MultiLanguageService implements IServiceCla
 
         Iterator categories = allCategoryList.iterator();
         while (categories.hasNext()) {
-            Folder category = (Folder)categories.next();
-            categoryMap.put(new Integer(category.getCategoryId()),category.getCatTitle());
+            Folder folder = (Folder)categories.next();
+            categoryMap.put(new Integer(folder.getCategoryId()),folder.getCatTitle());
         }
         */
 
@@ -180,7 +180,7 @@ public class CategoryService extends MultiLanguageService implements IServiceCla
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         List folderList = new ArrayList();
-        CategoryLoaderClass loaderClass = new CategoryLoaderClass();
+        FolderLoaderClass loaderClass = new FolderLoaderClass();
         loaderClass.setSort(Config.categorySort);
         loaderClass.setId(parentCategoryId);
         loaderClass.setUsedLanguage(getUsedLanguage());
@@ -619,7 +619,7 @@ public class CategoryService extends MultiLanguageService implements IServiceCla
         Logger logger = Logger.getLogger(getClass());
         int imageCount = 0;
 
-        logger.debug("CategoryService: Image-Branch neu berechnen, categoryID="+categoryId);
+        logger.debug("FolderService: Image-Branch neu berechnen, categoryID="+categoryId);
 
         try {
             List parentCategoryList = this.getParentCategoryList(categoryId);
@@ -641,7 +641,7 @@ public class CategoryService extends MultiLanguageService implements IServiceCla
 
     public Folder getCategoryByPath(String categoryPath) throws ObjectNotFoundException {
 
-        CategoryService categoryService = new CategoryService();
+        FolderService folderService = new FolderService();
         String[] pathToken = categoryPath.split("/");
         int start = 0;
         int categoryId = 0;
@@ -649,7 +649,7 @@ public class CategoryService extends MultiLanguageService implements IServiceCla
         if (categoryPath.startsWith("/")) { start = 1; }
 
         for (int a=start;a<pathToken.length;a++) {
-            List categoryList = categoryService.getCategoryList(categoryId);
+            List categoryList = folderService.getCategoryList(categoryId);
             Iterator categories = categoryList.iterator();
             boolean found = false;
             while (categories.hasNext()) {
@@ -668,7 +668,7 @@ public class CategoryService extends MultiLanguageService implements IServiceCla
         }
 
         try {
-            Folder folder = categoryService.getCategoryById(categoryId);
+            Folder folder = folderService.getCategoryById(categoryId);
             return folder;
         } catch (IOServiceException e) {
             throw new ObjectNotFoundException();

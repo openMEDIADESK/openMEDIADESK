@@ -1,11 +1,11 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.web.mvc.commandclass.settings.ApplicationSettings;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.core.database.sc.UserService;
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -236,9 +236,9 @@ public class ApplicationSettingsController extends SimpleFormControllerMd {
 
         UserService userService = new UserService();
         httpServletRequest.setAttribute("securityGroupList",userService.getRealSecurityGroupList());
-        CategoryService categoryService = new CategoryService();
-        categoryService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-        List rootCategoryList = categoryService.getCategorySubTree(0,0);
+        FolderService folderService = new FolderService();
+        folderService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
+        List rootCategoryList = folderService.getCategorySubTree(0,0);
         httpServletRequest.setAttribute("rootCategoryList",rootCategoryList);
 
         this.setContentTemplateFile("settings_programm.jsp",httpServletRequest);

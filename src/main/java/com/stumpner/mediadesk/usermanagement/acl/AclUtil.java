@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.usermanagement.acl;
 
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.folder.Folder;
 import net.stumpner.security.acl.AclControllerContext;
 import net.stumpner.security.acl.AclPermission;
 import net.stumpner.security.acl.AclController;
@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.Iterator;
 import java.security.acl.AclNotFoundException;
 
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
+import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 
 /*********************************************************
@@ -61,14 +61,14 @@ public class AclUtil {
 
         if (AclController.isEnabled()) {
             List permittedImages = new LinkedList();
-            CategoryService categoryService = new CategoryService();
+            FolderService folderService = new FolderService();
             Iterator downloadListImages = downloadList.iterator();
             while (downloadListImages.hasNext()) {
                 boolean permitted = false;
                 ImageVersionMultiLang imageVersion = (ImageVersionMultiLang)downloadListImages.next();
 
                 //Ordner prüfen
-                List categoryList = categoryService.getCategoryListFromImageVersion(imageVersion.getIvid());
+                List categoryList = folderService.getCategoryListFromImageVersion(imageVersion.getIvid());
                 Iterator categories = categoryList.iterator();
                 //todo: Zugriffverhalten wenn in keinem Ordner!? (z.b. neueste Bilder)
                 while (categories.hasNext()) {

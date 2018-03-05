@@ -96,10 +96,10 @@ public class ImageEditController extends AbstractAutoFillController {
          * Bilder in Ordner und Kategorien...
          */
         LngResolver lngResolver = new LngResolver();
-        CategoryService categoryService = new CategoryService();
-        categoryService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
+        FolderService folderService = new FolderService();
+        folderService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
         int ivid = ((ImageVersionMetadata)e.getTarget()).getImageVersion().getIvid();
-        model.put("categoryList",categoryService.getCategoryListFromImageVersion(ivid));
+        model.put("categoryList", folderService.getCategoryListFromImageVersion(ivid));
 
         /**
          * Markierte Bilder testen bzw. zählen...
@@ -214,8 +214,8 @@ public class ImageEditController extends AbstractAutoFillController {
                 //neue datei erstellen
                 int categoryId = Integer.parseInt(httpServletRequest.getParameter("c"));
                 ivid = createNewFile(WebHelper.getUser(httpServletRequest));
-                CategoryService categoryService = new CategoryService();
-                categoryService.addImageToCategory(categoryId,ivid);
+                FolderService folderService = new FolderService();
+                folderService.addImageToCategory(categoryId,ivid);
             } else {
                 ivid = Integer.parseInt(httpServletRequest.getParameter("id"));
             }

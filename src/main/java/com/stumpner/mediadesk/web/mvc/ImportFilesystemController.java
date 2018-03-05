@@ -17,7 +17,7 @@ import java.io.FileOutputStream;
 
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.lic.LicenceChecker;
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
+import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.QuotaExceededException;
 import com.stumpner.mediadesk.image.util.ImageImport;
 import com.stumpner.mediadesk.image.util.SizeExceedException;
@@ -270,8 +270,8 @@ public class ImportFilesystemController extends ModelFormPageController {
         fileList.setAutoImportEnabled(Config.autoimportFtp);
         fileList.setAutoImportFtpCat(Config.autoImportFtpCat);
 
-        CategoryService categoryService = new CategoryService();
-        fileList.setCategoryList(categoryService.getCategoryList(0));
+        FolderService folderService = new FolderService();
+        fileList.setCategoryList(folderService.getCategoryList(0));
 
         //Hilfsweise das Objekt sofort in die Session speichern...
         HttpSession session = request.getSession();

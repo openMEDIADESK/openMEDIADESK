@@ -1,6 +1,7 @@
 package com.stumpner.mediadesk.core.service;
 
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.core.database.sc.FolderService;
+import com.stumpner.mediadesk.image.folder.Folder;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +10,6 @@ import java.util.*;
 
 import com.stumpner.mediadesk.core.Resources;
 import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.web.LngResolver;
@@ -76,8 +76,8 @@ public class MediaObjectService {
         if (folderId!=null) {
             if (folderId!=-1) {
                 try {
-                    CategoryService categoryService = new CategoryService();
-                    Folder folder = categoryService.getCategoryById(folderId);
+                    FolderService folderService = new FolderService();
+                    Folder folder = folderService.getCategoryById(folderId);
                     fromMap.put(imageVersion, folder);
                     logger.debug("selectMedia: Herkunfts-Containterobject: "+ folder.getCategoryId()+" saved");
                 } catch (ObjectNotFoundException e) {

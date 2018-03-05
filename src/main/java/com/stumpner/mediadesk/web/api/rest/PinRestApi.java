@@ -130,7 +130,7 @@ public class PinRestApi extends RestBaseServlet {
         List<ImageVersionMultiLang> imageList = pinService.getPinpicImages(pinId);
 
         /** Kategorie-Liste f�r den Thumbnail-View **/
-        //AclCategoryService categoryService = new AclCategoryService(request);
+        //AclFolderService categoryService = new AclFolderService(request);
         //categoryService.setUsedLanguage(lngResolver.resolveLng(request));
 
         try {

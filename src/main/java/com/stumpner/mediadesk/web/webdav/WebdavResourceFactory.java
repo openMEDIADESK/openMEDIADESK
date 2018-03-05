@@ -5,23 +5,21 @@ import com.bradmcevoy.http.Resource;
 import com.bradmcevoy.http.Request;
 import com.bradmcevoy.http.Auth;
 import com.bradmcevoy.common.Path;
-import com.stumpner.mediadesk.image.category.Folder;
-import com.stumpner.mediadesk.image.category.FolderMultiLang;
+import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.image.folder.FolderMultiLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.security.acl.AclNotFoundException;
 
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
+import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.UserService;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.category.Folder;
-import com.stumpner.mediadesk.image.category.FolderMultiLang;
 import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
@@ -80,16 +78,16 @@ public class WebdavResourceFactory implements ResourceFactory {
         if( path.isRoot() ) {
             //Root
             System.out.println("Webdav Resource Request: ["+path+"] = ROOT-CATEGORY");
-            return new CategoryResource(this,"");
+            return new FolderResource(this,"");
         } else {
             // Nicht Root
             //System.out.println("path not root");
-            CategoryService categoryService = new CategoryService();
+            FolderService folderService = new FolderService();
             try {
-                FolderMultiLang category = (FolderMultiLang)categoryService.getCategoryByPath(path.toString());
+                FolderMultiLang category = (FolderMultiLang) folderService.getCategoryByPath(path.toString());
                 //Unterkategorie
                 System.out.println("Webdav Resource Request: ["+path+"] = CATEGORY,id="+category.getCategoryId()+",name="+category.getCatName());
-                return new CategoryResource(this,category);
+                return new FolderResource(this,category);
             } catch (ObjectNotFoundException e) {
                 //Medienobjekt in einer Kategorie (Keine Kategorie: - pr�fung auf Medienobjekt in der Kategorie)
                 //System.out.println("   Gesucht wird wom�glich ein Medienobjekt... "+ path.getParent().toString());
@@ -99,7 +97,7 @@ public class WebdavResourceFactory implements ResourceFactory {
                     Folder folder = null;
 
                     if (!path.getParent().toString().equalsIgnoreCase("")) {
-                        folder = categoryService.getCategoryByPath(path.getParent().toString());
+                        folder = folderService.getCategoryByPath(path.getParent().toString());
                     } else {
                         folder = new Folder();
                         folder.setCategoryId(0);

@@ -223,7 +223,7 @@ public class CronService {
         //alte PINS löschen
         ImageVersionService imageService = new ImageVersionService();
         PinpicService pinpicService = new PinpicService();
-        CategoryService categoryService = new CategoryService();
+        FolderService folderService = new FolderService();
         Iterator pinPics = pinpicService.getPinpicList().iterator();
         while (pinPics.hasNext()) {
             Pinpic pin = (Pinpic)pinPics.next();
@@ -235,7 +235,7 @@ public class CronService {
                     Iterator images = pinpicService.getPinpicImages(pin.getPinpicId()).iterator();
                     while (images.hasNext()) {
                         ImageVersion imageVersion = (ImageVersion)images.next();
-                        List categoryList = categoryService.getCategoryListFromImageVersion(imageVersion.getIvid());
+                        List categoryList = folderService.getCategoryListFromImageVersion(imageVersion.getIvid());
                                 //todo: auch prüfen ob das bild in einem anderen pinpic vorkommt
                         if (categoryList.size()==0) {
                             //System.out.println("Bild ist in keiner Kategorie und keinem Folder, löschen:");

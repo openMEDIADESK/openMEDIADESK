@@ -1,7 +1,7 @@
 package com.stumpner.mediadesk.web.servlet;
 
-import com.stumpner.mediadesk.image.category.Folder;
-import com.stumpner.mediadesk.image.category.FolderMultiLang;
+import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.image.folder.FolderMultiLang;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.FileItem;
@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.io.File;
 import java.util.List;
 import java.util.Iterator;
-import java.util.Date;
 import java.security.acl.AclNotFoundException;
 
 import com.stumpner.mediadesk.core.Config;
@@ -102,9 +101,9 @@ public class UploadServlet extends HttpServlet {
                 int ivid = -1;
 
                 String urlPathInfo = httpServletRequest.getPathInfo();
-                if (urlPathInfo.startsWith("/category/")) {
+                if (urlPathInfo.startsWith("/folder/")) {
                     //Upload in eine Kategorie
-                    String idString = urlPathInfo.substring("/category/".length());
+                    String idString = urlPathInfo.substring("/folder/".length());
                     //System.out.println("idString = "+idString);
                     if (idString.endsWith("/")) { idString = idString.replaceAll("/",""); }
                     //System.out.println("bereinigt idString = "+idString);
@@ -380,11 +379,11 @@ public class UploadServlet extends HttpServlet {
         Object autoImportObject = null;
         if (!categoryName.equalsIgnoreCase("")) {
             //in eine kategorie importieren
-            CategoryService categoryService = new CategoryService();
+            FolderService folderService = new FolderService();
             FolderMultiLang category = null;
 
             try {
-                category = (FolderMultiLang)categoryService.getByName(categoryName);
+                category = (FolderMultiLang) folderService.getByName(categoryName);
             } catch (ObjectNotFoundException e) {
                 /*Kategorie existiert noch nicht --> neue erstellen*/
                 category = new FolderMultiLang();
@@ -395,9 +394,9 @@ public class UploadServlet extends HttpServlet {
                 category.setCatTitleLng2(categoryName);
                 category.setDescription("Autoimport");
                 try {
-                    categoryService.addCategory(category);
+                    folderService.addCategory(category);
                     try {
-                        category = (FolderMultiLang)categoryService.getByName(categoryName);
+                        category = (FolderMultiLang) folderService.getByName(categoryName);
                     } catch (ObjectNotFoundException e1) {
                         e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     }
@@ -414,9 +413,9 @@ public class UploadServlet extends HttpServlet {
         if (categoryId!=-1) {
             //in eine kategorie importieren
             if (categoryId!=0) {
-                CategoryService categoryService = new CategoryService();
+                FolderService folderService = new FolderService();
                 try {
-                    Folder folder = (FolderMultiLang)categoryService.getById(categoryId);
+                    Folder folder = (FolderMultiLang) folderService.getById(categoryId);
                     autoImportObject = folder;
                 } catch (ObjectNotFoundException e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

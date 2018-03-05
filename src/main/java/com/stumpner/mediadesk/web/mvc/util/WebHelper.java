@@ -145,7 +145,7 @@ public class WebHelper {
 
         UserAuthentication userAuth = getAutologinCookies(request);
         if (userAuth!=null) {
-            System.out.println("CategoryIndexController: Autologin Cookies: "+userAuth.getUserName());
+            System.out.println("FolderIndexController: Autologin Cookies: "+userAuth.getUserName());
             HttpSession session = request.getSession();
             UserService userService = new UserService();
             User user = (User) userService.getByName(userAuth.getUserName());
@@ -162,7 +162,7 @@ public class WebHelper {
                 }
             }
         } else {
-            System.out.println("CategoryIndexController: NO AUTOLOGIN Cookies");
+            System.out.println("FolderIndexController: NO AUTOLOGIN Cookies");
         }
 
     }

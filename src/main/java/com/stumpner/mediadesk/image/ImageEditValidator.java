@@ -2,7 +2,7 @@ package com.stumpner.mediadesk.image;
 
 import org.springframework.validation.Validator;
 import org.springframework.validation.Errors;
-import com.stumpner.mediadesk.image.category.NameValidator;
+import com.stumpner.mediadesk.image.folder.NameValidator;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)

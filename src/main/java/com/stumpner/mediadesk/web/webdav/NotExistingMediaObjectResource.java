@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.LinkedList;
 import java.io.*;
 
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.core.database.sc.FolderService;
+import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.image.util.SizeExceedException;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.media.importing.ImportFactory;
@@ -112,8 +112,8 @@ public class NotExistingMediaObjectResource implements FileResource, PutableReso
 
             File file = new File(Config.getTempPath()+File.separator+olFileName);
             file.delete();
-            CategoryService categoryService = new CategoryService();
-            categoryService.addImageToCategory(folder.getCategoryId(),ivid);
+            FolderService folderService = new FolderService();
+            folderService.addImageToCategory(folder.getCategoryId(),ivid);
 
         }  catch (MimeTypeNotSupportedException e) {
             System.out.println("Diese Datei wird nicht unterst�tzt");

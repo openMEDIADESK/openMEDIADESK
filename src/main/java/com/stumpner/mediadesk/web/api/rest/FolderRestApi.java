@@ -1,7 +1,7 @@
 package com.stumpner.mediadesk.web.api.rest;
 
-import com.stumpner.mediadesk.image.category.Folder;
-import com.stumpner.mediadesk.image.category.FolderMultiLang;
+import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.image.folder.FolderMultiLang;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.core.database.sc.*;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
-import com.stumpner.mediadesk.web.mvc.CategoryEditController;
+import com.stumpner.mediadesk.web.mvc.FolderEditController;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.UserFactory;
 
@@ -57,25 +57,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * User: franz.stumpner
  * Date: 07.06.2013
  * Time: 10:05:32
- * To change this template use File | Settings | File Templates.
  *
- * /api/rest/category/<categoryid>/{medialist|child|parent|setfolderimageselected|properties|editmode}
+ * /api/rest/folder/<folderid>/{medialist|child|parent|setfolderimageselected|properties|editmode}
  *   1   2      3           4                   5
  *
- * /api/rest/category/<categoryid>/removeselected
- * /api/rest/category/<categoryid>/deleteselected
- * /api/rest/category/<categoryid>/insertselected
+ * /api/rest/folder/<folderid>/removeselected
+ * /api/rest/folder/<folderid>/deleteselected
+ * /api/rest/folder/<folderid>/insertselected
  *
  * Verschiebt
  *   1   2    3          4           5    6      7    8
- * /api/rest/category/<categoryid>/move/{ivid}/from/{categoryid}
- * /api/rest/category/<categoryid>/copy/{ivid}
+ * /api/rest/folder/<folderid>/move/{ivid}/from/{categoryid}
+ * /api/rest/folder/<folderid>/copy/{ivid}
  *
  * POST:
  *   1   2   3        4
- * /api/rest/category/<categoryid>
+ * /api/rest/folder/<folderid>
  */
-public class CategoryRestApi extends RestBaseServlet {
+public class FolderRestApi extends RestBaseServlet {
 
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -204,7 +203,7 @@ public class CategoryRestApi extends RestBaseServlet {
 
         int folderId = getUriSectionInt(4, request);
 
-        CategoryService folderService = new CategoryService();
+        FolderService folderService = new FolderService();
         try {
             FolderMultiLang folder = null;
             if (folderId!=0) { //0 = neuer Folder, den kann es ja noch nicht geben
@@ -214,7 +213,7 @@ public class CategoryRestApi extends RestBaseServlet {
             if (editmode) {
 
                 HttpSession session = request.getSession();
-                FolderMultiLang sessionObject = (FolderMultiLang)session.getAttribute(CategoryEditController.class.getName()+".FORM.command");
+                FolderMultiLang sessionObject = (FolderMultiLang)session.getAttribute(FolderEditController.class.getName()+".FORM.command");
 
                 if (sessionObject!=null) {
                     if (sessionObject.getCategoryId()==sessionObject.getCategoryId()) {
@@ -276,9 +275,9 @@ public class CategoryRestApi extends RestBaseServlet {
         int ivid = getUriSectionInt(6, request);
 
         String status = "undefined";
-        CategoryService categoryService = new CategoryService();
+        FolderService folderService = new FolderService();
         try {
-            categoryService.addImageToCategory(folderId, ivid);
+            folderService.addImageToCategory(folderId, ivid);
             status = "OK";
         } catch (DublicateEntry dublicateEntry) {
             dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -303,10 +302,10 @@ public class CategoryRestApi extends RestBaseServlet {
         }
 
         String status = "undefined";
-        CategoryService categoryService = new CategoryService();
+        FolderService folderService = new FolderService();
         try {
-            categoryService.addImageToCategory(folderId, ivid);
-            categoryService.deleteImageFromCategory(fromFolderId, ivid);
+            folderService.addImageToCategory(folderId, ivid);
+            folderService.deleteImageFromCategory(fromFolderId, ivid);
             status = "OK";
         } catch (DublicateEntry dublicateEntry) {
             dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -325,14 +324,14 @@ public class CategoryRestApi extends RestBaseServlet {
         List<ImageVersion> list = MediaObjectService.getSelectedImageList(request.getSession());
         int categoryId = getUriSectionInt(4, request);
 
-        CategoryService categoryService = new CategoryService();
+        FolderService folderService = new FolderService();
         try {
-            Folder c = categoryService.getCategoryById(categoryId);
+            Folder c = folderService.getCategoryById(categoryId);
             if (list.size()>0) {
                 ImageVersion mo = list.get(0);
                 c.setPrimaryIvid(mo.getIvid());
                 System.out.println("set Folder Image");
-                categoryService.save(c);
+                folderService.save(c);
             }
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -352,9 +351,9 @@ public class CategoryRestApi extends RestBaseServlet {
 
             int categoryId = getUriSectionInt(4, request);
 
-            CategoryService categoryService = new CategoryService();
+            FolderService folderService = new FolderService();
             for (ImageVersion mo : selectedList) {
-                categoryService.deleteImageFromCategory(categoryId,mo.getIvid());
+                folderService.deleteImageFromCategory(categoryId,mo.getIvid());
             }
 
             MediaObjectService.deselectMedia(null, request);
@@ -403,11 +402,11 @@ public class CategoryRestApi extends RestBaseServlet {
 
         System.out.println("insert:"+categoryId);
 
-        CategoryService categoryService = new CategoryService();
+        FolderService folderService = new FolderService();
         for (ImageVersion mo : selectedList) {
             try {
                 System.out.println("insert media:"+mo.getIvid());
-                categoryService.addImageToCategory(categoryId, mo.getIvid());
+                folderService.addImageToCategory(categoryId, mo.getIvid());
             } catch (DublicateEntry dublicateEntry) {
                 dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
@@ -418,7 +417,7 @@ public class CategoryRestApi extends RestBaseServlet {
 
     private void jsonCategoryChilds(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        AclCategoryService categoryService = new AclCategoryService(request);
+        AclFolderService categoryService = new AclFolderService(request);
         LngResolver lngResolver = new LngResolver();
         categoryService.setUsedLanguage(lngResolver.resolveLng(request));
 
@@ -504,7 +503,7 @@ public class CategoryRestApi extends RestBaseServlet {
      */
     private void jsonCategoryChilds2(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        AclCategoryService categoryService = new AclCategoryService(request);
+        AclFolderService categoryService = new AclFolderService(request);
         LngResolver lngResolver = new LngResolver();
         categoryService.setUsedLanguage(lngResolver.resolveLng(request));
 
@@ -607,7 +606,7 @@ public class CategoryRestApi extends RestBaseServlet {
         List<ImageVersionMultiLang> imageList = imageService.getCategoryImages(loaderClass);
 
         /** Kategorie-Liste f�r den Thumbnail-View **/
-        AclCategoryService categoryService = new AclCategoryService(request);
+        AclFolderService categoryService = new AclFolderService(request);
         categoryService.setUsedLanguage(lngResolver.resolveLng(request));
 
         try {

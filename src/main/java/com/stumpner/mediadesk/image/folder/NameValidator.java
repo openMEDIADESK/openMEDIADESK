@@ -1,4 +1,4 @@
-package com.stumpner.mediadesk.image.category;
+package com.stumpner.mediadesk.image.folder;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)

@@ -2,12 +2,12 @@ package com.stumpner.mediadesk.web.servlet;
 
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
+import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.web.LngResolver;
 
 import javax.servlet.http.HttpServlet;
@@ -110,7 +110,7 @@ public class RssServlet extends HttpServlet {
 
         List itemList = new ArrayList();
 
-        if (request.getPathInfo().startsWith("/podcast/category/")) {
+        if (request.getPathInfo().startsWith("/podcast/folder/")) {
 
             String tokens[] = request.getPathInfo().split("/");
             int folderId = Integer.parseInt(tokens[tokens.length-1]);
@@ -123,12 +123,12 @@ public class RssServlet extends HttpServlet {
             loaderClass.setSortBy(Config.sortByFolder);
             itemList = imageService.getCategoryImages(loaderClass);
 
-            CategoryService categoryService = new CategoryService();
-            categoryService.setUsedLanguage(lngResolver.resolveLng(request));
+            FolderService folderService = new FolderService();
+            folderService.setUsedLanguage(lngResolver.resolveLng(request));
             try {
                 Folder folder = new Folder();
                 if (folderId!=0) {
-                    folder = categoryService.getCategoryById(folderId);
+                    folder = folderService.getCategoryById(folderId);
                 }
                 //todo: cheat
                 //Cheat: Description ;http://logourl/logo.gif wird dann also logo im podcast angezeigt
@@ -241,10 +241,10 @@ public class RssServlet extends HttpServlet {
             writer.print("  <itunes:email>"+Config.mailsender+"</itunes:email>");
             writer.print("</itunes:owner>");
             writer.print("<itunes:image href=\""+logoUrl+"\" />");
-            writer.print("<itunes:category text=\"Technology\">");
-            writer.print("  <itunes:category text=\"Podcasting\"/>");
-            writer.print("</itunes:category>");
-            //writer.print("<itunes:category text=\"TV &amp; Film\"/>");
+            writer.print("<itunes:folder text=\"Technology\">");
+            writer.print("  <itunes:folder text=\"Podcasting\"/>");
+            writer.print("</itunes:folder>");
+            //writer.print("<itunes:folder text=\"TV &amp; Film\"/>");
 
 
         }

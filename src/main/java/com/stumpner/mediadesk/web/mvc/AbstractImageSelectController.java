@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.folder.Folder;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
@@ -92,8 +92,8 @@ public abstract class AbstractImageSelectController extends AbstractImageLoaderC
     }
 
     /**
-     * Gibt das Object (folder,category) zurück, der aktuellen Ansicht
-     * @return gibt <null> zurück wenn es kein Object gibt, ansonsten das Object (folder, category)
+     * Gibt das Object (folder,folder) zurück, der aktuellen Ansicht
+     * @return gibt <null> zurück wenn es kein Object gibt, ansonsten das Object (folder, folder)
      */
     protected Object getContainerObject(HttpServletRequest request) {
         return null;

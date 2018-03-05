@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.mvc.util;
 
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.folder.Folder;
 
 /**
  * Created by IntelliJ IDEA.

@@ -1,4 +1,4 @@
-<%@ page import="com.stumpner.mediadesk.core.Config"%><%@ page import="java.text.SimpleDateFormat"%><%@ page import="com.stumpner.mediadesk.core.database.sc.CategoryService"%><%@ page import="java.util.*"%><%@ page import="com.stumpner.mediadesk.web.servlet.Sitemap" %><%@ page contentType="text/xml;charset=UTF-8" language="java" %><?xml version="1.0" encoding="UTF-8"?>
+<%@ page import="com.stumpner.mediadesk.core.Config"%><%@ page import="java.text.SimpleDateFormat"%><%@ page import="com.stumpner.mediadesk.core.database.sc.FolderService"%><%@ page import="java.util.*"%><%@ page import="com.stumpner.mediadesk.web.servlet.Sitemap" %><%@ page contentType="text/xml;charset=UTF-8" language="java" %><?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <%
 
@@ -8,14 +8,14 @@
 
     //categories, geht derzeit nur in eine tiefe bis 20 categories
 
-    CategoryService categoryService = new CategoryService();
-    //List folderList = categoryService.getCategorySubTree(0,20);
-    List folderList = categoryService.getAllCategoryListSuborder();
+    FolderService folderService = new FolderService();
+    //List folderList = folderService.getCategorySubTree(0,20);
+    List folderList = folderService.getAllCategoryListSuborder();
     Iterator categorys = folderList.iterator();
     Calendar calenderNow = GregorianCalendar.getInstance();
 
     while (categorys.hasNext()) {
-        com.stumpner.mediadesk.image.category.Folder folder = (com.stumpner.mediadesk.image.category.Folder)categorys.next();
+        com.stumpner.mediadesk.image.folder.Folder folder = (com.stumpner.mediadesk.image.folder.Folder)categorys.next();
         Date changedDate = new Date();
         double prio = 0.5;
         String mod = "always";

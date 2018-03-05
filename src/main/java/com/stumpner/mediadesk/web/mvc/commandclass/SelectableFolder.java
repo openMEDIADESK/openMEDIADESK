@@ -1,4 +1,6 @@
-package com.stumpner.mediadesk.image.category;
+package com.stumpner.mediadesk.web.mvc.commandclass;
+
+import com.stumpner.mediadesk.image.folder.Folder;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
@@ -18,32 +20,32 @@ package com.stumpner.mediadesk.image.category;
  limitations under the License.
 
  *********************************************************/
+
 /**
  * Created by IntelliJ IDEA.
- * User: franzstumpner
- * Date: 05.10.2005
- * Time: 22:41:09
+ * User: franz.stumpner
+ * Date: 12.06.2012
+ * Time: 17:57:35
  * To change this template use File | Settings | File Templates.
  */
-public class FolderHolder {
+public class SelectableFolder {
 
-    private int categoryId = -1;
-    private int ivid = -1;
+    private boolean selected = false;
+    private Folder folder = null;
 
-    public int getCategoryId() {
-        return categoryId;
+    public Folder getFolder() {
+        return folder;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setFolder(Folder folder) {
+        this.folder = folder;
     }
 
-    public int getIvid() {
-        return ivid;
+    public boolean isSelected() {
+        return selected;
     }
 
-    public void setIvid(int ivid) {
-        this.ivid = ivid;
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
-
 }

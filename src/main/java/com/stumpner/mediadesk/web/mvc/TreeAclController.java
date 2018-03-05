@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.category.FolderMultiLang;
+import com.stumpner.mediadesk.image.folder.FolderMultiLang;
 import com.stumpner.mediadesk.web.mvc.common.SimpleFormControllerMd;
 import net.stumpner.security.acl.Acl;
 import net.stumpner.security.acl.AclController;
@@ -59,10 +59,10 @@ public class TreeAclController extends SimpleFormControllerMd {
 
     protected Object formBackingObject(HttpServletRequest request) throws Exception {
 
-        CategoryService categoryService = new AclCategoryService(request);
+        FolderService folderService = new AclFolderService(request);
         LngResolver lngResolver = new LngResolver();
-        categoryService.setUsedLanguage(lngResolver.resolveLng(request));
-        List<FolderMultiLang> categoryTree = categoryService.getAllCategoryList();
+        folderService.setUsedLanguage(lngResolver.resolveLng(request));
+        List<FolderMultiLang> categoryTree = folderService.getAllCategoryList();
 
         List<TreeAclCommand.TreeAclCommandEntity> selectableCategoryList = getSelectableCategoryList(request.getParameter("type"), categoryTree, request);
         TreeAclCommand categorySelection = new TreeAclCommand();
@@ -176,7 +176,7 @@ public class TreeAclController extends SimpleFormControllerMd {
 
     protected ModelAndView onSubmit(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, BindException e) throws Exception {
 
-        CategoryService categoryService = new CategoryService();
+        FolderService folderService = new FolderService();
         ImageVersionService mediaService = new ImageVersionService();
         TreeAclCommand categorySelection = (TreeAclCommand)o;
         for (TreeAclCommand.TreeAclCommandEntity category : categorySelection.getCategoryList()) {

@@ -1,8 +1,8 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.core.database.sc.UserService;
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -109,8 +109,8 @@ public class UserDeleteController extends SimpleFormControllerMd {
         if (httpServletRequest.getParameter("yes")!=null) { //Prüfen ob bei der Abfrage auf JA geklickt wurde
             //Benutzerkategorie löschen
             if (httpServletRequest.getParameter("cbx")!=null) {
-                CategoryService categoryService = new CategoryService();
-                categoryService.deleteById(user.getHomeCategoryId());
+                FolderService folderService = new FolderService();
+                folderService.deleteById(user.getHomeCategoryId());
             }
             this.deleteUser(user);
         }

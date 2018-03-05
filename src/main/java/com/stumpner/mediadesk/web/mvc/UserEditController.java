@@ -1,13 +1,13 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.Authenticator;
 import com.stumpner.mediadesk.core.database.sc.UserService;
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.folder.Folder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.validation.BindException;
@@ -184,12 +184,12 @@ public class UserEditController extends SimpleFormControllerMd {
 
         //delete homedir
         if (httpServletRequest.getParameter("deleteHomeCat")!=null) {
-            CategoryService categoryService = new CategoryService();
+            FolderService folderService = new FolderService();
 
             try {
-                Folder folder = categoryService.getCategoryById(user.getHomeCategoryId());
+                Folder folder = folderService.getCategoryById(user.getHomeCategoryId());
                 folder.setCatName(folder.getCatName()+".bak."+(new Date().getDay()));
-                categoryService.save(folder);
+                folderService.save(folder);
             } catch (IOServiceException e1) {
                 e.printStackTrace();
             } catch (ObjectNotFoundException e2) {

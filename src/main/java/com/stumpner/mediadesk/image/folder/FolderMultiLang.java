@@ -1,4 +1,4 @@
-package com.stumpner.mediadesk.image.category;
+package com.stumpner.mediadesk.image.folder;
 
 import com.stumpner.mediadesk.image.IMultiLangObject;
 import com.stumpner.mediadesk.core.database.sc.MultiLanguageService;

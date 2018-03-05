@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.image;
 
-import com.stumpner.mediadesk.image.category.NameValidator;
+import com.stumpner.mediadesk.image.folder.NameValidator;
 
 import java.util.Date;
 

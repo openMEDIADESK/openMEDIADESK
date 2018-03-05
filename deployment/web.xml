@@ -174,8 +174,8 @@ will default to basic and digest authentication.      -->
         <servlet-class>com.stumpner.mediadesk.api.ApiServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ApiJsonCategoryContentServlet</servlet-name>
-        <servlet-class>com.stumpner.mediadesk.api.json.CategoryContent</servlet-class>
+        <servlet-name>ApiJsonFolderContentServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.api.json.FolderContent</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ApiRemoteLoginServlet</servlet-name>
@@ -187,8 +187,8 @@ will default to basic and digest authentication.      -->
         <servlet-class>com.stumpner.mediadesk.web.api.rest.SelectMedia</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ApiRestCategoryServlet</servlet-name>
-        <servlet-class>com.stumpner.mediadesk.web.api.rest.CategoryRestApi</servlet-class>
+        <servlet-name>ApiRestFolderServlet</servlet-name>
+        <servlet-class>com.stumpner.mediadesk.web.api.rest.FolderRestApi</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ApiRestPinServlet</servlet-name>
@@ -262,7 +262,7 @@ will default to basic and digest authentication.      -->
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>ApiJsonCategoryContentServlet</servlet-name>
+        <servlet-name>ApiJsonFolderContentServlet</servlet-name>
         <url-pattern>/api/json/categorycontent/*</url-pattern>
     </servlet-mapping>
 
@@ -276,9 +276,13 @@ will default to basic and digest authentication.      -->
         <url-pattern>/api/rest/selectMedia/*</url-pattern>
     </servlet-mapping>
 
-    <servlet-mapping>
-        <servlet-name>ApiRestCategoryServlet</servlet-name>
+    <servlet-mapping> <!-- for legacy -->
+        <servlet-name>ApiRestFolderServlet</servlet-name>
         <url-pattern>/api/rest/category/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ApiRestFolderServlet</servlet-name>
+        <url-pattern>/api/rest/folder/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ApiRestPinServlet</servlet-name>

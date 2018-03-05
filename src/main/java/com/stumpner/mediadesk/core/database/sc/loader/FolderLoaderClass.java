@@ -1,7 +1,4 @@
-package com.stumpner.mediadesk.web.mvc.commandclass;
-
-import java.util.List;
-import java.util.LinkedList;
+package com.stumpner.mediadesk.core.database.sc.loader;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
@@ -21,42 +18,22 @@ import java.util.LinkedList;
  limitations under the License.
 
  *********************************************************/
-
 /**
  * Created by IntelliJ IDEA.
  * User: franz.stumpner
- * Date: 11.06.2012
- * Time: 20:38:14
+ * Date: 20.10.2008
+ * Time: 18:07:56
  * To change this template use File | Settings | File Templates.
  */
-public class CategorySelection {
+public class FolderLoaderClass extends SimpleLoaderClass {
 
-    private String type = "";
-    private int id = 0;
+    private int sort = 1;
 
-    private List<SelectableCategory> categoryList = new LinkedList<SelectableCategory>();
-
-    public String getType() {
-        return type;
+    public int getSort() {
+        return sort;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public List<SelectableCategory> getCategoryList() {
-        return categoryList;
-    }
-
-    public void setCategoryList(List<SelectableCategory> categoryList) {
-        this.categoryList = categoryList;
+    public void setSort(int sortByName) {
+        this.sort = sortByName;
     }
 }

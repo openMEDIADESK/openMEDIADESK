@@ -38,7 +38,7 @@
     <bean id="advancedSearchView" class="com.stumpner.mediadesk.web.mvc.AdvancedSearchController">
         <property name="viewName"><value>/WEB-INF/template/current/pSearchadvanced.jsp</value></property>
     </bean>
-    <bean id="categoryIndexView" class="com.stumpner.mediadesk.web.mvc.CategoryIndexController">
+    <bean id="folderIndexView" class="com.stumpner.mediadesk.web.mvc.FolderIndexController">
         <property name="viewName"><value>/WEB-INF/template/current/pFolder.jsp</value></property>
     </bean>
     <bean id="lastImageView" class="com.stumpner.mediadesk.web.mvc.LastImageViewController">
@@ -241,7 +241,7 @@
         <property name="formView"><value>/WEB-INF/template/current/gMessageYesNo.jsp</value></property>
         <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
     </bean>
-    <bean id="categoryEditController" class="com.stumpner.mediadesk.web.mvc.CategoryEditController">
+    <bean id="folderEditController" class="com.stumpner.mediadesk.web.mvc.FolderEditController">
         <property name="sessionForm"><value>true</value></property>
         <property name="formView"><value>/WEB-INF/template/current/pFolderEdit.jsp</value></property>
         <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
@@ -251,7 +251,7 @@
         <property name="formView"><value>/WEB-INF/template/current/gMessageYesNo.jsp</value></property>
         <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
     </bean>
-    <bean id="categorySelectorController" class="com.stumpner.mediadesk.web.mvc.CategorySelectorController">
+    <bean id="folderSelectorController" class="com.stumpner.mediadesk.web.mvc.FolderSelectorController">
         <property name="sessionForm"><value>true</value></property>
         <property name="formView"><value>/WEB-INF/template/current/pFolderSelector.jsp</value></property>
         <property name="successView"><value>null</value></property>
@@ -379,7 +379,7 @@
                 <prop key="/search*">searchResultView</prop>
                 <prop key="/viewmetadata">viewMetadataView</prop>
                 <prop key="/advancedsearch">advancedSearchView</prop>
-                <prop key="/c*">categoryIndexView</prop>
+                <prop key="/c*">folderIndexView</prop>
                 <prop key="/last">lastImageView</prop>
                 <prop key="/popup/*">textPopupView</prop>
                 <prop key="/contact">contactForm</prop>
@@ -393,9 +393,9 @@
                 <prop key="/usermanager">userManagerView</prop>
                 <prop key="/useredit">userEditController</prop>
                 <prop key="/userdelete">userDeleteController</prop>
-                <prop key="/categoryedit">categoryEditController</prop>
-                <prop key="/categorybreakup">folderBreakupController</prop>
-                <prop key="/categoryselector">categorySelectorController</prop>
+                <prop key="/folderedit">folderEditController</prop>
+                <prop key="/folderbreakup">folderBreakupController</prop>
+                <prop key="/folderselector">folderSelectorController</prop>
                 <prop key="/treeacl">treeAclControllerController</prop>
                 <prop key="/mediadetailedit">mediaDetailEditController</prop> <!-- edit media tags/beschlagwortung -->
                 <prop key="/deletemedia">imageDeleteController</prop>

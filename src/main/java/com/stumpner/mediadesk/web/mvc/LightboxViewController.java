@@ -9,13 +9,11 @@ import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.LightboxService;
 import com.stumpner.mediadesk.core.database.sc.ShoppingCartService;
 import com.stumpner.mediadesk.core.Resources;
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.usermanagement.User;
 
 import java.util.List;
-
-import com.ibatis.common.util.PaginatedList;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)

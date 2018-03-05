@@ -1,8 +1,8 @@
 package com.stumpner.mediadesk.image.util;
 
 import com.stumpner.mediadesk.core.Config;
+import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.UserService;
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
@@ -103,9 +103,9 @@ public class AutoImporter {
                                 System.out.println("FTP-AutoImport: "+file.getName());
                                 int ivid = importImage(file, ftpClient);
                                 //in kategorie oder folder importieren
-                                CategoryService categoryService = new CategoryService();
+                                FolderService folderService = new FolderService();
                                 try {
-                                    categoryService.addImageToCategory(Config.autoImportFtpCat,ivid);
+                                    folderService.addImageToCategory(Config.autoImportFtpCat,ivid);
                                 } catch (DublicateEntry dublicateEntry) {
                                     dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                                 }

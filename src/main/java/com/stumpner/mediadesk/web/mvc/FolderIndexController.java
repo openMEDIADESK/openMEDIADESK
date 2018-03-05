@@ -1,7 +1,7 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.category.Folder;
-import com.stumpner.mediadesk.image.category.FolderMultiLang;
+import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.image.folder.FolderMultiLang;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.log4j.Logger;
 
@@ -10,19 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.stumpner.mediadesk.core.database.sc.*;
-import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.core.Resources;
-import com.stumpner.mediadesk.image.category.Folder;
-import com.stumpner.mediadesk.image.category.FolderMultiLang;
 import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
 import com.stumpner.mediadesk.web.LngResolver;
-import com.stumpner.mediadesk.web.mvc.common.MediaMenu;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
 
 import java.util.*;
@@ -57,7 +53,7 @@ import net.stumpner.security.acl.AclPermission;
  * Time: 23:02:04
  * To change this template use File | Settings | File Templates.
  */
-public class CategoryIndexController extends AbstractThumbnailAjaxController {
+public class FolderIndexController extends AbstractThumbnailAjaxController {
 
     //private int filesPerPage = 12; //Bilder bzw. Dateien die Pro Seite angezeigt werden
 
@@ -90,12 +86,12 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
                 return null;
             }
             if (Config.useAutoLogin) {
-                //System.out.println("CategoryIndexController: user is NOT logged in");
+                //System.out.println("FolderIndexController: user is NOT logged in");
                 WebHelper.processAutologin(request);
             }
         } else {
             if (Config.useAutoLogin) {
-                //System.out.println("CategoryIndexController: user is logged in");
+                //System.out.println("FolderIndexController: user is logged in");
                 //Benutzer ist angemeldet, prüfen ob das Autologin-Cookie gesetzt werden muss
                 if (session.getAttribute("autologin")!=null) { // Benutzer ist ein NEUER Autologin-Benutzer
                     WebHelper.setAutologinCookie((String)session.getAttribute("username"),
@@ -116,11 +112,11 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
         //System.out.println("SessionID from Request: "+sessionIdRequest);
         /* Ende Session und Autologin prüfen     */
 
-        Logger log = Logger.getLogger(CategoryIndexController.class);
-        log.debug("handleRequestInternal from CategoryIndexController");
+        Logger log = Logger.getLogger(FolderIndexController.class);
+        log.debug("handleRequestInternal from FolderIndexController");
         User user = getUser(request);
 
-        AclCategoryService categoryService = new AclCategoryService(request);
+        AclFolderService categoryService = new AclFolderService(request);
         LngResolver lngResolver = new LngResolver();
         categoryService.setUsedLanguage(lngResolver.resolveLng(request));
         int id = 0;
@@ -287,8 +283,8 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
 
         Map og = new HashMap();
 
-        if (request.getAttribute("category")!=null) {
-            Folder c = (Folder)request.getAttribute("category");
+        if (request.getAttribute("folder")!=null) {
+            Folder c = (Folder)request.getAttribute("folder");
             og.put("url",WebHelper.getServerNameUrlPathWithQueryString(request));
             og.put("type","article");
             og.put("title",c.getCatTitle());
@@ -317,14 +313,14 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
 
     protected void insert(ImageVersion image, HttpServletRequest request) throws DublicateEntry {
 
-        CategoryService categoryService = new CategoryService();
-        categoryService.addImageToCategory(getContainerId(request),image.getIvid());
+        FolderService folderService = new FolderService();
+        folderService.addImageToCategory(getContainerId(request),image.getIvid());
     }
 
     protected void remove(ImageVersion image, HttpServletRequest request) {
 
-        CategoryService categoryService = new CategoryService();
-        categoryService.deleteImageFromCategory(getContainerId(request),image.getIvid());
+        FolderService folderService = new FolderService();
+        folderService.deleteImageFromCategory(getContainerId(request),image.getIvid());
     }
 
     protected String getServletMapping(HttpServletRequest request) {
@@ -363,12 +359,12 @@ public class CategoryIndexController extends AbstractThumbnailAjaxController {
 
     protected Object getContainerObject(HttpServletRequest request) {
 
-        CategoryService categoryService = new CategoryService();
+        FolderService folderService = new FolderService();
         Folder folder = new Folder();
         //Wenn es "nur" um die Root Kategorie geht, muss sie garnicht geladen werden
         if (getContainerId(request)!=0) {
             try {
-                folder = categoryService.getCategoryById(this.getContainerId(request));
+                folder = folderService.getCategoryById(this.getContainerId(request));
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 return super.getContainerObject(request);

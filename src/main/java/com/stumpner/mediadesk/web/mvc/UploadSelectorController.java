@@ -1,9 +1,9 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.category.FolderMultiLang;
+import com.stumpner.mediadesk.core.database.sc.FolderService;
+import com.stumpner.mediadesk.image.folder.FolderMultiLang;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,9 +50,9 @@ public class UploadSelectorController extends AbstractPageController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        CategoryService categoryService = new CategoryService();
+        FolderService folderService = new FolderService();
         List<FolderMultiLang> allowedCategoryList = new LinkedList<FolderMultiLang>();
-        List<FolderMultiLang> allCategoryList = categoryService.getAllCategoryList();
+        List<FolderMultiLang> allCategoryList = folderService.getAllCategoryList();
         for (FolderMultiLang c : allCategoryList) {
             if (isUserPermittetForCategory(c, request)) {
                 allowedCategoryList.add(c);

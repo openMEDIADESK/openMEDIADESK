@@ -1,7 +1,6 @@
 package com.stumpner.mediadesk.web.mvc.commandclass;
 
-import com.stumpner.mediadesk.image.category.Folder;
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.folder.Folder;
 
 import java.util.List;
 import java.util.LinkedList;

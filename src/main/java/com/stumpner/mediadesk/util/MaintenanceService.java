@@ -1,15 +1,10 @@
 package com.stumpner.mediadesk.util;
 
+import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
-import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.UserService;
-import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.category.FolderMultiLang;
-import com.stumpner.mediadesk.image.category.Folder;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
+import com.stumpner.mediadesk.image.folder.FolderMultiLang;
 import com.stumpner.mediadesk.usermanagement.SecurityGroup;
 import com.stumpner.mediadesk.web.mvc.AclEditController;
 
@@ -112,9 +107,9 @@ public class MaintenanceService {
         UserService userService = new UserService();
         List securityGroupList = userService.getSecurityGroupList();
 
-        CategoryService categoryService = new CategoryService();
+        FolderService folderService = new FolderService();
         try {
-            setResetAcl(0, categoryService, securityGroupList);
+            setResetAcl(0, folderService, securityGroupList);
         } catch (AclNotFoundException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -123,8 +118,8 @@ public class MaintenanceService {
 
     }
 
-    private void setResetAcl(int categoryId, CategoryService categoryService, List securityGroupList) throws IOServiceException, AclNotFoundException {
-        List<FolderMultiLang> categoryList = categoryService.getCategoryList(categoryId);
+    private void setResetAcl(int categoryId, FolderService folderService, List securityGroupList) throws IOServiceException, AclNotFoundException {
+        List<FolderMultiLang> categoryList = folderService.getCategoryList(categoryId);
         for (FolderMultiLang cat : categoryList) {
             Acl acl = AclController.getAcl(cat);
 
@@ -152,7 +147,7 @@ public class MaintenanceService {
 
             AclController.setAcl(cat, acl);
             AclEditController.renewCategoryPublicProtectedStatus(cat);
-            setResetAcl(cat.getCategoryId(),categoryService, securityGroupList);
+            setResetAcl(cat.getCategoryId(), folderService, securityGroupList);
         }
 
     }

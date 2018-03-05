@@ -1,11 +1,11 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.category.Folder;
-import com.stumpner.mediadesk.image.category.FolderMultiLang;
-import com.stumpner.mediadesk.image.category.FolderEditValidator;
+import com.stumpner.mediadesk.core.database.sc.FolderService;
+import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.image.folder.FolderMultiLang;
+import com.stumpner.mediadesk.image.folder.FolderEditValidator;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.SecurityGroup;
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.UserService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
@@ -58,11 +58,11 @@ import net.stumpner.security.acl.AclPermission;
  * Time: 23:25:52
  * To change this template use File | Settings | File Templates.
  */
-public class CategoryEditController extends AbstractAutoFillController {
+public class FolderEditController extends AbstractAutoFillController {
 
     public static int CATEGORY_NEW = 0;
 
-    public CategoryEditController() {
+    public FolderEditController() {
 
         this.setCommandClass(FolderMultiLang.class);
         this.setSessionForm(true);
@@ -81,17 +81,17 @@ public class CategoryEditController extends AbstractAutoFillController {
 
         if (!isFormSubmission(httpServletRequest)) {
 
-            CategoryService folderService = new CategoryService();
+            FolderService folderService = new FolderService();
 
 
-            if (httpServletRequest.getParameter("categoryid")!=null) {
+            if (httpServletRequest.getParameter("id")!=null) {
                 //kategorie editieren
-                int categoryId = Integer.parseInt(httpServletRequest.getParameter("categoryid"));
+                int categoryId = Integer.parseInt(httpServletRequest.getParameter("id"));
                 folder = folderService.getCategoryById(categoryId);
             } else {
                 //kategorie erstellen
-                if (httpServletRequest.getParameter("parentCat")!=null && !"".equalsIgnoreCase(httpServletRequest.getParameter("parentCat"))) {
-                    folder.setParent(Integer.parseInt(httpServletRequest.getParameter("parentCat")));
+                if (httpServletRequest.getParameter("parent")!=null && !"".equalsIgnoreCase(httpServletRequest.getParameter("parent"))) {
+                    folder.setParent(Integer.parseInt(httpServletRequest.getParameter("parent")));
                 } else {
                     User user = getUser(httpServletRequest);
                     if (user.getRole()==User.ROLE_HOME_EDITOR) {
@@ -171,13 +171,13 @@ public class CategoryEditController extends AbstractAutoFillController {
         Acl acl = AclController.getAcl(folder);
         httpServletRequest.setAttribute("aclInfo",acl);
 
-        CategoryService categoryService = new CategoryService();
+        FolderService folderService = new FolderService();
         List parentCategoryList = new ArrayList();
         try {
             if (folder.getCategoryId()!=0) {
-                parentCategoryList = categoryService.getParentCategoryList(folder.getCategoryId());
+                parentCategoryList = folderService.getParentCategoryList(folder.getCategoryId());
             } else {
-                parentCategoryList = categoryService.getParentCategoryList(folder.getParent());
+                parentCategoryList = folderService.getParentCategoryList(folder.getParent());
             }
             httpServletRequest.setAttribute("parentCategoryList",parentCategoryList);
         } catch (ObjectNotFoundException e2) {
@@ -264,8 +264,8 @@ public class CategoryEditController extends AbstractAutoFillController {
 
         //Sessionvariablen in der sortierung usw zwischengespeichert wird, leeren
         //AbstractImageLoaderController Zeile 82
-        httpServletRequest.getSession().removeAttribute("sortBy"+CategoryIndexController.class.getName()+"."+category.getCategoryId());
-        httpServletRequest.getSession().removeAttribute("orderBy"+CategoryIndexController.class.getName()+"."+category.getCategoryId());
+        httpServletRequest.getSession().removeAttribute("sortBy"+FolderIndexController.class.getName()+"."+category.getCategoryId());
+        httpServletRequest.getSession().removeAttribute("orderBy"+FolderIndexController.class.getName()+"."+category.getCategoryId());
 
         String redirectTo = null;
 
@@ -314,8 +314,8 @@ public class CategoryEditController extends AbstractAutoFillController {
 
     private void inheritAclToChildsRekursive(FolderMultiLang category, Acl acl) {
 
-        CategoryService categoryService = new CategoryService();
-        List<FolderMultiLang> list = categoryService.getCategoryList(category.getCategoryId());
+        FolderService folderService = new FolderService();
+        List<FolderMultiLang> list = folderService.getCategoryList(category.getCategoryId());
         for (FolderMultiLang c : list) {
             System.out.println("working c "+c.getCategoryId());
             AclController.setAcl(c, acl);
@@ -333,9 +333,9 @@ public class CategoryEditController extends AbstractAutoFillController {
 
     private void inheritAclFromParent(FolderMultiLang category) throws ObjectNotFoundException, IOServiceException {
 
-        CategoryService categoryService = new CategoryService();
+        FolderService folderService = new FolderService();
         if (category.getParent()!=0) { //Von der Root Kategorie können keine ACls übernommen werden
-            Folder parentFolder = categoryService.getCategoryById(category.getParent());
+            Folder parentFolder = folderService.getCategoryById(category.getParent());
 
             Acl acl = AclController.getAcl(parentFolder);
             AclController.setAcl(category, acl);
@@ -403,18 +403,18 @@ public class CategoryEditController extends AbstractAutoFillController {
 
     private void saveCategory(Folder folder) throws IOServiceException {
 
-        CategoryService categoryService = new CategoryService();
+        FolderService folderService = new FolderService();
 
         if (folder.getCatTitle().equalsIgnoreCase("")) {
             //Kategorietitel auf den Kategorienamen setzen, wenn kein titel eingegeben wurde!
             folder.setCatTitle(folder.getCatName());
         }
 
-        if (folder.getCategoryId()==CategoryEditController.CATEGORY_NEW) {
-            categoryService.addCategory(folder);
+        if (folder.getCategoryId()== FolderEditController.CATEGORY_NEW) {
+            folderService.addCategory(folder);
             //TODO: ACL von Elternkategorie kopieren:
         } else {
-            categoryService.save(folder);
+            folderService.save(folder);
         }
 
     }
@@ -468,8 +468,8 @@ public class CategoryEditController extends AbstractAutoFillController {
 
         Map referenceData = new HashMap();
 
-        CategoryService categoryService = new CategoryService();
-        List<FolderMultiLang> list = categoryService.getCategoryList(0);
+        FolderService folderService = new FolderService();
+        List<FolderMultiLang> list = folderService.getCategoryList(0);
 
         referenceData.put("parentList", list);
 

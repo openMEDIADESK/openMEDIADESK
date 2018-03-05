@@ -63,7 +63,7 @@ angular.module('ui.mediadesk').controller('TreeViewCtrl', function ($scope, $htt
         if (level == 0) { $scope.treeloading = true; }
 
         //Nodes laden
-        $http.get("/api/rest/category/"+parentId+"/child/data.json")
+        $http.get("/api/rest/folder/"+parentId+"/child/data.json")
         .then(function(response) {
           //alert('erfolgreich');
 		    if (level == 0) { $scope.treeloading = false; }
@@ -255,8 +255,8 @@ angular.module('ui.mediadesk').controller('TreeViewCtrl', function ($scope, $htt
 			console.log('mediaobject');
 			//toaster.pop('error', "Nicht unterstützt", "Verschieben von medienobjekten wird dzt nicht unterstützt "+$data.ivid+" nach "+node.id);
 			
-			//Kopieren: /api/rest/category/<categoryid>/copy/{ivid}
-			$http.get("/api/rest/category/"+nodeId+"/"+copyOrMove+"/"+$data.ivid+"/from/"+$scope.folderId)
+			//Kopieren: /api/rest/folder/<folderid>/copy/{ivid}
+			$http.get("/api/rest/folder/"+nodeId+"/"+copyOrMove+"/"+$data.ivid+"/from/"+$scope.folderId)
 			.then(function(response) {
 
 				console.log('success');
@@ -400,7 +400,7 @@ angular.module('ui.mediadesk').controller('ThumbnailViewCtrl', function ($scope,
 	
 	$scope.loadInProgress = 0; //0 = alles geladen/es wird nicht geladen | 1 = Noch eine Abfrage zu laden | 2 = noch zwei Abfragen zu laden
 
-    $scope.apiUriPrefix = ""; //URL-Prefix für API aufrufe z.b. /api/rest/category
+    $scope.apiUriPrefix = ""; //URL-Prefix für API aufrufe z.b. /api/rest/folder
 
     $scope.moreMosStep = 3*15; //Anzahl der Medienobjekte die bei mehr laden geholt werden (3 Spalten*15 Zeilen)
     $scope.selectedMedia = 0;
@@ -497,10 +497,10 @@ angular.module('ui.mediadesk').controller('ThumbnailViewCtrl', function ($scope,
 	    //Unterordner laden
 		console.log("$scope.apiUriPrefix="+$scope.apiUriPrefix);
 		
-	  if ($scope.apiUriPrefix=="/api/rest/category") {
+	  if ($scope.apiUriPrefix=="/api/rest/folder") {
 		console.log("Unterordner laden");
 		$scope.loadInProgress = $scope.loadInProgress + 1;
-		$http.get("/api/rest/category/"+$scope.containerId+"/child/data.json")
+		$http.get("/api/rest/folder/"+$scope.containerId+"/child/data.json")
 		.then(function(response) {
 		  //alert('erfolgreich');
 			$scope.subfolders = response.data;
@@ -526,7 +526,7 @@ angular.module('ui.mediadesk').controller('ThumbnailViewCtrl', function ($scope,
 				//Wenn keine Dateien dann Ordnerbilder prüfen: 
 				var b = 0;
 				
-				if ($scope.apiUriPrefix=="/api/rest/category") {
+				if ($scope.apiUriPrefix=="/api/rest/folder") {
 					for (b=0;b<$scope.subfolders.length;b++) {
 						
 						if ($scope.subfolders[b].pivid!=0) {
@@ -569,7 +569,7 @@ angular.module('ui.mediadesk').controller('ThumbnailViewCtrl', function ($scope,
   //Select/Deselect
   $scope.onSelectChange = function(index) {
       //alert('selected'+index+"value="+$scope.mos[index].selected);
-      ///api/rest/selectMedia/"+par1+"/"+val1+"/"+categoryId+"/ajax=true/
+      ///api/rest/selectMedia/"+par1+"/"+val1+"/"+folderId+"/ajax=true/
       $http.get("/api/rest/selectMedia/"+$scope.mos[index].selected+"/"+$scope.mos[index].ivid+"/"+$scope.containerId+"/ajax=true/rand")
       .then(function(response) {
           $scope.selectedMedia= $scope.mos[index].selected ? $scope.selectedMedia+1 : $scope.selectedMedia-1;
@@ -633,7 +633,7 @@ angular.module('ui.mediadesk').controller('ThumbnailViewCtrl', function ($scope,
     //Funktion alle medienobjekte abwählen
     $scope.selectMediaNone = function() {
 
-      ///api/rest/selectMedia/"+par1+"/"+val1+"/"+categoryId+"/ajax=true/
+      ///api/rest/selectMedia/"+par1+"/"+val1+"/"+folderId+"/ajax=true/
       $http.get("/api/rest/selectMedia/false/")
       .then(function(response) {
 
@@ -988,9 +988,9 @@ angular.module('ui.mediadesk').controller('ThumbnailViewCtrl', function ($scope,
 	
 	//Wird von Flow-init aufgerufen https://github.com/flowjs/flow.js#configuration
 	$scope.getUploadTarget = function() {
-		if ($scope.apiUriPrefix=='/api/rest/category') {
-			console.log("get Upload Target: category "+$scope.containerId);
-			return '/gateway/upload/category/'+$scope.containerId+'/';
+		if ($scope.apiUriPrefix=='/api/rest/folder') {
+			console.log("get Upload Target: folder "+$scope.containerId);
+			return '/gateway/upload/folder/'+$scope.containerId+'/';
 		}
 		if ($scope.apiUriPrefix=='/api/rest/pin') {
 			console.log("get Upload Target: pin="+$scope.containerId);
@@ -1038,7 +1038,7 @@ angular.module('ui.mediadesk').controller('CartViewCtrl', function ($scope, $htt
 angular.module('ui.mediadesk').controller('AccordionDemoCtrl', function ($scope, $http) {
   $scope.oneAtATime = true;
 
-  $http.get("/api/rest/category/0/child2/data.json")
+  $http.get("/api/rest/folder/0/child2/data.json")
     .then(function(response) {
       //alert('erfolgreich');
       $scope.groups = response.data;
@@ -1092,7 +1092,7 @@ angular.module('ui.mediadesk').controller('MainCtrl', function ($scope, $uibModa
 
 
             ngDialog.open({
-                //template: '/de/categoryedit?parentCat=',
+                //template: '/de/folderedit?parentCat=',
                 template: '/test/externalTemplate.html',
                 className: 'ngdialog-theme-plain',
                 closeByEscape: false,
@@ -1105,8 +1105,7 @@ angular.module('ui.mediadesk').controller('MainCtrl', function ($scope, $uibModa
             $scope.value = true;
 
             ngDialog.open({
-                //template: '/de/categoryedit?parentCat=',
-                template: '/de/categoryedit?categoryid='+folderId,
+                template: '/de/folderedit?id='+folderId,
                 className: 'ngdialog-theme-plain',
                 closeByEscape: true,
                 closeByDocument: true,
@@ -1118,8 +1117,8 @@ angular.module('ui.mediadesk').controller('MainCtrl', function ($scope, $uibModa
             $scope.value = true;
 
             ngDialog.open({
-                //template: '/de/categoryedit?parentCat=',
-                template: '/de/categoryedit?parentCat='+parentId,
+                //template: '/de/folderedit?parentCat=',
+                template: '/de/folderedit?parent='+parentId,
                 className: 'ngdialog-theme-plain',
                 closeByEscape: true,
                 closeByDocument: true,
@@ -1133,14 +1132,6 @@ angular.module('ui.mediadesk').controller('MainCtrl', function ($scope, $uibModa
             if (redirectUrl == undefined) { redirectUrl = $window.location; }
             $window.location.href = "mediadetailedit?id="+ivId+"&redirect="+redirectUrl;
 
-            //ngDialog.open({
-                //template: '/de/categoryedit?parentCat=',
-            //    template: '/de/mediadetailedit?id='+ivId,
-            //    className: 'ngdialog-theme-plain',
-            //    closeByEscape: true,
-            //    closeByDocument: true,
-            //    scope: $scope
-            //});
         }
 		
 		$scope.openDownload = function (ivId) {
@@ -1298,7 +1289,7 @@ angular.module('ui.mediadesk').controller('EditCtrl', function ($scope, $uibModa
 		
         $http({
 			method  : 'POST',
-			url     : '/api/rest/category/',
+			url     : '/api/rest/folder/',
 			data    : $scope.data, //forms user object
 			headers : {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'} 
         }).then(function(response) {

@@ -1,8 +1,8 @@
 package com.stumpner.mediadesk.web.servlet;
 
 import com.stumpner.mediadesk.core.Config;
+import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.DownloadLoggerService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
@@ -11,7 +11,7 @@ import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
 import com.stumpner.mediadesk.usermanagement.acl.AclUtil;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.ImageVersion;
 
 import javax.servlet.http.HttpServlet;
@@ -121,14 +121,14 @@ public abstract class AbstractStreamServlet extends HttpServlet {
             //System.out.println(getServletMapping()+"-Request: "+httpServletRequest.getRequestURI());
             if (urlTokens.length<4) {
                 //Falsche Benutzung, URL muss aus 3 Tokens bestehen, wahlweise auch aus 4 (Dateiname):
-                // /podcast/category/1
+                // /podcast/folder/1
                 //1:2      :3       :4
 
-                // /podcast/category/1/dateiname.zip
+                // /podcast/folder/1/dateiname.zip
                 //1:2      :3       :4:5
                 //PrintWriter writer = httpServletResponse.getWriter();
-                //writer.print("Syntax Error: use: /podcast/category/1 oder /podcast/category/1/name.zip");
-                httpServletResponse.sendError(400,"Syntax Error: use: "+getServletMapping()+"/category/1 oder "+getServletMapping()+"/category/1/name.zip");
+                //writer.print("Syntax Error: use: /podcast/folder/1 oder /podcast/folder/1/name.zip");
+                httpServletResponse.sendError(400,"Syntax Error: use: "+getServletMapping()+"/folder/1 oder "+getServletMapping()+"/folder/1/name.zip");
                 return null;
             } else {
 
@@ -154,10 +154,10 @@ public abstract class AbstractStreamServlet extends HttpServlet {
                     LngResolver lngResolver = new LngResolver();
                     imageService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
 
-                    if (type.equalsIgnoreCase("category")) {
+                    if (type.equalsIgnoreCase("folder")) {
 
-                        CategoryService categoryService = new CategoryService();
-                        Folder folder = categoryService.getCategoryById(id);
+                        FolderService folderService = new FolderService();
+                        Folder folder = folderService.getCategoryById(id);
                         aclContext.setDebug(true);
 
                         //Berechtigung pr�fen:

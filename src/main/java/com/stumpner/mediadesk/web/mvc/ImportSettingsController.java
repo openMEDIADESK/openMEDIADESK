@@ -1,11 +1,11 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.core.database.sc.FolderService;
+import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.web.mvc.commandclass.settings.ImportSettings;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -170,15 +170,15 @@ public class ImportSettingsController extends SimpleFormControllerMd {
 
         Config.putDmsConfigToRequest(httpServletRequest);
 
-        CategoryService categoryService = new CategoryService();
+        FolderService folderService = new FolderService();
         LngResolver lngResolver = new LngResolver();
-        categoryService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-        List categoryList = categoryService.getCategoryList(0);
+        folderService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
+        List categoryList = folderService.getCategoryList(0);
         //Wenn ausgewählte Kategorie keine Root Kategorie, dann zusätzlich laden
         ImportSettings settings = (ImportSettings)e.getTarget();
         if (settings.getAutoImportFtpCat()!=0) {
             try {
-                Folder cat = categoryService.getCategoryById(settings.getAutoImportFtpCat());
+                Folder cat = folderService.getCategoryById(settings.getAutoImportFtpCat());
                 if (cat.getParent()!=0) {
                     categoryList.add(cat);
                 }

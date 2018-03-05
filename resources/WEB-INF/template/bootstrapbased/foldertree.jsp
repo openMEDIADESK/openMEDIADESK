@@ -4,9 +4,9 @@
 
 <!-- Template für das Popover -->
 <script type="text/ng-template" id="folderEditPopover.html">
-    <div><a ng-href="/{{properties.lng}}/categoryedit?parentCat={{node.id}}" ng-show="node.level<9" class="md-treelinkcolor md-treenewcolor"><jsp:include page="iconAdd.jsp"/> <spring:message code="sm.cat.createnew"/></a></div>
-    <div><a ng-href="/{{properties.lng}}/categoryedit?categoryid={{node.id}}&redirect=<c:out value="${url}"/>" class="md-treelinkcolor"><jsp:include page="iconEdit.jsp"/> <spring:message code="mediamenu.edit"/></a></div>
-    <div><a ng-href="/{{properties.lng}}/categorybreakup?categoryid={{node.id}}" class="md-treelinkcolor md-treedelcolor"><jsp:include page="iconDelete.jsp"/> <spring:message code="imagemenu.delete"/></a></div>
+    <div><a ng-href="/{{properties.lng}}/folderedit?parent={{node.id}}" ng-show="node.level<9" class="md-treelinkcolor md-treenewcolor"><jsp:include page="iconAdd.jsp"/> <spring:message code="sm.cat.createnew"/></a></div>
+    <div><a ng-href="/{{properties.lng}}/folderedit?id={{node.id}}&redirect=<c:out value="${url}"/>" class="md-treelinkcolor"><jsp:include page="iconEdit.jsp"/> <spring:message code="mediamenu.edit"/></a></div>
+    <div><a ng-href="/{{properties.lng}}/folderbreakup?id={{node.id}}" class="md-treelinkcolor md-treedelcolor"><jsp:include page="iconDelete.jsp"/> <spring:message code="imagemenu.delete"/></a></div>
 </script>
 
 <!-- START BAUM EIGENBAU UND EIGENBAU css ###################################################################################### -->
@@ -22,7 +22,7 @@
 <!-- <div>Baum Navi</div> -->
 <!-- /div falls wir da oben noch eine Baum-Navi brauchen - sonst weg -->
 <!-- Neuen Root Ordner erstellen -->
-<div ng-show="properties.role>=10" class="md-treelevel md-tree-level0"><a ng-href="/{{properties.lng}}/categoryedit?parentCat=0" class="md-treelinkcolor md-treenewcolor"><jsp:include page="iconAddFolder.jsp"/>&nbsp;<spring:message code="sm.cat.createnew"/></a></div>
+<div ng-show="properties.role>=10" class="md-treelevel md-tree-level0"><a ng-href="/{{properties.lng}}/folderedit?parent=0" class="md-treelinkcolor md-treenewcolor"><jsp:include page="iconAddFolder.jsp"/>&nbsp;<spring:message code="sm.cat.createnew"/></a></div>
 
 <div class="md-tree-droproot" ui-on-drop="onTreeNodeDrop(null, $data, $event)">&nbsp;</div>
 

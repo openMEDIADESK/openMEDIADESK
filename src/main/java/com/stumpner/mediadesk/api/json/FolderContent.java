@@ -1,12 +1,12 @@
 package com.stumpner.mediadesk.api.json;
 
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
+import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.image.ImageVersionMultiLang;
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
 
@@ -54,19 +54,17 @@ import net.stumpner.security.acl.AclPermission;
  * User: stumpner
  * Date: 28.09.2011
  * Time: 10:00:53
+ * @deprecated use {@link com.stumpner.mediadesk.web.api.rest.FolderRestApi}
  */
-public class CategoryContent extends HttpServlet {
+public class FolderContent extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setCharacterEncoding("UTF-8");
 
-        //System.out.println("jsonRequest. CategoryContent, jsessionid="+request.getSession().getId());
-        //System.out.println("jsonRequest. CategoryContent, uri="+request.getRequestURI());
-
         String URI = request.getRequestURI();
         if (URI.toUpperCase().indexOf(";JSESSIONID")>0) {
-            //Wenn SessionID in der URL �bergeben, dann herausfiltern:
+            //Wenn SessionID in der URL übergeben, dann herausfiltern:
             URI = URI.substring(0,URI.toUpperCase().indexOf(";JSESSIONID"));
         }
         String[] uriArray = URI.split("/");
@@ -103,8 +101,8 @@ public class CategoryContent extends HttpServlet {
 
         StringBuffer jsonOutput = new StringBuffer("[");
 
-        CategoryService categoryService = new CategoryService();
-            Folder folder = categoryService.getCategoryById(categoryId);
+        FolderService folderService = new FolderService();
+            Folder folder = folderService.getCategoryById(categoryId);
 
             AclControllerContext aclCtx = AclContextFactory.getAclContext(request);
             if (aclCtx.checkPermission(new AclPermission("read"), folder)) {
@@ -126,7 +124,6 @@ public class CategoryContent extends HttpServlet {
                     jsonOutput.append("\"id\":\"" + mediaObject.getImageId() + "\",");
                     jsonOutput.append("\"title\":\"" + mediaObject.getVersionTitle() + "\",");
                     jsonOutput.append("\"mime\":\"" + mediaObject.getMimeType() + "\",");
-//                    jsonOutput.append("\"downloadUrl\":\"/de/download?download=ivid&amp;ivid=" + mediaObject.getImageId() + "\",");
                     jsonOutput.append("\"downloadUrl\":\"/de/download;jsessionid="+request.getSession().getId()+"?download=ivid&amp;ivid=" + mediaObject.getImageId() + "\"");
 
                     jsonOutput.append("}");

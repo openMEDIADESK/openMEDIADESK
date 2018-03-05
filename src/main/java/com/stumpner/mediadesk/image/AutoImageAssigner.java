@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.image;
 
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.inbox.InboxService;
 import com.stumpner.mediadesk.image.pinpics.Pinpic;
 import com.stumpner.mediadesk.core.database.sc.*;
@@ -65,10 +65,10 @@ public class AutoImageAssigner {
         InboxService inboxService = new InboxService();
         if (autoImportObject!=null) {
             if (isAutoImportCategory(autoImportObject)) {
-                CategoryService categoryService = new CategoryService();
+                FolderService folderService = new FolderService();
                 Folder folder = (Folder)autoImportObject;
                 try {
-                    categoryService.addImageToCategory(folder.getCategoryId(),ivid);
+                    folderService.addImageToCategory(folder.getCategoryId(),ivid);
                     inboxService.removeImage(ivid);
                 } catch (DublicateEntry dublicateEntry) {
                     dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

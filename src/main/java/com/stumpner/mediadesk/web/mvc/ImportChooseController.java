@@ -1,16 +1,16 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.core.database.sc.FolderService;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.stumpner.mediadesk.usermanagement.User;
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.QuotaExceededException;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.lic.LicenceChecker;
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.AutoImageAssigner;
 
 /*********************************************************
@@ -69,14 +69,14 @@ public class ImportChooseController extends AbstractPageController {
 
         if (httpServletRequest.getParameter("catid")!=null) {
             //bilder automatisch in eine kategorie laden...
-            CategoryService categoryService = new CategoryService();
+            FolderService folderService = new FolderService();
             Folder folder = new Folder();
             if (!httpServletRequest.getParameter("catid").equalsIgnoreCase("")) {
                 if (httpServletRequest.getParameter("catid").equalsIgnoreCase("0")) {
                     //Root-Kategory existiert nicht...
                     folder.setCategoryId(0);
                 } else {
-                    folder = categoryService.getCategoryById(Integer.parseInt(
+                    folder = folderService.getCategoryById(Integer.parseInt(
                             httpServletRequest.getParameter("catid")
                     ));
                 }

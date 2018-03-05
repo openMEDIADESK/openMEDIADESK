@@ -11,7 +11,7 @@ import com.stumpner.mediadesk.usermanagement.Authenticator;
 import com.stumpner.mediadesk.media.MimeCssMap;
 import com.stumpner.mediadesk.web.mvc.AclEditController;
 import com.stumpner.mediadesk.image.util.ImageImport;
-import com.stumpner.mediadesk.image.category.FolderMultiLang;
+import com.stumpner.mediadesk.image.folder.FolderMultiLang;
 
 import javax.servlet.ServletContextListener;
 import javax.servlet.ServletContextEvent;
@@ -418,7 +418,7 @@ public class WebContextListener implements ServletContextListener {
 
         System.out.println("["+Config.instanceName+"]: renewCategoryPublicProtectedStatus "+categoryId);
 
-        CategoryService cService = new CategoryService();
+        FolderService cService = new FolderService();
         List<FolderMultiLang> l = cService.getCategoryList(categoryId);
         for (FolderMultiLang c : l) {
             try {

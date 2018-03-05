@@ -1,6 +1,7 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.core.database.sc.FolderService;
+import com.stumpner.mediadesk.image.folder.Folder;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,7 +16,6 @@ import com.stumpner.mediadesk.util.MailWrapper;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.lic.LicenceChecker;
 import com.stumpner.mediadesk.core.database.sc.PinpicService;
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.QuotaExceededException;
@@ -24,7 +24,6 @@ import com.stumpner.mediadesk.image.util.SizeExceedException;
 import com.stumpner.mediadesk.image.util.MetadataReadException;
 import com.stumpner.mediadesk.image.pinpics.Pinpic;
 import com.stumpner.mediadesk.image.AutoImageAssigner;
-import com.stumpner.mediadesk.image.category.Folder;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
@@ -395,13 +394,13 @@ public class ImageImportWebuploadController extends ModelFormPageController {
         if (request.getParameter("catid")!=null) {
             if (!request.getParameter("catid").equalsIgnoreCase("")) {
                 //bilder automatisch in eine kategorie laden...
-                CategoryService categoryService = new CategoryService();
+                FolderService folderService = new FolderService();
                 Folder folder = new Folder();
                 if (request.getParameter("catid").equalsIgnoreCase("0")) {
                     //Root-Kategory existiert nicht...
                     folder.setCategoryId(0);
                 } else {
-                    folder = categoryService.getCategoryById(Integer.parseInt(
+                    folder = folderService.getCategoryById(Integer.parseInt(
                             request.getParameter("catid")
                     ));
                 }

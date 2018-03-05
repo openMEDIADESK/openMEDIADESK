@@ -2,7 +2,7 @@ package com.stumpner.mediadesk.web.mvc;
 
 import com.stumpner.mediadesk.image.pinpics.Pinpic;
 import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.inbox.InboxService;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.web.mvc.commandclass.PinWizard;

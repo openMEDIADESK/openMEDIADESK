@@ -8,12 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.ShoppingCartService;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.category.Folder;
+import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
-import com.stumpner.mediadesk.web.mvc.common.MediaMenu;
 import com.stumpner.mediadesk.core.service.MediaObjectService;
 
 import java.util.List;

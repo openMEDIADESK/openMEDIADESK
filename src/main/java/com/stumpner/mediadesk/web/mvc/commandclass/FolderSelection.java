@@ -1,7 +1,7 @@
 package com.stumpner.mediadesk.web.mvc.commandclass;
 
-import com.stumpner.mediadesk.image.category.Folder;
-import com.stumpner.mediadesk.image.category.Folder;
+import java.util.List;
+import java.util.LinkedList;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
@@ -25,28 +25,38 @@ import com.stumpner.mediadesk.image.category.Folder;
 /**
  * Created by IntelliJ IDEA.
  * User: franz.stumpner
- * Date: 12.06.2012
- * Time: 17:57:35
+ * Date: 11.06.2012
+ * Time: 20:38:14
  * To change this template use File | Settings | File Templates.
  */
-public class SelectableCategory {
+public class FolderSelection {
 
-    private boolean selected = false;
-    private Folder folder = null;
+    private String type = "";
+    private int id = 0;
 
-    public Folder getFolder() {
-        return folder;
+    private List<SelectableFolder> categoryList = new LinkedList<SelectableFolder>();
+
+    public String getType() {
+        return type;
     }
 
-    public void setFolder(Folder folder) {
-        this.folder = folder;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public boolean isSelected() {
-        return selected;
+    public int getId() {
+        return id;
     }
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<SelectableFolder> getCategoryList() {
+        return categoryList;
+    }
+
+    public void setCategoryList(List<SelectableFolder> categoryList) {
+        this.categoryList = categoryList;
     }
 }

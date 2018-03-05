@@ -1,12 +1,12 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.category.Folder;
-import com.stumpner.mediadesk.image.category.FolderMultiLang;
+import com.stumpner.mediadesk.core.database.sc.FolderService;
+import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.image.folder.FolderMultiLang;
 import com.stumpner.mediadesk.web.mvc.common.SimpleFormControllerMd;
 import com.stumpner.mediadesk.util.MaintenanceService;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.web.mvc.commandclass.settings.MaintenanceSettings;
-import com.stumpner.mediadesk.core.database.sc.CategoryService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
@@ -90,12 +90,12 @@ public class MaintenanceSettingsController extends SimpleFormControllerMd {
     }
 
     private void setCategoryViewToAuto() throws IOServiceException {
-        CategoryService categoryService = new CategoryService();
+        FolderService folderService = new FolderService();
         //Rekursiv alle Kategorien durchgehen:
-        setCategoryViewToAuto(0,categoryService);
+        setCategoryViewToAuto(0, folderService);
     }
 
-    private void setCategoryViewToAuto(int categoryId, CategoryService cs) throws IOServiceException {
+    private void setCategoryViewToAuto(int categoryId, FolderService cs) throws IOServiceException {
         List<FolderMultiLang> categoryList = cs.getCategoryList(categoryId);
         for (FolderMultiLang cat : categoryList) {
             cat.setDefaultview(Folder.VIEW_UNDEFINED);

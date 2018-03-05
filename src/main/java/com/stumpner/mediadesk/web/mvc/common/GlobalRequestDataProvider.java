@@ -225,13 +225,13 @@ public class GlobalRequestDataProvider {
                 /*   //todo: code wenn das upload-menü nicht angezeigt werden soll
                 if (user.getRole()==User.ROLE_IMPORTER || user.getRole()==User.ROLE_EDITOR) {
                     //Abhängig von der ACL
-                    if (baseController instanceof CategoryIndexController) {
+                    if (baseController instanceof FolderIndexController) {
                         //Wenn es in einer Kategorie ist
-                        CategoryIndexController c = ((CategoryIndexController)baseController);
-                        Folder category = c.getFolder(request);
+                        FolderIndexController c = ((FolderIndexController)baseController);
+                        Folder folder = c.getFolder(request);
                         AclControllerContext aclCtx = AclContextFactory.getAclContext(request);
                         try {
-                            return aclCtx.checkPermission(new AclPermission("write"), category);
+                            return aclCtx.checkPermission(new AclPermission("write"), folder);
                         } catch (AclNotFoundException e) {
                             e.printStackTrace();
                             return false;

@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.category.FolderMultiLang;
+import com.stumpner.mediadesk.image.folder.FolderMultiLang;
 import com.stumpner.mediadesk.web.mvc.common.SimpleFormControllerMd;
 import net.stumpner.security.acl.AclController;
 import net.stumpner.security.acl.Acl;
@@ -9,8 +9,8 @@ import com.stumpner.mediadesk.image.pinpics.Pinpic;
 import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.SecurityGroup;
-import com.stumpner.mediadesk.web.mvc.commandclass.CategorySelection;
-import com.stumpner.mediadesk.web.mvc.commandclass.SelectableCategory;
+import com.stumpner.mediadesk.web.mvc.commandclass.FolderSelection;
+import com.stumpner.mediadesk.web.mvc.commandclass.SelectableFolder;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.core.database.sc.*;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
@@ -50,10 +50,10 @@ import java.util.*;
  * Time: 20:36:20
  * To change this template use File | Settings | File Templates.
  */
-public class CategorySelectorController extends SimpleFormControllerMd {
+public class FolderSelectorController extends SimpleFormControllerMd {
 
-    public CategorySelectorController() {
-        this.setCommandClass(CategorySelection.class);
+    public FolderSelectorController() {
+        this.setCommandClass(FolderSelection.class);
         this.setSessionForm(true);
         this.setBindOnNewForm(true);
 
@@ -63,19 +63,19 @@ public class CategorySelectorController extends SimpleFormControllerMd {
 
     protected Object formBackingObject(HttpServletRequest request) throws Exception {
 
-        CategoryService categoryService = new AclCategoryService(request);
+        FolderService folderService = new AclFolderService(request);
         LngResolver lngResolver = new LngResolver();
-        categoryService.setUsedLanguage(lngResolver.resolveLng(request));
-        List<FolderMultiLang> categoryTree = categoryService.getAllCategoryList();
+        folderService.setUsedLanguage(lngResolver.resolveLng(request));
+        List<FolderMultiLang> categoryTree = folderService.getAllCategoryList();
 
-        List<SelectableCategory> selectableCategoryList = getSelectableCategoryList(request.getParameter("type"), categoryTree, request);
-        CategorySelection categorySelection = new CategorySelection();
-        categorySelection.setCategoryList(selectableCategoryList);
+        List<SelectableFolder> selectableFolderList = getSelectableCategoryList(request.getParameter("type"), categoryTree, request);
+        FolderSelection folderSelection = new FolderSelection();
+        folderSelection.setCategoryList(selectableFolderList);
 
-        categorySelection.setType(request.getParameter("type"));
-        categorySelection.setId(Integer.parseInt(request.getParameter("id")));
+        folderSelection.setType(request.getParameter("type"));
+        folderSelection.setId(Integer.parseInt(request.getParameter("id")));
 
-        return categorySelection;
+        return folderSelection;
     }
 
     protected boolean isUserPermitted(HttpServletRequest request) {
@@ -93,19 +93,19 @@ public class CategorySelectorController extends SimpleFormControllerMd {
 
     protected Map referenceData(HttpServletRequest request, Object o, Errors errors) throws Exception {
 
-        CategorySelection categorySelection = (CategorySelection)o;
+        FolderSelection folderSelection = (FolderSelection)o;
 
-        if (categorySelection.getType().equalsIgnoreCase("PIN")) {
+        if (folderSelection.getType().equalsIgnoreCase("PIN")) {
             PinpicService ps = new PinpicService();
-            Pinpic pin = (Pinpic)ps.getById(categorySelection.getId());
+            Pinpic pin = (Pinpic)ps.getById(folderSelection.getId());
             request.setAttribute("targetname",pin.getPin());
             request.setAttribute("headline","categoryselector.headline");
             request.setAttribute("subheadline","categoryselector.subheadline");
         }
 
-        if (categorySelection.getType().equalsIgnoreCase("ACL")) {
+        if (folderSelection.getType().equalsIgnoreCase("ACL")) {
             UserService us = new UserService();
-            SecurityGroup group = us.getSecurityGroupById(categorySelection.getId());
+            SecurityGroup group = us.getSecurityGroupById(folderSelection.getId());
             String right = "Download";
             if (group.getId()==0) { right = "Zeige"; }
             request.setAttribute("targetname",group.getName()+" ("+right+"-Berechtigung)");
@@ -128,23 +128,23 @@ public class CategorySelectorController extends SimpleFormControllerMd {
      * @param typeParameter
      * @return
      */
-    private List<SelectableCategory> getSelectableCategoryList(String typeParameter, List<FolderMultiLang> categoryTree, HttpServletRequest request) {
+    private List<SelectableFolder> getSelectableCategoryList(String typeParameter, List<FolderMultiLang> categoryTree, HttpServletRequest request) {
 
-        List<SelectableCategory> selectableCategoryList = new ArrayList<SelectableCategory>();
+        List<SelectableFolder> selectableFolderList = new ArrayList<SelectableFolder>();
 
         if (typeParameter.equalsIgnoreCase("PIN")) {
 
             for (FolderMultiLang category : categoryTree) {
-                SelectableCategory selCat = new SelectableCategory();
+                SelectableFolder selCat = new SelectableFolder();
                 selCat.setFolder(category);
                 selCat.setSelected(false);
-                selectableCategoryList.add(selCat);
+                selectableFolderList.add(selCat);
             }
         }
 
         if (typeParameter.equalsIgnoreCase("ACL")) {
             for (FolderMultiLang category : categoryTree) {
-                SelectableCategory selCat = new SelectableCategory();
+                SelectableFolder selCat = new SelectableFolder();
                 selCat.setFolder(category);
 
                 Acl acl = AclController.getAcl(category);
@@ -160,27 +160,27 @@ public class CategorySelectorController extends SimpleFormControllerMd {
                     selCat.setSelected(false);
                 }
 
-                selectableCategoryList.add(selCat);
+                selectableFolderList.add(selCat);
             }
         }
 
-        return selectableCategoryList;
+        return selectableFolderList;
     }
 
     protected ModelAndView onSubmit(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, BindException e) throws Exception {
 
-        CategoryService categoryService = new CategoryService();
+        FolderService folderService = new FolderService();
         ImageVersionService mediaService = new ImageVersionService();
-        CategorySelection categorySelection = (CategorySelection)o;
-        for (SelectableCategory category : categorySelection.getCategoryList()) {
+        FolderSelection folderSelection = (FolderSelection)o;
+        for (SelectableFolder category : folderSelection.getCategoryList()) {
             if (category.isSelected()) {
-                //System.out.println("Selected: "+category.getFolder().getCategoryId());
+                //System.out.println("Selected: "+folder.getFolder().getCategoryId());
 
                 /**
                  * Kategorie-Inhalte einem PIN zuweisen
                  */
 
-                if (categorySelection.getType().equalsIgnoreCase("PIN")) {
+                if (folderSelection.getType().equalsIgnoreCase("PIN")) {
                     PinpicService pinService = new PinpicService();
                     int pinId = ((Integer)httpServletRequest.getSession().getAttribute("pinid")).intValue();
                     SimpleLoaderClass slc = new SimpleLoaderClass(category.getFolder().getCategoryId());
@@ -196,10 +196,10 @@ public class CategorySelectorController extends SimpleFormControllerMd {
              * ACL bearbeiten
              */
 
-            if (categorySelection.getType().equalsIgnoreCase("ACL")) {
+            if (folderSelection.getType().equalsIgnoreCase("ACL")) {
                 Acl acl = AclController.getAcl(category.getFolder());
                 UserService userService = new UserService();
-                SecurityGroup securityGroup = userService.getSecurityGroupById(categorySelection.getId());
+                SecurityGroup securityGroup = userService.getSecurityGroupById(folderSelection.getId());
                 AclPermission permission = new AclPermission(AclPermission.READ);
                 if (securityGroup.getId()==0) { permission = new AclPermission("view"); }
                 //Zugriff pr�fen
@@ -240,11 +240,11 @@ public class CategorySelectorController extends SimpleFormControllerMd {
         }
 
         //Redirecten
-        if (categorySelection.getType().equalsIgnoreCase("PIN")) {
+        if (folderSelection.getType().equalsIgnoreCase("PIN")) {
             int pinId = ((Integer)httpServletRequest.getSession().getAttribute("pinid")).intValue();
             httpServletResponse.sendRedirect(httpServletResponse.encodeRedirectURL("pinview?pinid="+pinId));
         }
-        if (categorySelection.getType().equalsIgnoreCase("ACL")) {
+        if (folderSelection.getType().equalsIgnoreCase("ACL")) {
             httpServletResponse.sendRedirect(httpServletResponse.encodeRedirectURL("usermanager?tab=group"));
         }
         return null;

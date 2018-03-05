@@ -1,4 +1,4 @@
-package com.stumpner.mediadesk.image.category;
+package com.stumpner.mediadesk.image.folder;
 
 import org.springframework.validation.Validator;
 import org.springframework.validation.Errors;
@@ -42,15 +42,15 @@ public class FolderEditValidator implements Validator {
         }
 
         /*
-        if (!NameValidator.validateQuotes(category.getCatName())) {
+        if (!NameValidator.validateQuotes(folder.getCatName())) {
             errors.rejectValue("catName","edit.namenotvalid");
         }
 
-        if (!NameValidator.validateQuotes(category.getCatTitleLng1())) {
+        if (!NameValidator.validateQuotes(folder.getCatTitleLng1())) {
             errors.rejectValue("catTitleLng1","edit.namenotvalid");
         }
 
-        if (!NameValidator.validateQuotes(category.getCatTitleLng2())) {
+        if (!NameValidator.validateQuotes(folder.getCatTitleLng2())) {
             errors.rejectValue("catTitleLng2","edit.namenotvalid");
         } */
     }

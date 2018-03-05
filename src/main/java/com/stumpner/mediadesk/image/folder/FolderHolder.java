@@ -1,4 +1,4 @@
-package com.stumpner.mediadesk.core.database.sc.loader;
+package com.stumpner.mediadesk.image.folder;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
@@ -20,20 +20,30 @@ package com.stumpner.mediadesk.core.database.sc.loader;
  *********************************************************/
 /**
  * Created by IntelliJ IDEA.
- * User: franz.stumpner
- * Date: 20.10.2008
- * Time: 18:07:56
+ * User: franzstumpner
+ * Date: 05.10.2005
+ * Time: 22:41:09
  * To change this template use File | Settings | File Templates.
  */
-public class CategoryLoaderClass extends SimpleLoaderClass {
+public class FolderHolder {
 
-    private int sort = 1;
+    private int categoryId = -1;
+    private int ivid = -1;
 
-    public int getSort() {
-        return sort;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setSort(int sortByName) {
-        this.sort = sortByName;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
+
+    public int getIvid() {
+        return ivid;
+    }
+
+    public void setIvid(int ivid) {
+        this.ivid = ivid;
+    }
+
 }

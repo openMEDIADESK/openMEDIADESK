@@ -46,7 +46,7 @@ public class CustomTextService {
             if (locale.getLanguage().startsWith("de")) { return Config.textFolderLng1; }
             else { return Config.textFolderLng2; }
         }
-        if (code.startsWith("category")) {
+        if (code.startsWith("folder")) {
             //Cat
             if (locale.getLanguage().startsWith("de")) { return Config.textCatLng1; }
             else { return Config.textCatLng2; }
@@ -104,7 +104,7 @@ public class CustomTextService {
             //Folder
 
         }
-        if (code.equalsIgnoreCase("category")) {
+        if (code.equalsIgnoreCase("folder")) {
             //Cat
 
         }
