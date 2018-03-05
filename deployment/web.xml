@@ -146,10 +146,6 @@ will default to basic and digest authentication.      -->
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SettingsDispatcher</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ErrorDispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     </servlet>
@@ -384,10 +380,6 @@ will default to basic and digest authentication.      -->
     <servlet-mapping>
         <servlet-name>PinLoginDispatcher</servlet-name>
         <url-pattern>/pin/*</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SettingsDispatcher</servlet-name>
-        <url-pattern>/settings/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ErrorDispatcher</servlet-name>
