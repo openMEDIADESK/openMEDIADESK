@@ -13,7 +13,7 @@
 <!-- jsp:include page="modalparking.jsp"/ -->
 
 <!-- spalte2 -->
-<div class="col-sm-10 main" ng-controller="ThumbnailViewCtrl" ng-init="initMosView('/api/rest/category',<c:out value="${containerId}"/>,'<c:out value="${view}"/>',<c:out value="${selectedImages}"/>, <c:out value="${sortBy}"/>, <c:out value="${orderBy}"/>)"> <!-- col-sm-10 main SPALTE 2 FÜR INHALT -->
+<div class="col-sm-10 main" ng-controller="ThumbnailViewCtrl" ng-init="initMosView('/api/rest/folder',<c:out value="${containerId}"/>,'<c:out value="${view}"/>',<c:out value="${selectedImages}"/>, <c:out value="${sortBy}"/>, <c:out value="${orderBy}"/>)"> <!-- col-sm-10 main SPALTE 2 FÜR INHALT -->
 <!-- ###################################################################################################################################################### -->
 <!-- HIER STARTET DER INHALTSBEREICH ###################################################################################################################### -->
 <!-- breadcrumbs -->
