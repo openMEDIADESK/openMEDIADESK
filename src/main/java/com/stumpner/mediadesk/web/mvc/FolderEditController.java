@@ -276,7 +276,7 @@ public class FolderEditController extends AbstractAutoFillController {
             LngResolver lngResolver = new LngResolver();
             category.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
             httpServletRequest.getSession().setAttribute("accessObject",category);
-            httpServletRequest.getSession().setAttribute("redirectTo","categoryedit?categoryid="+category.getCategoryId());
+            httpServletRequest.getSession().setAttribute("redirectTo","folderedit?id="+category.getCategoryId());
 
             redirectTo = httpServletResponse.encodeRedirectURL("acl");
 
