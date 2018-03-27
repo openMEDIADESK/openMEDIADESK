@@ -394,7 +394,7 @@ public class UploadServlet extends HttpServlet {
                 category.setCatTitleLng2(categoryName);
                 category.setDescription("Autoimport");
                 try {
-                    folderService.addCategory(category);
+                    folderService.addFolder(category);
                     try {
                         category = (FolderMultiLang) folderService.getByName(categoryName);
                     } catch (ObjectNotFoundException e1) {

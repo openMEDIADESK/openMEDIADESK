@@ -101,7 +101,7 @@ public class CategoryApi extends ApiBase {
         String fid = parameter[0];
         FolderService catService = new FolderService();
         try {
-            return String.valueOf(catService.getCategoryIdByFid(fid));
+            return String.valueOf(catService.getFolderIdByFid(fid));
         } catch (ObjectNotFoundException e) {
             return "-1;ObjectNotFound";
         } catch (IOServiceException e) {
@@ -114,7 +114,7 @@ public class CategoryApi extends ApiBase {
         int ivid = Integer.parseInt(parameter[1]);
         
         FolderService folderService = new FolderService();
-        folderService.deleteImageFromCategory(categoryId,ivid);
+        folderService.deleteMediaFromFolder(categoryId,ivid);
         return "OK";
     }
 
@@ -129,7 +129,7 @@ public class CategoryApi extends ApiBase {
 
         FolderService folderService = new FolderService();
         try {
-            folderService.addImageToCategory(categoryId,ivid);
+            folderService.addMediaToFolder(categoryId,ivid);
             return "OK";
         } catch (DublicateEntry dublicateEntry) {
             dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -175,9 +175,9 @@ public class CategoryApi extends ApiBase {
             SimpleLoaderClass loaderClass = new SimpleLoaderClass();
             loaderClass.setId(Integer.parseInt(parameter[0]));
             List categoryImages = imageService.getCategoryImages(loaderClass);
-            Folder folder = folderService.getCategoryById(loaderClass.getId());
+            Folder folder = folderService.getFolderById(loaderClass.getId());
 
-            folderService.deleteImagesFromCategory(folder,categoryImages);
+            folderService.deleteMediaFromFolder(folder,categoryImages);
 
             return "OK";
         } catch (ObjectNotFoundException e) {
@@ -232,7 +232,7 @@ public class CategoryApi extends ApiBase {
         FolderService folderService = new FolderService();
         Folder folder = new Folder();
         try {
-            folder = folderService.getCategoryByName(categoryName);
+            folder = folderService.getFolderByName(categoryName);
             exist = true;
         } catch (ObjectNotFoundException e) {
             exist = false;
@@ -256,7 +256,7 @@ public class CategoryApi extends ApiBase {
 
         for (int a=0;a<pathToken.length;a++) {
 
-            List categoryList = folderService.getCategoryList(categoryId);
+            List categoryList = folderService.getFolderList(categoryId);
             Iterator categories = categoryList.iterator();
             boolean found = false;
             while (categories.hasNext()) {
@@ -281,7 +281,7 @@ public class CategoryApi extends ApiBase {
     private Folder getCategoryByPath(String categoryPath) throws ObjectNotFoundException {
 
         FolderService folderService = new FolderService();
-        return folderService.getCategoryByPath(categoryPath);
+        return folderService.getFolderByPath(categoryPath);
 
     }
 
@@ -303,7 +303,7 @@ public class CategoryApi extends ApiBase {
             category.setCatTitleLng1(categoryTitle);
             category.setCatTitleLng2(categoryTitle);
             try {
-                folderService.addCategory(category);
+                folderService.addFolder(category);
                 success = true;
             } catch (IOServiceException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -317,7 +317,7 @@ public class CategoryApi extends ApiBase {
 
             for (int a=0;a<pathToken.length;a++) {
 
-                List categoryList = folderService.getCategoryList(categoryId);
+                List categoryList = folderService.getFolderList(categoryId);
                 Iterator categories = categoryList.iterator();
                 boolean found = false;
                 while (categories.hasNext()) {
@@ -348,7 +348,7 @@ public class CategoryApi extends ApiBase {
                     category.setParent(categoryId);
                     a--; //Nochmals durchlaufen...
                     try {
-                        folderService.addCategory(category);
+                        folderService.addFolder(category);
                         success = true;
                     } catch (IOServiceException e) {
                         e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -376,7 +376,7 @@ public class CategoryApi extends ApiBase {
             //Kategorieangabe
             Folder folder = null;
             try {
-                folder = folderService.getCategoryByName(categoryName);
+                folder = folderService.getFolderByName(categoryName);
                 deleteCategory(folder.getCategoryId());
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -404,18 +404,18 @@ public class CategoryApi extends ApiBase {
         FolderService folderService = new FolderService();
         ImageVersionService imageService = new ImageVersionService();
                 try {
-                    Folder folder = folderService.getCategoryById(categoryId);
+                    Folder folder = folderService.getFolderById(categoryId);
                     SimpleLoaderClass loaderClass = new SimpleLoaderClass();
                     loaderClass.setId(categoryId);
                     List imageList = imageService.getCategoryImages(loaderClass);
                     Iterator images = imageList.iterator();
                     while (images.hasNext()) {
                         ImageVersion image = (ImageVersion)images.next();
-                        List categoryList = folderService.getCategoryListFromImageVersion(image.getIvid());
+                        List categoryList = folderService.getFolderListFromImageVersion(image.getIvid());
                         if (categoryList.size()==1) {
                             imageService.deleteImageVersion(image);
                         }
-                        folderService.deleteImageFromCategory(folder,image);
+                        folderService.deleteMediaFromFolder(folder,image);
                     }
                     folderService.deleteById(folder.getCategoryId());
                 } catch (ObjectNotFoundException e) {

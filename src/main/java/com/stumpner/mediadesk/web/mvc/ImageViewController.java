@@ -47,7 +47,7 @@ public class ImageViewController extends AbstractImagePreviewController {
         }
 
         httpServletRequest.setAttribute("popup",false);
-        //parentCategoryList = categoryService.getParentCategoryList(id);
+        //parentCategoryList = categoryService.getParentFolderList(id);
 
         return super.handleRequestInternal(httpServletRequest, httpServletResponse);    //To change body of overridden methods use File | Settings | File Templates.
     }

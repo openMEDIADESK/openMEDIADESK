@@ -74,7 +74,7 @@ public class CatReorder extends HttpServlet {
             FolderService cs = new FolderService();
 
             try {
-                Folder cat = cs.getCategoryById(Integer.parseInt(movingNode));
+                Folder cat = cs.getFolderById(Integer.parseInt(movingNode));
                 cat.setParent(Integer.parseInt(newParent));
                 cs.save(cat);
 

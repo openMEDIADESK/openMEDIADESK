@@ -271,7 +271,7 @@ public class ImportFilesystemController extends ModelFormPageController {
         fileList.setAutoImportFtpCat(Config.autoImportFtpCat);
 
         FolderService folderService = new FolderService();
-        fileList.setCategoryList(folderService.getCategoryList(0));
+        fileList.setCategoryList(folderService.getFolderList(0));
 
         //Hilfsweise das Objekt sofort in die Session speichern...
         HttpSession session = request.getSession();

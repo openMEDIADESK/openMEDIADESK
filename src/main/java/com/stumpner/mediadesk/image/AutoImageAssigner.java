@@ -68,7 +68,7 @@ public class AutoImageAssigner {
                 FolderService folderService = new FolderService();
                 Folder folder = (Folder)autoImportObject;
                 try {
-                    folderService.addImageToCategory(folder.getCategoryId(),ivid);
+                    folderService.addMediaToFolder(folder.getCategoryId(),ivid);
                     inboxService.removeImage(ivid);
                 } catch (DublicateEntry dublicateEntry) {
                     dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

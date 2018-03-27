@@ -119,7 +119,7 @@ public class MediaObjectResource implements FileResource {
         if (user.getRole()>=User.ROLE_EDITOR) { //Erst ab Rolle Editor darf jemand neue Objekte anlegen
             System.out.println("Webdav Delete Request: ["+media.getVersionName()+"] linkedFolder="+ linkedFolder.getCategoryId());
             FolderService folderService = new FolderService();
-            folderService.deleteImageFromCategory(linkedFolder.getCategoryId(),media.getIvid());
+            folderService.deleteMediaFromFolder(linkedFolder.getCategoryId(),media.getIvid());
         }
     }
 
@@ -202,8 +202,8 @@ public class MediaObjectResource implements FileResource {
             } else {
                 //Verschieben
                 try {
-                    folderService.addImageToCategory(moveToCategoryId,media.getIvid());
-                    folderService.deleteImageFromCategory(linkedFolder,media);
+                    folderService.addMediaToFolder(moveToCategoryId,media.getIvid());
+                    folderService.deleteMediaFromFolder(linkedFolder,media);
                 } catch (DublicateEntry dublicateEntry) {
                     dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }

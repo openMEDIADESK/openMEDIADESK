@@ -105,7 +105,7 @@ public class AutoImporter {
                                 //in kategorie oder folder importieren
                                 FolderService folderService = new FolderService();
                                 try {
-                                    folderService.addImageToCategory(Config.autoImportFtpCat,ivid);
+                                    folderService.addMediaToFolder(Config.autoImportFtpCat,ivid);
                                 } catch (DublicateEntry dublicateEntry) {
                                     dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                                 }

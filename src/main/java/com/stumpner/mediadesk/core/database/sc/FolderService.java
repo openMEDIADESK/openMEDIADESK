@@ -50,10 +50,10 @@ import net.stumpner.security.acl.*;
 public class FolderService extends MultiLanguageService implements IServiceClass {
 
     public Object getById(int id) throws ObjectNotFoundException, IOServiceException {
-        return getCategoryById(id);  //To change body of implemented methods use File | Settings | File Templates.
+        return getFolderById(id);  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public Folder getCategoryById(int id) throws ObjectNotFoundException, IOServiceException {
+    public Folder getFolderById(int id) throws ObjectNotFoundException, IOServiceException {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         FolderMultiLang folder = new FolderMultiLang();
@@ -63,67 +63,50 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-        if (folder==null) throw new ObjectNotFoundException("Kategorie mit der ID "+id+" nicht gefunden");
+        if (folder==null) throw new ObjectNotFoundException("Ordner mit der ID "+id+" nicht gefunden");
         return folder;
 
     }
 
-    public List getParentCategoryList(int id) throws ObjectNotFoundException, IOServiceException {
+    public List getParentFolderList(int id) throws ObjectNotFoundException, IOServiceException {
 
-        int recParentCat = id;
-        LinkedList recCatList = new LinkedList();
+        int recParentFolder = id;
+        LinkedList recFolderList = new LinkedList();
 
         int whileLoopCounter = 0;
-        //System.out.println("getParentCategoryList");
+        //System.out.println("getParentFolderList");
 
-        //Rekursiv nach übergeordneten Kategorien suchen:
-        while (recParentCat!=0) {
-            FolderMultiLang recCat = (FolderMultiLang)this.getCategoryById(recParentCat);
-            recCat.setUsedLanguage(getUsedLanguage());
-            if (recCat==null) throw new ObjectNotFoundException();
-            recCatList.addFirst(recCat);
-            recParentCat=recCat.getParent();
+        //Rekursiv nach übergeordneten Ordnern suchen:
+        while (recParentFolder!=0) {
+            FolderMultiLang recFolder = (FolderMultiLang)this.getFolderById(recParentFolder);
+            recFolder.setUsedLanguage(getUsedLanguage());
+            if (recFolder==null) throw new ObjectNotFoundException();
+            recFolderList.addFirst(recFolder);
+            recParentFolder=recFolder.getParent();
             whileLoopCounter = whileLoopCounter+1;
             if (whileLoopCounter>0) {
-                //System.out.println("SF-DEBUG: whileLoopCounter="+whileLoopCounter+" (getParentCategoryList) "+Config.instanceName);
+                //System.out.println("SF-DEBUG: whileLoopCounter="+whileLoopCounter+" (getParentFolderList) "+Config.instanceName);
             }
             if (whileLoopCounter>11) {
-                System.err.println("getParentCategoryList: maybe endless loop detected > 11 "+Config.instanceName+" "+new Date());
+                System.err.println("getParentFolderList: maybe endless loop detected > 11 "+Config.instanceName+" "+new Date());
                 break;
             }
         }
 
-        return recCatList;
+        return recFolderList;
 
     }
 
-    public List getCategorySubTree(int parentId,int maxSubElements) throws ObjectNotFoundException, IOServiceException {
+    public List getFolderSubTree(int parentId, int maxSubElements) throws ObjectNotFoundException, IOServiceException {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         List folderList = new ArrayList();
         List treeList = new ArrayList();
-        List allCategoryList = new ArrayList();
-        Map categoryMap = new HashMap();
 
         FolderLoaderClass loaderClass = new FolderLoaderClass();
         loaderClass.setSort(Config.categorySort);
         loaderClass.setId(parentId);
         loaderClass.setUsedLanguage(getUsedLanguage());
-
-        /*
-        try {
-            allCategoryList = smc.queryForList("getAllCategoryListIc",new Integer(parentId));
-        } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-
-        Iterator categories = allCategoryList.iterator();
-        while (categories.hasNext()) {
-            Folder folder = (Folder)categories.next();
-            categoryMap.put(new Integer(folder.getCategoryId()),folder.getCatTitle());
-        }
-        */
 
         try {
             folderList = smc.queryForList("getCategorySubTree",loaderClass);
@@ -131,12 +114,12 @@ public class FolderService extends MultiLanguageService implements IServiceClass
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
-        Iterator cats = folderList.iterator();
-        while (cats.hasNext()) {
+        Iterator folders = folderList.iterator();
+        while (folders.hasNext()) {
 
-            Folder cat = (Folder)cats.next();
-            FolderTreeElement cte = new FolderTreeElement(cat);
-            if (cte.getParent()==parentId) {
+            Folder folder = (Folder)folders.next();
+            FolderTreeElement folderTreeElement = new FolderTreeElement(folder);
+            if (folderTreeElement.getParent()==parentId) {
 
                 //cte.setCatTitle((String)categoryMap.get(new Integer(cte.getCategoryId())));
                 Iterator subCats = folderList.iterator();
@@ -144,14 +127,14 @@ public class FolderService extends MultiLanguageService implements IServiceClass
                 while (subCats.hasNext()) {
 
                     Folder subCat = (Folder)subCats.next();
-                    if (subCat.getParent()==cte.getCategoryId()) {
+                    if (subCat.getParent()==folderTreeElement.getCategoryId()) {
                         if (subElements<maxSubElements) {
-                            cte.getSubCategoryList().add(new FolderTreeElement(subCat));
+                            folderTreeElement.getSubCategoryList().add(new FolderTreeElement(subCat));
                         }
                         subElements++;
                     }
                 }
-                treeList.add(cte);
+                treeList.add(folderTreeElement);
             }
         }
 
@@ -160,10 +143,10 @@ public class FolderService extends MultiLanguageService implements IServiceClass
     }
 
     public Object getByName(String name) throws ObjectNotFoundException, IOServiceException {
-        return getCategoryByName(name);  //To change body of implemented methods use File | Settings | File Templates.
+        return getFolderByName(name);  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public Folder getCategoryByName(String name) throws ObjectNotFoundException, IOServiceException {
+    public Folder getFolderByName(String name) throws ObjectNotFoundException, IOServiceException {
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         FolderMultiLang folder = new FolderMultiLang();
         try {
@@ -176,13 +159,13 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         return folder;
     }
 
-    public List getCategoryList(int parentCategoryId) {
+    public List getFolderList(int parentFolderId) {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         List folderList = new ArrayList();
         FolderLoaderClass loaderClass = new FolderLoaderClass();
         loaderClass.setSort(Config.categorySort);
-        loaderClass.setId(parentCategoryId);
+        loaderClass.setId(parentFolderId);
         loaderClass.setUsedLanguage(getUsedLanguage());
 
         try {
@@ -195,7 +178,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
 
     }
 
-    public List getAllCategoryList() {
+    public List getAllFolderList() {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         List folderList = new ArrayList();
@@ -216,113 +199,61 @@ public class FolderService extends MultiLanguageService implements IServiceClass
      * Returns the full CategoryList in Sub-Folder-Order
      * @return
      */
-    public List getAllCategoryListSuborder() {
+    public List getAllFolderListSuborder() {
 
-        List categoryList = getAllCategoryList();
-        List categoryListSuborder = new ArrayList();
-        Map categoryMap = new HashMap();
-        Iterator categories = categoryList.iterator();
+        List folderList = getAllFolderList();
+        List folderListSuborder = new ArrayList();
 
-        return getAllCategoryListSuborderRecursive(0,categoryList,categoryListSuborder,"-");
+        return getAllFolderListSuborderRecursive(0,folderList,folderListSuborder,"-");
     }
 
-    private List getAllCategoryListSuborderRecursive(int parentId, List categoryList, List categoryListSuborder, String submarker) {
-
-
+    private List getAllFolderListSuborderRecursive(int parentId, List folderList, List folderListSuborder, String submarker) {
 
         //System.out.println("Suche nach UK: parentid:"+parentId);
-        Iterator categories = categoryList.iterator();
+        Iterator categories = folderList.iterator();
         while (categories.hasNext()) {
             Folder folder = (Folder)categories.next();
             if (folder.getParent()==parentId) {
                 //System.out.println("Unterkategorie: "+folder.getCatName() + " ("+folder.getCategoryId()+")");
                 //gehört als Unterkategorie zu dieser Kategorie
                 folder.setCatName(submarker+" "+ folder.getCatName());
-                categoryListSuborder.add(folder);
-                categoryListSuborder =
-                        getAllCategoryListSuborderRecursive(folder.getCategoryId(),categoryList,categoryListSuborder,submarker+submarker);
+                folderListSuborder.add(folder);
+                folderListSuborder =
+                        getAllFolderListSuborderRecursive(folder.getCategoryId(),folderList,folderListSuborder,submarker+submarker);
             }
         }
 
-        return categoryListSuborder;
+        return folderListSuborder;
     }
 
-    public List getCategoryListFromImageVersion(int ivid) {
+    public List getFolderListFromImageVersion(int ivid) {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
-        List categoryList = new ArrayList();
+        List folderList = new ArrayList();
         SimpleLoaderClass loaderClass = new SimpleLoaderClass();
         loaderClass.setId(ivid);
         loaderClass.setUsedLanguage(getUsedLanguage());
 
         try {
-            categoryList = smc.queryForList("getCategoryListFromImageVersion", loaderClass);
+            folderList = smc.queryForList("getCategoryListFromImageVersion", loaderClass);
             //categoryList = smc.queryForPaginatedList("getFolderList",new Integer(numberOfResults),12);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-        return categoryList;
-
-    }
-    /**
-     * Returns a List of Folder where the image is in.
-
-    public List getCategoryListFromImageVersion(int ivid) {
-
-        SqlMapClient smc =AppSqlMap.getSqlMapInstance();
-        List folderList = new ArrayList();
-
-        try {
-            folderList = smc.queryForList("getFolderListFromImageVersion", new Integer(ivid));
-            //folderList = smc.queryForPaginatedList("getFolderList",new Integer(numberOfResults),12);
-        } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
         return folderList;
 
     }
-
-    public List getCategoryList(int resultsPerPage) {
-
-        SqlMapClient smc =AppSqlMap.getSqlMapInstance();
-        List folderList = null;
-
-        try {
-            folderList = smc.queryForPaginatedList("getCategoryList",null,resultsPerPage);
-        } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-        return folderList;
-
-    }
-
-
-    public PaginatedList getVisibleFolderListPages(int resultsPerPage) {
-
-        SqlMapClient smc =AppSqlMap.getSqlMapInstance();
-        PaginatedList folderList = null;
-
-        try {
-            folderList = smc.queryForPaginatedList("getVisibleFolderList",null,resultsPerPage);
-        } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-        return folderList;
-
-    }
-
-     **/
 
     public void save(Object object) throws IOServiceException {
 
         SqlMapClient smc = AppSqlMap.getSqlMapInstance();
-        Folder filmReel = (Folder)object;
+        Folder folder = (Folder)object;
         //Wenn Fid = leer dann auf NULL setzen, wegen Unique-ID
-        if (filmReel.getFid()!=null) {
-            if (filmReel.getFid().trim().length()==0) { filmReel.setFid(null); }
+        if (folder.getFid()!=null) {
+            if (folder.getFid().trim().length()==0) { folder.setFid(null); }
         }
         try {
-            smc.update("saveCategory",filmReel);
+            smc.update("saveCategory",folder);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -333,13 +264,13 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public synchronized void addCategory(Folder folder) throws IOServiceException {
+    public synchronized void addFolder(Folder folder) throws IOServiceException {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
 
-        List<FolderMultiLang> parentCategoryList = getCategoryList(folder.getParent());
-        for (FolderMultiLang pCat : parentCategoryList) {
-            if (pCat.getCatName().equalsIgnoreCase(folder.getCatName())) {
+        List<FolderMultiLang> parentFolderList = getFolderList(folder.getParent());
+        for (FolderMultiLang parentFolder : parentFolderList) {
+            if (parentFolder.getCatName().equalsIgnoreCase(folder.getCatName())) {
                 //Kategorie mit diesem Namen existiert bereits
                 throw new DublicateEntry("Duplicate FolderName: "+folder.getCatName());
             }
@@ -351,14 +282,14 @@ public class FolderService extends MultiLanguageService implements IServiceClass
 
         try {
             smc.insert("addCategory",folder);
-            Integer maxFilmReelId = (Integer)smc.queryForObject("getMaxCategoryId",new Integer(0));
-            folder.setCategoryId(maxFilmReelId.intValue());
+            Integer maxFolderId = (Integer)smc.queryForObject("getMaxCategoryId",new Integer(0));
+            folder.setCategoryId(maxFolderId.intValue());
 
             //Acl von Elternkategorie Übernehmen:
                     Acl acl = new Acl();
                     if (folder.getParent()!=0) {
                         //Unterkategorie einer bestehenden
-                        Folder parentFolder = this.getCategoryById(folder.getParent());
+                        Folder parentFolder = this.getFolderById(folder.getParent());
                         acl = AclController.getAcl(parentFolder);
                     } else {
                         //Neue Root-Kategorie
@@ -380,7 +311,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
 
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new IOServiceException("Fehler beim anlegen einer Kategorie: "+e.getMessage());
+            throw new IOServiceException("Fehler beim anlegen eines Ordners: "+e.getMessage());
         } catch (ObjectNotFoundException e) {
             //Wenn beim ACL setzten die Parent-Kategorie nicht gefunden wurde
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -389,10 +320,10 @@ public class FolderService extends MultiLanguageService implements IServiceClass
 
     }
 
-    public void addImageToCategory(int folderId, int ivid) throws DublicateEntry {
+    public void addMediaToFolder(int folderId, int ivid) throws DublicateEntry {
 
-        if (this.isImageInCategory(folderId,ivid)) {
-            throw new DublicateEntry("Folder["+folderId+"] has already this image: "+ivid);
+        if (this.isMediaInFolder(folderId,ivid)) {
+            throw new DublicateEntry("Folder["+folderId+"] has already this mediaobject: "+ivid);
         }
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
@@ -400,44 +331,42 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         FolderHolder folderHolder = new FolderHolder();
         folderHolder.setCategoryId(folderId);
         folderHolder.setIvid(ivid);
-        //folderHolder.setImageTitleAlias("");
 
         try {
-            // Kategorie mit ID=0 gibt es nicht: Root-Kategorie
+            // Folder mit ID=0 gibt es nicht: Root-Folder
             if (folderId!=0) {
-                Folder folder = this.getCategoryById(folderId);
+                Folder folder = this.getFolderById(folderId);
                 folder.setChangedDate(new Date());
                 this.save(folder);
             }
         } catch (ObjectNotFoundException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         } catch (IOServiceException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
 
         try {
             smc.insert("addImageToCategory", folderHolder);
         } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
 
         DatabaseService.setTriggerStage1(true);
         CronService.triggerSitemapXmlPost = true;
-        //old:this.calcImageCountBranch(folderId);
     }
 
     /**
      * Prüft ob das angegebene Image bereits in dieser Kategorie ist
-     * @param categoryId
+     * @param folderId
      * @param ivid
      * @return
      */
-    private boolean isImageInCategory(int categoryId, int ivid) {
+    private boolean isMediaInFolder(int folderId, int ivid) {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         Integer count = 0;
         try {
-            count = (Integer)smc.queryForObject("isImageInCategory",new HolderClass(ivid,categoryId));
+            count = (Integer)smc.queryForObject("isImageInCategory",new HolderClass(ivid,folderId));
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -451,16 +380,16 @@ public class FolderService extends MultiLanguageService implements IServiceClass
     }
 
 
-    public void addImageToCategory(int categoryId, ImageVersion imageVersion) {
+    public void addMediaToFolder(int folderId, ImageVersion imageVersion) {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
 
         FolderHolder folderHolder = new FolderHolder();
-        folderHolder.setCategoryId(categoryId);
+        folderHolder.setCategoryId(folderId);
         folderHolder.setIvid(imageVersion.getIvid());
 
         try {
-            Folder folder = this.getCategoryById(categoryId);
+            Folder folder = this.getFolderById(folderId);
             folder.setChangedDate(new Date());
             this.save(folder);
         } catch (ObjectNotFoundException e) {
@@ -477,11 +406,10 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         }
 
         DatabaseService.setTriggerStage1(true);
-        //old:this.calcImageCountBranch(categoryId);
 
     }
 
-    protected void deleteImageFromAllCategories(int ivid) {
+    protected void deleteMediaFromAllFolder(int ivid) {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
 
@@ -492,52 +420,50 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         }
 
         DatabaseService.setTriggerStage1(true);
-        //this.calcImageCountBranch(0);
     }
 
-    public void deleteImageFromCategory(Folder folder, ImageVersion imageVersion) {
+    public void deleteMediaFromFolder(Folder folder, ImageVersion imageVersion) {
 
-        this.deleteImageFromCategory(folder.getCategoryId(),imageVersion.getIvid());
+        this.deleteMediaFromFolder(folder.getCategoryId(),imageVersion.getIvid());
     }
 
-    public void deleteImageFromCategory(int categoryId, int ivid) {
+    public void deleteMediaFromFolder(int folderId, int ivid) {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
 
         FolderHolder folderHolder = new FolderHolder();
-        folderHolder.setCategoryId(categoryId);
+        folderHolder.setCategoryId(folderId);
         folderHolder.setIvid(ivid);
 
         try {
-            //Kategorie 0 = Root-Folder: exitsiert nicht in der DB
-            if (categoryId !=0 && categoryId !=-1) {
-                Folder folder = this.getCategoryById(categoryId);
+            //Folder 0 = Root-Folder: exitsiert nicht in der DB
+            if (folderId !=0 && folderId !=-1) {
+                Folder folder = this.getFolderById(folderId);
                 folder.setChangedDate(new Date());
                 this.save(folder);
             }
         } catch (ObjectNotFoundException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         } catch (IOServiceException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
 
         try {
             smc.delete("deleteImageFromCategory", folderHolder);
         } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
 
         DatabaseService.setTriggerStage1(true);
-        //this.calcImageCountBranch(categoryId);
     }
 
-    public void deleteImagesFromCategory(Folder folder, List imageVersionList) {
+    public void deleteMediaFromFolder(Folder folder, List moList) {
 
-        Iterator images = imageVersionList.iterator();
+        Iterator images = moList.iterator();
         while (images.hasNext()) {
 
-            ImageVersion imageVersion = (ImageVersion)images.next();
-            deleteImageFromCategory(folder.getCategoryId(),imageVersion.getIvid());
+            ImageVersion mo = (ImageVersion)images.next();
+            deleteMediaFromFolder(folder.getCategoryId(),mo.getIvid());
         }
 
     }
@@ -549,85 +475,79 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         try {
             smc.delete("deleteAllImagesFromCategory",new Integer(id));
         } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
 
         try {
             smc.delete("deleteCategoryById", new Integer(id));
         } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
 
         DatabaseService.setTriggerStage1(true);
-        //this.calcImageCountBranch(id);
-
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    protected int calcImageCount(int categoryId) {
+    protected int calcMediaCount(int folderId) {
 
-        List allCategoryList = new LinkedList();
+        List allFolderList = new LinkedList();
         Logger logger = Logger.getLogger(getClass());
 
-        /* Alle Kategorien inklusive neu gerechneter Bilanzahl (in der kategorie selbst) laden */
+        /* Alle Ordner inklusive neu gerechneter Medienobjekt-anzahl (in dem ordner selbst) laden */
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         try {
-            //System.out.println("get All CategoryList Ic");
-            allCategoryList = smc.queryForList("getAllCategoryListIc",new Integer(categoryId));
+            allFolderList = smc.queryForList("getAllCategoryListIc",new Integer(folderId));
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        //System.out.println("calcImageCount("+categoryId+")");
-        if (allCategoryList==null) { logger.debug("Folder List is NULL!!"); }
+        if (allFolderList==null) { logger.debug("Folder List is NULL!!"); }
 
-        ImageCountCalc icc = new ImageCountCalc(allCategoryList);
-        int imageCount = icc.getImageCount(categoryId);
+        ImageCountCalc icc = new ImageCountCalc(allFolderList);
+        int mediaCount = icc.getImageCount(folderId);
 
-        /* Geänderte Bildanzahl in die Kategorien schreiben (speichern) */
+        /* Geänderte Medienanzahl in den Ordner schreiben (speichern) */
 
-        List updateCategoryList = icc.getUpdateCategoryList();
-        Iterator updateCategories = updateCategoryList.iterator();
-        //System.out.println("geänderte Kategorien updaten");
-        while (updateCategories.hasNext()) {
-            Folder folder = (Folder)updateCategories.next();
+        List updateFolderList = icc.getUpdateCategoryList();
+        Iterator updateFolders = updateFolderList.iterator();
+        while (updateFolders.hasNext()) {
+            Folder folder = (Folder)updateFolders.next();
             try {
                 //System.out.println("Kategorie speichern: "+folder.getCategoryId());
                 //System.out.println("Image-count: "+folder.getImageCount());
                 //System.out.println("Images-count: "+folder.getImageCountS());
                 this.save(folder);
             } catch (IOServiceException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
             }
         }
 
-        return imageCount;
+        return mediaCount;
 
     }
 
     /**
-     * Berechnet die Bildanzahl für den gesamten Zweig dieser (Sub)Kategorie,
+     * Berechnet die Bildanzahl für den gesamten Zweig dieser (Sub)Ordner,
      * es wird zuerst die oberste (Root)-Kategorie festgestellt und dann
      * die Bildanzahl aller darunterliegenden Kategorien berechnet
      *
-     * @param categoryId
+     * @param folderId
      * @return
      * @deprecated Use DatabaseService.setTriggerStage1(true)
      */
-    private int calcImageCountBranch(int categoryId) {
+    private int calcMediaCountBranch(int folderId) {
 
         Logger logger = Logger.getLogger(getClass());
-        int imageCount = 0;
+        int mediaCount = 0;
 
-        logger.debug("FolderService: Image-Branch neu berechnen, categoryID="+categoryId);
+        logger.debug("FolderService: MediaFolder-Branch neu berechnen, folderID="+folderId);
 
         try {
-            List parentCategoryList = this.getParentCategoryList(categoryId);
-            logger.debug("Root Kategorie ist...");
-            if (!parentCategoryList.isEmpty()) {
-                logger.debug("RootKat von "+categoryId+" = "+((Folder)parentCategoryList.get(0)).getCategoryId());
-                logger.debug("Image-Count berechnen...");
-                imageCount = this.calcImageCount(((Folder)parentCategoryList.get(0)).getCategoryId());
+            List parentFolderList = this.getParentFolderList(folderId);
+            logger.debug("Root Ordner ist...");
+            if (!parentFolderList.isEmpty()) {
+                logger.debug("RootOrdner von "+folderId+" = "+((Folder)parentFolderList.get(0)).getCategoryId());
+                logger.debug("Media-Count berechnen...");
+                mediaCount = this.calcMediaCount(((Folder)parentFolderList.get(0)).getCategoryId());
             }
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -635,27 +555,27 @@ public class FolderService extends MultiLanguageService implements IServiceClass
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
-        return imageCount;
+        return mediaCount;
     }
 
 
-    public Folder getCategoryByPath(String categoryPath) throws ObjectNotFoundException {
+    public Folder getFolderByPath(String folderPath) throws ObjectNotFoundException {
 
         FolderService folderService = new FolderService();
-        String[] pathToken = categoryPath.split("/");
+        String[] pathToken = folderPath.split("/");
         int start = 0;
-        int categoryId = 0;
+        int folderId = 0;
 
-        if (categoryPath.startsWith("/")) { start = 1; }
+        if (folderPath.startsWith("/")) { start = 1; }
 
         for (int a=start;a<pathToken.length;a++) {
-            List categoryList = folderService.getCategoryList(categoryId);
-            Iterator categories = categoryList.iterator();
+            List folderList = folderService.getFolderList(folderId);
+            Iterator folders = folderList.iterator();
             boolean found = false;
-            while (categories.hasNext()) {
-                Folder folder = (Folder)categories.next();
+            while (folders.hasNext()) {
+                Folder folder = (Folder)folders.next();
                 if (folder.getCatName().equalsIgnoreCase(pathToken[a])) {
-                    categoryId = folder.getCategoryId();
+                    folderId = folder.getCategoryId();
                     found = true;
                     break;
                 }
@@ -668,44 +588,44 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         }
 
         try {
-            Folder folder = folderService.getCategoryById(categoryId);
+            Folder folder = folderService.getFolderById(folderId);
             return folder;
         } catch (IOServiceException e) {
             throw new ObjectNotFoundException();
         }
     }
 
-    public int getCategoryIdByFid(String fid) throws ObjectNotFoundException, IOServiceException {
+    public int getFolderIdByFid(String fid) throws ObjectNotFoundException, IOServiceException {
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
-        Integer catid = null;
+        Integer folderId = null;
         try {
-            catid = (Integer)smc.queryForObject("getCategoryIdByFid",fid);
-            if (catid==null) {
+            folderId = (Integer)smc.queryForObject("getCategoryIdByFid",fid);
+            if (folderId==null) {
                 throw new ObjectNotFoundException("Folder mit der FID "+fid+" nicht gefunden.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new IOServiceException("SQL-Fehler: "+e.getMessage());
         }
-        return catid;
+        return folderId;
     }
 
     /**
      * gibt true oder false zurück ob der angegebene User diese Kategorie verändern darf (homecategory)
      * @param user
-     * @param categoryId
+     * @param folderId
      * @return
      */
-    public boolean isCanModifyCategory(User user, int categoryId) {
+    public boolean isCanModifyFolder(User user, int folderId) {
 
         try {
             int homeCategoryId = user.getHomeCategoryId();
             if (homeCategoryId!=0) {
-                int id = categoryId;
-                List categoryList = this.getParentCategoryList(id);
-                Iterator categories = categoryList.iterator();
-                while (categories.hasNext()) {
-                    Folder folder = (Folder)categories.next();
+                int id = folderId;
+                List folderList = this.getParentFolderList(id);
+                Iterator folders = folderList.iterator();
+                while (folders.hasNext()) {
+                    Folder folder = (Folder)folders.next();
                     if (folder.getCategoryId()==homeCategoryId) {
                         return true;
                     }
@@ -714,19 +634,19 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         } catch (ObjectNotFoundException e) {
             return false;
         } catch (IOServiceException e) {
-            System.err.println("isCanModifyCategory: "+e.getMessage());
+            System.err.println("isCanModifyFolder: "+e.getMessage());
             return false;
         }
 
         return false;
     }
 
-    public void deleteRecursiv(int categoryId) throws IOServiceException {
+    public void deleteRecursiv(int folderId) throws IOServiceException {
 
-        List<Folder> list = getCategoryList(categoryId);
-        for (Folder c : list) {
-            deleteRecursiv(c.getCategoryId());
+        List<Folder> list = getFolderList(folderId);
+        for (Folder f : list) {
+            deleteRecursiv(f.getCategoryId());
         }
-        deleteById(categoryId);
+        deleteById(folderId);
     }
 }

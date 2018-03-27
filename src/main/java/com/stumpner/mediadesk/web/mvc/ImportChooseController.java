@@ -76,7 +76,7 @@ public class ImportChooseController extends AbstractPageController {
                     //Root-Kategory existiert nicht...
                     folder.setCategoryId(0);
                 } else {
-                    folder = folderService.getCategoryById(Integer.parseInt(
+                    folder = folderService.getFolderById(Integer.parseInt(
                             httpServletRequest.getParameter("catid")
                     ));
                 }

@@ -173,18 +173,18 @@ public class ImportSettingsController extends SimpleFormControllerMd {
         FolderService folderService = new FolderService();
         LngResolver lngResolver = new LngResolver();
         folderService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-        List categoryList = folderService.getCategoryList(0);
+        List categoryList = folderService.getFolderList(0);
         //Wenn ausgewählte Kategorie keine Root Kategorie, dann zusätzlich laden
         ImportSettings settings = (ImportSettings)e.getTarget();
         if (settings.getAutoImportFtpCat()!=0) {
             try {
-                Folder cat = folderService.getCategoryById(settings.getAutoImportFtpCat());
+                Folder cat = folderService.getFolderById(settings.getAutoImportFtpCat());
                 if (cat.getParent()!=0) {
                     categoryList.add(cat);
                 }
             } catch (ObjectNotFoundException e2) {
                 //e2.printStackTrace();
-                System.err.println("ImportSettingsController: getCategoryById "+settings.getAutoImportFtpCat()+" Ordner existiert nicht");
+                System.err.println("ImportSettingsController: getFolderById "+settings.getAutoImportFtpCat()+" Ordner existiert nicht");
             }
         }
         

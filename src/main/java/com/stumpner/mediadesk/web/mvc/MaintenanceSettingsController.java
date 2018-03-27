@@ -96,7 +96,7 @@ public class MaintenanceSettingsController extends SimpleFormControllerMd {
     }
 
     private void setCategoryViewToAuto(int categoryId, FolderService cs) throws IOServiceException {
-        List<FolderMultiLang> categoryList = cs.getCategoryList(categoryId);
+        List<FolderMultiLang> categoryList = cs.getFolderList(categoryId);
         for (FolderMultiLang cat : categoryList) {
             cat.setDefaultview(Folder.VIEW_UNDEFINED);
             cs.save(cat);

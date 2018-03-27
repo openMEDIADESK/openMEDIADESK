@@ -238,7 +238,7 @@ public class ApplicationSettingsController extends SimpleFormControllerMd {
         httpServletRequest.setAttribute("securityGroupList",userService.getRealSecurityGroupList());
         FolderService folderService = new FolderService();
         folderService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-        List rootCategoryList = folderService.getCategorySubTree(0,0);
+        List rootCategoryList = folderService.getFolderSubTree(0,0);
         httpServletRequest.setAttribute("rootCategoryList",rootCategoryList);
 
         this.setContentTemplateFile("settings_programm.jsp",httpServletRequest);

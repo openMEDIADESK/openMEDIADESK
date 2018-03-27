@@ -235,10 +235,10 @@ public class UserService implements IServiceClass {
             category.setCatTitle(user.getName());
             category.setCatTitleLng1(user.getName());
             category.setCatTitleLng2(user.getName());
-            folderService.addCategory(category);
+            folderService.addFolder(category);
 
             try {
-                category = (FolderMultiLang) folderService.getCategoryByName(homeCategoryName);
+                category = (FolderMultiLang) folderService.getFolderByName(homeCategoryName);
                 user.setHomeCategoryId(category.getCategoryId());
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

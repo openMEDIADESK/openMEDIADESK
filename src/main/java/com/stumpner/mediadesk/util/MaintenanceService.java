@@ -119,7 +119,7 @@ public class MaintenanceService {
     }
 
     private void setResetAcl(int categoryId, FolderService folderService, List securityGroupList) throws IOServiceException, AclNotFoundException {
-        List<FolderMultiLang> categoryList = folderService.getCategoryList(categoryId);
+        List<FolderMultiLang> categoryList = folderService.getFolderList(categoryId);
         for (FolderMultiLang cat : categoryList) {
             Acl acl = AclController.getAcl(cat);
 
@@ -146,7 +146,7 @@ public class MaintenanceService {
             System.out.println("In Arbeit: Ordner ACL "+cat.getCategoryId()+" wird zur�ckgesetzt...");
 
             AclController.setAcl(cat, acl);
-            AclEditController.renewCategoryPublicProtectedStatus(cat);
+            AclEditController.renewFolderPublicProtectedStatus(cat);
             setResetAcl(cat.getCategoryId(), folderService, securityGroupList);
         }
 

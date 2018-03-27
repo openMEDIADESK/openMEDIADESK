@@ -84,7 +84,7 @@ public class WebdavResourceFactory implements ResourceFactory {
             //System.out.println("path not root");
             FolderService folderService = new FolderService();
             try {
-                FolderMultiLang category = (FolderMultiLang) folderService.getCategoryByPath(path.toString());
+                FolderMultiLang category = (FolderMultiLang) folderService.getFolderByPath(path.toString());
                 //Unterkategorie
                 System.out.println("Webdav Resource Request: ["+path+"] = CATEGORY,id="+category.getCategoryId()+",name="+category.getCatName());
                 return new FolderResource(this,category);
@@ -97,7 +97,7 @@ public class WebdavResourceFactory implements ResourceFactory {
                     Folder folder = null;
 
                     if (!path.getParent().toString().equalsIgnoreCase("")) {
-                        folder = folderService.getCategoryByPath(path.getParent().toString());
+                        folder = folderService.getFolderByPath(path.getParent().toString());
                     } else {
                         folder = new Folder();
                         folder.setCategoryId(0);

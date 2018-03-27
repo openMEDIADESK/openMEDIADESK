@@ -52,7 +52,7 @@ public class UploadSelectorController extends AbstractPageController {
 
         FolderService folderService = new FolderService();
         List<FolderMultiLang> allowedCategoryList = new LinkedList<FolderMultiLang>();
-        List<FolderMultiLang> allCategoryList = folderService.getAllCategoryList();
+        List<FolderMultiLang> allCategoryList = folderService.getAllFolderList();
         for (FolderMultiLang c : allCategoryList) {
             if (isUserPermittetForCategory(c, request)) {
                 allowedCategoryList.add(c);

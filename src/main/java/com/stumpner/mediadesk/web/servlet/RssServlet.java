@@ -128,7 +128,7 @@ public class RssServlet extends HttpServlet {
             try {
                 Folder folder = new Folder();
                 if (folderId!=0) {
-                    folder = folderService.getCategoryById(folderId);
+                    folder = folderService.getFolderById(folderId);
                 }
                 //todo: cheat
                 //Cheat: Description ;http://logourl/logo.gif wird dann also logo im podcast angezeigt

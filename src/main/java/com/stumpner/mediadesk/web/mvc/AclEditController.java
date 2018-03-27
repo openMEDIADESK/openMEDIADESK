@@ -154,7 +154,7 @@ public class AclEditController extends SimpleFormControllerMd {
         if (accessObject instanceof FolderMultiLang) {
             FolderMultiLang c = (FolderMultiLang)accessObject;
             //Public true/false setzen
-            renewCategoryPublicProtectedStatus(c);
+            renewFolderPublicProtectedStatus(c);
             //Auf Vererbende ACLs pr�fen
             inheritAclToChildsRekursive(acl, c);
         }
@@ -168,13 +168,13 @@ public class AclEditController extends SimpleFormControllerMd {
     private void inheritAclToChildsRekursive(Acl acl, FolderMultiLang c) {
 
             FolderService folderService = new FolderService();
-            List<FolderMultiLang> list = folderService.getCategoryList(c.getCategoryId());
+            List<FolderMultiLang> list = folderService.getFolderList(c.getCategoryId());
             for (FolderMultiLang ic : list) {
                 if (ic.isInheritAcl()) {
                     System.out.println("inherit acl to cat: "+ic.getCategoryId()+" "+ic.getCatName());
                     AclController.setAcl(ic, acl);
                     try {
-                        renewCategoryPublicProtectedStatus(ic);
+                        renewFolderPublicProtectedStatus(ic);
                     } catch (AclNotFoundException e) {
                         e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     } catch (IOServiceException e) {
@@ -186,7 +186,7 @@ public class AclEditController extends SimpleFormControllerMd {
 
     }
 
-    public static void renewCategoryPublicProtectedStatus(FolderMultiLang c) throws AclNotFoundException, IOServiceException {
+    public static void renewFolderPublicProtectedStatus(FolderMultiLang c) throws AclNotFoundException, IOServiceException {
 
         UserService userService = new UserService();
         //Public true/false setzen

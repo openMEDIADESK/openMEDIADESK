@@ -102,7 +102,7 @@ public class FolderContent extends HttpServlet {
         StringBuffer jsonOutput = new StringBuffer("[");
 
         FolderService folderService = new FolderService();
-            Folder folder = folderService.getCategoryById(categoryId);
+            Folder folder = folderService.getFolderById(categoryId);
 
             AclControllerContext aclCtx = AclContextFactory.getAclContext(request);
             if (aclCtx.checkPermission(new AclPermission("read"), folder)) {

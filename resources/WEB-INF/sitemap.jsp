@@ -9,8 +9,8 @@
     //categories, geht derzeit nur in eine tiefe bis 20 categories
 
     FolderService folderService = new FolderService();
-    //List folderList = folderService.getCategorySubTree(0,20);
-    List folderList = folderService.getAllCategoryListSuborder();
+    //List folderList = folderService.getFolderSubTree(0,20);
+    List folderList = folderService.getAllFolderListSuborder();
     Iterator categorys = folderList.iterator();
     Calendar calenderNow = GregorianCalendar.getInstance();
 

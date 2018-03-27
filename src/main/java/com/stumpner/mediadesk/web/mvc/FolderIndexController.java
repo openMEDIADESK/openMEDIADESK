@@ -116,20 +116,20 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
         log.debug("handleRequestInternal from FolderIndexController");
         User user = getUser(request);
 
-        AclFolderService categoryService = new AclFolderService(request);
+        AclFolderService folderService = new AclFolderService(request);
         LngResolver lngResolver = new LngResolver();
-        categoryService.setUsedLanguage(lngResolver.resolveLng(request));
+        folderService.setUsedLanguage(lngResolver.resolveLng(request));
         int id = 0;
         boolean showSorter = true;
         Folder folder = new Folder();
-        List parentCategoryList = new ArrayList();
+        List parentFolderList = new ArrayList();
 
         try {
 
-            id = getCategoryId(request);
+            id = getFolderId(request);
 
             if (id!=0) {
-                folder = categoryService.getCategoryById(id);
+                folder = folderService.getFolderById(id);
                 request.setAttribute("folder", folder);
             } else {
                 folder.setCategoryId(0);
@@ -142,12 +142,12 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
 
         } catch (NumberFormatException e) {
             //Keine Ziffer als Kategorie angegeben: 404 PAGE NOT FOUND
-            log.error("HTTP_404 /index/cat?id= Kein Ordner als Ziffer angegeben");
+            log.error("HTTP_404 /index/c?id= Kein Ordner als Ziffer angegeben");
             response.sendError(404);
             return null;
         } catch (ObjectNotFoundException e) {
             //Kategorie nicht vorhanden: 404 PAGE NOT FOUND
-            log.error("HTTP_404 /index/cat?id="+id+" Ordner existiert nicht");
+            log.error("HTTP_404 /index/c?id="+id+" Ordner existiert nicht");
             response.sendError(404);
             return null;
         }
@@ -163,17 +163,17 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
         request.setAttribute("sharerTitle", URLEncoder.encode(folder.getCatTitle(),"UTF-8"));
 
         try {
-            parentCategoryList = categoryService.getParentCategoryList(id);
+            parentFolderList = folderService.getParentFolderList(id);
         } catch (ObjectNotFoundException e) {
             //irgendeine parent-kategory wurde nicht gefunden
             //todo: wenn eine Kategorie aufgelöst wird, müssen auch die unterkategorien aufgelöst werden
             e.printStackTrace();
-            System.err.println("getParentCategoryList liefert eine gelöschte Kategorie: "+e.getMessage());
+            System.err.println("getParentFolderList liefert einen gelöschten Ordner: "+e.getMessage());
             response.setStatus(404);
             return null;
         }
         //todo performance: nicht machen wenn nicht aktiviert in config (kein kategoriebaum)
-        List categoryListTree = categoryService.getCategorySubTree(id,4);
+        List folderListTree = folderService.getFolderSubTree(id,4);
 
         if (Config.categoryLatestOnRoot && id==0) {
             showSorter = false;
@@ -200,7 +200,7 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
                     ImageVersion image = (ImageVersion) images.next();
                     if (image.getMayorMime().equalsIgnoreCase("image")) {
                         folder.setPrimaryIvid(image.getIvid());
-                        categoryService.save(folder);
+                        folderService.save(folder);
                         request.setAttribute("showInfoMessage","folderview.action.ividset");
                     } else {
                         request.setAttribute("showInfoMessage","folderview.action.notselected");
@@ -216,13 +216,13 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
         }
 
         /* Save Breadcrumb */
-        this.setBreadCrumb(parentCategoryList, request);
+        this.setBreadCrumb(parentFolderList, request);
 
         /* Kategorien laden und in das Model speichern */
-        request.setAttribute("parentCategoryList",parentCategoryList);
-        request.setAttribute("folderPathArray",getFolderPathArray(parentCategoryList));
+        request.setAttribute("parentFolderList",parentFolderList);
+        request.setAttribute("folderPathArray",getFolderPathArray(parentFolderList));
         request.setAttribute("folderId", folder.getCategoryId());
-        request.setAttribute("categoryList",categoryListTree);
+        request.setAttribute("folderList",folderListTree);
         //todo: auslagern in AbstractThumbnailViewController
         request.setAttribute("showSorter",new Boolean(showSorter));
         request.setAttribute("showInsertUrl",new Boolean(isShowInsertUrl(request)));
@@ -235,7 +235,7 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
         //Berechtigungen/Links/Menüs
         if (getUser(request).getRole()>=User.ROLE_EDITOR) {
 
-            int catId = getCategoryId(request);
+            int catId = getFolderId(request);
             if (catId==0 && Config.categoryLatestOnRoot) {
                 //In der Root Kategorie wenn die aktuellsten Objekte angezeigt werden sollen, kein Upload zeigen
                 request.setAttribute("uploadEnabled",new Boolean(false)); //Wird in der neuen GUI verwendet
@@ -257,16 +257,16 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
 
         if (getUser(request).getRole()>=User.ROLE_HOME_EDITOR) {
             //Nur wenn es eine Subkategorie der Home-Kategorie ist, kann der Benutzer die Kategorie ändern
-            boolean isCanModifyCategory = categoryService.isCanModifyCategory(getUser(request),getCategoryId(request));
+            boolean isCanModifyFolder = folderService.isCanModifyFolder(getUser(request), getFolderId(request));
 
-            if (isCanModifyCategory) {
-                request.setAttribute("canModifyCategory",true);
+            if (isCanModifyFolder) {
+                request.setAttribute("canModifyFolder",true);
                 //Eigene Kategorien verändern/erstellen/löschen
             }
         }
 
         if (getUser(request).getRole()>=User.ROLE_MASTEREDITOR) {
-            request.setAttribute("canModifyCategory",true);
+            request.setAttribute("canModifyFolder",true);
 
             //Folder folder = (Folder)getContainerObject(request);
             if (folder.getParent()==0) {
@@ -299,12 +299,12 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
         //To change body of created methods use File | Settings | File Templates.
     }
 
-    private String getFolderPathArray(List parentCategoryList) {
+    private String getFolderPathArray(List parentFolderList) {
 
         StringBuffer sb = new StringBuffer("[");
-        for (int a=0;a<parentCategoryList.size();a++) {
+        for (int a=0;a<parentFolderList.size();a++) {
             if (a>0) { sb = sb.append(","); }
-            FolderMultiLang folder = (FolderMultiLang)parentCategoryList.get(a);
+            FolderMultiLang folder = (FolderMultiLang)parentFolderList.get(a);
             sb = sb.append(folder.getCategoryId());
         }
         sb = sb.append("]");
@@ -314,13 +314,13 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
     protected void insert(ImageVersion image, HttpServletRequest request) throws DublicateEntry {
 
         FolderService folderService = new FolderService();
-        folderService.addImageToCategory(getContainerId(request),image.getIvid());
+        folderService.addMediaToFolder(getContainerId(request),image.getIvid());
     }
 
     protected void remove(ImageVersion image, HttpServletRequest request) {
 
         FolderService folderService = new FolderService();
-        folderService.deleteImageFromCategory(getContainerId(request),image.getIvid());
+        folderService.deleteMediaFromFolder(getContainerId(request),image.getIvid());
     }
 
     protected String getServletMapping(HttpServletRequest request) {
@@ -333,11 +333,11 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
     }
 
     protected int getContainerId(HttpServletRequest request) {
-        return getCategoryId(request);
+        return getFolderId(request);
     }
 
 
-    private int getCategoryId(HttpServletRequest httpServletRequest) {
+    private int getFolderId(HttpServletRequest httpServletRequest) {
 
         int id = 0;
             if (httpServletRequest.getParameter("id")!=null)
@@ -353,7 +353,7 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
         return id;
     }
 
-    public Folder getCategory(HttpServletRequest request) {
+    public Folder getFolder(HttpServletRequest request) {
         return (Folder)getContainerObject(request);
     }
 
@@ -364,7 +364,7 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
         //Wenn es "nur" um die Root Kategorie geht, muss sie garnicht geladen werden
         if (getContainerId(request)!=0) {
             try {
-                folder = folderService.getCategoryById(this.getContainerId(request));
+                folder = folderService.getFolderById(this.getContainerId(request));
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 return super.getContainerObject(request);
@@ -373,7 +373,7 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
                 return super.getContainerObject(request);
             }
         } else {
-            //"Hauptkategorie = 0"
+            //"Hauptordner = 0"
             folder.setCategoryId(0);
         }
         return folder;
@@ -389,12 +389,12 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
 
     private boolean showActionUrls(HttpServletRequest request) {
 
-        if (getCategoryId(request)!=0) {
-            //Wenn es eine Unterkategorie ist immer die Kategoriebilder zeigen
+        if (getFolderId(request)!=0) {
+            //Wenn es ein Unterorder ist immer die Ordnerthumbnail zeigen
             return true;
         } else {
-            //Wenn es die Hauptkategorie ist, anhand den einstellungen prüfen ob
-            //die Kategoriebilder gezeigt werden oder die Neuesten
+            //Wenn es die Root-Ordner ist, anhand den einstellungen prüfen ob
+            //die Ordnerbilder gezeigt werden oder die Neuesten
             if (Config.categoryLatestOnRoot) {
                 return false;
             } else {

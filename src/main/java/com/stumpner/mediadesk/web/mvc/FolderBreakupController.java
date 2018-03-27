@@ -94,7 +94,7 @@ public class FolderBreakupController extends SimpleFormControllerMd {
                 int userId = Integer.parseInt(httpServletRequest.getParameter("id"));
                 Folder folder = null;
                 try {
-                    folder = (Folder)userService.getCategoryById(userId);
+                    folder = (Folder)userService.getFolderById(userId);
                 } catch (ObjectNotFoundException e) {
                     folder = new Folder();
                     httpServletRequest.setAttribute("categoryNotExists",true);
@@ -218,7 +218,7 @@ public class FolderBreakupController extends SimpleFormControllerMd {
     private int getChilds(Folder folder) {
 
         FolderService folderService = new FolderService();
-        int childs = folderService.getCategoryList(folder.getCategoryId()).size();
+        int childs = folderService.getFolderList(folder.getCategoryId()).size();
         return childs;
     }
 

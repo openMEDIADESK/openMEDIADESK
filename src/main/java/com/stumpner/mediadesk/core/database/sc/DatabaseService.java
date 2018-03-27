@@ -50,7 +50,7 @@ public class DatabaseService {
 
             logger.debug("DatabaseService: updateing Folder Image Count");
             FolderService folderService = new FolderService();
-            folderService.calcImageCount(0);
+            folderService.calcMediaCount(0);
 
             //AclImage Neu aufbauen:
             logger.debug("DatabseService: updateing ImageACL");

@@ -103,7 +103,7 @@ public class MediaObjectApi extends ApiBase {
         int ivid = Integer.parseInt(parameter[0]);
         ImageVersionService imageService = new ImageVersionService();
         FolderService folderService = new FolderService();
-        List categoryList = folderService.getCategoryListFromImageVersion(ivid);
+        List categoryList = folderService.getFolderListFromImageVersion(ivid);
         Iterator categories = categoryList.iterator();
         while (categories.hasNext()) {
             Folder folder = (Folder)categories.next();

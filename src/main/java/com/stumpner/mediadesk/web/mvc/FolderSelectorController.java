@@ -66,7 +66,7 @@ public class FolderSelectorController extends SimpleFormControllerMd {
         FolderService folderService = new AclFolderService(request);
         LngResolver lngResolver = new LngResolver();
         folderService.setUsedLanguage(lngResolver.resolveLng(request));
-        List<FolderMultiLang> categoryTree = folderService.getAllCategoryList();
+        List<FolderMultiLang> categoryTree = folderService.getAllFolderList();
 
         List<SelectableFolder> selectableFolderList = getSelectableCategoryList(request.getParameter("type"), categoryTree, request);
         FolderSelection folderSelection = new FolderSelection();

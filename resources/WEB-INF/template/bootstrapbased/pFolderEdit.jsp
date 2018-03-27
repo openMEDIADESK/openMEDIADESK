@@ -19,7 +19,7 @@
 <!-- breadcrumbs -->
 <ol class="breadcrumb">
 	<li><a href="<c:url value="${home}"/>"><i class="fa fa-folder-o fa-fw"></i> Home</a></li>
-    <c:forEach items="${parentCategoryList}" var="navItem" varStatus="loop">
+    <c:forEach items="${parentFolderList}" var="navItem" varStatus="loop">
         <c:url var="thisCatLink" value="/${lng}/cat">
             <c:param name="id" value="${navItem.categoryId}"/>
         </c:url>

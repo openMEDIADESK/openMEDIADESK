@@ -62,7 +62,7 @@ public class TreeAclController extends SimpleFormControllerMd {
         FolderService folderService = new AclFolderService(request);
         LngResolver lngResolver = new LngResolver();
         folderService.setUsedLanguage(lngResolver.resolveLng(request));
-        List<FolderMultiLang> categoryTree = folderService.getAllCategoryList();
+        List<FolderMultiLang> categoryTree = folderService.getAllFolderList();
 
         List<TreeAclCommand.TreeAclCommandEntity> selectableCategoryList = getSelectableCategoryList(request.getParameter("type"), categoryTree, request);
         TreeAclCommand categorySelection = new TreeAclCommand();

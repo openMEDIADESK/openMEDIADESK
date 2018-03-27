@@ -400,7 +400,7 @@ public class ImageImportWebuploadController extends ModelFormPageController {
                     //Root-Kategory existiert nicht...
                     folder.setCategoryId(0);
                 } else {
-                    folder = folderService.getCategoryById(Integer.parseInt(
+                    folder = folderService.getFolderById(Integer.parseInt(
                             request.getParameter("catid")
                     ));
                 }

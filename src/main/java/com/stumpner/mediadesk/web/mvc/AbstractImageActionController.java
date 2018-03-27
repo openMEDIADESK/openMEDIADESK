@@ -246,7 +246,7 @@ public abstract class AbstractImageActionController extends AbstractImageSelectC
                 System.out.println("Original war eine Cat: "+ folder.getCategoryId()+" "+ folder.getCatName());
                     logger.debug("Original war eine Cat: "+ folder.getCategoryId()+" "+ folder.getCatName());
                     FolderService folderService = new FolderService();
-                    folderService.deleteImageFromCategory(folder,image);
+                    folderService.deleteMediaFromFolder(folder,image);
                 //} else {
                 //    logger.debug("Original war eine 00: Aktuellste Bilder - entfernen nicht moeglich");
                 //}

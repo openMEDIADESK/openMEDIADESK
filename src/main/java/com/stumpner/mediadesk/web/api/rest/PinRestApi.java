@@ -254,7 +254,7 @@ public class PinRestApi extends RestBaseServlet {
             //try {
                 System.out.println("insert media:"+mo.getIvid());
                 categoryService.addImageToPinpic(mo.getIvid(), categoryId);
-                //categoryService.addImageToCategory(categoryId, mo.getIvid());
+                //categoryService.addMediaToFolder(categoryId, mo.getIvid());
             //} catch (DublicateEntry dublicateEntry) {
             //    dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             //}
@@ -276,7 +276,7 @@ public class PinRestApi extends RestBaseServlet {
 
                 for (ImageVersion mo : selectedList) {
                     pinPicService.deleteImageFromPinpic(mo.getIvid(), pinId);
-                    //pinPicService.deleteImageFromCategory(pinId,mo.getIvid());
+                    //pinPicService.deleteMediaFromFolder(pinId,mo.getIvid());
                 }
 
                 MediaObjectService.deselectMedia(null, request);

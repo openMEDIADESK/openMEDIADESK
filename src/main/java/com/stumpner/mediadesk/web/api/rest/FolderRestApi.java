@@ -277,7 +277,7 @@ public class FolderRestApi extends RestBaseServlet {
         String status = "undefined";
         FolderService folderService = new FolderService();
         try {
-            folderService.addImageToCategory(folderId, ivid);
+            folderService.addMediaToFolder(folderId, ivid);
             status = "OK";
         } catch (DublicateEntry dublicateEntry) {
             dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -304,8 +304,8 @@ public class FolderRestApi extends RestBaseServlet {
         String status = "undefined";
         FolderService folderService = new FolderService();
         try {
-            folderService.addImageToCategory(folderId, ivid);
-            folderService.deleteImageFromCategory(fromFolderId, ivid);
+            folderService.addMediaToFolder(folderId, ivid);
+            folderService.deleteMediaFromFolder(fromFolderId, ivid);
             status = "OK";
         } catch (DublicateEntry dublicateEntry) {
             dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -326,7 +326,7 @@ public class FolderRestApi extends RestBaseServlet {
 
         FolderService folderService = new FolderService();
         try {
-            Folder c = folderService.getCategoryById(categoryId);
+            Folder c = folderService.getFolderById(categoryId);
             if (list.size()>0) {
                 ImageVersion mo = list.get(0);
                 c.setPrimaryIvid(mo.getIvid());
@@ -353,7 +353,7 @@ public class FolderRestApi extends RestBaseServlet {
 
             FolderService folderService = new FolderService();
             for (ImageVersion mo : selectedList) {
-                folderService.deleteImageFromCategory(categoryId,mo.getIvid());
+                folderService.deleteMediaFromFolder(categoryId,mo.getIvid());
             }
 
             MediaObjectService.deselectMedia(null, request);
@@ -406,7 +406,7 @@ public class FolderRestApi extends RestBaseServlet {
         for (ImageVersion mo : selectedList) {
             try {
                 System.out.println("insert media:"+mo.getIvid());
-                folderService.addImageToCategory(categoryId, mo.getIvid());
+                folderService.addMediaToFolder(categoryId, mo.getIvid());
             } catch (DublicateEntry dublicateEntry) {
                 dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
@@ -433,7 +433,7 @@ public class FolderRestApi extends RestBaseServlet {
         List folderList = null;
         //if (user.getUserId()==-1) { //Gast - Public
             //if (application.getAttribute("publicCategoryListTime"+node)==null) {
-            //    folderList = categoryService.getCategorySubTree(categoryId,0);
+            //    folderList = categoryService.getFolderSubTree(categoryId,0);
             //    application.setAttribute("publicCategoryList"+node, folderList);
             //    application.setAttribute("publicCategoryListTime"+node, System.currentTimeMillis());
                 // System.out.println("jsonCategory.jsp: fill cache"+node);
@@ -446,7 +446,7 @@ public class FolderRestApi extends RestBaseServlet {
             //    }
             //}
         //} else {
-            folderList = categoryService.getCategorySubTree(categoryId,0);
+            folderList = categoryService.getFolderSubTree(categoryId,0);
             //folderList = folderList.subList(0,5);
             Iterator folders = folderList.iterator();
 
@@ -519,7 +519,7 @@ public class FolderRestApi extends RestBaseServlet {
         List folderList = null;
         //if (user.getUserId()==-1) { //Gast - Public
             //if (application.getAttribute("publicCategoryListTime"+node)==null) {
-                //folderList = categoryService.getCategorySubTree(categoryId,0);
+                //folderList = categoryService.getFolderSubTree(categoryId,0);
             //    application.setAttribute("publicCategoryList"+node, folderList);
             //    application.setAttribute("publicCategoryListTime"+node, System.currentTimeMillis());
                 // System.out.println("jsonCategory.jsp: fill cache"+node);
@@ -532,7 +532,7 @@ public class FolderRestApi extends RestBaseServlet {
             //    }
             //}
         //} else {
-            folderList = categoryService.getCategorySubTree(categoryId,0);
+            folderList = categoryService.getFolderSubTree(categoryId,0);
             //folderList = folderList.subList(0,5);
             Iterator folders = folderList.iterator();
 
@@ -550,7 +550,7 @@ public class FolderRestApi extends RestBaseServlet {
                 out.println("    \"id\":\""+ folder.getCategoryId()+"\",");
                 out.println("    \"title\":\""+StringEscapeUtils.escapeJson(categoryTitle)+"\",");
 
-                List folderList2 = categoryService.getCategorySubTree(folder.getCategoryId(),0);
+                List folderList2 = categoryService.getFolderSubTree(folder.getCategoryId(),0);
                 StringBuffer sb = new StringBuffer();
 
                 Iterator folders2 = folderList2.iterator();

@@ -68,7 +68,7 @@ public class AclUtil {
                 ImageVersionMultiLang imageVersion = (ImageVersionMultiLang)downloadListImages.next();
 
                 //Ordner prüfen
-                List categoryList = folderService.getCategoryListFromImageVersion(imageVersion.getIvid());
+                List categoryList = folderService.getFolderListFromImageVersion(imageVersion.getIvid());
                 Iterator categories = categoryList.iterator();
                 //todo: Zugriffverhalten wenn in keinem Ordner!? (z.b. neueste Bilder)
                 while (categories.hasNext()) {

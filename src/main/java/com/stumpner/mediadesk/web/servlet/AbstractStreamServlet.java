@@ -157,7 +157,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
                     if (type.equalsIgnoreCase("folder")) {
 
                         FolderService folderService = new FolderService();
-                        Folder folder = folderService.getCategoryById(id);
+                        Folder folder = folderService.getFolderById(id);
                         aclContext.setDebug(true);
 
                         //Berechtigung pr�fen:

@@ -411,18 +411,18 @@ public class WebContextListener implements ServletContextListener {
         }
 
         //renewCategoryPublicProtectedStatusRekursiv(0);
-        //System.out.println("renewCategoryPublicProtectedStatus done");
+        //System.out.println("renewFolderPublicProtectedStatus done");
     }
 
     public static void renewCategoryPublicProtectedStatusRekursiv(int categoryId) {
 
-        System.out.println("["+Config.instanceName+"]: renewCategoryPublicProtectedStatus "+categoryId);
+        System.out.println("["+Config.instanceName+"]: renewFolderPublicProtectedStatus "+categoryId);
 
         FolderService cService = new FolderService();
-        List<FolderMultiLang> l = cService.getCategoryList(categoryId);
+        List<FolderMultiLang> l = cService.getFolderList(categoryId);
         for (FolderMultiLang c : l) {
             try {
-                AclEditController.renewCategoryPublicProtectedStatus(c);
+                AclEditController.renewFolderPublicProtectedStatus(c);
                 renewCategoryPublicProtectedStatusRekursiv(c.getCategoryId());
             } catch (AclNotFoundException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

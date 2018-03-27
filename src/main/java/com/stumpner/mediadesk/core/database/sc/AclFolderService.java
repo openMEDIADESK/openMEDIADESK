@@ -58,9 +58,9 @@ public class AclFolderService extends FolderService {
         aclCtx = acl;
     }
 
-    public List getCategorySubTree(int parentId, int maxSubElements) throws ObjectNotFoundException, IOServiceException {
+    public List getFolderSubTree(int parentId, int maxSubElements) throws ObjectNotFoundException, IOServiceException {
 
-        List<Folder> folderSubTree = super.getCategorySubTree(parentId, maxSubElements);
+        List<Folder> folderSubTree = super.getFolderSubTree(parentId, maxSubElements);
 
         //Wenn Home-Kategorien aktiviert sind, die Home-Kategorie unten dran hängen (nur bei root!)
         if (Config.homeCategoryId!=-1) {
@@ -70,10 +70,10 @@ public class AclFolderService extends FolderService {
                 if (user.getHomeCategoryId()!=-1) {
                     if (Config.homeCategoryAsRoot) {
                         //Home-Kategorie wird gleich als "Root/Hauptkategorie" angezeigt, andere Kategorien werden nicht angezeigner
-                        folderSubTree = super.getCategorySubTree(user.getHomeCategoryId(),maxSubElements);
+                        folderSubTree = super.getFolderSubTree(user.getHomeCategoryId(),maxSubElements);
                     } else {
                         //Home-Kategorie wird neben den anderen Hauptkategorien angezeigt
-                        Folder homeFolder = this.getCategoryById(user.getHomeCategoryId());
+                        Folder homeFolder = this.getFolderById(user.getHomeCategoryId());
                         folderSubTree.add(homeFolder);
                     }
                 }
@@ -92,8 +92,8 @@ public class AclFolderService extends FolderService {
         return folderSubTree;    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    public List getAllCategoryList() {
-        List categoryList = super.getAllCategoryList();
+    public List getAllFolderList() {
+        List categoryList = super.getAllFolderList();
 
         if (onlyShowPermittetObjects()) {
                 categoryList = aclCtx.getPermittedList(new AclPermission("read"),categoryList);
@@ -110,11 +110,11 @@ public class AclFolderService extends FolderService {
      * @throws ObjectNotFoundException
      * @throws IOServiceException
      */
-    public List getParentCategoryList(int id) throws ObjectNotFoundException, IOServiceException {
+    public List getParentFolderList(int id) throws ObjectNotFoundException, IOServiceException {
 
         if (Config.homeCategoryId!=-1 && getUser().getHomeCategoryId()!=-1) {
 
-            List list = super.getParentCategoryList(id);
+            List list = super.getParentFolderList(id);
             List mangledList = new LinkedList();
 
             //Liste durchgehen bis home gefunden
@@ -141,7 +141,7 @@ public class AclFolderService extends FolderService {
 
         } else {
 
-            return super.getParentCategoryList(id);
+            return super.getParentFolderList(id);
 
         }
 
