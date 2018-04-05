@@ -243,7 +243,7 @@ public class GlobalRequestDataProvider {
 
                     if (baseController instanceof PinPicViewController) {
                         PinPicViewController p = (PinPicViewController)baseController;
-                        Pinpic pin = p.getPin(request);
+                        Pin pin = p.getPin(request);
                         if (pin.getCreatorUserId()==user.getUserId()) {
                             return true;
                         } else {

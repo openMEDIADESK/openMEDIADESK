@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.pinpics.Pin;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,6 @@ import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.web.servlet.DownloadServlet;
 import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.image.ImageVersionMultiLang;
-import com.stumpner.mediadesk.image.pinpics.Pinpic;
 import net.stumpner.security.acl.AclControllerContext;
 
 /*********************************************************
@@ -245,7 +245,7 @@ public class DownloadViewController extends AbstractPageController {
         imageService.setUsedLanguage(lngResolver.resolveLng(request));
 
         try {
-            Pinpic pinpic = (Pinpic)pinService.getById(pinId);
+            Pin pin = (Pin)pinService.getById(pinId);
             List pinpicImages = pinService.getPinpicImages(pinId);
 
             HttpSession session = request.getSession();
@@ -268,7 +268,7 @@ public class DownloadViewController extends AbstractPageController {
                             selectedToDownloadList.add(imageService.getImageVersionById(ivid));
                             try {
                                 response.sendRedirect(
-                                    response.encodeRedirectURL("/download/?pinpic=ivid&ivid="+ivid)
+                                    response.encodeRedirectURL("/download/?pin=ivid&ivid="+ivid)
                                 );
                             } catch (IOException e) {
                                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

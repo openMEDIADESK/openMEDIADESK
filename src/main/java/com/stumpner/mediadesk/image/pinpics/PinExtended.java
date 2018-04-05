@@ -1,8 +1,5 @@
 package com.stumpner.mediadesk.image.pinpics;
 
-import java.util.LinkedList;
-import java.util.List;
-
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
 
@@ -22,22 +19,19 @@ import java.util.List;
 
  *********************************************************/
 /**
- * Created by IntelliJ IDEA.
- * User: franzstumpner
- * Date: 12.05.2005
- * Time: 21:57:22
- * To change this template use File | Settings | File Templates.
+ * User: stumpner
+ * Date: 20.05.2009
+ * Time: 11:56:30
  */
-public class PinpicImages extends Pinpic {
+public class PinExtended extends Pin {
 
-    List imageList = new LinkedList();
+    private String creatorUsername = "";
 
-    public List getImageList() {
-        return imageList;
+    public String getCreatorUsername() {
+        return creatorUsername;
     }
 
-    public void setImageList(List imageList) {
-        this.imageList = imageList;
+    public void setCreatorUsername(String creatorUsername) {
+        this.creatorUsername = creatorUsername;
     }
-
 }

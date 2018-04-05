@@ -26,7 +26,7 @@
     <sqlMap resource="sqlmap/imagemetadata.xml"/>
     <sqlMap resource="sqlmap/filmreel.xml"/>
     <sqlMap resource="sqlmap/inbox.xml"/>
-    <sqlMap resource="sqlmap/pinpic.xml"/>
+    <sqlMap resource="sqlmap/pin.xml"/>
     <sqlMap resource="sqlmap/lightbox.xml"/>
     <sqlMap resource="sqlmap/shoppingcart.xml"/>
     <sqlMap resource="sqlmap/downloadlogger.xml"/>

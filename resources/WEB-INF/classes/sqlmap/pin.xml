@@ -6,7 +6,7 @@
 
 <sqlMap namespace="Pinpic">
 
-    <insert id="addPinpic" parameterClass="com.stumpner.mediadesk.image.pinpics.Pinpic">
+    <insert id="addPinpic" parameterClass="com.stumpner.mediadesk.image.pinpics.Pin">
         INSERT INTO pinpic
             (pinpictitle,pinpicname,pin,note,used,createdate,maxuse,enabled,enddate,startdate,autodelete,directdownload,creatoruserid,defaultview,emailnotification,password)
             VALUES (#pinpicTitle#,#pinpicName#,#pin#,#note#,0,#createDate#,#maxUse#,#enabled#,#endDate#,#startDate#,#autoDelete#,#directDownload#,#creatorUserId#,#defaultview#,#emailnotification#,#password#)
@@ -36,7 +36,7 @@
         WHERE pin = #pin#
     </select>
 
-    <select id="getPinpicById" resultClass="com.stumpner.mediadesk.image.pinpics.PinpicExtended" parameterClass="java.lang.Integer">
+    <select id="getPinpicById" resultClass="com.stumpner.mediadesk.image.pinpics.PinExtended" parameterClass="java.lang.Integer">
         SELECT
             pinpicid as pinpicId,
             pinpictitle as pinpicTitle,
@@ -63,7 +63,7 @@
     </select>
 
 
-    <resultMap id="pinpicList" class="com.stumpner.mediadesk.image.pinpics.Pinpic">
+    <resultMap id="pinpicList" class="com.stumpner.mediadesk.image.pinpics.Pin">
         <result property="pinpicId" column="pinpicid"/>
         <result property="pinpicTitle" column="pinpictitle"/>
         <result property="pinpicName" column="pinpicname"/>
@@ -153,7 +153,7 @@
         WHERE pinpicid = #id#
     </select>
 
-    <select id="getPinpicByPin" resultClass="com.stumpner.mediadesk.image.pinpics.Pinpic" parameterClass="java.lang.String">
+    <select id="getPinpicByPin" resultClass="com.stumpner.mediadesk.image.pinpics.Pin" parameterClass="java.lang.String">
         SELECT
             pinpicid as pinpicId,
             pinpictitle as pinpicTitle,
@@ -177,7 +177,7 @@
         WHERE pin = #value#
     </select>
 
-    <update id="savePinpic" parameterClass="com.stumpner.mediadesk.image.pinpics.Pinpic">
+    <update id="savePinpic" parameterClass="com.stumpner.mediadesk.image.pinpics.Pin">
         UPDATE pinpic SET
             pinpictitle = #pinpicTitle#,
             pinpicname = #pinpicName#,

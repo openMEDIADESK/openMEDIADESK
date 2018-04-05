@@ -2,7 +2,7 @@ package com.stumpner.mediadesk.image;
 
 import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.inbox.InboxService;
-import com.stumpner.mediadesk.image.pinpics.Pinpic;
+import com.stumpner.mediadesk.image.pinpics.Pin;
 import com.stumpner.mediadesk.core.database.sc.*;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
@@ -76,23 +76,23 @@ public class AutoImageAssigner {
             }
             if (isAutoImportPin(autoImportObject)) {
                 PinpicService pinpicService = new PinpicService();
-                Pinpic pinpic = (Pinpic)autoImportObject;
-                pinpicService.addImageToPinpic(ivid,pinpic.getPinpicId());
+                Pin pin = (Pin)autoImportObject;
+                pinpicService.addImageToPinpic(ivid, pin.getPinpicId());
                 inboxService.removeImage(ivid);
 
                 //Informieren, wenn aktiviert
-                if (pinpic.getEmailnotification().length()>0) {
+                if (pin.getEmailnotification().length()>0) {
 
                     ImageVersionService imageService = new ImageVersionService();
                     ImageVersionMultiLang image = (ImageVersionMultiLang)imageService.getImageVersionById(ivid);
 
-                    String mailsubject = "PIN Upload: "+pinpic.getPin() + " "+ pinpic.getPinpicName();
-                    String mailbody = "Eine oder mehrere Dateien wurden in den PIN "+pinpic.getPin() + " hochgeladen.";
+                    String mailsubject = "PIN Upload: "+ pin.getPin() + " "+ pin.getPinpicName();
+                    String mailbody = "Eine oder mehrere Dateien wurden in den PIN "+ pin.getPin() + " hochgeladen.";
                     mailbody = mailbody + "\n\nWeitere Informationen: ";
                     mailbody = mailbody + "\n\n + Dateiname: "+image.getVersionName()+" ("+image.getVersionTitle()+")";
                     mailbody = mailbody + "\n\n + Datum: "+(new Date());
 
-                   MailWrapper.sendAsync(Config.mailserver,Config.mailsender,pinpic.getEmailnotification(),mailsubject,mailbody);
+                   MailWrapper.sendAsync(Config.mailserver,Config.mailsender, pin.getEmailnotification(),mailsubject,mailbody);
                 }
 
             }
@@ -124,7 +124,7 @@ public class AutoImageAssigner {
             if (isPin) {
                 PinpicService pinpicService = new PinpicService();
                 try {
-                    Pinpic pin = (Pinpic)pinpicService.getById(Integer.parseInt(request.getParameter("pinid")));
+                    Pin pin = (Pin)pinpicService.getById(Integer.parseInt(request.getParameter("pinid")));
                     return pin;
                 } catch (ObjectNotFoundException e) {
                     return null;
@@ -150,7 +150,7 @@ public class AutoImageAssigner {
 
     public boolean isAutoImportPin(Object o) {
 
-        if (o instanceof Pinpic) {
+        if (o instanceof Pin) {
             return true;
         } else {
             return false;
@@ -183,7 +183,7 @@ public class AutoImageAssigner {
                 return "c?id="+ folder.getCategoryId();
             }
             if (isAutoImportPin(autoImportObject)) {
-                Pinpic pinpic = (Pinpic)autoImportObject;
+                Pin pin = (Pin)autoImportObject;
                 return "pinview";
             }
 

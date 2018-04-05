@@ -1,10 +1,10 @@
 package com.stumpner.mediadesk.web.mvc.util;
 
+import com.stumpner.mediadesk.image.pinpics.Pin;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.UserFactory;
 import com.stumpner.mediadesk.usermanagement.Authenticator;
 import com.stumpner.mediadesk.usermanagement.UserAuthentication;
-import com.stumpner.mediadesk.image.pinpics.Pinpic;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.PinpicService;
@@ -48,7 +48,7 @@ public class WebHelper {
         }
     }
 
-    public static Pinpic getPinFromContext(HttpServletRequest request) {
+    public static Pin getPinFromContext(HttpServletRequest request) {
 
         int pinId = 0;
         if (request.getSession().getAttribute("pinid")!=null) {
@@ -57,11 +57,11 @@ public class WebHelper {
             pinId = Integer.parseInt(request.getParameter("pinid"));
         }
 
-        Pinpic pin = null;
+        Pin pin = null;
         if (pinId!=0) {
             PinpicService pinpicService = new PinpicService();
             try {
-                pin = (Pinpic)pinpicService.getById(pinId);
+                pin = (Pin)pinpicService.getById(pinId);
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();
             } catch (IOServiceException e) {
@@ -80,8 +80,8 @@ public class WebHelper {
                 int pinpicId = ((Integer)request.getSession().getAttribute("pinid")).intValue();
                 PinpicService pinpicService = new PinpicService();
                 try {
-                    Pinpic pinpic = (Pinpic)pinpicService.getById(pinpicId);
-                    if (pinpic.isUploadEnabled()) {
+                    Pin pin = (Pin)pinpicService.getById(pinpicId);
+                    if (pin.isUploadEnabled()) {
                         return true;
                     }
                 } catch (ObjectNotFoundException e) {

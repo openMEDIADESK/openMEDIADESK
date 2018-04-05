@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.web.api.rest;
 
+import com.stumpner.mediadesk.image.pinpics.Pin;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
 import com.stumpner.mediadesk.core.database.sc.*;
@@ -8,7 +9,6 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.image.pinpics.Pinpic;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.UserFactory;
 
@@ -271,7 +271,7 @@ public class PinRestApi extends RestBaseServlet {
 
         PinpicService pinPicService = new PinpicService();
         try {
-            Pinpic pin = (Pinpic)pinPicService.getById(pinId);
+            Pin pin = (Pin)pinPicService.getById(pinId);
             if (accessAllowed(pin,WebHelper.getUser(request))) {
 
                 for (ImageVersion mo : selectedList) {
@@ -295,7 +295,7 @@ public class PinRestApi extends RestBaseServlet {
         }
     }
 
-    private boolean accessAllowed(Pinpic pin, User user) {
+    private boolean accessAllowed(Pin pin, User user) {
 
         if (user.getRole()>=User.ROLE_MASTEREDITOR) {
             return true;

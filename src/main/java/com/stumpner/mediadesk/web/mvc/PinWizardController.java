@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.pinpics.Pinpic;
+import com.stumpner.mediadesk.image.pinpics.Pin;
 import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.inbox.InboxService;
@@ -107,13 +107,13 @@ public class PinWizardController extends SimpleFormControllerMd {
 
         if (pinWizard.getPinType()==PinWizard.TYPE_NEW) {
             PinpicService pinpicService = new PinpicService();
-            Pinpic pinpic = new Pinpic();
-            pinpic.setCreatorUserId(user.getUserId());
-            pinpic.setEmailnotification(this.getUser(httpServletRequest).getEmail());
-            pinpic.setDefaultview(Folder.VIEW_UNDEFINED);
-            pinpic = pinpicService.add(pinpic);
-            addImagesToPin(pinWizard.getImageList(),pinpic.getPinpicId());
-            httpServletResponse.sendRedirect("pinedit?pinid="+pinpic.getPinpicId());
+            Pin pin = new Pin();
+            pin.setCreatorUserId(user.getUserId());
+            pin.setEmailnotification(this.getUser(httpServletRequest).getEmail());
+            pin.setDefaultview(Folder.VIEW_UNDEFINED);
+            pin = pinpicService.add(pin);
+            addImagesToPin(pinWizard.getImageList(), pin.getPinpicId());
+            httpServletResponse.sendRedirect("pinedit?pinid="+ pin.getPinpicId());
         }
         if (pinWizard.getPinType()==PinWizard.TYPE_EXISTING) {
 

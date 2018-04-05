@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.web.servlet;
 
+import com.stumpner.mediadesk.image.pinpics.Pin;
 import com.stumpner.mediadesk.util.Zip;
 import com.stumpner.mediadesk.util.MailWrapper;
 import com.stumpner.mediadesk.core.Resources;
@@ -11,7 +12,6 @@ import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.image.ImageVersionCartObject;
 import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.image.util.ImageMagickUtil;
-import com.stumpner.mediadesk.image.pinpics.Pinpic;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.acl.AclUtil;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
@@ -226,9 +226,9 @@ public class DownloadServlet extends HttpServlet {
 
                 int pinId = ((Integer)httpServletRequest.getSession().getAttribute("pinid")).intValue();
                 PinpicService pinpicService = new PinpicService();
-                Pinpic pinPic = new Pinpic();
+                Pin pinPic = new Pin();
             try {
-                pinPic = (Pinpic)pinpicService.getById(pinId);
+                pinPic = (Pin)pinpicService.getById(pinId);
 
                 String fileNameWithoutSpace = pinPic.getPinpicTitle().replace(' ','_');
                 if (fileNameWithoutSpace.length()>0) {
@@ -573,7 +573,7 @@ public class DownloadServlet extends HttpServlet {
                     PinpicService pinService = new PinpicService();
                     //todo: PinId
                     try {
-                        Pinpic pin = (Pinpic)pinService.getById(pinId);
+                        Pin pin = (Pin)pinService.getById(pinId);
                         Object[] param = { pin.getPin() , pin.getPinpicName() , imageListString, new Date() };
                         mailbody = mf.format(param);
 
@@ -719,9 +719,9 @@ public class DownloadServlet extends HttpServlet {
 
                 int pinId = ((Integer)request.getSession().getAttribute("pinid")).intValue();
                 PinpicService pinpicService = new PinpicService();
-                Pinpic pinPic = new Pinpic();
+                Pin pinPic = new Pin();
                 try {
-                    pinPic = (Pinpic)pinpicService.getById(pinId);
+                    pinPic = (Pin)pinpicService.getById(pinId);
                 } catch (ObjectNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOServiceException e) {
@@ -856,8 +856,8 @@ public class DownloadServlet extends HttpServlet {
                 int pinId = ((Integer)request.getSession().getAttribute("pinid")).intValue();
                 try {
                     PinpicService pinpicService = new PinpicService();
-                    Pinpic pinPic = new Pinpic();
-                    pinPic = (Pinpic)pinpicService.getById(pinId);
+                    Pin pinPic = new Pin();
+                    pinPic = (Pin)pinpicService.getById(pinId);
                     String pinPicString = String.valueOf(pinPic.getPinpicId());
                     if (!pinPicString.equalsIgnoreCase(
                             (String)request.getSession().getAttribute("alreadyTracked")
@@ -941,7 +941,7 @@ public class DownloadServlet extends HttpServlet {
             //Single Download
             return DownloadServlet.DOWNLOAD_SINGLE;
         }
-        if (request.getParameter("pinpic")!=null) {
+        if (request.getParameter("pin")!=null) {
             return DownloadServlet.DOWNLOAD_TYPE_PINPIC;
         } else {
             return DownloadServlet.DOWNLOAD_TYPE_IMAGES;

@@ -2,6 +2,7 @@ package com.stumpner.mediadesk.web.mvc;
 
 import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.image.pinpics.Pin;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,7 +23,6 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.QuotaExceededException
 import com.stumpner.mediadesk.image.util.ImageImport;
 import com.stumpner.mediadesk.image.util.SizeExceedException;
 import com.stumpner.mediadesk.image.util.MetadataReadException;
-import com.stumpner.mediadesk.image.pinpics.Pinpic;
 import com.stumpner.mediadesk.image.AutoImageAssigner;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
@@ -167,7 +167,7 @@ public class ImageImportWebuploadController extends ModelFormPageController {
                 //Dateien automatich in den Pin laden...
                 autoImageAssigner.clear(request);
                 PinpicService pinService = new PinpicService();
-                Pinpic pin = (Pinpic)pinService.getById(Integer.parseInt(request.getParameter("pinid")));
+                Pin pin = (Pin)pinService.getById(Integer.parseInt(request.getParameter("pinid")));
                 autoImageAssigner.setDestination(request,pin);
             }
         }
@@ -311,7 +311,7 @@ public class ImageImportWebuploadController extends ModelFormPageController {
 
         if (WebHelper.isFromPinUploadContext(httpServletRequest)) {
 
-//            Pinpic pin = WebHelper.getPinFromContext(httpServletRequest);
+//            Pin pin = WebHelper.getPinFromContext(httpServletRequest);
 
 //            AutoImageAssigner assigner = new AutoImageAssigner();
 //            assigner.clear(httpServletRequest);
@@ -343,9 +343,9 @@ public class ImageImportWebuploadController extends ModelFormPageController {
                 MediaImportHandler importHandler =
                         importFactory.createMediaImportHandler(
                                 importFile);
-        if (autoImportObject instanceof Pinpic) {
-            Pinpic pinpic = (Pinpic)autoImportObject;
-            ivid = importHandler.processImport(importFile,pinpic.getCreatorUserId());
+        if (autoImportObject instanceof Pin) {
+            Pin pin = (Pin)autoImportObject;
+            ivid = importHandler.processImport(importFile, pin.getCreatorUserId());
         } else {
                 ivid = importHandler.processImport(importFile,user.getUserId());
         }

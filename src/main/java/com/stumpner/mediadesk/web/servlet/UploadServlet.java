@@ -2,6 +2,7 @@ package com.stumpner.mediadesk.web.servlet;
 
 import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.folder.FolderMultiLang;
+import com.stumpner.mediadesk.image.pinpics.Pin;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.FileItem;
@@ -28,7 +29,6 @@ import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.Authenticator;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
 import com.stumpner.mediadesk.image.AutoImageAssigner;
-import com.stumpner.mediadesk.image.pinpics.Pinpic;
 import com.stumpner.mediadesk.image.util.SizeExceedException;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
 import com.stumpner.mediadesk.media.importing.MediaImportHandler;
@@ -169,10 +169,10 @@ public class UploadServlet extends HttpServlet {
                     //Prüfen ob der Besucher in einem Pin ist und uploaden darf
                     if (user.getRole()==User.ROLE_UNDEFINED) {
                         if (WebHelper.isFromPinUploadContext(httpServletRequest)) {
-                            Pinpic pinpic = WebHelper.getPinFromContext(httpServletRequest);
+                            Pin pin = WebHelper.getPinFromContext(httpServletRequest);
                             assigner.clear(httpServletRequest);
-                            assigner.setDestination(httpServletRequest, pinpic);
-                            pinpicId = pinpic.getPinpicId();
+                            assigner.setDestination(httpServletRequest, pin);
+                            pinpicId = pin.getPinpicId();
                             autoImportObject = assigner.getAutoImportObject(httpServletRequest);
                             hasAccess = true;
                         }

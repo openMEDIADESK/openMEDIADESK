@@ -22,7 +22,7 @@
     <mediadesk:login role="<%= User.ROLE_PINMAKLER %>">
     <li><a href="<c:url value="/${lng}/pinlist"/>"><i class="fa fa-ticket fa-fw"></i> <spring:message code="pinmanager.headline"/></a></li>
     </mediadesk:login>
-    <li class="active"><i class="fa fa-ticket fa-fw"></i> <spring:message code="pinpic.headline"/> </li>
+    <li class="active"><i class="fa fa-ticket fa-fw"></i> <spring:message code="pin.headline"/> </li>
 </ol>
 <!-- /breadcrumbs -->
 <!-- ordnertitel und infos -->
@@ -35,7 +35,7 @@
 
 <div>
     <p class="text-center">
-    <a href="<%= response.encodeURL("/download?pinpic=all&DTHCVBNCFG75GHDXC34XFGS346554345462345234523452GDFVGR") %>"><i class="fa fa-download fa-5x"></i></a>
+    <a href="<%= response.encodeURL("/download?pin=all&DTHCVBNCFG75GHDXC34XFGS346554345462345234523452GDFVGR") %>"><i class="fa fa-download fa-5x"></i></a>
     </p>
 </div>
 
@@ -43,8 +43,8 @@
 <div><!-- umgibt die leiste für optionen - KEIN CLASS! -->
 
     <p class="text-center">
-    <spring:message code="pinpic.dd.info"/>
-    <a href="<%= response.encodeURL("/download?pinpic=all&DTHCVBNCFG75GHDXC34XFGS346554345462345234523452GDFVGR") %>"><spring:message code="pinpic.dd.next"/></a>.
+    <spring:message code="pin.dd.info"/>
+    <a href="<%= response.encodeURL("/download?pin=all&DTHCVBNCFG75GHDXC34XFGS346554345462345234523452GDFVGR") %>"><spring:message code="pin.dd.next"/></a>.
     </p>
 
 <!-- /LEISTE FÜR OPTIONEN -->
@@ -53,7 +53,7 @@
 <script language="javascript">
 
     setTimeout(function() {
-        window.location.href='<%= response.encodeURL("/download?pinpic=all&DTHCVBNCFG75GHDXC34XFGS346554345462345234523452GDFVGR") %>';
+        window.location.href='<%= response.encodeURL("/download?pin=all&DTHCVBNCFG75GHDXC34XFGS346554345462345234523452GDFVGR") %>';
     }, 5000);
 
 </script>

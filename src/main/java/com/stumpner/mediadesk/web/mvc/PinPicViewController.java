@@ -1,6 +1,7 @@
 package com.stumpner.mediadesk.web.mvc;
 
 import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.image.pinpics.Pin;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,6 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundExceptio
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.image.pinpics.Pinpic;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.web.LngResolver;
 
@@ -199,7 +199,7 @@ public class PinPicViewController extends AbstractThumbnailViewController {
             //model.remove("error");
         }
 
-        Pinpic pin = (Pinpic)pinpicService.getById(pinId);
+        Pin pin = (Pin)pinpicService.getById(pinId);
         httpServletRequest.setAttribute("pin",pin);
 
 
@@ -218,7 +218,7 @@ public class PinPicViewController extends AbstractThumbnailViewController {
         return mav;
     }
 
-    private boolean isUploadEnabled(Pinpic pin, HttpServletRequest request) {
+    private boolean isUploadEnabled(Pin pin, HttpServletRequest request) {
         //Upload Erlaubt: Wenn im Pin aktiviert oder der User Mindestens PIN-Editor
         boolean uploadEnabled = false;
         if (this.getUser(request).getRole()>=User.ROLE_PINEDITOR) {
@@ -231,18 +231,18 @@ public class PinPicViewController extends AbstractThumbnailViewController {
         return uploadEnabled;
     }
 
-    public Pinpic getPin(HttpServletRequest request) {
+    public Pin getPin(HttpServletRequest request) {
 
         if (request.getAttribute("pin")!=null) {
             //Load PIN from Cache
-            return (Pinpic)request.getAttribute("pin");
+            return (Pin)request.getAttribute("pin");
         } else {
             //Load PIN from DB
             if (getPinId(request)!=-1) {
                 try {
                     request.getSession().setAttribute("pinid",getPinId(request));
                     PinpicService pinpicService = new PinpicService();
-                    Pinpic pin = (Pinpic)pinpicService.getById(getPinId(request));
+                    Pin pin = (Pin)pinpicService.getById(getPinId(request));
                     request.setAttribute("pin",pin);
                     return pin;
 

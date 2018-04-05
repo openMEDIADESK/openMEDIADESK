@@ -6,8 +6,8 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.AppSqlMap;
 import com.stumpner.mediadesk.core.Config;
+import com.stumpner.mediadesk.image.pinpics.Pin;
 import com.stumpner.mediadesk.util.Crypt;
-import com.stumpner.mediadesk.image.pinpics.Pinpic;
 import com.stumpner.mediadesk.image.pinpics.PinpicHolder;
 import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.usermanagement.User;
@@ -51,20 +51,20 @@ public class PinpicService extends MultiLanguageService {
         // getPinpicById
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
 
-        Pinpic pinpic = new Pinpic();
+        Pin pin = new Pin();
 
         try {
-            pinpic = (Pinpic)smc.queryForObject("getPinpicById",new Integer(id));
+            pin = (Pin)smc.queryForObject("getPinpicById",new Integer(id));
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
-        if (pinpic==null) {
+        if (pin ==null) {
             //user does not exist:
             throw new ObjectNotFoundException();
         }
 
-        return pinpic;
+        return pin;
     }
 
     public Object getByName(String name) throws ObjectNotFoundException, IOServiceException {
@@ -74,12 +74,12 @@ public class PinpicService extends MultiLanguageService {
     public void save(Object object) throws IOServiceException {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
-        Pinpic pinpic = (Pinpic)object;
+        Pin pin = (Pin)object;
 
         try {
-            handlePasswort(pinpic);
+            handlePasswort(pin);
 
-            smc.update("savePinpic",pinpic);
+            smc.update("savePinpic", pin);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (ObjectNotFoundException e) {
@@ -95,24 +95,24 @@ public class PinpicService extends MultiLanguageService {
      //+ Wenn Passwort String befüllt != db  Passwort lerr --> passwort verschlüsseln und setzen
      //+ Wenn Passwort String befüllt != db Passwort verschlüsselt --> passwort  verschlüsseln und setzen
      //+ Wenn Passwort String leer != db Passwort gefüllt --> passwort leeren
-     * @param pinpic
+     * @param pin
      */
-    private void handlePasswort(Pinpic pinpic) throws IOServiceException, ObjectNotFoundException, UnsupportedEncodingException {
+    private void handlePasswort(Pin pin) throws IOServiceException, ObjectNotFoundException, UnsupportedEncodingException {
 
-        Pinpic oldPin = (Pinpic)this.getById(pinpic.getPinpicId());
-        //System.out.println("clear password: "+pinpic.getPassword());
-        String formPasswordEncrypted = Crypt.getHashSHA256(pinpic.getPassword());//Crypt.getHash(pinpic.getPassword());
+        Pin oldPin = (Pin)this.getById(pin.getPinpicId());
+        //System.out.println("clear password: "+pin.getPassword());
+        String formPasswordEncrypted = Crypt.getHashSHA256(pin.getPassword());//Crypt.getHash(pin.getPassword());
 
-        if (pinpic.getPassword().isEmpty()) {
+        if (pin.getPassword().isEmpty()) {
             //System.out.println("Setting empty password");
-            pinpic.setPassword("");
-        } else if (oldPin.getPassword().equalsIgnoreCase(pinpic.getPassword())) {
+            pin.setPassword("");
+        } else if (oldPin.getPassword().equalsIgnoreCase(pin.getPassword())) {
             //Passwort gleich... nichts machen
             //System.out.println("Passwort gleich");
         } else {
             //Passwort setzen
             //System.out.println("Setting password to "+formPasswordEncrypted);
-            pinpic.setPassword(formPasswordEncrypted);
+            pin.setPassword(formPasswordEncrypted);
         }
     }
 
@@ -124,7 +124,7 @@ public class PinpicService extends MultiLanguageService {
      * @param pin
      * @return
      */
-    public boolean checkPassword(PinLogin pinLogin, Pinpic pin) {
+    public boolean checkPassword(PinLogin pinLogin, Pin pin) {
 
         //System.out.println("clear password: "+pinLogin.getPassword());
         String passwortEncodedForm = Crypt.getHashSHA256(pinLogin.getPassword());//Crypt.getHash(pinLogin.getPassword());
@@ -137,18 +137,18 @@ public class PinpicService extends MultiLanguageService {
         }
     }
 
-    public Pinpic add(Object object) throws IOServiceException {
+    public Pin add(Object object) throws IOServiceException {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
-        Pinpic pinpic = (Pinpic)object;
+        Pin pin = (Pin)object;
         //Neue Logik, Pins zu generieren:
         String pinCode = generatePinCode();
-        pinpic.setPin(pinCode);
+        pin.setPin(pinCode);
         //String tmpPin = Long.toString(System.currentTimeMillis());
-        //pinpic.setPin(tmpPin.substring(tmpPin.length()-5,tmpPin.length()-1));
+        //pin.setPin(tmpPin.substring(tmpPin.length()-5,tmpPin.length()-1));
 
         try {
-            this.getByName(pinpic.getPin());
+            this.getByName(pin.getPin());
             //sorry pin exists, throw DublicateEntry Exception
             throw new DublicateEntry("PinpicService.add(): DublicateEntry");
         } catch (ObjectNotFoundException e) {
@@ -156,16 +156,16 @@ public class PinpicService extends MultiLanguageService {
         }
 
         try {
-            smc.insert("addPinpic",pinpic);
+            smc.insert("addPinpic", pin);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         try {
-            object = smc.queryForObject("getPinpicByPin",pinpic.getPin());
+            object = smc.queryForObject("getPinpicByPin", pin.getPin());
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-        return (Pinpic)object;
+        return (Pin)object;
     }
 
     private String generatePinCode() {
@@ -238,14 +238,14 @@ public class PinpicService extends MultiLanguageService {
 
     }
 
-    public Pinpic getPinpicByPin(String pin) throws ObjectNotFoundException {
+    public Pin getPinpicByPin(String pin) throws ObjectNotFoundException {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
 
-        Pinpic pinpic = new Pinpic();
+        Pin pinpic = new Pin();
 
         try {
-            pinpic = (Pinpic)smc.queryForObject("getPinpicByPin",pin);
+            pinpic = (Pin)smc.queryForObject("getPinpicByPin",pin);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -343,14 +343,14 @@ public class PinpicService extends MultiLanguageService {
      */
     public List getPinpicList(User user) {
 
-        List<Pinpic> pinpicList = this.getPinpicList();
+        List<Pin> pinList = this.getPinpicList();
             List filteredPinList = new LinkedList();
-            for (Pinpic pinpic : pinpicList) {
-                if (pinpic.getCreatorUserId()==user.getUserId()) {
-                    filteredPinList.add(pinpic);
+            for (Pin pin : pinList) {
+                if (pin.getCreatorUserId()==user.getUserId()) {
+                    filteredPinList.add(pin);
                 }
             }
-            pinpicList = filteredPinList;
+            pinList = filteredPinList;
         return filteredPinList;
     }
 

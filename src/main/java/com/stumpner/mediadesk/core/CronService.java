@@ -2,10 +2,10 @@ package com.stumpner.mediadesk.core;
 
 import com.stumpner.mediadesk.core.database.sc.*;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
+import com.stumpner.mediadesk.image.pinpics.Pin;
 import com.stumpner.mediadesk.util.MailWrapper;
 import com.stumpner.mediadesk.search.SearchLogger;
 import com.stumpner.mediadesk.search.SearchEntity;
-import com.stumpner.mediadesk.image.pinpics.Pinpic;
 import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.image.util.AutoImporter;
@@ -226,7 +226,7 @@ public class CronService {
         FolderService folderService = new FolderService();
         Iterator pinPics = pinpicService.getPinpicList().iterator();
         while (pinPics.hasNext()) {
-            Pinpic pin = (Pinpic)pinPics.next();
+            Pin pin = (Pin)pinPics.next();
             System.out.println("Checking for Pin Auto-Delete for: "+pin.getPin());
             if (pin.isAutoDelete()) {
                 //System.out.println("+ AutoDelete is enabled");

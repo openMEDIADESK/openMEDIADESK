@@ -1,8 +1,8 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.pinpics.Pin;
 import org.springframework.validation.Validator;
 import org.springframework.validation.Errors;
-import com.stumpner.mediadesk.image.pinpics.Pinpic;
 import com.stumpner.mediadesk.core.database.sc.PinpicService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.web.mvc.commandclass.PinLogin;
@@ -50,19 +50,19 @@ public class PinValidator implements Validator {
         PinLogin pinLogin = (PinLogin)o;
         PinpicService pinpicService = new PinpicService();
         try {
-            Pinpic pinpic = pinpicService.getPinpicByPin(((Pinpic)o).getPin());
-            int imageCount = pinpicService.getPinpicImages(pinpic.getPinpicId()).size();
-            if (imageCount<1 && !pinpic.isUploadEnabled()) {
+            Pin pin = pinpicService.getPinpicByPin(((Pin)o).getPin());
+            int imageCount = pinpicService.getPinpicImages(pin.getPinpicId()).size();
+            if (imageCount<1 && !pin.isUploadEnabled()) {
                 errors.reject("pinlogin.error.noimage","!!!DM PIN EMPTY!!!");
             }
 
-            if (!pinpic.getPassword().isEmpty()) {
+            if (!pin.getPassword().isEmpty()) {
                 //Passwortabfrage
                 if (pinLogin.getPassword().isEmpty()) {
                     pinLogin.setUsePassword(true);
                     errors.reject("pinlogin.enterpassword","!!!ENTER PIN PASSWORD!!!");
                 } else {
-                    if (!pinpicService.checkPassword(pinLogin, pinpic)) {
+                    if (!pinpicService.checkPassword(pinLogin, pin)) {
                         errors.reject("pinlogin.falsepassword","!!!PIN PASSWORD FALSE!!!");
                     } else {
                         //Passwort ok
@@ -75,11 +75,11 @@ public class PinValidator implements Validator {
             GregorianCalendar tomorrow = (GregorianCalendar)GregorianCalendar.getInstance();
             today.add(Calendar.DAY_OF_YEAR,-1);
 
-            if (pinpic.isEnabled()) {
-                if (pinpic.getUsed()<pinpic.getMaxUse()) {
-                    if (pinpic.getStartDate().getTime() <= (tomorrow.getTime().getTime())) {
+            if (pin.isEnabled()) {
+                if (pin.getUsed()< pin.getMaxUse()) {
+                    if (pin.getStartDate().getTime() <= (tomorrow.getTime().getTime())) {
                         //wenn in der startzeit
-                        if (pinpic.getEndDate().getTime() >= (today.getTime().getTime())) {
+                        if (pin.getEndDate().getTime() >= (today.getTime().getTime())) {
                             //wenn in der endzeit
                         } else {
                             errors.reject("pinlogin.error.tolate","!!!DM PIN TOLATE!!!");

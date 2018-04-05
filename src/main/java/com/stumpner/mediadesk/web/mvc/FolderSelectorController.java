@@ -5,7 +5,7 @@ import com.stumpner.mediadesk.web.mvc.common.SimpleFormControllerMd;
 import net.stumpner.security.acl.AclController;
 import net.stumpner.security.acl.Acl;
 import net.stumpner.security.acl.AclPermission;
-import com.stumpner.mediadesk.image.pinpics.Pinpic;
+import com.stumpner.mediadesk.image.pinpics.Pin;
 import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.SecurityGroup;
@@ -97,7 +97,7 @@ public class FolderSelectorController extends SimpleFormControllerMd {
 
         if (folderSelection.getType().equalsIgnoreCase("PIN")) {
             PinpicService ps = new PinpicService();
-            Pinpic pin = (Pinpic)ps.getById(folderSelection.getId());
+            Pin pin = (Pin)ps.getById(folderSelection.getId());
             request.setAttribute("targetname",pin.getPin());
             request.setAttribute("headline","categoryselector.headline");
             request.setAttribute("subheadline","categoryselector.subheadline");

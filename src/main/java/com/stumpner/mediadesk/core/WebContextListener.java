@@ -172,7 +172,7 @@ public class WebContextListener implements ServletContextListener {
         }
 
         if (Config.isConfigured) {
-            //Verweiste Datensätze aus Pinpic-Holder löschen:
+            //Verweiste Datensätze aus Pin-Holder löschen:
             PinpicService pinPicService = new PinpicService();
             pinPicService.deleteOrphanedHoler();
             //Sonderzeichen aus Namen in Medienobjekten und Kategorien entfernen

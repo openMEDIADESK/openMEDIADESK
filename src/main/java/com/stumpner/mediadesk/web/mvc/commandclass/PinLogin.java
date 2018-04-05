@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.mvc.commandclass;
 
-import com.stumpner.mediadesk.image.pinpics.Pinpic;
+import com.stumpner.mediadesk.image.pinpics.Pin;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
@@ -24,7 +24,7 @@ import com.stumpner.mediadesk.image.pinpics.Pinpic;
 /**
  * Created by stumpner on 21.08.2017.
  */
-public class PinLogin extends Pinpic {
+public class PinLogin extends Pin {
 
     String pin = "";
     String password = "";

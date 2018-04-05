@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.pinpics.Pinpic;
+import com.stumpner.mediadesk.image.pinpics.Pin;
 import com.stumpner.mediadesk.core.database.sc.PinpicService;
 import com.stumpner.mediadesk.core.Config;
 import org.springframework.web.servlet.ModelAndView;
@@ -88,18 +88,18 @@ public class PinLoginController extends SimpleFormControllerMd {
 
     protected ModelAndView onSubmit(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, BindException e) throws Exception {
 
-        Pinpic pinpic = (Pinpic)o;
+        Pin pin = (Pin)o;
         PinpicService pinpicService = new PinpicService();
         Logger logger = Logger.getLogger(LoginController.class);
         //this.setContentTemplateFile("login_success.jsp",httpServletRequest);
         HttpSession session = httpServletRequest.getSession();
-        logger.info("PINlogin: user="+pinpic.getPin());
-        pinpic = pinpicService.getPinpicByPin(pinpic.getPin());
-        //pinpic.setUsed(pinpic.getUsed()+1);
-        //pinpicService.save(pinpic);
+        logger.info("PINlogin: user="+ pin.getPin());
+        pin = pinpicService.getPinpicByPin(pin.getPin());
+        //pin.setUsed(pin.getUsed()+1);
+        //pinpicService.save(pin);
         //pin einloggen
-        httpServletRequest.getSession().setAttribute("pinid",new Integer(pinpic.getPinpicId()));
-        //System.out.println("PIN: "+pinpic.getPinpicId());
+        httpServletRequest.getSession().setAttribute("pinid",new Integer(pin.getPinpicId()));
+        //System.out.println("PIN: "+pin.getPinpicId());
 
         httpServletResponse.sendRedirect(
                 httpServletResponse.encodeRedirectURL("pinview")

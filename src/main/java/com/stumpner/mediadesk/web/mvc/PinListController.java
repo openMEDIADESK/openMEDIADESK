@@ -1,6 +1,7 @@
 package com.stumpner.mediadesk.web.mvc;
 
 import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.image.pinpics.Pin;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.stumpner.mediadesk.core.database.sc.PinpicService;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.pinpics.Pinpic;
 import com.stumpner.mediadesk.usermanagement.User;
 
 import java.util.*;
@@ -58,28 +58,28 @@ public class PinListController extends AbstractPageController {
                 if (httpServletRequest.getParameter("func").equalsIgnoreCase("add")) {
                     GregorianCalendar calendar = (GregorianCalendar)GregorianCalendar.getInstance();
 
-                    Pinpic pinpic = new Pinpic();
-                    pinpic.setMaxUse(999);
-                    pinpic.setCreateDate(new Date());
-                    pinpic.setCreatorUserId(this.getUser(httpServletRequest).getUserId());
-                    pinpic.setEmailnotification(this.getUser(httpServletRequest).getEmail());
-                    pinpic.setDefaultview(Folder.VIEW_UNDEFINED);
-                    folderService.add(pinpic);
+                    Pin pin = new Pin();
+                    pin.setMaxUse(999);
+                    pin.setCreateDate(new Date());
+                    pin.setCreatorUserId(this.getUser(httpServletRequest).getUserId());
+                    pin.setEmailnotification(this.getUser(httpServletRequest).getEmail());
+                    pin.setDefaultview(Folder.VIEW_UNDEFINED);
+                    folderService.add(pin);
                 }
             }
 
-            List<Pinpic> pinpicList = null;
+            List<Pin> pinList = null;
             User loggedInUser = getUser(httpServletRequest);
             if (loggedInUser.getRole()==User.ROLE_ADMIN) {
                 //Admin sieht alle
-                pinpicList = folderService.getPinpicList();
+                pinList = folderService.getPinpicList();
             } else {
                 //Andere User sehen nur die eigenen Pins
-                pinpicList = folderService.getPinpicList(loggedInUser);
+                pinList = folderService.getPinpicList(loggedInUser);
             }
 
-            httpServletRequest.setAttribute("pinList",pinpicList);
-            //model.put("pinList",pinpicList);
+            httpServletRequest.setAttribute("pinList", pinList);
+            //model.put("pinList",pinList);
 
         } else {
             //Keine Berechtigung

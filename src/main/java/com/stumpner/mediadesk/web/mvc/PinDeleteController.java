@@ -2,7 +2,7 @@ package com.stumpner.mediadesk.web.mvc;
 
 import com.stumpner.mediadesk.core.database.sc.PinpicService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
-import com.stumpner.mediadesk.image.pinpics.Pinpic;
+import com.stumpner.mediadesk.image.pinpics.Pin;
 import com.stumpner.mediadesk.usermanagement.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +42,7 @@ public class PinDeleteController extends SimpleFormControllerMd {
 
     public PinDeleteController() {
 
-        this.setCommandClass(Pinpic.class);
+        this.setCommandClass(Pin.class);
         this.setSessionForm(true);
         this.setBindOnNewForm(true);
 
@@ -54,7 +54,7 @@ public class PinDeleteController extends SimpleFormControllerMd {
 
         PinpicService userService = new PinpicService();
         int userId = Integer.parseInt(httpServletRequest.getParameter("pinid"));
-        Pinpic user = (Pinpic)userService.getById(userId);
+        Pin user = (Pin)userService.getById(userId);
 
         return user;
     }
@@ -73,7 +73,7 @@ public class PinDeleteController extends SimpleFormControllerMd {
     protected ModelAndView onSubmit(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, BindException e) throws Exception {
 
         if (httpServletRequest.getParameter("yes")!=null) {
-            this.deletePin((Pinpic)o);
+            this.deletePin((Pin)o);
         }
         //this.setContentTemplateFile("/message.jsp",httpServletRequest);
         httpServletResponse.sendRedirect(
@@ -82,11 +82,11 @@ public class PinDeleteController extends SimpleFormControllerMd {
         //return super.onSubmit(httpServletRequest, httpServletResponse, o, e);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    private void deletePin(Pinpic pinpic) {
+    private void deletePin(Pin pin) {
 
         PinpicService folderService = new PinpicService();
         try {
-            folderService.deleteById(pinpic.getPinpicId());
+            folderService.deleteById(pin.getPinpicId());
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

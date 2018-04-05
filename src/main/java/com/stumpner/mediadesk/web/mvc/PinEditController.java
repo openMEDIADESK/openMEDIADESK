@@ -1,7 +1,7 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.pinpics.Pin;
 import com.stumpner.mediadesk.usermanagement.User;
-import com.stumpner.mediadesk.image.pinpics.Pinpic;
 import com.stumpner.mediadesk.core.database.sc.PinpicService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 
@@ -47,7 +47,7 @@ import com.stumpner.mediadesk.web.mvc.common.SimpleFormControllerMd;
 public class PinEditController extends SimpleFormControllerMd {
 
     public PinEditController() {
-        this.setCommandClass(Pinpic.class);
+        this.setCommandClass(Pin.class);
         this.setSessionForm(true);
         this.setBindOnNewForm(true);
 
@@ -58,12 +58,12 @@ public class PinEditController extends SimpleFormControllerMd {
     protected Object formBackingObject(HttpServletRequest request) throws Exception {
 
         if (request.getParameter("redirectTo")!=null) { request.getSession().setAttribute("redirectTo", request.getParameter("redirectTo")); }
-        Pinpic pinpic = new Pinpic();
+        Pin pin = new Pin();
         if (request.getParameter("pinid")!=null) {
             PinpicService pinpicService = new PinpicService();
-            pinpic = (Pinpic)pinpicService.getById(Integer.parseInt(request.getParameter("pinid")));
+            pin = (Pin)pinpicService.getById(Integer.parseInt(request.getParameter("pinid")));
         }
-        return pinpic;
+        return pin;
         //return super.formBackingObject(request);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
@@ -85,13 +85,13 @@ public class PinEditController extends SimpleFormControllerMd {
 
     protected void onBindAndValidate(HttpServletRequest httpServletRequest, Object o, BindException e) throws Exception {
 
-        Pinpic pinpic = (Pinpic)o;
-        if (pinpic.getEmailnotification().length()>0) {
-            if (pinpic.getEmailnotification().indexOf("@")<1) {
+        Pin pin = (Pin)o;
+        if (pin.getEmailnotification().length()>0) {
+            if (pin.getEmailnotification().indexOf("@")<1) {
                 e.rejectValue("emailnotification","",null,"Value Required");
             }
         }
-        if (pinpic.isUploadEnabled() && pinpic.isDirectDownload()) {
+        if (pin.isUploadEnabled() && pin.isDirectDownload()) {
             e.rejectValue("directDownload","",null,"Not Possible");
             e.reject("pinedit.upanddownloaderror","!!UPLOAD AND DOWNLOAD NOT ALLOWED!!");
         }
@@ -107,7 +107,7 @@ public class PinEditController extends SimpleFormControllerMd {
 
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object o, BindException e) throws Exception {
 
-        this.save((Pinpic)o);
+        this.save((Pin)o);
         if (request.getSession().getAttribute("redirectTo")!=null) {
             response.sendRedirect(response.encodeRedirectURL(
                     (String)request.getSession().getAttribute("redirectTo")));
@@ -120,15 +120,15 @@ public class PinEditController extends SimpleFormControllerMd {
         //return super.onSubmit(request, response, o, e);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    private void save(Pinpic pinpic) {
+    private void save(Pin pin) {
 
         PinpicService pinpicService = new PinpicService();
         try {
-            if (pinpic.getPinpicTitle().length()==0) {
-                pinpic.setPinpicTitle(pinpic.getPinpicName());
+            if (pin.getPinpicTitle().length()==0) {
+                pin.setPinpicTitle(pin.getPinpicName());
             }
 
-            pinpicService.save(pinpic);
+            pinpicService.save(pin);
         } catch(IOServiceException e) {
             e.printStackTrace();
         }

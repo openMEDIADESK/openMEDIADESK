@@ -22,7 +22,7 @@
     <mediadesk:login role="<%= User.ROLE_PINMAKLER %>">
     <li><a href="<c:url value="/${lng}/pinlist"/>"><i class="fa fa-ticket fa-fw"></i> <spring:message code="pinmanager.headline"/></a></li>
     </mediadesk:login>
-    <li class="active"><i class="fa fa-ticket fa-fw"></i> <spring:message code="pinpic.headline"/> </li>
+    <li class="active"><i class="fa fa-ticket fa-fw"></i> <spring:message code="pin.headline"/> </li>
 </ol>
 <!-- /breadcrumbs -->
 <!-- ordnertitel und infos -->
@@ -117,7 +117,7 @@
 <!-- buttongruppe Herunterladen -->
 <div class="btn-group btn-group-xs" role="group" aria-label="Herunterladen" ng-show="selectedMedia>0">
                     <c:url var="downloadUrl" value="/download">
-                      <c:param name="pinpic" value="DTHCVBNCFG75GHDXC34XFGS346554345462345234523452GDFVGRTZUERETZE34232345SDFSGZTJ766456537FWERFASDFYX234"/>
+                      <c:param name="pin" value="DTHCVBNCFG75GHDXC34XFGS346554345462345234523452GDFVGRTZUERETZE34232345SDFSGZTJ766456537FWERFASDFYX234"/>
                     </c:url>
   <a href="<c:out escapeXml="false" value="${downloadUrl}"/>" class="btn btn-default"><i class="fa fa-download fa-fw"></i> <spring:message code="tm.download"/></a>
 </div>

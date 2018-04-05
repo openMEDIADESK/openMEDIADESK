@@ -29,7 +29,7 @@ import java.util.Calendar;
  * Time: 21:51:07
  * To change this template use File | Settings | File Templates.
  */
-public class Pinpic {
+public class Pin {
 
     public static final int VIEW_THUMBNAILS = 1;
     public static final int VIEW_LIST = 2;
@@ -56,7 +56,7 @@ public class Pinpic {
 
     String password = "";
 
-    public Pinpic() {
+    public Pin() {
 
         GregorianCalendar calendar = (GregorianCalendar)GregorianCalendar.getInstance();
         startDate = new Date(calendar.getTimeInMillis());
