@@ -102,7 +102,7 @@ public class UploadServlet extends HttpServlet {
 
                 String urlPathInfo = httpServletRequest.getPathInfo();
                 if (urlPathInfo.startsWith("/folder/")) {
-                    //Upload in eine Kategorie
+                    //Upload in einen Ordner
                     String idString = urlPathInfo.substring("/folder/".length());
                     //System.out.println("idString = "+idString);
                     if (idString.endsWith("/")) { idString = idString.replaceAll("/",""); }

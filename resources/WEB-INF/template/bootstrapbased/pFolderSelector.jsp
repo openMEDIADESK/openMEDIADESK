@@ -42,10 +42,10 @@
 	<!-- FORMS FÜR EDIT -->
 
 
-    <form method="post" action="<c:url value="/${lng}/categoryselector"/>">
+    <form method="post" action="<c:url value="/${lng}/folderselector"/>">
 
-    <c:forEach items="${command.categoryList}" var="listElement" varStatus="stat">
-        <spring:bind path="command.categoryList[${stat.index}].category.categoryId">
+    <c:forEach items="${command.folderList}" var="listElement" varStatus="stat">
+        <spring:bind path="command.folderList[${stat.index}].folder.categoryId">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="name">Ordner ID</label>
         <input type="text" class="form-control input-sm" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>">
@@ -56,7 +56,7 @@
         </div>
         </spring:bind>
 
-        <spring:bind path="command.categoryList[${stat.index}].selected">
+        <spring:bind path="command.folderList[${stat.index}].selected">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="name">Selected</label>
         <input type="text" class="form-control input-sm" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>">

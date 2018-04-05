@@ -36,7 +36,7 @@ public class TreeAclCommand {
     private String type = "";
     private int id = 0;
 
-    private List<TreeAclCommandEntity> categoryList = new LinkedList<TreeAclCommandEntity>();
+    private List<TreeAclCommandEntity> folderList = new LinkedList<TreeAclCommandEntity>();
 
     public String getType() {
         return type;
@@ -54,12 +54,12 @@ public class TreeAclCommand {
         this.id = id;
     }
 
-    public List<TreeAclCommandEntity> getCategoryList() {
-        return categoryList;
+    public List<TreeAclCommandEntity> getFolderList() {
+        return folderList;
     }
 
-    public void setCategoryList(List<TreeAclCommandEntity> categoryList) {
-        this.categoryList = categoryList;
+    public void setFolderList(List<TreeAclCommandEntity> folderList) {
+        this.folderList = folderList;
     }
 
     public static class TreeAclCommandEntity {

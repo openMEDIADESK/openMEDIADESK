@@ -188,7 +188,7 @@ public class ImportSettingsController extends SimpleFormControllerMd {
             }
         }
         
-        httpServletRequest.setAttribute("categoryList",categoryList);
+        httpServletRequest.setAttribute("folderList",categoryList);
 
 
         return super.showForm(httpServletRequest, httpServletResponse, e);    //To change body of overridden methods use File | Settings | File Templates.

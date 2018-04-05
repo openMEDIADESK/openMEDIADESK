@@ -24,7 +24,7 @@
 <h3><spring:message code="uploadselector.headline"/></h3>
 <!-- /ordnertitel und infos -->
 
-<c:if test="${empty allowedCategoryList}">
+<c:if test="${empty allowedFolderList}">
 <!-- mediadesk abstand -->
 <div class="md-space-sm">&nbsp;</div>
 <!-- /mediadesk abstand -->
@@ -41,10 +41,10 @@
 
 <div class="list-group">
 
-    <c:forEach items="${allowedCategoryList}" var="c">
-    <a href="<c:url value="uploadweb?catid=${c.categoryId}"/>" class="list-group-item">
-        <h4 class="list-group-item-heading"><c:out value="${c.catTitle}"/></h4>
-        <p class="list-group-item-text"><c:out value="${c.description}"/></p>
+    <c:forEach items="${allowedFolderList}" var="f">
+    <a href="<c:url value="uploadweb?catid=${f.categoryId}"/>" class="list-group-item">
+        <h4 class="list-group-item-heading"><c:out value="${f.catTitle}"/></h4>
+        <p class="list-group-item-text"><c:out value="${f.description}"/></p>
     </a>
     </c:forEach>
 

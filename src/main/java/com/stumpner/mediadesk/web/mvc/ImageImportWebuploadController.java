@@ -120,7 +120,7 @@ public class ImageImportWebuploadController extends ModelFormPageController {
                 } else {
                     //Lieferant, Redakteur von den ACL Settings abhängig aber grundsätzlich erlaubt
                     // --> es wird dann eine auswahlliste an Ordnern angezeigt
-                    return isUserPermittetForCategory(request);
+                    return isUserPermittetForFolder(request);
                 }
 
             } else {
@@ -130,10 +130,10 @@ public class ImageImportWebuploadController extends ModelFormPageController {
         }
     }
 
-    private boolean isUserPermittetForCategory(HttpServletRequest request) {
+    private boolean isUserPermittetForFolder(HttpServletRequest request) {
 
         try {
-            Folder folder = getImportCategory(request);
+            Folder folder = getImportFolder(request);
             if (folder ==null) { return false; }
             AclControllerContext aclCtx = AclContextFactory.getAclContext(request);
             return aclCtx.checkPermission(new AclPermission("write"), folder);
@@ -157,7 +157,7 @@ public class ImageImportWebuploadController extends ModelFormPageController {
         if (request.getParameter("catid")!=null) {
             if (!request.getParameter("catid").equalsIgnoreCase("")) {
                 autoImageAssigner.clear(request);
-                Folder folder = getImportCategory(request);
+                Folder folder = getImportFolder(request);
                 request.setAttribute("folder", folder);
                 if (folder !=null) { autoImageAssigner.setDestination(request, folder); }
             }
@@ -175,25 +175,6 @@ public class ImageImportWebuploadController extends ModelFormPageController {
         if (!isUserPermitted(request)) {
             response.sendError(403,"Nicht erlaubt oder nicht eingeloggt");
             return null;
-        }
-
-        if (request.getParameter("html")!=null) {
-            //klassisches HTML-Formular anzeigen:
-            request.setAttribute("html",true);
-            request.setAttribute("flash",false);
-            request.setAttribute("html5",false);
-        } else {
-            if (request.getParameter("html5")!=null) {
-                //HTML5 Upload anzeigen
-                request.setAttribute("html",false);
-                request.setAttribute("flash",false);
-                request.setAttribute("html5",true);
-            } else {
-                //Flash Upload anzeigen (standard) -> leitet auf html5 um, wenn der browser das unterstützt
-                request.setAttribute("html",false);
-                request.setAttribute("flash",true);
-                request.setAttribute("html5",false);
-            }
         }
 
         if (request.getParameter("error")!=null) {
@@ -237,8 +218,6 @@ public class ImageImportWebuploadController extends ModelFormPageController {
             } else {
                 request.setAttribute("redirectUrl","lightbox");
             }
-
-            this.setContentTemplateFile("imageimport_web.jsp",request);
         }
 
         return super.showForm(request, response, e);    //To change body of overridden methods use File | Settings | File Templates.
@@ -389,7 +368,7 @@ public class ImageImportWebuploadController extends ModelFormPageController {
         }
     }
 
-    private Folder getImportCategory(HttpServletRequest request) throws ObjectNotFoundException, IOServiceException {
+    private Folder getImportFolder(HttpServletRequest request) throws ObjectNotFoundException, IOServiceException {
 
         if (request.getParameter("catid")!=null) {
             if (!request.getParameter("catid").equalsIgnoreCase("")) {

@@ -66,7 +66,7 @@ public class TreeAclController extends SimpleFormControllerMd {
 
         List<TreeAclCommand.TreeAclCommandEntity> selectableCategoryList = getSelectableCategoryList(request.getParameter("type"), categoryTree, request);
         TreeAclCommand categorySelection = new TreeAclCommand();
-        categorySelection.setCategoryList(selectableCategoryList);
+        categorySelection.setFolderList(selectableCategoryList);
 
         categorySelection.setType(request.getParameter("type"));
         categorySelection.setId(Integer.parseInt(request.getParameter("id")));
@@ -179,7 +179,7 @@ public class TreeAclController extends SimpleFormControllerMd {
         FolderService folderService = new FolderService();
         ImageVersionService mediaService = new ImageVersionService();
         TreeAclCommand categorySelection = (TreeAclCommand)o;
-        for (TreeAclCommand.TreeAclCommandEntity category : categorySelection.getCategoryList()) {
+        for (TreeAclCommand.TreeAclCommandEntity category : categorySelection.getFolderList()) {
             /**
              * ACL bearbeiten
              */

@@ -43,14 +43,14 @@
 
     <form method="post" action="<c:url value="/${lng}/treeacl"/>">
 
-    <c:forEach items="${command.categoryList}" var="listElement" varStatus="stat">
+    <c:forEach items="${command.folderList}" var="listElement" varStatus="stat">
         <div class="row">
 
             <div class="col-xs-1">
-        <spring:bind path="command.categoryList[${stat.index}].category.categoryId">
+        <spring:bind path="command.folderList[${stat.index}].folder.categoryId">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <!--<label for="name">Ordner ID</label>-->
-            <c:if test="${listElement.category.parent!=0}">&nbsp;</c:if>
+            <c:if test="${listElement.folder.parent!=0}">&nbsp;</c:if>
         <i class="fa fa-folder" aria-hidden="true"></i>        
         <input type="hidden" class="form-control input-sm" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>">
         </div>
@@ -58,7 +58,7 @@
             </div>
 
             <div class="col-xs-7">
-        <spring:bind path="command.categoryList[${stat.index}].category.catName">
+        <spring:bind path="command.folderList[${stat.index}].folder.catName">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <input type="text" class="form-control input-sm" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" readonly="true">
         </div>
@@ -66,7 +66,7 @@
             </div>
 
             <div class="col-xs-4">
-        <spring:bind path="command.categoryList[${stat.index}].permissionString">
+        <spring:bind path="command.folderList[${stat.index}].permissionString">
             <select class="form-control" name="<c:out value="${status.expression}"/>">
                     <option value=""<c:if test="${status.value==''}"> selected</c:if>>Keine</option>
                     <option value="view"<c:if test="${status.value=='view'}"> selected</c:if>>Nur Zeigen</option>

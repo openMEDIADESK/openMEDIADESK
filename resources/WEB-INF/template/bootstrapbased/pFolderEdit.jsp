@@ -54,7 +54,7 @@
     <spring:bind path="command.categoryId">
         <div ng-show="showMoreAndMore==true" class="form-group">
         <label for="ID"><spring:message code="categoryedit.categoryid"/></label>
-        <input type="text" class="form-control input-sm" id="ID" ng-model="data.id" name="categoryId" value="<c:out value="${status.value}"/>" readonly="true">
+        <input type="text" class="form-control input-sm" id="ID" ng-model="data.id" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" readonly="true">
         </div>
     </spring:bind>
 
@@ -146,9 +146,9 @@
 
     <spring:bind path="command.categoryDate">
         <div ng-show="showMore==true" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>" ng-controller="DatepickerCtrl">
-        <label for="textCategoryDate"><spring:message code="folderedit.folderdate"/></label>
+        <label for="textFolderDate"><spring:message code="folderedit.folderdate"/></label>
             <p class="input-group">
-            <input type="text" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="dt" ng-init="setDate(<fmt:formatDate value="${command.categoryDate}" pattern="yyyy,M,dd"/>)" is-open="popupDatepicker.opened" type="html5Types" current-text="Heute" close-text="Fertig" datepicker-options="dateOptions" ng-required="true" alt-input-formats="altInputFormats" id="textCategoryDate" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" placeholder="Neuer Ordner"<c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
+            <input type="text" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="dt" ng-init="setDate(<fmt:formatDate value="${command.categoryDate}" pattern="yyyy,M,dd"/>)" is-open="popupDatepicker.opened" type="html5Types" current-text="Heute" close-text="Fertig" datepicker-options="dateOptions" ng-required="true" alt-input-formats="altInputFormats" id="textFolderDate" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" placeholder="Neuer Ordner"<c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
             <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="openDatepicker()"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>

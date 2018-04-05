@@ -99,7 +99,7 @@ public class ImageEditController extends AbstractAutoFillController {
         FolderService folderService = new FolderService();
         folderService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
         int ivid = ((ImageVersionMetadata)e.getTarget()).getImageVersion().getIvid();
-        model.put("categoryList", folderService.getFolderListFromImageVersion(ivid));
+        model.put("folderList", folderService.getFolderListFromImageVersion(ivid));
 
         /**
          * Markierte Bilder testen bzw. zählen...
@@ -398,19 +398,10 @@ public class ImageEditController extends AbstractAutoFillController {
 
         if (httpServletRequest.getParameter("replaceFolder")!=null) {
             //folderimages ersetzen
-            String[] folderIdStrings = httpServletRequest.getParameterValues("replaceFolder");
-            for (int p=0;p<folderIdStrings.length;p++) {
-                logger.debug("ImageEditController: copy imagedata to folder: "+folderIdStrings[p]);
-                this.copyImageDataOfFolder(imageVersionMetadata,Integer.parseInt(folderIdStrings[p]));
-            }
-        }
-
-        if (httpServletRequest.getParameter("replaceCategory")!=null) {
-            //folderimages ersetzen
-            String[] categoryIdStrings = httpServletRequest.getParameterValues("replaceCategory");
-            for (int p=0;p<categoryIdStrings.length;p++) {
-                logger.debug("ImageEditController: copy imagedata to cat: "+categoryIdStrings[p]);
-                this.copyImageDataOfCategory(imageVersionMetadata,Integer.parseInt(categoryIdStrings[p]));
+            String[] folderIds = httpServletRequest.getParameterValues("replaceFolder");
+            for (int p=0;p<folderIds.length;p++) {
+                logger.debug("ImageEditController: copy metadata to folder: "+folderIds[p]);
+                this.copyMetadataOfFolder(imageVersionMetadata,Integer.parseInt(folderIds[p]));
             }
         }
 
@@ -418,14 +409,7 @@ public class ImageEditController extends AbstractAutoFillController {
             //selectedimages ersetzen
             List imageList = (List)httpServletRequest.getSession().getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES);
             logger.debug("ImageEditController: Copy selected images");
-            this.copyImageDataOfImages(imageVersionMetadata,imageList);
-        }
-
-        if (httpServletRequest.getParameter("replaceInbox")!=null) {
-            //selectedimages ersetzen
-            InboxService inboxService = new InboxService();
-            List inboxList = inboxService.getInbox();
-            this.copyImageDataOfImages(imageVersionMetadata,inboxList);
+            this.copyMetadataOfMediaObjects(imageVersionMetadata,imageList);
         }
 
         this.saveImage((ImageVersionMultiLang)imageVersionMetadata.getImageVersion());
@@ -458,10 +442,10 @@ public class ImageEditController extends AbstractAutoFillController {
         }
     }
 
-    private void copyImageDataOfImages(ImageVersionMetadata imageVersionMetadata, List imageList) {
+    private void copyMetadataOfMediaObjects(ImageVersionMetadata imageVersionMetadata, List imageList) {
 
         ImageVersion imageVersion = imageVersionMetadata.getImageVersion();
-        if (imageList==null) { logger.warn("copyImageDataOfImages: imageList == null"); }
+        if (imageList==null) { logger.warn("copyMetadataOfMediaObjects: imageList == null"); }
         Iterator images = imageList.iterator();
 
         while(images.hasNext()) {
@@ -473,32 +457,14 @@ public class ImageEditController extends AbstractAutoFillController {
         }
     }
 
-    private void copyImageDataOfFolder(ImageVersionMetadata imageVersionMetadata, int folderId) {
-
-        ImageVersionService imageService = new ImageVersionService();
-        List imageList = imageService.getFolderImages(new SimpleLoaderClass(folderId));
-        //Daten kopieren:
-        copyImageDataOfImages(imageVersionMetadata,imageList);
-    }
-
-    private void copyImageDataOfCategory(ImageVersionMetadata imageVersionMetadata, int categoryId) {
+    private void copyMetadataOfFolder(ImageVersionMetadata imageVersionMetadata, int folderId) {
 
         ImageVersionService imageService = new ImageVersionService();
         SimpleLoaderClass loaderClass = new SimpleLoaderClass();
-        loaderClass.setId(categoryId);
+        loaderClass.setId(folderId);
         List imageList = imageService.getCategoryImages(loaderClass);
         //Daten kopieren:
-        copyImageDataOfImages(imageVersionMetadata,imageList);
-    }
-
-    /**
-     * ivid wird immer ersetzt!
-     * @param metadataFrom
-     * @param metadataTo
-     * @deprecated hat keine funktion mehr, da die Language-Daten nichtmehr in den Meta-Daten gespeichert werden
-     */
-    private void copyImageMetadata(List metadataFrom, List metadataTo, int ivid, String[] fields) {
-
+        copyMetadataOfMediaObjects(imageVersionMetadata,imageList);
     }
 
     private void saveImage(ImageVersionMultiLang image) {

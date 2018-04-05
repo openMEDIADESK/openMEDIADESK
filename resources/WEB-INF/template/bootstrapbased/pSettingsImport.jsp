@@ -278,8 +278,8 @@
                     <label for="input<c:out value="${status.expression}"/>">Dateien am FTP automatisch importieren in</label>
                         <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
                             <option value="0"<c:if test="${status.value==0}"> selected="true"</c:if>>---</option>
-                            <c:forEach items="${categoryList}" var="category" varStatus="stat">
-                            <option value="<c:out value="${category.categoryId}"/>"<c:if test="${status.value==category.categoryId}"> selected="true"</c:if>><c:out value="${category.catName}"/></option>
+                            <c:forEach items="${folderList}" var="folder" varStatus="stat">
+                            <option value="<c:out value="${folder.categoryId}"/>"<c:if test="${status.value==folder.categoryId}"> selected="true"</c:if>><c:out value="${folder.catName}"/></option>
                             </c:forEach>
                         </select>
                     </div>
@@ -350,8 +350,8 @@
                     <label for="input<c:out value="${status.expression}"/>">Dateien im Postfach automatisch importieren in Ordner</label>
                         <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
                             <option value="0"<c:if test="${status.value==0}"> selected="true"</c:if>>---</option>
-                            <c:forEach items="${categoryList}" var="category" varStatus="stat">
-                            <option value="<c:out value="${category.categoryId}"/>"<c:if test="${status.value==category.categoryId}"> selected="true"</c:if>><c:out value="${category.catName}"/></option>
+                            <c:forEach items="${folderList}" var="folder" varStatus="stat">
+                            <option value="<c:out value="${folder.categoryId}"/>"<c:if test="${status.value==folder.categoryId}"> selected="true"</c:if>><c:out value="${folder.catName}"/></option>
                             </c:forEach>
                         </select>
                     </div>

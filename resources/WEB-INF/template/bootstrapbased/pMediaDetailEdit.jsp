@@ -604,12 +604,12 @@
         </div>
     </spring:bind>
 
-    <c:if test="${!empty categoryList}">
+    <c:if test="${!empty folderList}">
     <div class="checkbox">
-        <fieldset id="replaceCategory"><legend><spring:message code="imageedit.replacecat"/></legend>
-        <c:forEach items="${categoryList}" var="category">
+        <fieldset id="replaceFolder"><legend><spring:message code="imageedit.replacecat"/></legend>
+        <c:forEach items="${folderList}" var="folder">
         <label>
-          <input type="checkbox" name="replaceCategory" id="cbxCat<c:out value="${category.categoryId}"/>" value="<c:out value="${category.categoryId}"/>"> <c:out value="${category.catName}"/> (<c:out value="${category.catTitle}"/>)
+          <input type="checkbox" name="replaceFolder" id="cbxCat<c:out value="${folder.categoryId}"/>" value="<c:out value="${folder.categoryId}"/>"> <c:out value="${folder.catName}"/> (<c:out value="${folder.catTitle}"/>)
         </label>
         </c:forEach>
         </fieldset>

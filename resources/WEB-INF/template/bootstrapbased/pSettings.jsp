@@ -11,7 +11,7 @@
 <!-- jsp:include page="modalparking.jsp"/ -->
 
 <!-- spalte2 -->
-<div class="col-sm-10 main" ng-controller="ThumbnailViewCtrl" ng-init="initMosView('/api/rest/category',<c:out value="${containerId}"/>,'<%= request.getAttribute("listView") %>',<c:out value="${selectedImages}"/>)"> <!-- col-sm-10 main SPALTE 2 FÜR INHALT -->
+<div class="col-sm-10 main" ng-controller="ThumbnailViewCtrl" ng-init="initMosView('/api/rest/folder',<c:out value="${containerId}"/>,'<%= request.getAttribute("listView") %>',<c:out value="${selectedImages}"/>)"> <!-- col-sm-10 main SPALTE 2 FÜR INHALT -->
 <!-- ###################################################################################################################################################### -->
 <!-- HIER STARTET DER INHALTSBEREICH ###################################################################################################################### -->
 <!-- breadcrumbs -->

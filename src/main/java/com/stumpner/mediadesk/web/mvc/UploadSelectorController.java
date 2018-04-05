@@ -58,7 +58,7 @@ public class UploadSelectorController extends AbstractPageController {
                 allowedCategoryList.add(c);
             }
         }
-        request.setAttribute("allowedCategoryList",allowedCategoryList);
+        request.setAttribute("allowedFolderList",allowedCategoryList);
         return super.handleRequestInternal(request, response);    //To change body of overridden methods use File | Settings | File Templates.
     }
 

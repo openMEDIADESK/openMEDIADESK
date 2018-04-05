@@ -30,11 +30,11 @@
 	<!-- FORMS FÜR EDIT -->
 
         <div type="button" class="btn btn-default btn-lg btn-block"
-             flow-init="{target: '/gateway/upload/category/<c:out value="${category.categoryId}"/>/;jsessionid=<%= session.getId() %>', chunkSize:201073741824, simultaneousUploads:1}"
+             flow-init="{target: '/gateway/upload/folder/<c:out value="${folder.categoryId}"/>/;jsessionid=<%= session.getId() %>', chunkSize:201073741824, simultaneousUploads:1}"
              flow-files-submitted="$flow.upload()"
              flow-file-success="uploadFileSuccess($file, $message, $flow)"
              flow-file-error="uploadFileError($file, $message, $flow)"
-             flow-complete="uploadComplete($flow,'c?id=<c:out value="${category.categoryId}"/>')"
+             flow-complete="uploadComplete($flow,'c?id=<c:out value="${folder.categoryId}"/>')"
              flow-error="uploadError($file, $message, $flow)"
              flow-btn
              flow-drop><i class="fa fa-cloud-upload md-text-prim md-thumb-item-upload"></i>
