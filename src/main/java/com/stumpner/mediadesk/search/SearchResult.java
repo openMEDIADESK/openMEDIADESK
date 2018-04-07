@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.search;
 
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 
 import java.util.ArrayList;
 
@@ -30,7 +30,7 @@ import java.util.ArrayList;
  * Time: 19:57:35
  * To change this template use File | Settings | File Templates.
  */
-public class SearchResult extends ArrayList<ImageVersionMultiLang> {
+public class SearchResult extends ArrayList<MediaObjectMultiLang> {
 
     ISearchProperty searchProperty;
 

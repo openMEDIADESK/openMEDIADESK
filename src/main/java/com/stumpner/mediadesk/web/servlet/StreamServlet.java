@@ -1,7 +1,7 @@
 package com.stumpner.mediadesk.web.servlet;
 
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.ImageVersion;
+import com.stumpner.mediadesk.image.MediaObject;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.stats.SimpleDownloadLogger;
@@ -71,7 +71,7 @@ public class StreamServlet extends AbstractStreamServlet {
         }
     }
 
-    protected int getSleepInMsAfter1024bytes(ImageVersion imageVersion) {
+    protected int getSleepInMsAfter1024bytes(MediaObject imageVersion) {
 
         boolean enabled = false;
         if (enabled) {
@@ -93,11 +93,11 @@ public class StreamServlet extends AbstractStreamServlet {
         } else { return 0; }
     }
 
-    protected void trackStreamEnd(HttpServletRequest request, ImageVersion imageVersion, int downloadType, int bytes) {
+    protected void trackStreamEnd(HttpServletRequest request, MediaObject imageVersion, int downloadType, int bytes) {
         trackStream(request, imageVersion, SimpleDownloadLogger.DTYPE_STREAM_END, bytes);
     }
 
-    protected String getStreamSourceFilename(ImageVersion imageVersion) {
+    protected String getStreamSourceFilename(MediaObject imageVersion) {
 
         if (imageVersion.getMayorMime().toUpperCase().equalsIgnoreCase("VIDEO")) {
             //System.out.println("videostream");

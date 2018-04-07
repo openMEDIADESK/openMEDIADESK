@@ -6,10 +6,10 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.AppSqlMap;
 import com.stumpner.mediadesk.core.Config;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.pinpics.Pin;
 import com.stumpner.mediadesk.util.Crypt;
 import com.stumpner.mediadesk.image.pinpics.PinpicHolder;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.common.util.PaginatedList;
@@ -224,8 +224,8 @@ public class PinpicService extends MultiLanguageService {
         //To change body of implemented methods use File | Settings | File Templates.
 
         //Zuerst die Medienobjekte des Pins löschen        
-        List<ImageVersionMultiLang> pinImageList = this.getPinpicImages(id);
-        for (ImageVersionMultiLang image : pinImageList) {
+        List<MediaObjectMultiLang> pinImageList = this.getPinpicImages(id);
+        for (MediaObjectMultiLang image : pinImageList) {
             this.deleteImageFromPinpic(image.getIvid(),id);
         }
 
@@ -258,7 +258,7 @@ public class PinpicService extends MultiLanguageService {
         return pinpic;
     }
 
-    public List<ImageVersionMultiLang> getPinpicImages(int pinpicId) {
+    public List<MediaObjectMultiLang> getPinpicImages(int pinpicId) {
 
         SqlMapClient smc = AppSqlMap.getSqlMapInstance();
         List imageList = new LinkedList();

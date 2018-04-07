@@ -1,8 +1,8 @@
 package com.stumpner.mediadesk.web.api.rest;
 
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.core.Config;
 
 import javax.servlet.http.HttpServlet;
@@ -93,7 +93,7 @@ public class RestBaseServlet extends HttpServlet {
         return WebHelper.hasMinimumRole(httpServletRequest, minimumRole);
     }
 
-    public String getCaption(ImageVersionMultiLang mo) {
+    public String getCaption(MediaObjectMultiLang mo) {
 
                 if (Config.downloadImageFilename.equalsIgnoreCase("imageNumber")) {
                     return mo.getImageNumber();

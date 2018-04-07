@@ -1,8 +1,8 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.core.database.sc.MediaSearchService;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.web.mvc.commandclass.BulkModification;
-import com.stumpner.mediadesk.core.database.sc.ImageSearchService;
 import com.stumpner.mediadesk.search.*;
 import com.stumpner.mediadesk.image.util.BulkModificationService;
 import org.springframework.web.servlet.ModelAndView;
@@ -129,7 +129,7 @@ public class BulkModificationController extends SimpleFormControllerMd {
 
     private List getImageList(HttpServletRequest httpServletRequest) {
 
-        ImageSearchService imageSearch = new ImageSearchService();
+        MediaSearchService imageSearch = new MediaSearchService();
         int viewPage = 1;
         //todo: alle gefundenen bilder (nicht nur erste!)
         SearchResult searchResult = new SearchResult();
@@ -137,8 +137,8 @@ public class BulkModificationController extends SimpleFormControllerMd {
             //suche aus session
             searchResult = (SearchResult) httpServletRequest.getSession().getAttribute("search");
             ISearchProperty sp = searchResult.getSearchProperty();
-            if (sp instanceof ImageVersionSearchProperty) {
-                ImageVersionSearchProperty ivsp = (ImageVersionSearchProperty)sp;
+            if (sp instanceof MediaSearchProperty) {
+                MediaSearchProperty ivsp = (MediaSearchProperty)sp;
                 searchString = ivsp.getKeywords() + " " +ivsp.getPeople()+ " " +ivsp.getSite()+ " ";
                 if (ivsp.getDateFrom()!=null) {
                     searchString = searchString + " > " +
@@ -163,7 +163,7 @@ public class BulkModificationController extends SimpleFormControllerMd {
                         (SimpleSearchProperty)searchResult.getSearchProperty(),0,10000);
             } else {
                 searchResult = imageSearch.getAdvancedImageQuery(
-                        (ImageVersionSearchProperty)searchResult.getSearchProperty(),0,10000,this.getUser(httpServletRequest));
+                        (MediaSearchProperty)searchResult.getSearchProperty(),0,10000,this.getUser(httpServletRequest));
             }
 
 

@@ -45,7 +45,7 @@ public class ImageServlet extends HttpServlet {
         OutputStream os = null;
 
         /*
-        An Image Url looks like this:
+        An BasicMediaObject Url looks like this:
         /imageservlet/12345/3/image.jpg
 
         where:

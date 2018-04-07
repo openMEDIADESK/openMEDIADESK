@@ -1,14 +1,14 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.core.database.sc.MediaService;
+import com.stumpner.mediadesk.image.MediaObject;
 import com.stumpner.mediadesk.web.mvc.commandclass.SendCommand;
 import com.stumpner.mediadesk.web.mvc.exceptions.Http404Exception;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.web.stack.WebStack;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.util.SendFile;
 import com.stumpner.mediadesk.util.MailWrapper;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.usermanagement.User;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -92,10 +92,10 @@ public class SendController extends SimpleFormControllerMd {
             throw new Http404Exception(e);
         }
         
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         LngResolver lngResolver = new LngResolver();
         imageService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-        ImageVersion image = imageService.getImageVersionById(ivid);
+        MediaObject image = imageService.getImageVersionById(ivid);
         if (image==null) { throw new Http404Exception("ivid="+ivid+" not found"); }
 
 

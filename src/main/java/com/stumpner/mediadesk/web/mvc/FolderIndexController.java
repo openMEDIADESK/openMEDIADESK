@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.MediaObject;
 import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.folder.FolderMultiLang;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,7 +16,6 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.core.Resources;
-import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
 import com.stumpner.mediadesk.web.LngResolver;
@@ -197,7 +197,7 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
                 List imageList = (List) request.getSession().getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES);
                 Iterator images = imageList.iterator();
                 if (images.hasNext()) {
-                    ImageVersion image = (ImageVersion) images.next();
+                    MediaObject image = (MediaObject) images.next();
                     if (image.getMayorMime().equalsIgnoreCase("image")) {
                         folder.setPrimaryIvid(image.getIvid());
                         folderService.save(folder);
@@ -311,13 +311,13 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
         return sb.toString();
     }
 
-    protected void insert(ImageVersion image, HttpServletRequest request) throws DublicateEntry {
+    protected void insert(MediaObject image, HttpServletRequest request) throws DublicateEntry {
 
         FolderService folderService = new FolderService();
         folderService.addMediaToFolder(getContainerId(request),image.getIvid());
     }
 
-    protected void remove(ImageVersion image, HttpServletRequest request) {
+    protected void remove(MediaObject image, HttpServletRequest request) {
 
         FolderService folderService = new FolderService();
         folderService.deleteMediaFromFolder(getContainerId(request),image.getIvid());

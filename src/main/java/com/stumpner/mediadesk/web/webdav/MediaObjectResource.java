@@ -11,11 +11,11 @@ import java.util.Iterator;
 import java.io.*;
 
 import com.stumpner.mediadesk.core.database.sc.FolderService;
+import com.stumpner.mediadesk.core.database.sc.MediaService;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.folder.Folder;
-import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
+import com.stumpner.mediadesk.image.MediaObject;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.DownloadLoggerService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
@@ -54,11 +54,11 @@ public class MediaObjectResource implements FileResource {
     User user = null;
     AclControllerContext aclCtx = null;
     Folder linkedFolder = null;
-    ImageVersionMultiLang media = null;
+    MediaObjectMultiLang media = null;
     String ip = "";
     String dns = "";
 
-    public MediaObjectResource(Folder linkedFolder, ImageVersionMultiLang media) {
+    public MediaObjectResource(Folder linkedFolder, MediaObjectMultiLang media) {
         this.linkedFolder = linkedFolder;
         this.media = media;
     }
@@ -179,7 +179,7 @@ public class MediaObjectResource implements FileResource {
         if (user.getRole()>=User.ROLE_EDITOR) { //Erst ab Rolle Editor darf jemand Objekte umbenennen/verschieben
 
             int moveToCategoryId = Integer.parseInt(collectionResource.getUniqueId());
-            ImageVersionService mediaService = new ImageVersionService();
+            MediaService mediaService = new MediaService();
             FolderService folderService = new FolderService();
             if (linkedFolder.getCategoryId()==moveToCategoryId) {
                 //Umbenennen
@@ -232,7 +232,7 @@ public class MediaObjectResource implements FileResource {
         return media.getCreateDate();
     }
 
-    public ImageVersion getMediaObject() {
+    public MediaObject getMediaObject() {
         return media;
     }
 }

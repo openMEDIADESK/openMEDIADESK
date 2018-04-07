@@ -14,9 +14,9 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundExceptio
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.Config;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.folder.FolderMultiLang;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.image.inbox.InboxService;
 import com.stumpner.mediadesk.image.util.SizeExceedException;
 import com.stumpner.mediadesk.usermanagement.User;
@@ -212,13 +212,13 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
             list.add(new FolderResource(resourceFactory, folder));
         }
 
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         SimpleLoaderClass loader = new SimpleLoaderClass();
         loader.setId(id);
         List categoryMediaList = imageService.getCategoryImages(loader);
 
         for (Object aCategoryMedia : categoryMediaList) {
-            ImageVersionMultiLang media = (ImageVersionMultiLang)aCategoryMedia;
+            MediaObjectMultiLang media = (MediaObjectMultiLang)aCategoryMedia;
             //System.out.println(" [+] mediaObjectResource: "+media.getVersionName());
             list.add(new MediaObjectResource(this.folder,media));
         }
@@ -249,7 +249,7 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
                 MediaObjectResource res = (MediaObjectResource)resource;
                 if (res.getName().equalsIgnoreCase(newName)) {
                     System.out.println("  [+] Konflikt: existiert bereits "+res.getName()+", �berschreiben");
-                    ImageVersionService mediaService = new ImageVersionService();
+                    MediaService mediaService = new MediaService();
                     if (res.getContentLength()==0) {
                         //Medien-Objekt mit Gr��e 0-Bytes (Platzhalter) wird �berschrieben, daher l�schen
                     //todo: �berall l�schen oder nur hier l�schen?
@@ -281,7 +281,7 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
         if (length==0) {
             //Webdav Client versucht ein Neues 0-Byte objekt anzulegen und dieses zu �berschreieben, daher:
             //EmptyMediaObject anlegen dass dann �berschrieben werden kann
-            ImageVersionMultiLang media = createEmptyMediaObject(newName);
+            MediaObjectMultiLang media = createEmptyMediaObject(newName);
             try {
                 folderService.addMediaToFolder(folder.getCategoryId(),media.getIvid());
             } catch (DublicateEntry dublicateEntry) {
@@ -334,8 +334,8 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
                 System.out.println("FileRejectException in FolderResource.java");
             }
 
-            ImageVersionService imageService = new ImageVersionService();
-            ImageVersionMultiLang media = (ImageVersionMultiLang)imageService.getImageVersionById(ivid);
+            MediaService imageService = new MediaService();
+            MediaObjectMultiLang media = (MediaObjectMultiLang)imageService.getImageVersionById(ivid);
             media.setVersionName(newName);
             media.setVersionTitle(newName);
             media.setVersionTitleLng1(newName);
@@ -362,7 +362,7 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
     }
 
     //Entfernt overwrittenIvid aus ALLEN kategorien und setzt media anstelle dessen
-    private void renewLinkedCategories(ImageVersionMultiLang media, int overwrittenIvId) {
+    private void renewLinkedCategories(MediaObjectMultiLang media, int overwrittenIvId) {
 
         FolderService folderService = new FolderService();
         List<Folder> linkedFolderList = folderService.getFolderListFromImageVersion(overwrittenIvId);
@@ -377,10 +377,10 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
 
     }
 
-    private ImageVersionMultiLang createEmptyMediaObject(String newName) {
+    private MediaObjectMultiLang createEmptyMediaObject(String newName) {
 
         Logger logger = Logger.getLogger(FolderResource.class);
-        ImageVersionMultiLang imageVersion = new ImageVersionMultiLang();
+        MediaObjectMultiLang imageVersion = new MediaObjectMultiLang();
 
         //Daten der Datei setzen
         imageVersion.setHeight(0);
@@ -400,10 +400,10 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
         imageVersion.setVersionTitle(newName);
 
         //File-Objekt in der Datenbank erstellen
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         try {
             logger.debug("Datei in der Datenbank anlegen...");
-            imageVersion = (ImageVersionMultiLang)imageService.addImage(imageVersion);
+            imageVersion = (MediaObjectMultiLang)imageService.addImage(imageVersion);
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -420,13 +420,13 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
 
     public Long getQuotaUsed() {
 
-        ImageVersionService mediaService = new ImageVersionService();
+        MediaService mediaService = new MediaService();
         return mediaService.getQuotaUsed();
     }
 
     public Long getQuotaAvailable() {
 
-        ImageVersionService mediaService = new ImageVersionService();
+        MediaService mediaService = new MediaService();
         return mediaService.getQuotaAvailable();
     }
 

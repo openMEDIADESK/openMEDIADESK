@@ -1,5 +1,7 @@
 package com.stumpner.mediadesk.web.servlet;
 
+import com.stumpner.mediadesk.image.MediaObject;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.pinpics.Pin;
 import com.stumpner.mediadesk.util.Zip;
 import com.stumpner.mediadesk.util.MailWrapper;
@@ -8,9 +10,7 @@ import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.core.database.sc.*;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
-import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.image.ImageVersionCartObject;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
+import com.stumpner.mediadesk.image.CartObject;
 import com.stumpner.mediadesk.image.util.ImageMagickUtil;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.acl.AclUtil;
@@ -99,8 +99,8 @@ public class DownloadServlet extends HttpServlet {
         httpServletRequest.setAttribute("uniqueId",uniqueId);
         boolean ividIsInImageList = true;
         //int ivid = Integer.parseInt(httpServletRequest.getParameter("ivid"));
-        ImageVersionService imageService = new ImageVersionService();
-        //ImageVersion image = imageService.getImageVersionById(ivid);
+        MediaService imageService = new MediaService();
+        //MediaObject image = imageService.getImageVersionById(ivid);
 
         List downloadImageList = getImageList(httpServletRequest);
         if (downloadImageList!=null) {
@@ -110,7 +110,7 @@ public class DownloadServlet extends HttpServlet {
                 httpServletResponse.sendError(403,"Access Denied for Download");
                 return;
             }
-            ImageVersionMultiLang image = (ImageVersionMultiLang)downloadImageList.get(0);
+            MediaObjectMultiLang image = (MediaObjectMultiLang)downloadImageList.get(0);
 
             List permittedDownloadImageList = null;
             if (getDownloadType(httpServletRequest)==DOWNLOAD_TYPE_PINPIC) {
@@ -254,7 +254,7 @@ public class DownloadServlet extends HttpServlet {
         }
 
         if (downloadImageList.size()==0) {
-            System.out.println("Fehler in DownloadServlet:242 Download-Image-Size=0");
+            System.out.println("Fehler in DownloadServlet:242 Download-BasicMediaObject-Size=0");
             //TODO: Eingebaut um den Fehler tracken zu können
 
             if (WebHelper.isLoggedIn(httpServletRequest)==false) {
@@ -285,7 +285,7 @@ public class DownloadServlet extends HttpServlet {
             int i = 0;
             while (downloadImages.hasNext()) {
                 String filenameInZip = "";
-                ImageVersion imageVersion = (ImageVersion)downloadImages.next();
+                MediaObject imageVersion = (MediaObject)downloadImages.next();
 
                 //Unterscheidung zw. Original oder Special Resolution
                 String imageFile = Config.imageStorePath+"/"+imageVersion.getIvid()+"_0";
@@ -435,7 +435,7 @@ public class DownloadServlet extends HttpServlet {
 
     }
 
-    private String handleSpecialDownloadResolution(ImageVersion imageVersion, HttpServletRequest httpServletRequest) {
+    private String handleSpecialDownloadResolution(MediaObject imageVersion, HttpServletRequest httpServletRequest) {
 
                 long uniqueId = (Long)httpServletRequest.getAttribute("uniqueId");
 
@@ -502,12 +502,12 @@ public class DownloadServlet extends HttpServlet {
     }
 
     /**
-     * @deprecated Bitte {@link DownloadServlet#getFormatSelector(javax.servlet.http.HttpServletRequest)}  und die Funktion {@link com.stumpner.mediadesk.web.mvc.commandclass.FormatSelector#getFormat(com.stumpner.mediadesk.image.ImageVersion)} benutzen
+     * @deprecated Bitte {@link DownloadServlet#getFormatSelector(javax.servlet.http.HttpServletRequest)}  und die Funktion {@link com.stumpner.mediadesk.web.mvc.commandclass.FormatSelector#getFormat(MediaObject)} benutzen
      * @param request
      * @param imageVersion
      * @return
      */
-    private Rectangle getFormat(HttpServletRequest request, ImageVersion imageVersion) {
+    private Rectangle getFormat(HttpServletRequest request, MediaObject imageVersion) {
 
         FormatSelector formatSelector = (FormatSelector)request.getSession().getAttribute("formatSelector");
         return formatSelector.getFormat(imageVersion);
@@ -520,15 +520,15 @@ public class DownloadServlet extends HttpServlet {
 
         String imageListString = "";
         DownloadLoggerService dlls = new DownloadLoggerService();
-        ImageVersionService ivs = new ImageVersionService();
+        MediaService ivs = new MediaService();
         LngResolver lngResolver = new LngResolver();
         ivs.setUsedLanguage(lngResolver.resolveLng(request));
         Iterator images = imageList.iterator();
         while (images.hasNext()) {
-            ImageVersion imageVersion = (ImageVersion)images.next();
+            MediaObject imageVersion = (MediaObject)images.next();
             //todo: "verschÃ¶nern"
             //Hier muss jedes Bild nochmal neu aus der Datenbank geladen werden:
-            //ImageVersion originalImage = ivs.getImageVersionById(imageVersion.getIvid());
+            //MediaObject originalImage = ivs.getImageVersionById(imageVersion.getIvid());
             imageListString = imageListString + imageVersion.getImageNumber();
 
             //System.out.println("ImageTitle: "+imageVersion.getVersionTitle());
@@ -604,8 +604,8 @@ public class DownloadServlet extends HttpServlet {
                 int ivid = Integer.parseInt(request.getParameter("ivid"));
                 List sselectedToDownloadList = (List)request.getSession().getAttribute(Resources.SESSIONVAR_DOWNLOAD_IMAGES);
                 if (sselectedToDownloadList==null) { //Wenn nicht über den Download-View Controller gegangen wird, ist in der Session keine liste
-                    ImageVersionService mediaService = new ImageVersionService();
-                    ImageVersion i = mediaService.getImageVersionById(ivid);
+                    MediaService mediaService = new MediaService();
+                    MediaObject i = mediaService.getImageVersionById(ivid);
                     sselectedToDownloadList = new LinkedList();
                     sselectedToDownloadList.add(i);
                 }
@@ -613,7 +613,7 @@ public class DownloadServlet extends HttpServlet {
                 //single image suchen:
                 Iterator images = downloadImageList.iterator();
                 while (images.hasNext()) {
-                    ImageVersion image = (ImageVersion)images.next();
+                    MediaObject image = (MediaObject)images.next();
                     if (image.getIvid()==ivid) {
                         singleImageList.add(image);
                     }
@@ -639,7 +639,7 @@ public class DownloadServlet extends HttpServlet {
                     List pinImageList = pinpicService.getPinpicImages(pinId);
                     Iterator pinImages = pinImageList.iterator();
                     while (pinImages.hasNext()) {
-                        ImageVersion imageVersion = (ImageVersion)pinImages.next();
+                        MediaObject imageVersion = (MediaObject)pinImages.next();
                         if (imageVersion.getIvid()==Integer.parseInt(request.getParameter("ivid"))) {
                             downloadImageList.add(imageVersion);
                         }
@@ -695,14 +695,14 @@ public class DownloadServlet extends HttpServlet {
                     ShoppingCartService scs = new ShoppingCartService();
                     Iterator images = imageList.iterator();
                     while (images.hasNext()) {
-                        ImageVersionMultiLang i = (ImageVersionMultiLang)images.next();
+                        MediaObjectMultiLang i = (MediaObjectMultiLang)images.next();
                         BigDecimal price = Config.currency.isEmpty() ? BigDecimal.valueOf(1) : i.getPrice();
                         if (price.compareTo(BigDecimal.valueOf(0))!=0) {
                             //Objekte die eine Preis haben prüfen ob sie bezahlt wurden (shoppingCart
                             if (user==null) {
                                 //Wenn der Benutzer nicht eingeloggt ist, dann redirecten zum login
                             }
-                            ImageVersionCartObject co = scs.getCartObject(user.getUserId(), i.getIvid());
+                            CartObject co = scs.getCartObject(user.getUserId(), i.getIvid());
                             if (co==null) {
                                 canDownload = false; //nicht im warenkorb
                             } else {
@@ -751,7 +751,7 @@ public class DownloadServlet extends HttpServlet {
     }
 
     /**
-     * Image Download mitloggen bzw in die statistik aufnehmen
+     * BasicMediaObject Download mitloggen bzw in die statistik aufnehmen
      * @param request
      * @param imageList
      */
@@ -767,7 +767,7 @@ public class DownloadServlet extends HttpServlet {
                 Iterator simages = imageList.iterator();
                 BigDecimal preis = BigDecimal.valueOf(0);
                 while (simages.hasNext()) {
-                    ImageVersionMultiLang imageVersion = (ImageVersionMultiLang)simages.next();
+                    MediaObjectMultiLang imageVersion = (MediaObjectMultiLang)simages.next();
                     preis = Config.currency.isEmpty() ? BigDecimal.valueOf(1) : imageVersion.getPrice();
                     Rectangle rect = new Rectangle(imageVersion.getWidth(),imageVersion.getHeight());
                     if (isSpecialDownloadResolution(request)) {
@@ -777,7 +777,7 @@ public class DownloadServlet extends HttpServlet {
                     String payTransactionId = "";
                     if (Config.useShoppingCart) {
                         ShoppingCartService scs = new ShoppingCartService();
-                        ImageVersionCartObject ivco = scs.getCartObject(suser.getUserId(), imageVersion.getIvid());
+                        CartObject ivco = scs.getCartObject(suser.getUserId(), imageVersion.getIvid());
 
                         if (ivco!=null) {
                             payTransactionId = ivco.getPayTransactionId();
@@ -815,7 +815,7 @@ public class DownloadServlet extends HttpServlet {
                 BigDecimal preis2 = BigDecimal.valueOf(0);
 
                 while (images.hasNext()) {
-                    ImageVersionMultiLang imageVersion = (ImageVersionMultiLang)images.next();
+                    MediaObjectMultiLang imageVersion = (MediaObjectMultiLang)images.next();
                     preis2 = preis2.add(Config.currency.isEmpty() ? BigDecimal.valueOf(1) : imageVersion.getPrice());
                     Rectangle rect = new Rectangle(imageVersion.getWidth(),imageVersion.getHeight());
                     if (isSpecialDownloadResolution(request)) {
@@ -826,7 +826,7 @@ public class DownloadServlet extends HttpServlet {
                     dlls.log(user.getUserId(),imageVersion.getIvid(), rect,
                             SimpleDownloadLogger.DTYPE_DOWNLOAD, request,0);**/
                     ShoppingCartService scs = new ShoppingCartService();
-                    ImageVersionCartObject ivco = scs.getCartObject(user.getUserId(), imageVersion.getIvid());
+                    CartObject ivco = scs.getCartObject(user.getUserId(), imageVersion.getIvid());
                     String payTransactionId = "";
                     if (ivco!=null) {
                         payTransactionId = ivco.getPayTransactionId();
@@ -870,7 +870,7 @@ public class DownloadServlet extends HttpServlet {
                     DownloadLoggerService dlls2 = new DownloadLoggerService();
                     Iterator images2 = imageList.iterator();
                     while (images2.hasNext()) {
-                        ImageVersion mediaObject = (ImageVersion)images2.next();
+                        MediaObject mediaObject = (MediaObject)images2.next();
                         dlls2.log(0,mediaObject.getIvid(), null,
                             SimpleDownloadLogger.DTYPE_PIN, request,0,pinPic.getPinpicId());
                     }
@@ -915,7 +915,7 @@ public class DownloadServlet extends HttpServlet {
         //todo: muss umgebaut werden dass beim erstellen des Res-Files bereits eine liste erstellt wird mit dateien die gelöscht werden müssen
                 Iterator images = downloadImageList.iterator();
                 while (images.hasNext()) {
-                    ImageVersion imageVersion = (ImageVersion)images.next();
+                    MediaObject imageVersion = (MediaObject)images.next();
                     String imageFile = Config.imageStorePath+File.separator+imageVersion.getIvid()+"_res"+uniqueId;
                     //System.out.println("Temporäre Datei löschen: "+imageFile);
                     File file = new File(imageFile);
@@ -959,7 +959,7 @@ public class DownloadServlet extends HttpServlet {
             Iterator pinpicImages = pinpicImageList.iterator();
             while (pinpicImages.hasNext()) {
                 //prÃ¼fen ob PIN Medien-Objekt in selected to download
-                ImageVersion mediaObject = (ImageVersion)pinpicImages.next();
+                MediaObject mediaObject = (MediaObject)pinpicImages.next();
                 if (isMediaObjectInList(mediaObject, selectedToDownloadList)) {
                     //prÃ¼fen ob bereits in permittetImages
                     if (isMediaObjectInList(mediaObject, permittedImages)) {
@@ -975,15 +975,15 @@ public class DownloadServlet extends HttpServlet {
 
     }
 
-    public static boolean isMediaObjectInList(ImageVersion mediaObject, List mediaList) {
+    public static boolean isMediaObjectInList(MediaObject mediaObject, List mediaList) {
         return getMediaObjectInList(mediaObject,mediaList) == null ? false: true;
     }
 
-    public static ImageVersion getMediaObjectInList(ImageVersion mediaObject, List mediaList) {
+    public static MediaObject getMediaObjectInList(MediaObject mediaObject, List mediaList) {
 
         Iterator mediaObjects = mediaList.iterator();
         while (mediaObjects.hasNext()) {
-            ImageVersion mediaObjektA = (ImageVersion)mediaObjects.next();
+            MediaObject mediaObjektA = (MediaObject)mediaObjects.next();
             //System.out.println("mediaObjektA: "+mediaObjektA.getClass().getName());
             //System.out.println("mediaObject: "+mediaObject.getClass().getName());
             if (mediaObjektA.getIvid() == mediaObject.getIvid()) { return mediaObjektA; }

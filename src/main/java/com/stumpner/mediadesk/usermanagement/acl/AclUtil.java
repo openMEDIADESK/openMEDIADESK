@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.usermanagement.acl;
 
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.folder.Folder;
 import net.stumpner.security.acl.AclControllerContext;
 import net.stumpner.security.acl.AclPermission;
@@ -11,7 +12,6 @@ import java.util.Iterator;
 import java.security.acl.AclNotFoundException;
 
 import com.stumpner.mediadesk.core.database.sc.FolderService;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
@@ -65,7 +65,7 @@ public class AclUtil {
             Iterator downloadListImages = downloadList.iterator();
             while (downloadListImages.hasNext()) {
                 boolean permitted = false;
-                ImageVersionMultiLang imageVersion = (ImageVersionMultiLang)downloadListImages.next();
+                MediaObjectMultiLang imageVersion = (MediaObjectMultiLang)downloadListImages.next();
 
                 //Ordner prüfen
                 List categoryList = folderService.getFolderListFromImageVersion(imageVersion.getIvid());

@@ -1,10 +1,10 @@
 package com.stumpner.mediadesk.media.importing;
 
+import com.stumpner.mediadesk.core.database.sc.MediaService;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.util.SizeExceedException;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.image.inbox.InboxService;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 
 import java.io.File;
@@ -49,7 +49,7 @@ public class BinaryFileImportHandler implements MediaImportHandler {
     public int processImport(File file, int userId) throws SizeExceedException, FileRejectException {
 
         Logger logger = Logger.getLogger(BinaryFileImportHandler.class);
-        ImageVersionMultiLang imageVersion = new ImageVersionMultiLang();
+        MediaObjectMultiLang imageVersion = new MediaObjectMultiLang();
 
         //Daten der Datei setzen
         imageVersion.setHeight(0);
@@ -80,7 +80,7 @@ public class BinaryFileImportHandler implements MediaImportHandler {
         ImportPluginHandlerChain.getInstance().validateFile(file);
 
         //File-Objekt in der Datenbank erstellen
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         try {
             logger.debug("Datei in der Datenbank anlegen...");
             imageService.addImage(imageVersion);

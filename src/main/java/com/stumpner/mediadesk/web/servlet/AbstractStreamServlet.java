@@ -2,17 +2,17 @@ package com.stumpner.mediadesk.web.servlet;
 
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.core.database.sc.FolderService;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
+import com.stumpner.mediadesk.core.database.sc.MediaService;
 import com.stumpner.mediadesk.core.database.sc.DownloadLoggerService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
+import com.stumpner.mediadesk.image.MediaObject;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
 import com.stumpner.mediadesk.usermanagement.acl.AclUtil;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
 import com.stumpner.mediadesk.image.folder.Folder;
-import com.stumpner.mediadesk.image.ImageVersion;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -81,7 +81,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        ImageVersion imageVersion = resolveMediaobjectInRequest(request, response);
+        MediaObject imageVersion = resolveMediaobjectInRequest(request, response);
         if (imageVersion!=null) {
             download(imageVersion,request,response);
         } else {
@@ -95,7 +95,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
 
     protected void doHead(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        ImageVersion imageVersion = resolveMediaobjectInRequest(request, response);
+        MediaObject imageVersion = resolveMediaobjectInRequest(request, response);
         if (imageVersion!=null) {
             sendResponseHeader(response,imageVersion,true,null);
         } else {
@@ -112,7 +112,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
      * @param httpServletResponse
      * @return
      */
-    private ImageVersion resolveMediaobjectInRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+    private MediaObject resolveMediaobjectInRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
 
             //Berechtigungen f�r Podcast
             AclControllerContext aclContext = AclContextFactory.getAclContext(httpServletRequest);
@@ -150,7 +150,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
                     writer.print("Token2: "+urlTokens[2]);
                     writer.print("Token3: "+urlTokens[3]);
                     */
-                    ImageVersionService imageService = new ImageVersionService();
+                    MediaService imageService = new MediaService();
                     LngResolver lngResolver = new LngResolver();
                     imageService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
 
@@ -173,7 +173,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
                                 //Pr�fen ob explizit ein Name in der Kategorie angegeben wurde, oder
                                 //das aktuellste File geladen werden soll (kein name angegeben)
                                 if (urlTokens.length==5) {
-                                    ImageVersion image = searchForName(imageList,urlTokens[4]);
+                                    MediaObject image = searchForName(imageList,urlTokens[4]);
                                     if (image!=null) {
                                         //download(image,httpServletRequest,httpServletResponse);
                                         return image;
@@ -182,8 +182,8 @@ public abstract class AbstractStreamServlet extends HttpServlet {
                                         return null;
                                     }
                                 } else {
-                                    //download((ImageVersion)imageList.get(0),httpServletRequest,httpServletResponse);
-                                    return (ImageVersion)imageList.get(0);
+                                    //download((MediaObject)imageList.get(0),httpServletRequest,httpServletResponse);
+                                    return (MediaObject)imageList.get(0);
                                 }
                             } else {
                                 //System.err.println("Folder "+id+" does not contain any mediafiles");
@@ -199,7 +199,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
                         //Die URL kann entweder /podcast/object/#id#
                         //oder /podcast/object/#id#.#extention# sein
 
-                        ImageVersion imageVersion = imageService.getImageVersionById(id);
+                        MediaObject imageVersion = imageService.getImageVersionById(id);
 
                         if (imageVersion!=null) {
                             //check Permission
@@ -236,12 +236,12 @@ public abstract class AbstractStreamServlet extends HttpServlet {
         return null;
     }
 
-    private ImageVersion searchForName(List imageList, String name) {
+    private MediaObject searchForName(List imageList, String name) {
 
         Iterator images = imageList.iterator();
 
         while (images.hasNext()) {
-            ImageVersion image = (ImageVersion)images.next();
+            MediaObject image = (MediaObject)images.next();
             if (image.getVersionName().equalsIgnoreCase(name)) {
                 return image;
             }
@@ -250,7 +250,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
         return null;
     }
 
-    private void download(ImageVersion imageVersion, HttpServletRequest request, HttpServletResponse response) {
+    private void download(MediaObject imageVersion, HttpServletRequest request, HttpServletResponse response) {
 
         String filename = getStreamSourceFilename(imageVersion);
 
@@ -319,7 +319,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
      * @param startBytes
      * @param lengthBytes
      */
-    private int writeStream(ImageVersion imageVersion, RandomAccessFile input, OutputStream output, long startBytes, long lengthBytes) throws IOException {
+    private int writeStream(MediaObject imageVersion, RandomAccessFile input, OutputStream output, long startBytes, long lengthBytes) throws IOException {
 
         byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
         int read;
@@ -376,7 +376,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
      * @param mediaObject
      * @return Download Range, wenn kein Range Request stattfindet wird null zur�ckgegeben
      */
-    private List<DownloadRange> getDownloadRange(HttpServletRequest request, ImageVersion mediaObject) {
+    private List<DownloadRange> getDownloadRange(HttpServletRequest request, MediaObject mediaObject) {
 
         String range = request.getHeader("Range");
         if (range==null) { return null; } //Null zur�ckliefern, wenn es kein byterange-request ist
@@ -425,14 +425,14 @@ public abstract class AbstractStreamServlet extends HttpServlet {
      * @param mediaObject
      * @return
      */
-    private File getSourceFile(ImageVersion mediaObject) {
+    private File getSourceFile(MediaObject mediaObject) {
 
         String filename = getStreamSourceFilename(mediaObject);
         File file = new File(filename);
         return file;
     }
 
-    private String getDownloadFilename(ImageVersion mediaObject) {
+    private String getDownloadFilename(MediaObject mediaObject) {
 
         String downloadFilename = mediaObject.getVersionTitle();
         if (!downloadFilename.endsWith(mediaObject.getExtention())) {
@@ -448,7 +448,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
      * @param mediaObject
      * @param fileAsAttachment Ob das File als Attachment geschickt werden soll "Content-Disposition: attachment
      */
-    private void sendResponseHeader(HttpServletResponse response, ImageVersion mediaObject, boolean fileAsAttachment, List<DownloadRange> downloadRange) {
+    private void sendResponseHeader(HttpServletResponse response, MediaObject mediaObject, boolean fileAsAttachment, List<DownloadRange> downloadRange) {
 
         String downloadFilename = getDownloadFilename(mediaObject);
 
@@ -494,25 +494,25 @@ public abstract class AbstractStreamServlet extends HttpServlet {
 
     }
 
-    protected String getStreamSourceFilename(ImageVersion imageVersion) {
+    protected String getStreamSourceFilename(MediaObject imageVersion) {
 
         return Config.imageStorePath+"/"+imageVersion.getIvid()+"_0";
 
     }
 
-    protected void trackStreamStart(HttpServletRequest request, ImageVersion imageVersion, int downloadType) {
+    protected void trackStreamStart(HttpServletRequest request, MediaObject imageVersion, int downloadType) {
 
             //Tracking
             trackStream(request, imageVersion, downloadType, 0);
 
     }
 
-    protected void trackStreamEnd(HttpServletRequest request, ImageVersion imageVersion, int downloadType, int bytes) {
+    protected void trackStreamEnd(HttpServletRequest request, MediaObject imageVersion, int downloadType, int bytes) {
 
         //Stream End is by default not tracked
     }
 
-    protected void trackStream(HttpServletRequest request, ImageVersion imageVersion, int downloadType, int bytes) {
+    protected void trackStream(HttpServletRequest request, MediaObject imageVersion, int downloadType, int bytes) {
 
             //Tracking
             DownloadLoggerService dlls2 = new DownloadLoggerService();
@@ -521,7 +521,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
 
     }
 
-    protected int getSleepInMsAfter1024bytes(ImageVersion imageVersion) {
+    protected int getSleepInMsAfter1024bytes(MediaObject imageVersion) {
         return 0;
     }
 

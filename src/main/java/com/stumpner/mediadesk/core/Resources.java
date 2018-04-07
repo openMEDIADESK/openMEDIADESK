@@ -30,8 +30,8 @@ public class Resources {
     public static String SESSIONVAR_SELECTED_IMAGES = "selectedImages";
     public static String SESSIONVAR_DOWNLOAD_IMAGES = "downloadImages";
     /**
-     * Object (folder, folder) bei dem das Image ausgewählt wurde
-     * Es handelt sich hierbei um eine Map wo der Key das Image ist und der Value das Object (folder,folder)
+     * Object (folder, folder) bei dem das BasicMediaObject ausgewählt wurde
+     * Es handelt sich hierbei um eine Map wo der Key das BasicMediaObject ist und der Value das Object (folder,folder)
      */
     public static String SESSIONVAR_SELECTED_IMAGES_FROM = "selectedImagesFrom";
 

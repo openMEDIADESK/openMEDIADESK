@@ -1,13 +1,13 @@
 package com.stumpner.mediadesk.media.importing;
 
+import com.stumpner.mediadesk.core.database.sc.MediaMetadataService;
+import com.stumpner.mediadesk.core.database.sc.MediaService;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.util.SizeExceedException;
 import com.stumpner.mediadesk.image.util.ImageMagickUtil;
 import com.stumpner.mediadesk.image.util.IImageUtil;
 import com.stumpner.mediadesk.image.Metadata;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
-import com.stumpner.mediadesk.core.database.sc.ImageMetadataService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 
 import java.io.File;
@@ -129,7 +129,7 @@ public class VideoImportHandler extends AbstractAudioVideoImportHandler {
 
             proc.waitFor();
             int exitVal = proc.exitValue();
-            //System.out.println("Image Magick Video-Process exitValue: " + exitVal);
+            //System.out.println("BasicMediaObject Magick Video-Process exitValue: " + exitVal);
 // copy to
 //            Config.imageStorePath+File.separator+imageVersion.getIvid()+"_1"
 
@@ -175,16 +175,16 @@ public class VideoImportHandler extends AbstractAudioVideoImportHandler {
         //videoThumbnailTmp2.delete();
 
         //Metadaten schreiben:
-        ImageMetadataService imageMetadataService = new ImageMetadataService();
-        ImageVersionService mediaService = new ImageVersionService();
-        ImageVersionMultiLang mediaObject = (ImageVersionMultiLang)mediaService.getImageVersionById(ivid);
+        MediaMetadataService mediaMetadataService = new MediaMetadataService();
+        MediaService mediaService = new MediaService();
+        MediaObjectMultiLang mediaObject = (MediaObjectMultiLang)mediaService.getImageVersionById(ivid);
 
         for (Metadata metadata : metadataList) {
 
             metadata.setIvid(mediaObject.getIvid());
             metadata.setLang("");
             metadata.setVersionId(mediaObject.getVersion());
-            imageMetadataService.addMetadata(metadata);
+            mediaMetadataService.addMetadata(metadata);
 
             if (metadata.getMetaKey().equalsIgnoreCase("artist")) {
                 mediaObject.setArtist(metadata.getMetaValue());

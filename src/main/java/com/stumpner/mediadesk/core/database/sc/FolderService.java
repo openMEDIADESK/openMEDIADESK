@@ -9,7 +9,7 @@ import com.stumpner.mediadesk.core.database.sc.loader.HolderClass;
 import com.stumpner.mediadesk.core.database.AppSqlMap;
 import com.stumpner.mediadesk.core.CronService;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.ImageVersion;
+import com.stumpner.mediadesk.image.MediaObject;
 import com.stumpner.mediadesk.image.folder.*;
 import com.stumpner.mediadesk.usermanagement.SecurityGroup;
 import com.stumpner.mediadesk.usermanagement.User;
@@ -356,7 +356,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
     }
 
     /**
-     * Prüft ob das angegebene Image bereits in dieser Kategorie ist
+     * Prüft ob das angegebene BasicMediaObject bereits in dieser Kategorie ist
      * @param folderId
      * @param ivid
      * @return
@@ -380,7 +380,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
     }
 
 
-    public void addMediaToFolder(int folderId, ImageVersion imageVersion) {
+    public void addMediaToFolder(int folderId, MediaObject imageVersion) {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
 
@@ -422,7 +422,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         DatabaseService.setTriggerStage1(true);
     }
 
-    public void deleteMediaFromFolder(Folder folder, ImageVersion imageVersion) {
+    public void deleteMediaFromFolder(Folder folder, MediaObject imageVersion) {
 
         this.deleteMediaFromFolder(folder.getCategoryId(),imageVersion.getIvid());
     }
@@ -462,7 +462,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         Iterator images = moList.iterator();
         while (images.hasNext()) {
 
-            ImageVersion mo = (ImageVersion)images.next();
+            MediaObject mo = (MediaObject)images.next();
             deleteMediaFromFolder(folder.getCategoryId(),mo.getIvid());
         }
 
@@ -502,18 +502,18 @@ public class FolderService extends MultiLanguageService implements IServiceClass
 
         if (allFolderList==null) { logger.debug("Folder List is NULL!!"); }
 
-        ImageCountCalc icc = new ImageCountCalc(allFolderList);
-        int mediaCount = icc.getImageCount(folderId);
+        MediaCountCalculator icc = new MediaCountCalculator(allFolderList);
+        int mediaCount = icc.getMediaCount(folderId);
 
         /* Geänderte Medienanzahl in den Ordner schreiben (speichern) */
 
-        List updateFolderList = icc.getUpdateCategoryList();
+        List updateFolderList = icc.getUpdateList();
         Iterator updateFolders = updateFolderList.iterator();
         while (updateFolders.hasNext()) {
             Folder folder = (Folder)updateFolders.next();
             try {
                 //System.out.println("Kategorie speichern: "+folder.getCategoryId());
-                //System.out.println("Image-count: "+folder.getImageCount());
+                //System.out.println("BasicMediaObject-count: "+folder.getMediaCount());
                 //System.out.println("Images-count: "+folder.getImageCountS());
                 this.save(folder);
             } catch (IOServiceException e) {

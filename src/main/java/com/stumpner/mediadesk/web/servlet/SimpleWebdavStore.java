@@ -1,6 +1,9 @@
 package com.stumpner.mediadesk.web.servlet;
 
 import com.stumpner.mediadesk.core.database.sc.FolderService;
+import com.stumpner.mediadesk.core.database.sc.MediaService;
+import com.stumpner.mediadesk.image.MediaObject;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.folder.FolderMultiLang;
 import net.sf.webdav.ITransaction;
@@ -15,13 +18,10 @@ import java.util.Iterator;
 import java.util.Date;
 import java.security.Principal;
 
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.image.inbox.InboxService;
 import org.apache.log4j.Logger;
 
@@ -89,7 +89,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
             } 
         }
 
-            ImageVersionService imageService = new ImageVersionService();
+            MediaService imageService = new MediaService();
             SimpleLoaderClass loaderClass = new SimpleLoaderClass();
 
                 loaderClass.setId(folder.getCategoryId());
@@ -107,7 +107,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
                     counter++;
                 }
                 while (images.hasNext()) {
-                    ImageVersion image = (ImageVersion)images.next();
+                    MediaObject image = (MediaObject)images.next();
                     if (image.getVersionName().endsWith("."+image.getExtention())) {
                         childrenNames[counter] = image.getVersionName();
                     } else {
@@ -127,7 +127,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
 
     public long getResourceLength(ITransaction iTransaction, String s) {
         //System.out.println("getResourceLength");
-        ImageVersion imageVersion = getImage(s);
+        MediaObject imageVersion = getImage(s);
         File file = getFile(imageVersion);
         return file.length();
         //return 0;  //To change body of implemented methods use File | Settings | File Templates.
@@ -146,10 +146,10 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
             }
         } catch (ObjectNotFoundException e) {
             //Keine Kategorie, Bilddatei löschen:
-            ImageVersion imageVersion = getImage(s);
+            MediaObject imageVersion = getImage(s);
             String pathName = s.substring(0,s.lastIndexOf("/"));
             if (imageVersion!=null) {
-                ImageVersionService imageService = new ImageVersionService();
+                MediaService imageService = new MediaService();
                 List categoryList = folderService.getFolderListFromImageVersion(imageVersion.getIvid());
                 if (categoryList.size()==0) {
                     //Bilddatei löschen
@@ -181,7 +181,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
     public InputStream getResourceContent(ITransaction iTransaction, String s) throws WebdavException {
 
         logger.debug("getResourceContent: s="+s);
-        ImageVersion imageVersion = getImage(s);
+        MediaObject imageVersion = getImage(s);
 
         //System.out.println("getResourceContent");
         //System.out.println("string = "+s);
@@ -189,7 +189,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
 
         if (imageVersion!=null) {
 
-            logger.debug("found ImageVersion = "+imageVersion.getIvid());
+            logger.debug("found MediaObject = "+imageVersion.getIvid());
             InputStream inputStream = null;
             try {
                 inputStream = new FileInputStream(getFile(imageVersion));
@@ -198,7 +198,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
             }
             return inputStream;
         } else {
-            logger.debug("Keine ImageVersion gefunden unter String="+s);
+            logger.debug("Keine MediaObject gefunden unter String="+s);
             return null;
         }
 
@@ -320,8 +320,8 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
                 //importdatei löschen
                 importFile.delete();
                 logger.debug("setResourceContent: neue Datei hat ivid = "+ivid);
-                ImageVersionService imageService = new ImageVersionService();
-                ImageVersionMultiLang imageVersion = (ImageVersionMultiLang)imageService.getImageVersionById(ivid);
+                MediaService imageService = new MediaService();
+                MediaObjectMultiLang imageVersion = (MediaObjectMultiLang)imageService.getImageVersionById(ivid);
                 imageVersion.setVersionName(fileName);
                 imageVersion.setVersionTitle(fileName);
                 imageVersion.setVersionTitleLng1(fileName);
@@ -347,7 +347,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
         } else {
             StoredObject object = getStoredObject(iTransaction,s);
             logger.debug("setResourceContent[iT="+iTransaction.hashCode()+"]: Objekt existiert bereits: "+s+" contentLength="+object.getResourceLength());
-            ImageVersion imageVersion = getImage(s);
+            MediaObject imageVersion = getImage(s);
             File file = getFile(imageVersion);
             try {
                 writeTo(inputStream,file);
@@ -388,7 +388,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
     public StoredObject getStoredObject(ITransaction iTransaction, String s) {
 
         //System.out.println("getStoredObject2 "+s);
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         FolderService folderService = new FolderService();
         Folder folder = null;
         if (s.equalsIgnoreCase("")) { s="/"; }
@@ -418,7 +418,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
             }
         } catch (ObjectNotFoundException e) {
             //Keine kategory, suchen nach datei:
-            ImageVersion foundImage = getImage(s);
+            MediaObject foundImage = getImage(s);
             if (foundImage!=null) {
 
                 logger.debug("getStoredObject[iT="+iTransaction.hashCode()+"]: Datei gefunden mit namen: "+s);
@@ -441,12 +441,12 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
 
 
 
-    private ImageVersion getImage(String s) {
+    private MediaObject getImage(String s) {
 
         //StoredObject storedObject = new StoredObject();
         FolderService folderService = new FolderService();
-        ImageVersionService imageService = new ImageVersionService();
-        ImageVersion foundImage = null;
+        MediaService imageService = new MediaService();
+        MediaObject foundImage = null;
         //System.out.println("No Folder found, searching for file ");
         int lastIndexOf = s.lastIndexOf("/");
         //System.out.println("lastIndexOf / "+lastIndexOf);
@@ -471,7 +471,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
             List categoryImageList = imageService.getCategoryImages(loaderClass);
             Iterator categoryImages = categoryImageList.iterator();
             while (categoryImages.hasNext()) {
-                ImageVersion imageVersion = (ImageVersion)categoryImages.next();
+                MediaObject imageVersion = (MediaObject)categoryImages.next();
                 String extention = imageVersion.getExtention();
                 String filename = "";
                 if (imageVersion.getVersionName().endsWith("."+extention)) {
@@ -508,7 +508,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
         return foundImage;
     }
 
-    private File getFile(ImageVersion imageVersion) {
+    private File getFile(MediaObject imageVersion) {
 
         logger.debug("webdav: getFile("+imageVersion.getIvid()+");");
             String filename = Config.imageStorePath+"/"+imageVersion.getIvid()+"_0";

@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.mvc.commandclass;
 
-import com.stumpner.mediadesk.image.ImageVersion;
+import com.stumpner.mediadesk.image.MediaObject;
 
 import java.util.List;
 import java.util.LinkedList;
@@ -50,7 +50,7 @@ public class FormatSelector {
 
     boolean allFormatsDenied = false;
 
-    public Rectangle getFormat(ImageVersion imageVersion) {
+    public Rectangle getFormat(MediaObject imageVersion) {
 
         int imageIndex = downloadList.indexOf(imageVersion);
         int formatIndex = Integer.parseInt((String)selectedFormat.get(imageIndex));
@@ -63,11 +63,11 @@ public class FormatSelector {
     }
 
     /**
-     * Gibt zurück ob die ImageVersion im Original-Format angefordert (ausgewählt) wurde
+     * Gibt zurück ob die MediaObject im Original-Format angefordert (ausgewählt) wurde
      * @param imageVersion
      * @return
      */
-    public boolean isOriginalFormat(ImageVersion imageVersion) {
+    public boolean isOriginalFormat(MediaObject imageVersion) {
 
         Rectangle rect = getFormat(imageVersion);
         if (rect.getWidth()==imageVersion.getWidth() &&

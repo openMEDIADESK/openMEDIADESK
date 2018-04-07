@@ -25,10 +25,10 @@
             calendar.setTime(folder.getChangedDate());
             changedDate = folder.getChangedDate()==null ? new Date() : folder.getChangedDate();
 
-            if (folder.getImageCount()>12) {
+            if (folder.getMediaCount()>12) {
                 prio = 1.0;
             }
-            if (folder.getImageCount()==0) {
+            if (folder.getMediaCount()==0) {
                 prio = 0.1;
             }
 

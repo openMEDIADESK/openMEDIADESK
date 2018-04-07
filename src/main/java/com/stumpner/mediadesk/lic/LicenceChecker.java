@@ -4,8 +4,8 @@ import java.util.TimerTask;
 import java.util.List;
 
 import com.stumpner.mediadesk.core.Config;
+import com.stumpner.mediadesk.core.database.sc.MediaService;
 import com.stumpner.mediadesk.core.database.sc.UserService;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import org.apache.log4j.Logger;
 
 /*********************************************************
@@ -78,13 +78,13 @@ public class LicenceChecker extends TimerTask {
 
     public int getImageCount() {
 
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         return imageService.getImageCount();
     }
 
     public int getImageMb() {
 
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         return imageService.getImageMb();
     }
 }

@@ -95,7 +95,7 @@
                 <!-- test wegen neuem fontawesome -->
                 <!--<h4><i class="fa fa-american-sign-language-interpreting" aria-hidden="true"></i> test font awesome</h4><br>-->
                 <!-- /test wegen neuem fontawesome -->
-                <spring:message code="imageimport.choose.ftpinfo"/> <a href="<c:url value="/${lng}/uploadfs"/>">weiter...</a>
+                <spring:message code="imageimport.choose.ftpinfo"/> <a href="<c:url value="/${lng}/uploadftp"/>">weiter...</a>
                 </p>
             <!-- /panel inhalt -->
             </div>

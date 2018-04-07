@@ -1,9 +1,9 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.MediaObject;
 import com.stumpner.mediadesk.web.mvc.commandclass.FormatSelector;
 import com.stumpner.mediadesk.web.mvc.exceptions.UndefinedWebStateException;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
@@ -105,7 +105,7 @@ public class FormatSelectorController extends SimpleFormControllerMd {
         FormatSelector formatSelector = (FormatSelector)object;
         Iterator images = formatSelector.getDownloadList().iterator();
         while (images.hasNext()) {
-            ImageVersion image = (ImageVersion)images.next();
+            MediaObject image = (MediaObject)images.next();
             Rectangle rectangle = formatSelector.getFormat(image);
         }
 

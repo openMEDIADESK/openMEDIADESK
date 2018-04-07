@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.mvc.commandclass;
 
-import com.stumpner.mediadesk.image.ImageVersion;
+import com.stumpner.mediadesk.image.MediaObject;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
@@ -35,7 +35,7 @@ public class SendCommand {
     private String mailtext = "";
     private boolean asAttachment = false;
     private boolean onlyAsLink = false;
-    private ImageVersion imageVersion = null;
+    private MediaObject imageVersion = null;
 
     public String getRecipient() {
         return recipient;
@@ -69,11 +69,11 @@ public class SendCommand {
         this.asAttachment = asAttachment;
     }
 
-    public ImageVersion getImageVersion() {
+    public MediaObject getImageVersion() {
         return imageVersion;
     }
 
-    public void setImageVersion(ImageVersion imageVersion) {
+    public void setImageVersion(MediaObject imageVersion) {
         this.imageVersion = imageVersion;
     }
 

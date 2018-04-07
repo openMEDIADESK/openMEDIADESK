@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.core.database.sc.MediaService;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,14 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.stumpner.mediadesk.core.database.sc.DownloadLoggerService;
 import com.stumpner.mediadesk.core.database.sc.UserService;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.stats.DownloadLogger;
 import com.stumpner.mediadesk.stats.SimpleDownloadLogger;
 
 import java.util.List;
-import java.util.Properties;
 import java.util.ArrayList;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -60,7 +59,7 @@ public class StatViewController extends AbstractPageController {
         }
 
         DownloadLoggerService dlls = new DownloadLoggerService();
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         List userList = new ArrayList();
         int downloadType = 1;
         String chartTitle = "Heruntergeladene Dateien";

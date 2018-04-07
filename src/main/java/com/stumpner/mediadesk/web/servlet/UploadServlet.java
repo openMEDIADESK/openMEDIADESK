@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.web.servlet;
 
+import com.stumpner.mediadesk.image.AutoMediaAssigner;
 import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.folder.FolderMultiLang;
 import com.stumpner.mediadesk.image.pinpics.Pin;
@@ -28,7 +29,6 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.Authenticator;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
-import com.stumpner.mediadesk.image.AutoImageAssigner;
 import com.stumpner.mediadesk.image.util.SizeExceedException;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
 import com.stumpner.mediadesk.media.importing.MediaImportHandler;
@@ -71,7 +71,7 @@ public class UploadServlet extends HttpServlet {
 
         httpServletRequest.setCharacterEncoding("UTF-8");
         
-        AutoImageAssigner assigner = new AutoImageAssigner();
+        AutoMediaAssigner assigner = new AutoMediaAssigner();
 
         //Bild über SuSIDE Desk importieren
         int httpErrorCode = 400;
@@ -229,7 +229,7 @@ public class UploadServlet extends HttpServlet {
 
                             long sizeInBytes = item.getSize();
 
-                            ImageVersionService imageService = new ImageVersionService();
+                            MediaService imageService = new MediaService();
                             LicenceChecker licenceChecker = new LicenceChecker();
                             int imageCount = imageService.getImageCount(); //Anzahl der Bilder in der Datenbank überpr.
 
@@ -264,8 +264,8 @@ public class UploadServlet extends HttpServlet {
                                             if (!(Config.getTempPath()+File.separator+fileName).equalsIgnoreCase(
                                                     Config.getTempPath()+File.separator+olFileName
                                             )) {
-                                                logger.debug("Image-Import RenFile: "+fileName+" TO: "+olFileName);
-                                                //System.out.println("Image-Import Normalize File: "+fileName+" TO: "+olFileName);
+                                                logger.debug("BasicMediaObject-Import RenFile: "+fileName+" TO: "+olFileName);
+                                                //System.out.println("BasicMediaObject-Import Normalize File: "+fileName+" TO: "+olFileName);
                                                 //todo: Dateiname musste normalisiert werden:
                                                 File uFile = new File(Config.getTempPath()+File.separator+fileName);
                                                 File dFile = new File(Config.getTempPath()+File.separator+olFileName);

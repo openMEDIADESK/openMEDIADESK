@@ -1,12 +1,11 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.core.database.sc.MediaMetadataService;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-
-import com.stumpner.mediadesk.core.database.sc.ImageMetadataService;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
@@ -40,7 +39,7 @@ public class ViewMetadataController extends AbstractPageController {
 
         int ivid = Integer.parseInt(httpServletRequest.getParameter("ivid"));
         //metadaten laden:
-        ImageMetadataService ims = new ImageMetadataService();
+        MediaMetadataService ims = new MediaMetadataService();
         List metadataList = ims.getMetadata(ivid);
         //return null;  //To change body of implemented methods use File | Settings | File Templates.
         //Map model = new HashMap();

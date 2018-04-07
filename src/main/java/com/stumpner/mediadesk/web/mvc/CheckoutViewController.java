@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +23,6 @@ import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.util.MailWrapper;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.usermanagement.User;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 
 import java.util.Iterator;
 import java.util.Date;
@@ -186,7 +186,7 @@ public class CheckoutViewController extends AbstractPageController {
 
         Iterator mediaObjects = checkout.mediaObjectList.iterator();
         while (mediaObjects.hasNext()) {
-            ImageVersionMultiLang mo = (ImageVersionMultiLang)mediaObjects.next();
+            MediaObjectMultiLang mo = (MediaObjectMultiLang)mediaObjects.next();
             mailbody = mailbody + mo.getVersionName()+"              "+mo.getPrice()+"\n";
         }
         mailbody = mailbody +"Zwischensumme              "+checkout.subtotal+" EUR\n";

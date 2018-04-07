@@ -1,7 +1,7 @@
 <%@ page import="java.util.Enumeration,
                  java.util.List"%>
 <%@ page import="com.stumpner.mediadesk.core.Config"%>
-<%@ page import="com.stumpner.mediadesk.image.ImageVersion" %>
+<%@ page import="com.stumpner.mediadesk.image.MediaObject" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/datetime-1.0" prefix="dt" %>

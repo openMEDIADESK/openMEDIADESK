@@ -1,11 +1,11 @@
 package com.stumpner.mediadesk.api.json;
 
 import com.stumpner.mediadesk.core.database.sc.FolderService;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
+import com.stumpner.mediadesk.core.database.sc.MediaService;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
@@ -108,16 +108,16 @@ public class FolderContent extends HttpServlet {
             if (aclCtx.checkPermission(new AclPermission("read"), folder)) {
 
                 LngResolver lngResolver = new LngResolver();
-                ImageVersionService mediaService = new ImageVersionService();
+                MediaService mediaService = new MediaService();
                 mediaService.setUsedLanguage(lngResolver.resolveLng(request));
                 SimpleLoaderClass loader = new SimpleLoaderClass();
                 loader.setId(categoryId);
-                List<ImageVersionMultiLang> mediaObjectList = mediaService.getCategoryImages(loader);
+                List<MediaObjectMultiLang> mediaObjectList = mediaService.getCategoryImages(loader);
 
-                Iterator<ImageVersionMultiLang> mediaIt = mediaObjectList.iterator();
+                Iterator<MediaObjectMultiLang> mediaIt = mediaObjectList.iterator();
                 while (mediaIt.hasNext()) {
 
-                    ImageVersionMultiLang mediaObject = mediaIt.next();
+                    MediaObjectMultiLang mediaObject = mediaIt.next();
                     //Content
                     jsonOutput.append("\n{");
 

@@ -1,11 +1,10 @@
 package com.stumpner.mediadesk.core.database.sc;
 
+import com.stumpner.mediadesk.image.util.Pop3Import;
 import org.apache.log4j.Logger;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.stumpner.mediadesk.core.database.AppSqlMap;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.search.ImageSearchResetter;
-import com.stumpner.mediadesk.image.util.Pop3ImageImport;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -48,13 +47,13 @@ public class DatabaseService {
 
         if (triggerStage1) {
 
-            logger.debug("DatabaseService: updateing Folder Image Count");
+            logger.debug("DatabaseService: updateing Folder BasicMediaObject Count");
             FolderService folderService = new FolderService();
             folderService.calcMediaCount(0);
 
             //AclImage Neu aufbauen:
             logger.debug("DatabseService: updateing ImageACL");
-            ImageVersionService ivs = new ImageVersionService();
+            MediaService ivs = new MediaService();
             ivs.updateImageAcl();
             triggerStage1 = false;
 
@@ -69,7 +68,7 @@ public class DatabaseService {
                     //pop3 account abfragen
                     popRunning = true;
                     //System.out.println("Check mails...");
-                    Pop3ImageImport pop3 = new Pop3ImageImport();
+                    Pop3Import pop3 = new Pop3Import();
                     pop3.host = Config.emailImportHost;
                     pop3.username = Config.emailImportUsername;
                     pop3.password = Config.emailImportPassword;
@@ -88,7 +87,7 @@ public class DatabaseService {
      */
     public static void imageSearchReset() {
 
-        Logger logger = Logger.getLogger(ImageSearchResetter.class);
+        Logger logger = Logger.getLogger(DatabaseService.class);
         SqlMapClient smc = AppSqlMap.getSqlMapInstance();
 
         try {

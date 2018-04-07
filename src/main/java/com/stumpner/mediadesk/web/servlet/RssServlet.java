@@ -1,12 +1,12 @@
 package com.stumpner.mediadesk.web.servlet;
 
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
+import com.stumpner.mediadesk.core.database.sc.MediaService;
 import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
-import com.stumpner.mediadesk.image.ImageVersion;
+import com.stumpner.mediadesk.image.MediaObject;
 import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.web.LngResolver;
 
@@ -115,7 +115,7 @@ public class RssServlet extends HttpServlet {
             String tokens[] = request.getPathInfo().split("/");
             int folderId = Integer.parseInt(tokens[tokens.length-1]);
 
-            ImageVersionService imageService = new ImageVersionService();
+            MediaService imageService = new MediaService();
             SimpleLoaderClass loaderClass = new SimpleLoaderClass();
             imageService.setUsedLanguage(lngResolver.resolveLng(request));
             loaderClass.setId(folderId);
@@ -151,7 +151,7 @@ public class RssServlet extends HttpServlet {
 
         Iterator folders = itemList.iterator();
         while (folders.hasNext()) {
-            ImageVersion mo = (ImageVersion)folders.next();
+            MediaObject mo = (MediaObject)folders.next();
                                           /* http://localhost:8080/index/image?id=9764 */
             writer.print("\n<item>\n");
             writer.print("<guid isPermaLink=\"false\">"+httpBase+"index/ppreview?id="+ mo.getIvid()+"</guid>\n");
@@ -195,7 +195,7 @@ public class RssServlet extends HttpServlet {
         
     }
 
-    private String getPodcastFilename(ImageVersion imageVersion) {
+    private String getPodcastFilename(MediaObject imageVersion) {
 
         if (imageVersion.getVersionName().length()>0) {
             String ext = "";

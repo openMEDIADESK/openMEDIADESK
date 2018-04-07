@@ -1,10 +1,10 @@
 package com.stumpner.mediadesk.web.api.rest;
 
+import com.stumpner.mediadesk.core.database.sc.MediaService;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.ShoppingCartService;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.usermanagement.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -119,19 +119,19 @@ public class CartRestApi extends RestBaseServlet {
     private void jsonCartMedialist(HttpServletRequest request, HttpServletResponse response) {
 
         LngResolver lngResolver = new LngResolver();
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         imageService.setUsedLanguage(lngResolver.resolveLng(request));
 
         ShoppingCartService shoppingCartService = new ShoppingCartService();
         shoppingCartService.setUsedLanguage(lngResolver.resolveLng(request));
-        List<ImageVersionMultiLang> imageList = shoppingCartService.getShoppingCartImageList(getUser(request).getUserId());
+        List<MediaObjectMultiLang> imageList = shoppingCartService.getShoppingCartImageList(getUser(request).getUserId());
 
 
         try {
             PrintWriter out = response.getWriter();
 
             out.println("[");
-            for (ImageVersionMultiLang mediaObject : imageList) {
+            for (MediaObjectMultiLang mediaObject : imageList) {
                 out.println(" {");
                 out.println("  \"ivid\" : "+mediaObject.getIvid()+",");
                 out.println("  \"caption\" : \""+StringEscapeUtils.escapeJson(getCaption(mediaObject))+"\",");

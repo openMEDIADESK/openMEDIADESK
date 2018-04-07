@@ -177,7 +177,7 @@ public class TreeAclController extends SimpleFormControllerMd {
     protected ModelAndView onSubmit(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, BindException e) throws Exception {
 
         FolderService folderService = new FolderService();
-        ImageVersionService mediaService = new ImageVersionService();
+        MediaService mediaService = new MediaService();
         TreeAclCommand categorySelection = (TreeAclCommand)o;
         for (TreeAclCommand.TreeAclCommandEntity category : categorySelection.getFolderList()) {
             /**

@@ -1,10 +1,10 @@
 package com.stumpner.mediadesk.media.importing;
 
+import com.stumpner.mediadesk.core.database.sc.MediaMetadataService;
+import com.stumpner.mediadesk.core.database.sc.MediaService;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.util.SizeExceedException;
 import com.stumpner.mediadesk.image.Metadata;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
-import com.stumpner.mediadesk.core.database.sc.ImageMetadataService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 
 import java.io.File;
@@ -52,21 +52,21 @@ public class AudioImportHandler extends AbstractAudioVideoImportHandler {
 
         int ivid = super.processImport(file, userId);
 
-        ImageVersionService mediaService = new ImageVersionService();
-        ImageVersionMultiLang mediaObject = (ImageVersionMultiLang)mediaService.getImageVersionById(ivid);
+        MediaService mediaService = new MediaService();
+        MediaObjectMultiLang mediaObject = (MediaObjectMultiLang)mediaService.getImageVersionById(ivid);
         mediaObject.setDuration(duration);
         mediaObject.setBitrate(bitrate);
         mediaObject.setSamplerate(sampleRate);
         mediaObject.setChannels(channels);
 
         //Metadaten speichern:
-        ImageMetadataService imageMetadataService = new ImageMetadataService();
+        MediaMetadataService mediaMetadataService = new MediaMetadataService();
         for (Metadata metadata : metadataList) {
 
             metadata.setIvid(mediaObject.getIvid());
             metadata.setLang("");
             metadata.setVersionId(mediaObject.getVersion());
-            imageMetadataService.addMetadata(metadata);
+            mediaMetadataService.addMetadata(metadata);
 
             //System.out.println("Metadata: "+metadata.getMetaKey()+" -> "+metadata.getMetaValue());
 

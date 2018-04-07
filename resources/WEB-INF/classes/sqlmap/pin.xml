@@ -94,7 +94,7 @@
             ORDER BY createdate DESC
     </select>
 
-    <resultMap id="imageList" class="com.stumpner.mediadesk.image.ImageVersionMultiLang">
+    <resultMap id="imageList" class="com.stumpner.mediadesk.image.MediaObjectMultiLang">
         <result property="ivid" column="ivid"/>
         <result property="version" column="version"/>
         <result property="versionTitle" column="versiontitle"/>

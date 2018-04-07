@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.tags;
 
-import com.stumpner.mediadesk.image.ImageVersion;
+import com.stumpner.mediadesk.image.MediaObject;
 import com.stumpner.mediadesk.core.Resources;
 
 import javax.servlet.jsp.tagext.TagSupport;
@@ -98,7 +98,7 @@ public class ImageSelectorTag extends TagSupport {
 
         Iterator images = imageList.iterator();
         while (images.hasNext()) {
-            ImageVersion image = (ImageVersion)images.next();
+            MediaObject image = (MediaObject)images.next();
             if (image!=null) {
                 if (image.getIvid()==imageId) {
                     //image ist in der liste
@@ -116,7 +116,7 @@ public class ImageSelectorTag extends TagSupport {
         Iterator images = imageList.iterator();
 
         while (images.hasNext()) {
-            ImageVersion image = (ImageVersion)images.next();
+            MediaObject image = (MediaObject)images.next();
             if (image!=null) {
                 if (image.getIvid()==imageId) {
                     //not its in list

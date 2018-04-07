@@ -107,9 +107,9 @@ public class Config {
 
     // Programm Settings
                                                    //sr6
-    public static String versionNumbner = "2018n20180405";//- a1...n,b1...n,rc1...n,rtm,sr1...n";
-    public static String versionDate = "2018-04-05";
-    public static String SERIAL_UID = "2018040500";
+    public static String versionNumbner = "2018n20180407";//- a1...n,b1...n,rc1...n,rtm,sr1...n";
+    public static String versionDate = "2018-04-07";
+    public static String SERIAL_UID = "2018040700";
 
     // --- Programm: Folder
 
@@ -132,7 +132,7 @@ public class Config {
 
     private static Properties dbProperties = new Properties();
 
-    // Image Configurations           
+    // BasicMediaObject Configurations
 
     public static int imagesizeThumbnail = 170;
     public static int imagesizePreview = 590;
@@ -221,7 +221,7 @@ public class Config {
     public static String[] langFieldsImageVersion = { "versionTitle","versionSubTitle", "info" };
     public static String[] langCodesAvailable = { "de", "en" };
 
-    // Menu Config (Image Menu)
+    // Menu Config (BasicMediaObject Menu)
 
     public static boolean copyImages = true;
     public static boolean showImageMenuMarkAll = true;
@@ -243,7 +243,7 @@ public class Config {
 
     public static String downloadImageFilename = "versionName";
 
-    // Anzeige Einstellung Vorschaubilder/Image Popup
+    // Anzeige Einstellung Vorschaubilder/BasicMediaObject Popup
 
     public static boolean popupIvidShowVersionTitle = true;
     public static boolean popupIvidShowVersionSubTitle = true;
@@ -581,7 +581,7 @@ public class Config {
         downloadRes.add(new Format(1024,768));
         downloadRes.add(new Format(1280,1024));
 
-        //Temp-Path im Image-Store-Path erstellen:
+        //Temp-Path im BasicMediaObject-Store-Path erstellen:
         File tmpPath = new File(getTempPath());
         if (tmpPath.exists() && tmpPath.isDirectory()) {
             //tmpPath existiert, leeren... //todo: tmp path leeren

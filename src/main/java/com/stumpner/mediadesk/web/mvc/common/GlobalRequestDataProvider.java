@@ -1,7 +1,7 @@
 package com.stumpner.mediadesk.web.mvc.common;
 
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.core.database.sc.LightboxService;
+import com.stumpner.mediadesk.core.database.sc.FavoriteService;
 import com.stumpner.mediadesk.core.database.sc.ShoppingCartService;
 import com.stumpner.mediadesk.core.database.sc.MenuService;
 import com.stumpner.mediadesk.web.mvc.util.LngLinkHelper;
@@ -102,11 +102,11 @@ public class GlobalRequestDataProvider {
 
         if (request.getSession().getAttribute("user")!=null) {
             request.setAttribute("loggedIn",true);
-            LightboxService lightboxService = new LightboxService();
+            FavoriteService favoriteService = new FavoriteService();
             ShoppingCartService shoppingCartService = new ShoppingCartService();
             User user = (User) request.getSession().getAttribute("user");
 
-            lightboxCount = lightboxService.getLightboxUserCount(user.getUserId());
+            lightboxCount = favoriteService.getLightboxUserCount(user.getUserId());
             shoppingCartCount = shoppingCartService.getShoppingCartUserCount(user.getUserId());
 
             request.setAttribute("showLightbox", lightboxCount>0 || Config.useLightbox ? true : false);

@@ -1,10 +1,10 @@
 package com.stumpner.mediadesk.upload.plugin;
 
+import com.stumpner.mediadesk.core.IMediaObject;
 import com.stumpner.mediadesk.upload.ImportPluginHandler;
 import com.stumpner.mediadesk.upload.PluginResult;
 import com.stumpner.mediadesk.upload.PluginContext;
 import com.stumpner.mediadesk.upload.FileRejectException;
-import com.stumpner.mediadesk.core.MediaObject;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -87,7 +87,7 @@ public class ClamavjImportPlugin implements ImportPluginHandler {
         return new PluginResult(PluginResult.Status.ERROR, "Fehler beim Virenscan mit Clamav", null);
     }
 
-    public PluginResult process(MediaObject mediaObject, PluginContext ctx) {
+    public PluginResult process(IMediaObject IMediaObject, PluginContext ctx) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 

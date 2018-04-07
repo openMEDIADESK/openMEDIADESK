@@ -1,10 +1,10 @@
 package com.stumpner.mediadesk.util;
 
 import com.stumpner.mediadesk.core.Config;
+import com.stumpner.mediadesk.core.database.sc.MediaService;
 import com.stumpner.mediadesk.core.database.sc.UserService;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.usermanagement.User;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 
 import java.util.List;
 import java.util.Iterator;
@@ -75,12 +75,12 @@ public class UploadNotificationService {
             Calendar start = Calendar.getInstance();
             start.add(Calendar.MINUTE, minutes*-1);
 
-            ImageVersionService is = new ImageVersionService();
+            MediaService is = new MediaService();
             is.setUsedLanguage(1);
-            List<ImageVersionMultiLang> mediaList = is.getByCreateDate(start.getTime(), end.getTime());
+            List<MediaObjectMultiLang> mediaList = is.getByCreateDate(start.getTime(), end.getTime());
 
             StringBuffer uploadedListString = new StringBuffer();
-            for (ImageVersionMultiLang m : mediaList) {
+            for (MediaObjectMultiLang m : mediaList) {
                 System.out.println("notifier: uploaded: "+m.getIvid()+" "+m.getVersionName());
                 String name = m.getVersionName();
                 if (m.getVersionName().equalsIgnoreCase(m.getVersionTitle())) {

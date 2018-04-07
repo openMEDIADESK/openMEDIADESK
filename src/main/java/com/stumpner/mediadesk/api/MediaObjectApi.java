@@ -1,12 +1,12 @@
 package com.stumpner.mediadesk.api;
 
+import com.stumpner.mediadesk.core.database.sc.MediaService;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.usermanagement.User;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 
 import java.util.List;
 import java.util.Iterator;
@@ -87,7 +87,7 @@ public class MediaObjectApi extends ApiBase {
      */
     private String getMediaObjectIdByFid(String[] parameter) {
         String fid = parameter[0];
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         try {
             return String.valueOf(imageService.getMediaObjectIdByFid(fid));
         } catch (ObjectNotFoundException e) {
@@ -101,7 +101,7 @@ public class MediaObjectApi extends ApiBase {
 
         StringBuffer sb = new StringBuffer();
         int ivid = Integer.parseInt(parameter[0]);
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         FolderService folderService = new FolderService();
         List categoryList = folderService.getFolderListFromImageVersion(ivid);
         Iterator categories = categoryList.iterator();
@@ -118,8 +118,8 @@ public class MediaObjectApi extends ApiBase {
 
         StringBuffer sb = new StringBuffer();
         int ivid = Integer.parseInt(parameter[0]);
-        ImageVersionService imageService = new ImageVersionService();
-        ImageVersionMultiLang imageVersion = (ImageVersionMultiLang)imageService.getImageVersionById(ivid);
+        MediaService imageService = new MediaService();
+        MediaObjectMultiLang imageVersion = (MediaObjectMultiLang)imageService.getImageVersionById(ivid);
         sb.append("createdate="+imageVersion.getCreateDate().getTime()+";");
         sb.append("versionname="+imageVersion.getVersionName()+";");
         sb.append("versiontitlelng1="+imageVersion.getVersionTitleLng1()+";");
@@ -134,8 +134,8 @@ public class MediaObjectApi extends ApiBase {
         int ivid = Integer.parseInt(parameter[0]);
         String key = parameter[1];
         String value = parameter[2];
-        ImageVersionService imageService = new ImageVersionService();
-        ImageVersionMultiLang imageVersion = (ImageVersionMultiLang)imageService.getImageVersionById(ivid);
+        MediaService imageService = new MediaService();
+        MediaObjectMultiLang imageVersion = (MediaObjectMultiLang)imageService.getImageVersionById(ivid);
 
         if (key.equalsIgnoreCase("versionname")) {
             imageVersion.setVersionName(value);
@@ -167,7 +167,7 @@ public class MediaObjectApi extends ApiBase {
     private String deleteMediaObject(String[] parameter) {
 
         int ivid = Integer.parseInt(parameter[0]);
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         try {
             imageService.deleteImage(ivid);
             return "OK";

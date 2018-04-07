@@ -11,7 +11,7 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.QuotaExceededException
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.lic.LicenceChecker;
 import com.stumpner.mediadesk.image.folder.Folder;
-import com.stumpner.mediadesk.image.AutoImageAssigner;
+import com.stumpner.mediadesk.image.AutoMediaAssigner;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
@@ -49,7 +49,7 @@ public class ImportChooseController extends AbstractPageController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 
-        AutoImageAssigner assigner = new AutoImageAssigner();
+        AutoMediaAssigner assigner = new AutoMediaAssigner();
         //assigner.clear(httpServletRequest);
 
         //ftp

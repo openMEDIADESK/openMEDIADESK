@@ -6,7 +6,7 @@
 
 <sqlMap namespace="Search">
 
-    <resultMap id="imageList" class="com.stumpner.mediadesk.image.ImageVersionMultiLang">
+    <resultMap id="imageList" class="com.stumpner.mediadesk.image.MediaObjectMultiLang">
         <result property="ivid" column="ivid"/>
         <result property="version" column="version"/>
         <result property="versionTitle" column="versiontitle"/>
@@ -220,7 +220,7 @@
         WHERE suid = #suid#
     </select>
 
-    <update id="prepareAdvancedImageQuery" parameterClass="com.stumpner.mediadesk.search.ImageVersionSearchProperty">
+    <update id="prepareAdvancedImageQuery" parameterClass="com.stumpner.mediadesk.search.MediaSearchProperty">
        INSERT INTO searchtmp
         SELECT DISTINCT null as stid, #suid# as suid, imageversion.ivid as ivid, now() as searchtime,
             (

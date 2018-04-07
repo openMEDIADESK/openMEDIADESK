@@ -3,7 +3,7 @@ package com.stumpner.mediadesk.upload.plugin;
 import com.stumpner.mediadesk.upload.ImportPluginHandler;
 import com.stumpner.mediadesk.upload.PluginResult;
 import com.stumpner.mediadesk.upload.PluginContext;
-import com.stumpner.mediadesk.core.MediaObject;
+import com.stumpner.mediadesk.core.IMediaObject;
 
 import java.io.File;
 
@@ -37,7 +37,7 @@ public class EmptyImportPlugin implements ImportPluginHandler {
         return new PluginResult(PluginResult.Status.OK, "EmptyImportPlugin validateFile with "+file.getAbsolutePath(), null);
     }
 
-    public PluginResult process(MediaObject mediaObject, PluginContext ctx) {
+    public PluginResult process(IMediaObject mediaObject, PluginContext ctx) {
         return new PluginResult(PluginResult.Status.OK, "EmptyImportPlugin process with "+mediaObject.getIvid(), null);
     }
 

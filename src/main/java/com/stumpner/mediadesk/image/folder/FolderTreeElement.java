@@ -38,8 +38,8 @@ public class FolderTreeElement extends Folder {
         this.setCatName(folder.getCatName());
         this.setDescription(folder.getDescription());
         this.setParent(folder.getParent());
-        this.setImageCount(folder.getImageCount());
-        this.setImageCountS(folder.getImageCountS());
+        this.setImageCount(folder.getMediaCount());
+        this.setMediaCountS(folder.getImageCountS());
         this.setIcon(folder.getIcon());
         this.setCategoryDate(folder.getCategoryDate());
         this.setCreateDate(folder.getCreateDate());

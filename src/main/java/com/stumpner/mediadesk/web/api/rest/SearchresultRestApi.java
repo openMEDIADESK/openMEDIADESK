@@ -1,14 +1,14 @@
 package com.stumpner.mediadesk.web.api.rest;
 
+import com.stumpner.mediadesk.core.database.sc.MediaSearchService;
+import com.stumpner.mediadesk.core.database.sc.MediaService;
+import com.stumpner.mediadesk.image.MediaObject;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.search.*;
 import com.stumpner.mediadesk.web.mvc.exceptions.SearchResultExpired;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
 import com.stumpner.mediadesk.web.LngResolver;
-import com.stumpner.mediadesk.core.database.sc.ImageSearchService;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
-import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.usermanagement.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -100,9 +100,9 @@ public class SearchresultRestApi extends RestBaseServlet {
 
         if (user.getRole()>=User.ROLE_MASTEREDITOR) {
 
-            List<ImageVersion> selectedList = MediaObjectService.getSelectedImageList(request.getSession());
+            List<MediaObject> selectedList = MediaObjectService.getSelectedImageList(request.getSession());
 
-            ImageVersionService imageService = new ImageVersionService();
+            MediaService imageService = new MediaService();
             try {
                 imageService.deleteImageVersions(selectedList);
             } catch (IOServiceException e) {
@@ -130,7 +130,7 @@ public class SearchresultRestApi extends RestBaseServlet {
                 PrintWriter out = response.getWriter();
 
                 out.println("[");
-                for (ImageVersionMultiLang mo : imageList) {
+                for (MediaObjectMultiLang mo : imageList) {
                 out.println(" {");
                 out.println("  \"ivid\" : "+mo.getIvid()+",");
                 out.println("  \"caption\" : \""+StringEscapeUtils.escapeJson(getCaption(mo))+"\",");
@@ -223,7 +223,7 @@ public class SearchresultRestApi extends RestBaseServlet {
         /*
         Suche aus der Session Laden (suchergebnis muss bereits vorliegen)
         */
-        ImageSearchService imageSearch = new ImageSearchService();
+        MediaSearchService imageSearch = new MediaSearchService();
         LngResolver lngResolver = new LngResolver();
         imageSearch.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
         String searchString = "";
@@ -232,9 +232,9 @@ public class SearchresultRestApi extends RestBaseServlet {
             throw new SearchResultExpired();
         }
         ISearchProperty sp = searchResult.getSearchProperty();
-        if (sp instanceof ImageVersionSearchProperty) {
+        if (sp instanceof MediaSearchProperty) {
             /* Erweiterte Suche */
-            ImageVersionSearchProperty ivsp = (ImageVersionSearchProperty)sp;
+            MediaSearchProperty ivsp = (MediaSearchProperty)sp;
             searchString = ivsp.getKeywords() + " " +ivsp.getPeople()+ " " +ivsp.getSite()+ " ";
             if (ivsp.getDateFrom()!=null) {
                 searchString = searchString + " > " +
@@ -259,7 +259,7 @@ public class SearchresultRestApi extends RestBaseServlet {
                     (SimpleSearchProperty)searchResult.getSearchProperty(),viewPage,pageSize);
         } else {
             searchResult = imageSearch.getAdvancedImageQuery(
-                    (ImageVersionSearchProperty)searchResult.getSearchProperty(),viewPage,pageSize,WebHelper.getUser(httpServletRequest));
+                    (MediaSearchProperty)searchResult.getSearchProperty(),viewPage,pageSize,WebHelper.getUser(httpServletRequest));
         }
 
         searchResult.setSearchString(searchString);

@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.image.util;
 
-import com.stumpner.mediadesk.image.ImageVersion;
+import com.stumpner.mediadesk.image.MediaObject;
 import com.stumpner.mediadesk.core.Config;
 
 import java.io.File;
@@ -38,7 +38,7 @@ import org.apache.log4j.Logger;
  */
 public class ImageToolbox {
 
-    public void generateThumbnail(ImageVersion imageVersion) {
+    public void generateThumbnail(MediaObject imageVersion) {
 
         IImageUtil imageUtil = new ImageMagickUtil(true);
         Logger logger = Logger.getLogger(ImageToolbox.class);

@@ -1,12 +1,12 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.MediaObject;
 import com.stumpner.mediadesk.image.folder.FolderMultiLang;
 import com.stumpner.mediadesk.web.mvc.common.SimpleFormControllerMd;
 import net.stumpner.security.acl.AclController;
 import net.stumpner.security.acl.Acl;
 import net.stumpner.security.acl.AclPermission;
 import com.stumpner.mediadesk.image.pinpics.Pin;
-import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.SecurityGroup;
 import com.stumpner.mediadesk.web.mvc.commandclass.FolderSelection;
@@ -170,7 +170,7 @@ public class FolderSelectorController extends SimpleFormControllerMd {
     protected ModelAndView onSubmit(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, BindException e) throws Exception {
 
         FolderService folderService = new FolderService();
-        ImageVersionService mediaService = new ImageVersionService();
+        MediaService mediaService = new MediaService();
         FolderSelection folderSelection = (FolderSelection)o;
         for (SelectableFolder category : folderSelection.getCategoryList()) {
             if (category.isSelected()) {
@@ -187,7 +187,7 @@ public class FolderSelectorController extends SimpleFormControllerMd {
                     List mediaList = mediaService.getCategoryImages(slc);
                     Iterator mediaObjects = mediaList.iterator();
                     while (mediaObjects.hasNext()) {
-                        ImageVersion mediaObject = (ImageVersion)mediaObjects.next();
+                        MediaObject mediaObject = (MediaObject)mediaObjects.next();
                         pinService.addImageToPinpic(mediaObject.getIvid(),pinId);
                     }
                 }

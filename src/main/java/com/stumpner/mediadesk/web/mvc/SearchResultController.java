@@ -1,18 +1,15 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.core.database.sc.MediaSearchService;
+import com.stumpner.mediadesk.image.MediaObject;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.stumpner.mediadesk.core.database.sc.ImageSearchService;
-import com.stumpner.mediadesk.core.database.sc.LightboxService;
-import com.stumpner.mediadesk.core.database.sc.ShoppingCartService;
 import com.stumpner.mediadesk.core.database.sc.UserService;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.search.*;
 import com.stumpner.mediadesk.web.mvc.exceptions.SearchResultExpired;
@@ -140,7 +137,7 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-        ImageSearchService imageSearch = new ImageSearchService();
+        MediaSearchService imageSearch = new MediaSearchService();
         LngResolver lngResolver = new LngResolver();
         imageSearch.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
         String searchString = ""; //Für die Angabe nach was gesucht wurde...
@@ -205,7 +202,7 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
                     //advanced
                     int filledInValues = 0;
 
-                    ImageVersionSearchProperty ksp = new ImageVersionSearchProperty();
+                    MediaSearchProperty ksp = new MediaSearchProperty();
                     if (httpServletRequest.getParameter("people")!=null) {
                         ksp.setPeople(httpServletRequest.getParameter("people"));
                         if (httpServletRequest.getParameter("people").length()>0) filledInValues++;
@@ -344,11 +341,11 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
         return date;
     }
 
-    protected void insert(ImageVersion image, HttpServletRequest request) {
+    protected void insert(MediaObject image, HttpServletRequest request) {
         //nicht möglich bei einer suche!
     }
 
-    protected void remove(ImageVersion image, HttpServletRequest request) {
+    protected void remove(MediaObject image, HttpServletRequest request) {
         //nicht möglich bei einer suche!
     }
 
@@ -384,7 +381,7 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
             return searchResult.getResultCount();
         } else {
             //Keine Suche in Session
-            logger.error("getImageCount failed, kein Suchergebnis in der Session gespeichert!?");
+            logger.error("getMediaCount failed, kein Suchergebnis in der Session gespeichert!?");
             return 0;  //To change body of implemented methods use File | Settings | File Templates.
         }
     }

@@ -1,5 +1,7 @@
 package com.stumpner.mediadesk.web.api.rest;
 
+import com.stumpner.mediadesk.image.MediaObject;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.pinpics.Pin;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
@@ -7,8 +9,6 @@ import com.stumpner.mediadesk.core.database.sc.*;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
-import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.UserFactory;
 
@@ -113,7 +113,7 @@ public class PinRestApi extends RestBaseServlet {
     private void jsonMedialist(HttpServletRequest request, HttpServletResponse response) {
 
         LngResolver lngResolver = new LngResolver();
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         //imageService.setUsedLanguage(lngResolver.resolveLng(request));
         PinpicService pinService = new PinpicService();
         pinService.setUsedLanguage(lngResolver.resolveLng(request));
@@ -127,7 +127,7 @@ public class PinRestApi extends RestBaseServlet {
         if (request.getParameter("sortBy")!=null) { loaderClass.setSortBy(Integer.parseInt(request.getParameter("sortBy"))); }
         if (request.getParameter("orderBy")!=null) { loaderClass.setOrderBy(Integer.parseInt(request.getParameter("orderBy"))); }
         */
-        List<ImageVersionMultiLang> imageList = pinService.getPinpicImages(pinId);
+        List<MediaObjectMultiLang> imageList = pinService.getPinpicImages(pinId);
 
         /** Kategorie-Liste f�r den Thumbnail-View **/
         //AclFolderService categoryService = new AclFolderService(request);
@@ -137,11 +137,11 @@ public class PinRestApi extends RestBaseServlet {
             PrintWriter out = response.getWriter();
 
             out.println("[");
-            for (ImageVersionMultiLang mo : imageList) {
+            for (MediaObjectMultiLang mo : imageList) {
 
                 //ShoppingCart Logik (true/false) ob dieses Medienobjekt im Cart ist
                 ShoppingCartService cartService = new ShoppingCartService();
-                LightboxService lightboxService = new LightboxService();
+                FavoriteService favoriteService = new FavoriteService();
                 User user = WebHelper.getUser(request);
                 boolean inCart = false;
                 boolean inFav = false;
@@ -151,7 +151,7 @@ public class PinRestApi extends RestBaseServlet {
                         inCart = cartService.isInCart(user.getUserId(), mo.getIvid());
                     }
                     if (Config.useLightbox) {
-                        inFav = lightboxService.isInFav(user.getUserId(), mo.getIvid());
+                        inFav = favoriteService.isInFav(user.getUserId(), mo.getIvid());
                     }
                 }
 
@@ -243,14 +243,14 @@ public class PinRestApi extends RestBaseServlet {
     private void insertSelected(HttpServletRequest request, HttpServletResponse response) {
 
 
-        List<ImageVersion> selectedList = MediaObjectService.getSelectedImageList(request.getSession());
+        List<MediaObject> selectedList = MediaObjectService.getSelectedImageList(request.getSession());
 
         int categoryId = getUriSectionInt(4, request);
 
         System.out.println("insert to pin:"+categoryId);
 
         PinpicService categoryService = new PinpicService();
-        for (ImageVersion mo : selectedList) {
+        for (MediaObject mo : selectedList) {
             //try {
                 System.out.println("insert media:"+mo.getIvid());
                 categoryService.addImageToPinpic(mo.getIvid(), categoryId);
@@ -265,7 +265,7 @@ public class PinRestApi extends RestBaseServlet {
 
     private void removeSelected(HttpServletRequest request, HttpServletResponse response) {
 
-        List<ImageVersion> selectedList = MediaObjectService.getSelectedImageList(request.getSession());
+        List<MediaObject> selectedList = MediaObjectService.getSelectedImageList(request.getSession());
 
         int pinId = getUriSectionInt(4, request);
 
@@ -274,7 +274,7 @@ public class PinRestApi extends RestBaseServlet {
             Pin pin = (Pin)pinPicService.getById(pinId);
             if (accessAllowed(pin,WebHelper.getUser(request))) {
 
-                for (ImageVersion mo : selectedList) {
+                for (MediaObject mo : selectedList) {
                     pinPicService.deleteImageFromPinpic(mo.getIvid(), pinId);
                     //pinPicService.deleteMediaFromFolder(pinId,mo.getIvid());
                 }

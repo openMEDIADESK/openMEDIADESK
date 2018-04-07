@@ -1,14 +1,14 @@
 package com.stumpner.mediadesk.web.api.rest;
 
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
+import com.stumpner.mediadesk.core.database.sc.MediaService;
 import com.stumpner.mediadesk.core.database.sc.ShoppingCartService;
-import com.stumpner.mediadesk.core.database.sc.LightboxService;
+import com.stumpner.mediadesk.core.database.sc.FavoriteService;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
-import com.stumpner.mediadesk.image.ImageVersionMetadata;
+import com.stumpner.mediadesk.image.MediaDetailEditCommand;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.web.LngResolver;
+import com.stumpner.mediadesk.web.mvc.MediaDetailEditController;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
-import com.stumpner.mediadesk.web.mvc.ImageEditController;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.UserFactory;
 
@@ -62,9 +62,9 @@ public class MediaobjectRestApi extends RestBaseServlet {
 
         int ivid = getUriSectionInt(4, request);
         LngResolver lngResolver = new LngResolver();
-        ImageVersionService mos = new ImageVersionService();
+        MediaService mos = new MediaService();
         mos.setUsedLanguage(lngResolver.resolveLng(request));
-        ImageVersionMultiLang mo = (ImageVersionMultiLang)mos.getImageVersionById(ivid);
+        MediaObjectMultiLang mo = (MediaObjectMultiLang)mos.getImageVersionById(ivid);
 
         int uriSectionCount = getUriSectionCount(request);
         //System.out.println("urisectioncount="+uriSectionCount);
@@ -76,19 +76,19 @@ public class MediaobjectRestApi extends RestBaseServlet {
 
     }
 
-    private void getDataExtended(HttpServletRequest request, HttpServletResponse response, ImageVersionMultiLang mo) throws IOException {
+    private void getDataExtended(HttpServletRequest request, HttpServletResponse response, MediaObjectMultiLang mo) throws IOException {
 
         String mode = getUriSection(5,request);
         if (mode.equalsIgnoreCase("editmode")) {
 
-            ImageVersionMetadata ivmeta = (ImageVersionMetadata)request.getSession().getAttribute(ImageEditController.class.getName()+".FORM.command");
-            ImageVersionMultiLang sessionMo = (ImageVersionMultiLang)ivmeta.getImageVersion();
+            MediaDetailEditCommand ivmeta = (MediaDetailEditCommand)request.getSession().getAttribute(MediaDetailEditController.class.getName()+".FORM.command");
+            MediaObjectMultiLang sessionMo = (MediaObjectMultiLang)ivmeta.getImageVersion();
 
             writeData(response, request, sessionMo);
         }
     }
 
-    private void getData(HttpServletRequest request, HttpServletResponse response, ImageVersionMultiLang mo) throws IOException {
+    private void getData(HttpServletRequest request, HttpServletResponse response, MediaObjectMultiLang mo) throws IOException {
 
         //System.out.println("/api/rest/mo/"+ivid+" request");
 
@@ -96,11 +96,11 @@ public class MediaobjectRestApi extends RestBaseServlet {
 
     }
 
-    private void writeData(HttpServletResponse response, HttpServletRequest request, ImageVersionMultiLang mo) throws IOException {
+    private void writeData(HttpServletResponse response, HttpServletRequest request, MediaObjectMultiLang mo) throws IOException {
 
         //ShoppingCart Logik (true/false) ob dieses Medienobjekt im Cart ist
         ShoppingCartService cartService = new ShoppingCartService();
-        LightboxService lightboxService = new LightboxService();
+        FavoriteService favoriteService = new FavoriteService();
         User user = WebHelper.getUser(request);
         boolean inCart = false;
         boolean inFav = false;
@@ -110,7 +110,7 @@ public class MediaobjectRestApi extends RestBaseServlet {
                 inCart = cartService.isInCart(user.getUserId(), mo.getIvid());
             }
             if (Config.useLightbox) {
-                inFav = lightboxService.isInFav(user.getUserId(), mo.getIvid());
+                inFav = favoriteService.isInFav(user.getUserId(), mo.getIvid());
             }
         }
 

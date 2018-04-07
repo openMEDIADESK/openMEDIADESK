@@ -5,6 +5,8 @@ import com.bradmcevoy.http.Resource;
 import com.bradmcevoy.http.Request;
 import com.bradmcevoy.http.Auth;
 import com.bradmcevoy.common.Path;
+import com.stumpner.mediadesk.core.database.sc.MediaService;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.folder.FolderMultiLang;
 import org.slf4j.Logger;
@@ -14,13 +16,11 @@ import java.util.*;
 import java.security.acl.AclNotFoundException;
 
 import com.stumpner.mediadesk.core.database.sc.FolderService;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.UserService;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
 import com.stumpner.mediadesk.web.webdav.auth.DigestAuthUtils;
@@ -103,13 +103,13 @@ public class WebdavResourceFactory implements ResourceFactory {
                         folder.setCategoryId(0);
                     }
 
-                    ImageVersionService imageService = new ImageVersionService();
+                    MediaService imageService = new MediaService();
                     SimpleLoaderClass loader = new SimpleLoaderClass();
                     loader.setId(folder.getCategoryId());
                     List categoryMediaList = imageService.getCategoryImages(loader);
 
                     for (Object aCategoryMedia : categoryMediaList) {
-                        ImageVersionMultiLang media = (ImageVersionMultiLang)aCategoryMedia;
+                        MediaObjectMultiLang media = (MediaObjectMultiLang)aCategoryMedia;
                         //System.out.println("    suche gerade in: "+media.getVersionName()+" -> "+path.getName());
                         if (media.getVersionName().equalsIgnoreCase(path.getName())) {
                             System.out.println("Webdav Resource Request: ["+path+"] ist MediaObjekt: "+media.getVersionName());
@@ -117,7 +117,7 @@ public class WebdavResourceFactory implements ResourceFactory {
                         }
                     }
 
-                    //MediaObject gibt es nicht (neu/anlegen)?
+                    //BasicMediaObject gibt es nicht (neu/anlegen)?
                     System.out.println("Webdav Resource Request: ["+path+"] NICHT GEFUNDEN, null");
                     return null;// new NotExistingMediaObjectResource(folder,path);
 

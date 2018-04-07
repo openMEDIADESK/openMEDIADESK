@@ -1,5 +1,8 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.core.database.sc.MediaService;
+import com.stumpner.mediadesk.image.MediaObject;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.pinpics.Pin;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,7 +18,6 @@ import java.math.BigDecimal;
 import com.stumpner.mediadesk.core.Resources;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.core.database.sc.ShoppingCartService;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.PinpicService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
@@ -26,8 +28,6 @@ import com.stumpner.mediadesk.web.mvc.util.WebHelper;
 import com.stumpner.mediadesk.web.stack.WebStack;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.web.servlet.DownloadServlet;
-import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import net.stumpner.security.acl.AclControllerContext;
 
 /*********************************************************
@@ -64,7 +64,7 @@ public class DownloadViewController extends AbstractPageController {
             LngResolver lngResolver = new LngResolver();
             ShoppingCartService shoppingCartService = new ShoppingCartService();
             shoppingCartService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-            ImageVersionService imageService = new ImageVersionService();
+            MediaService imageService = new MediaService();
             imageService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
             User user = WebHelper.getUser(httpServletRequest);
 
@@ -82,7 +82,7 @@ public class DownloadViewController extends AbstractPageController {
                         //Prüfen wenn der Parameter ivid nicht übergeben ist, wird ein error 404 Error ausgegeben
                         if (httpServletRequest.getParameter("ivid")==null) { httpServletResponse.sendError(404); return null; }
                         int ivid = Integer.parseInt(httpServletRequest.getParameter("ivid"));
-                        ImageVersionMultiLang media = (ImageVersionMultiLang)imageService.getImageVersionById(ivid);
+                        MediaObjectMultiLang media = (MediaObjectMultiLang)imageService.getImageVersionById(ivid);
                         if (Config.useShoppingCart) {
                             BigDecimal price = Config.currency.isEmpty() ? BigDecimal.valueOf(1) : media.getPrice();
                             if (user.getRole()>= User.ROLE_USER) { //nur wenn eingeloggt, denn sonst wird unterhalb redirected
@@ -179,7 +179,7 @@ public class DownloadViewController extends AbstractPageController {
                         //Wenn nur eine einzige Datei ausgewählt ist, Download sofort (ohne Download-Seite) starten
                         // ausnahme parameter nosdl ist angegeben, zb. bei redirect nach login!
                         if (downloadList.size()==1 && deniedList.size()==0 && httpServletRequest.getParameter("nosdl")==null && httpServletRequest.getSession().getAttribute("formatSelector")==null) {
-                            ImageVersion imageVersion = (ImageVersion)downloadList.get(0);
+                            MediaObject imageVersion = (MediaObject)downloadList.get(0);
                             httpServletResponse.sendRedirect(
                                 httpServletResponse.encodeRedirectURL("/download/?sdl=true&ivid="+imageVersion.getIvid())
                             );
@@ -240,7 +240,7 @@ public class DownloadViewController extends AbstractPageController {
 
         int pinId = ((Integer)request.getSession().getAttribute("pinid"));
         PinpicService pinService = new PinpicService();
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         LngResolver lngResolver = new LngResolver();
         imageService.setUsedLanguage(lngResolver.resolveLng(request));
 
@@ -259,7 +259,7 @@ public class DownloadViewController extends AbstractPageController {
                             boolean isInPin = false;
                             Iterator pinFiles = pinpicImages.iterator();
                             while (pinFiles.hasNext()) {
-                                ImageVersion imageVersionPin = (ImageVersion)pinFiles.next();
+                                MediaObject imageVersionPin = (MediaObject)pinFiles.next();
                                 if (imageVersionPin.getIvid()==ivid) {
                                     isInPin = true;
                                 }
@@ -300,7 +300,7 @@ public class DownloadViewController extends AbstractPageController {
     private boolean isImageInDownload(List downloadList) {
         for (Object obj : downloadList) {
 
-            ImageVersionMultiLang image = (ImageVersionMultiLang)obj;
+            MediaObjectMultiLang image = (MediaObjectMultiLang)obj;
             if (image.getMayorMime().equalsIgnoreCase("image")) {
                 return true;
             }

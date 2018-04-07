@@ -1,6 +1,9 @@
 package com.stumpner.mediadesk.core.service;
 
 import com.stumpner.mediadesk.core.database.sc.FolderService;
+import com.stumpner.mediadesk.core.database.sc.MediaService;
+import com.stumpner.mediadesk.image.MediaObject;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.folder.Folder;
 import org.apache.log4j.Logger;
 
@@ -9,12 +12,9 @@ import javax.servlet.http.HttpSession;
 import java.util.*;
 
 import com.stumpner.mediadesk.core.Resources;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.web.LngResolver;
-import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
@@ -59,13 +59,13 @@ public class MediaObjectService {
         }
 
         //Bild in die Liste einf�gen:
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         LngResolver lngResolver = new LngResolver();
         imageService.setUsedLanguage(lngResolver.resolveLng(request));
-        logger.debug("selectMedia: Loading ImageVersion to select: "+ivid);
-        ImageVersion imageVersion = imageService.getImageVersionById(ivid);
+        logger.debug("selectMedia: Loading MediaObject to select: "+ivid);
+        MediaObject imageVersion = imageService.getImageVersionById(ivid);
         if (imageVersion!=null) { imageList.add(imageVersion); }
-        else { logger.debug("selectMedia: Image ["+ivid+"] not loaded, does not exist"); return false; }
+        else { logger.debug("selectMedia: BasicMediaObject ["+ivid+"] not loaded, does not exist"); return false; }
 
         //Herkunftsobjekt speichern:
         Map fromMap = new HashMap();
@@ -109,7 +109,7 @@ public class MediaObjectService {
 
             Iterator images = imageList.iterator();
             while(images.hasNext()) {
-                ImageVersion image = (ImageVersion)images.next();
+                MediaObject image = (MediaObject)images.next();
                 if (image.getIvid()==ivid) {
                     objectToDelete = image;
                 }
@@ -137,7 +137,7 @@ public class MediaObjectService {
     /**
      * Liste mit ausgew�hlten Images zur�ckgeben
      * @param session
-     * @return Liste von <ImageVersion> Bildern die ausgew�hlt sind.
+     * @return Liste von <MediaObject> Bildern die ausgew�hlt sind.
      */
     public static List getSelectedImageList(HttpSession session) {
 
@@ -149,10 +149,10 @@ public class MediaObjectService {
 
     }
 
-    public static boolean isSelected(ImageVersionMultiLang mediaObject, HttpServletRequest request) {
+    public static boolean isSelected(MediaObjectMultiLang mediaObject, HttpServletRequest request) {
 
-        List<ImageVersion> imageList = getSelectedImageList(request.getSession());
-        for (ImageVersion mediaObjectInList : imageList) {
+        List<MediaObject> imageList = getSelectedImageList(request.getSession());
+        for (MediaObject mediaObjectInList : imageList) {
             if (mediaObjectInList.getIvid()==mediaObject.getIvid()) {
                 return true;
             }

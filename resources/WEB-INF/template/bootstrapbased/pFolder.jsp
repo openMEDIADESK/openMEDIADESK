@@ -33,7 +33,7 @@
 </ol>
 <!-- /breadcrumbs -->
 <!-- ordnertitel und infos -->
-<h3><c:out value="${folder.catTitle}"/><small>&nbsp;<c:out value="${folder.imageCount}"/> <spring:message code="stat.pics"/></small></h3>
+<h3><c:out value="${folder.catTitle}"/><small>&nbsp;<c:out value="${folder.mediaCount}"/> <spring:message code="stat.pics"/></small></h3>
 <h4><c:out value="${folder.description}"/></h4>
 <!-- /ordnertitel und infos -->
 <!-- mediadesk abstand -->

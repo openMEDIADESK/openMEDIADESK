@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
-import com.stumpner.mediadesk.image.ImageVersion;
+import com.stumpner.mediadesk.image.MediaObject;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 
 /*********************************************************
@@ -72,7 +72,7 @@ public class SelectMedia extends RestBaseServlet {
                 Integer folderId = getUriSectionInt(6, request);
                 if (mediaId==null) {
                     //Kein medienobjekt angegeben - dann alle abw�hlen
-                    List<ImageVersion> selectedMediaList = MediaObjectService.getSelectedImageList(request.getSession());
+                    List<MediaObject> selectedMediaList = MediaObjectService.getSelectedImageList(request.getSession());
 
                     MediaObjectService.deselectMedia(null, request);
 
@@ -105,11 +105,11 @@ public class SelectMedia extends RestBaseServlet {
 
     private void jsonSelectedMediaList(HttpServletRequest request, HttpServletResponse response) {
 
-        List<ImageVersion> selectedMediaList = MediaObjectService.getSelectedImageList(request.getSession());
+        List<MediaObject> selectedMediaList = MediaObjectService.getSelectedImageList(request.getSession());
         try {
             PrintWriter out = response.getWriter();
             out.print("[");
-            for (ImageVersion mediaObject : selectedMediaList) {
+            for (MediaObject mediaObject : selectedMediaList) {
                 out.print("\n {\"ivid\": "+mediaObject.getIvid()+"}");
 
                 if (selectedMediaList.indexOf(mediaObject)<selectedMediaList.size()-1) {
@@ -129,9 +129,9 @@ public class SelectMedia extends RestBaseServlet {
         try {
             selectMedia(request, response);
         } catch (ObjectNotFoundException e) {
-            response.sendError(404, "MediaObject not found");
+            response.sendError(404, "BasicMediaObject not found");
         } catch (MissingServletRequestParameterException e) {
-            response.sendError(404, "MediaObject not found");
+            response.sendError(404, "BasicMediaObject not found");
         }
 
     }
@@ -140,9 +140,9 @@ public class SelectMedia extends RestBaseServlet {
         try {
             selectMedia(request, response);
         } catch (ObjectNotFoundException e) {
-            response.sendError(404, "MediaObject not found");
+            response.sendError(404, "BasicMediaObject not found");
         } catch (MissingServletRequestParameterException e) {
-            response.sendError(404, "MediaObject not found");
+            response.sendError(404, "BasicMediaObject not found");
         }
     }
 }

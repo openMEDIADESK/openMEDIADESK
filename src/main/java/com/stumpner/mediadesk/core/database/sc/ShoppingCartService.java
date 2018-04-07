@@ -13,10 +13,9 @@ import java.math.RoundingMode;
 import com.stumpner.mediadesk.core.database.AppSqlMap;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.LightboxImageDescriptor;
-import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
-import com.stumpner.mediadesk.image.ImageVersionCartObject;
+import com.stumpner.mediadesk.image.*;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
+import com.stumpner.mediadesk.image.MediaObject;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
 import com.stumpner.mediadesk.usermanagement.User;
@@ -73,7 +72,7 @@ public class ShoppingCartService extends MultiLanguageService {
         checkout.mediaObjectList = shoppingCartService.getShoppingCartImageList(checkout.user.getUserId());
         Iterator mediaObjects = checkout.mediaObjectList.iterator();
         while (mediaObjects.hasNext()) {
-            ImageVersionMultiLang mo = (ImageVersionMultiLang)mediaObjects.next();
+            MediaObjectMultiLang mo = (MediaObjectMultiLang)mediaObjects.next();
             if (!Config.currency.isEmpty()) {
                 checkout.total = checkout.total.add(mo.getPrice());
             } else {
@@ -144,7 +143,7 @@ public class ShoppingCartService extends MultiLanguageService {
 
     public void addImageToShoppingCart(int ivid, int userId) {
 
-        LightboxImageDescriptor lid = new LightboxImageDescriptor();
+        FavoriteMediaDescriptor lid = new FavoriteMediaDescriptor();
         //zuerst löschen damit die bilder nicht doppelt drin sind (kommt nur zur wirkung wenn es noch nicht drin is)
         this.removeImageToShoppingCart(ivid,userId);
         lid.setIvid(ivid);
@@ -159,7 +158,7 @@ public class ShoppingCartService extends MultiLanguageService {
 
     public void removeImageToShoppingCart(int ivid, int userId) {
 
-        LightboxImageDescriptor lid = new LightboxImageDescriptor();
+        FavoriteMediaDescriptor lid = new FavoriteMediaDescriptor();
         lid.setIvid(ivid);
         lid.setUserId(userId);
         SqlMapClient smc = AppSqlMap.getSqlMapInstance();
@@ -187,7 +186,7 @@ public class ShoppingCartService extends MultiLanguageService {
         List mediaList = this.getShoppingCartImageList(userId);
         Iterator mo = mediaList.iterator();
         while (mo.hasNext()) {
-            ImageVersionCartObject iv = (ImageVersionCartObject)mo.next();
+            CartObject iv = (CartObject)mo.next();
             iv.setPayTransactionId(payTransactionId);
 
             try {
@@ -202,7 +201,7 @@ public class ShoppingCartService extends MultiLanguageService {
 
         Iterator images = imageList.iterator();
         while (images.hasNext()) {
-            ImageVersion imageVersion = (ImageVersion)images.next();
+            MediaObject imageVersion = (MediaObject)images.next();
             this.removeImageToShoppingCart(imageVersion.getIvid(),userId);
         }
     }
@@ -211,7 +210,7 @@ public class ShoppingCartService extends MultiLanguageService {
 
         Iterator images = imageList.iterator();
         while (images.hasNext()) {
-            ImageVersion imageVersion = (ImageVersion)images.next();
+            MediaObject imageVersion = (MediaObject)images.next();
             this.addImageToShoppingCart(imageVersion.getIvid(),userId);
         }
     }
@@ -231,17 +230,17 @@ public class ShoppingCartService extends MultiLanguageService {
     }
 
     /**
-     * Gibt das Image-Object zurück wenn sich diese ivid im ShoppinCart des Benutzers befindet
+     * Gibt das BasicMediaObject-Object zurück wenn sich diese ivid im ShoppinCart des Benutzers befindet
      * @param userid
      * @param ivid
      * @return
      */
-    public ImageVersionCartObject getCartObject(int userid, int ivid) {
+    public CartObject getCartObject(int userid, int ivid) {
 
         List imageList = getShoppingCartImageList(userid);
         Iterator images = imageList.iterator();
         while (images.hasNext()) {
-            ImageVersionCartObject i = (ImageVersionCartObject)images.next();
+            CartObject i = (CartObject)images.next();
             if (i.getIvid()==ivid) {
                 return i;
             }
@@ -252,9 +251,9 @@ public class ShoppingCartService extends MultiLanguageService {
 
     public boolean isInCart(int userid, int ivid) {
 
-        List<ImageVersionCartObject> imageList = getShoppingCartImageList(userid);
+        List<CartObject> imageList = getShoppingCartImageList(userid);
 
-        for (ImageVersionCartObject i : imageList) {
+        for (CartObject i : imageList) {
             if (i.getIvid()==ivid) return true;
         }
 

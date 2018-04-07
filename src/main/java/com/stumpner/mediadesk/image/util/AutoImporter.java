@@ -134,7 +134,7 @@ public class AutoImporter {
         int ivid = -1;
             //dateinamen-umkonvertieren-auf-ohne-leerzeichen...
             String olFileName = file.getName().replaceAll(" ","-");
-            //logger.debug("Image-Import: Dateiname "+imageFiles[p]+" wird unbenannt in: "+olFileName+" (Operation: Leerzeichen entfernen)");
+            //logger.debug("BasicMediaObject-Import: Dateiname "+imageFiles[p]+" wird unbenannt in: "+olFileName+" (Operation: Leerzeichen entfernen)");
             //File uFile = new File(Config.fileSystemImportPath+File.separator+imageFiles[p]);
 
             //int importF = ImageImport.processImage(Config.fileSystemImportPath+File.separator+olFileName,userId);

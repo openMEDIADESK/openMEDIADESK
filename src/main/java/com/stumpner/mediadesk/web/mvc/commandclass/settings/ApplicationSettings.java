@@ -63,7 +63,7 @@ public class ApplicationSettings {
     int downloadImageFilenameInt = 0;
     String downloadImageFilename = "";
 
-    // Anzeige-Einstellungen Image Ivid Popup
+    // Anzeige-Einstellungen BasicMediaObject Ivid Popup
 
     boolean popupIvidShowVersionTitle = true;
     boolean popupIvidShowVersionSubTitle = true;

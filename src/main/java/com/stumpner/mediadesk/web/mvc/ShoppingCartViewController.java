@@ -1,15 +1,15 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.core.database.sc.MediaService;
+import com.stumpner.mediadesk.image.MediaObject;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.ShoppingCartService;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.image.folder.Folder;
-import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
 import com.stumpner.mediadesk.core.service.MediaObjectService;
@@ -78,7 +78,7 @@ public class ShoppingCartViewController extends AbstractThumbnailAjaxController 
         LngResolver lngResolver = new LngResolver();
         ShoppingCartService shoppingCartService = new ShoppingCartService();
         shoppingCartService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         imageService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
         Folder folder = new Folder();
         folder.setCatTitle("Shopping Cart");
@@ -184,8 +184,8 @@ public class ShoppingCartViewController extends AbstractThumbnailAjaxController 
 
         if (httpServletRequest.getParameter("download")!=null) {
             if (httpServletRequest.getParameter("download").equalsIgnoreCase("selectedMedia")) {
-                List<ImageVersion> selectedMediaList = MediaObjectService.getSelectedImageList(httpServletRequest.getSession());
-                for (ImageVersion m : selectedMediaList) {
+                List<MediaObject> selectedMediaList = MediaObjectService.getSelectedImageList(httpServletRequest.getSession());
+                for (MediaObject m : selectedMediaList) {
                     shoppingCartService.addImageToShoppingCart(m.getIvid(), getUser(httpServletRequest).getUserId());
                 }
             }
@@ -193,11 +193,11 @@ public class ShoppingCartViewController extends AbstractThumbnailAjaxController 
 
     }
 
-    protected void insert(ImageVersion image, HttpServletRequest request) {
+    protected void insert(MediaObject image, HttpServletRequest request) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    protected void remove(ImageVersion image, HttpServletRequest request) {
+    protected void remove(MediaObject image, HttpServletRequest request) {
         ShoppingCartService shoppingCartService = new ShoppingCartService();
         shoppingCartService.removeImageToShoppingCart(image.getIvid(), WebHelper.getUser(request).getUserId());
     }

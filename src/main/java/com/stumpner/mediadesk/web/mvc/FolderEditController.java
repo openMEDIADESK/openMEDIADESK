@@ -260,7 +260,7 @@ public class FolderEditController extends AbstractAutoFillController {
         }
 
         //Sessionvariablen in der sortierung usw zwischengespeichert wird, leeren
-        //AbstractImageLoaderController Zeile 82
+        //AbstractMediaLoaderController Zeile 82
         httpServletRequest.getSession().removeAttribute("sortBy"+FolderIndexController.class.getName()+"."+folder.getCategoryId());
         httpServletRequest.getSession().removeAttribute("orderBy"+FolderIndexController.class.getName()+"."+folder.getCategoryId());
 

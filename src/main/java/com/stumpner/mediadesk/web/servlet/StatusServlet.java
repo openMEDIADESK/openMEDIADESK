@@ -2,8 +2,8 @@ package com.stumpner.mediadesk.web.servlet;
 
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.core.WebContextListener;
+import com.stumpner.mediadesk.core.database.sc.MediaService;
 import com.stumpner.mediadesk.util.MailWrapper;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.DownloadLoggerService;
 import com.stumpner.mediadesk.core.database.AppSqlMap;
 import com.stumpner.mediadesk.stats.DownloadLogger;
@@ -58,7 +58,7 @@ public class StatusServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
 
         Writer w = response.getWriter();
 
@@ -193,7 +193,7 @@ public class StatusServlet extends HttpServlet {
         httpServletRequest.setAttribute("licMaxMb",new Integer(Config.licMaxMb));
         httpServletRequest.setAttribute("licMaxUsers",new Integer(Config.licMaxUsers));
 
-        httpServletRequest.setAttribute("imageCount",new Integer(imageService.getImageCount()));
+        httpServletRequest.setAttribute("imageCount",new Integer(imageService.getMediaCount()));
         httpServletRequest.setAttribute("imageMb",new Integer(imageService.getImageMb()));
          */
         //super.doGet(request, response);    //To change body of overridden methods use File | Settings | File Templates.

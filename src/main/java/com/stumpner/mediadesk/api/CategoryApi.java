@@ -1,15 +1,15 @@
 package com.stumpner.mediadesk.api;
 
 import com.stumpner.mediadesk.core.database.sc.FolderService;
+import com.stumpner.mediadesk.core.database.sc.MediaService;
+import com.stumpner.mediadesk.image.MediaObject;
 import com.stumpner.mediadesk.image.folder.FolderMultiLang;
 import com.stumpner.mediadesk.usermanagement.User;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.image.folder.Folder;
-import com.stumpner.mediadesk.image.ImageVersion;
 
 import java.util.List;
 import java.util.Iterator;
@@ -148,13 +148,13 @@ public class CategoryApi extends ApiBase {
     private String getObjectsFromCategory(String[] parameter) {
 
         StringBuffer returnString = new StringBuffer();
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         SimpleLoaderClass loaderClass = new SimpleLoaderClass();
         loaderClass.setId(Integer.parseInt(parameter[0]));
         List imageList = imageService.getCategoryImages(loaderClass);
         Iterator images = imageList.iterator();
         while (images.hasNext()) {
-            ImageVersion imageVersion = (ImageVersion)images.next();
+            MediaObject imageVersion = (MediaObject)images.next();
             returnString.append(imageVersion.getIvid()+";");
         }
 
@@ -171,7 +171,7 @@ public class CategoryApi extends ApiBase {
 
         try {
             FolderService folderService = new FolderService();
-            ImageVersionService imageService = new ImageVersionService();
+            MediaService imageService = new MediaService();
             SimpleLoaderClass loaderClass = new SimpleLoaderClass();
             loaderClass.setId(Integer.parseInt(parameter[0]));
             List categoryImages = imageService.getCategoryImages(loaderClass);
@@ -370,7 +370,7 @@ public class CategoryApi extends ApiBase {
     private String categoryDelete(String[] parameter) {
 
         FolderService folderService = new FolderService();
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         String categoryName = parameter[0];
         if (categoryName.indexOf("/")==-1) {
             //Kategorieangabe
@@ -402,7 +402,7 @@ public class CategoryApi extends ApiBase {
     private void deleteCategory(int categoryId) {
 
         FolderService folderService = new FolderService();
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
                 try {
                     Folder folder = folderService.getFolderById(categoryId);
                     SimpleLoaderClass loaderClass = new SimpleLoaderClass();
@@ -410,7 +410,7 @@ public class CategoryApi extends ApiBase {
                     List imageList = imageService.getCategoryImages(loaderClass);
                     Iterator images = imageList.iterator();
                     while (images.hasNext()) {
-                        ImageVersion image = (ImageVersion)images.next();
+                        MediaObject image = (MediaObject)images.next();
                         List categoryList = folderService.getFolderListFromImageVersion(image.getIvid());
                         if (categoryList.size()==1) {
                             imageService.deleteImageVersion(image);

@@ -11,10 +11,10 @@
         <property name="viewName"><value>/WEB-INF/template/current/pSplashpage.jsp</value></property>
     </bean>
 
-    <bean id="popupImageView" class="com.stumpner.mediadesk.web.mvc.PopupImageViewController">
+    <bean id="popupImageView" class="com.stumpner.mediadesk.web.mvc.PopupMediaViewController">
         <property name="viewName"><value>/WEB-INF/template/current/wPreview.jsp</value></property>
     </bean>
-    <bean id="lightboxView" class="com.stumpner.mediadesk.web.mvc.LightboxViewController">
+    <bean id="lightboxView" class="com.stumpner.mediadesk.web.mvc.FavoriteViewController">
         <property name="viewName"><value>/WEB-INF/template/current/pLightbox.jsp</value></property>
     </bean>
     <bean id="shoppingCartView" class="com.stumpner.mediadesk.web.mvc.ShoppingCartViewController">
@@ -41,7 +41,7 @@
     <bean id="folderIndexView" class="com.stumpner.mediadesk.web.mvc.FolderIndexController">
         <property name="viewName"><value>/WEB-INF/template/current/pFolder.jsp</value></property>
     </bean>
-    <bean id="lastImageView" class="com.stumpner.mediadesk.web.mvc.LastImageViewController">
+    <bean id="lastImageView" class="com.stumpner.mediadesk.web.mvc.LastMediaViewController">
         <property name="viewName"><value>/WEB-INF/template/current/pLatest.jsp</value></property>
     </bean>
     <bean id="textPopupView" class="com.stumpner.mediadesk.web.mvc.TextPopupController">
@@ -55,7 +55,7 @@
         <property name="formView"><value>/WEB-INF/template/current/pFormatselector.jsp</value></property>
         <property name="successView"><value>null</value></property>
     </bean>
-    <bean id="inlinePreviewViewer" class="com.stumpner.mediadesk.web.mvc.ImageViewController">
+    <bean id="inlinePreviewViewer" class="com.stumpner.mediadesk.web.mvc.MediaViewController">
         <property name="viewName"><value>/WEB-INF/template/current/pPreview.jsp</value></property>
     </bean>
     <bean id="sendController" class="com.stumpner.mediadesk.web.mvc.SendController">
@@ -206,13 +206,13 @@
         <property name="viewName"><value>/WEB-INF/template/current/pUpload.jsp</value></property>
     </bean>
 
-    <bean id="imageImportFilesystem" class="com.stumpner.mediadesk.web.mvc.ImportFilesystemController">
+    <bean id="importFtpController" class="com.stumpner.mediadesk.web.mvc.ImportFtpController">
         <property name="sessionForm"><value>true</value></property>
-        <property name="formView"><value>/WEB-INF/template/current/pUploadFs.jsp</value></property>
+        <property name="formView"><value>/WEB-INF/template/current/pUploadFtp.jsp</value></property>
         <property name="successView"><value>null</value></property>
     </bean>
 
-    <bean id="imageImportWebupload" class="com.stumpner.mediadesk.web.mvc.ImageImportWebuploadController">
+    <bean id="imageImportWebupload" class="com.stumpner.mediadesk.web.mvc.UploadWebController">
         <property name="sessionForm"><value>true</value></property>
         <property name="formView"><value>/WEB-INF/template/current/pUploadWeb.jsp</value></property>
         <property name="successView"><value>null</value></property>
@@ -261,12 +261,12 @@
         <property name="formView"><value>/WEB-INF/template/current/pTreeAcl.jsp</value></property>
         <property name="successView"><value>null</value></property>
     </bean>
-    <bean id="mediaDetailEditController" class="com.stumpner.mediadesk.web.mvc.ImageEditController">
+    <bean id="mediaDetailEditController" class="com.stumpner.mediadesk.web.mvc.MediaDetailEditController">
         <property name="sessionForm"><value>true</value></property>
         <property name="formView"><value>/WEB-INF/template/current/pMediaDetailEdit.jsp</value></property>
         <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
     </bean>
-    <bean id="imageDeleteController" class="com.stumpner.mediadesk.web.mvc.ImageDeleteController">
+    <bean id="imageDeleteController" class="com.stumpner.mediadesk.web.mvc.MediaDeleteController">
         <property name="sessionForm"><value>true</value></property>
         <property name="formView"><value>/WEB-INF/template/current/pDeleteMedia.jsp</value></property>
         <property name="successView"><value>/WEB-INF/template/current/gMessageOk.jsp</value></property>
@@ -387,7 +387,7 @@
                 <prop key="/send">sendController</prop>
 
                 <prop key="/upload">imageImportChoose</prop>
-                <prop key="/uploadfs">imageImportFilesystem</prop>
+                <prop key="/uploadftp">importFtpController</prop>
                 <prop key="/uploadweb">imageImportWebupload</prop>
                 <prop key="/uploadselector">uploadSelector</prop>
                 <prop key="/usermanager">userManagerView</prop>

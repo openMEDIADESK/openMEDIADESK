@@ -111,7 +111,7 @@ public class Folder implements AccessObject {
         this.changedDate = changedDate;
     }
 
-    public int getImageCount() {
+    public int getMediaCount() {
         return imageCount;
     }
 
@@ -123,7 +123,7 @@ public class Folder implements AccessObject {
         return imageCountS;
     }
 
-    public void setImageCountS(int imageCountS) {
+    public void setMediaCountS(int imageCountS) {
         this.imageCountS = imageCountS;
     }
 

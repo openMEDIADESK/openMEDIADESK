@@ -1,11 +1,11 @@
 package com.stumpner.mediadesk.image.util;
 
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
-import com.stumpner.mediadesk.core.database.sc.ImageMetadataService;
+import com.stumpner.mediadesk.core.database.sc.MediaMetadataService;
+import com.stumpner.mediadesk.core.database.sc.MediaService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.Config;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.Metadata;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.image.inbox.InboxService;
 import com.stumpner.mediadesk.media.importing.AbstractImportFactory;
 
@@ -54,7 +54,7 @@ public class ImageImport {
         int returnValue = IMPORT_OK;
 
         Logger logger = Logger.getLogger(ImageImport.class);
-        ImageVersionMultiLang imageVersion = new ImageVersionMultiLang();
+        MediaObjectMultiLang imageVersion = new MediaObjectMultiLang();
 
         //Neu seit 2.6: Bild vor dem bearbeiten/verkleinern auf JPEG konvertieren.
         String jpegFilename = fileName+".jpg";
@@ -89,12 +89,12 @@ public class ImageImport {
 
         //Größe Checken (mit erlaubnis in Config)
         if (imageVersion.getKb()>Config.maxImageSize) {
-            logger.error("Maximal Image Size reached"+imageVersion.getKb());
+            logger.error("Maximal BasicMediaObject Size reached"+imageVersion.getKb());
             throw new SizeExceedException(imageVersion.getKb(),Config.maxImageSize);
         }
 
         //image in db erstellen
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         try {
             logger.debug("Bild in der Datenbank anlegen...");
             imageService.addImage(imageVersion);
@@ -165,7 +165,7 @@ public class ImageImport {
 
         //System.out.println("Import Metadata");
 
-        ImageMetadataService imageMetadataService = new ImageMetadataService();
+        MediaMetadataService mediaMetadataService = new MediaMetadataService();
 
         //Dateiname im Import-Filesytem als Meta-Data
         Metadata md = new Metadata();
@@ -184,7 +184,7 @@ public class ImageImport {
             metadata.setIvid(imageVersion.getIvid());
             metadata.setLang("");
             metadata.setVersionId(imageVersion.getVersion());
-            imageMetadataService.addMetadata(metadata);
+            mediaMetadataService.addMetadata(metadata);
 
             logger.debug("Meta-Key: "+metadata.getMetaKey()+" | Meta-Value: "+metadata.getMetaValue()+ " | ");
 

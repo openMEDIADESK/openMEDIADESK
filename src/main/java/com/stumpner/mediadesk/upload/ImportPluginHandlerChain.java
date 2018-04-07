@@ -5,7 +5,7 @@
  */
 package com.stumpner.mediadesk.upload;
 
-import com.stumpner.mediadesk.core.MediaObject;
+import com.stumpner.mediadesk.core.IMediaObject;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -82,7 +82,7 @@ public class ImportPluginHandlerChain {
      * @param mo
      * @return
      */
-    public PluginResult process(MediaObject mo) {
+    public PluginResult process(IMediaObject mo) {
 
         List <PluginResult> returnDataList = new ArrayList();
         PluginResult.Status returnStatus = PluginResult.Status.OK;

@@ -212,7 +212,7 @@ public class ImageMagickUtil implements IImageUtil {
             imageInfo.setInput(is);
             if (imageInfo.check()) {
                 dpi = imageInfo.getPhysicalHeightDpi();
-                logger.info("Image-dpi: "+dpi);
+                logger.info("BasicMediaObject-dpi: "+dpi);
             } else {
                 logger.error("Not a supported image file format.");
             }
@@ -240,7 +240,7 @@ public class ImageMagickUtil implements IImageUtil {
             String cmd = "convert "+srcFile+" "+dstFile;
             int exitVal = executeSystemCommand(cmd);
             System.out.println("[mediaDESK-"+Config.instanceName+"] imagemagick-proc.exitValue()="+exitVal);
-            logger.info("Image Magick Process exitValue: " + exitVal);
+            logger.info("BasicMediaObject Magick Process exitValue: " + exitVal);
         } catch (Throwable t)
           {
             t.printStackTrace();
@@ -269,8 +269,8 @@ public class ImageMagickUtil implements IImageUtil {
             String cmd = "convert "+srcFile+" -thumbnail "+widthX+"x"+heightY+" "+stripCmd+"-colorspace RGB jpg:"+dstFile;
             //System.out.println(cmd);
             int exitVal = executeSystemCommand(cmd);
-            logger.info("Image Magick convert: "+srcFile+" --> "+dstFile);
-            //System.out.println("Image-Magick returns: "+exitVal);
+            logger.info("BasicMediaObject Magick convert: "+srcFile+" --> "+dstFile);
+            //System.out.println("BasicMediaObject-Magick returns: "+exitVal);
             logger.info("Process exitValue: " + exitVal);
         } catch (Throwable t)
           {
@@ -313,7 +313,7 @@ public class ImageMagickUtil implements IImageUtil {
 
 
         Logger logger = Logger.getLogger(ImageMagickUtil.class);
-        logger.info("Image overlay: "+srcFilename);
+        logger.info("BasicMediaObject overlay: "+srcFilename);
         try
         {   //String comm = executeCommand+"convert -draw "+((char)34)+"image Over "+x+","+y+" 80,40 "+((char)39)+""+overlayFilename+""+((char)39)+""+((char)34)+" "+ srcFilename +" "+srcFilename;
             //### use shell-script-WRAPPER

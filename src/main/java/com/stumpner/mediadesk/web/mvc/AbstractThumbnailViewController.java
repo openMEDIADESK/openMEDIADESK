@@ -35,7 +35,7 @@ import com.stumpner.mediadesk.usermanagement.User;
  * Time: 17:45:01
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AbstractThumbnailViewController extends AbstractImageActionController {
+public abstract class AbstractThumbnailViewController extends AbstractMediaActionController {
 
     protected static String TEMPLATEFILE_THUMBNAILS = "listThumbnails.jsp";
     protected static String TEMPLATEFILE_LISTVIEW = "listFiles.jsp";

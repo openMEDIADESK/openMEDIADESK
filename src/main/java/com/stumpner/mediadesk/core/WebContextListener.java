@@ -176,7 +176,7 @@ public class WebContextListener implements ServletContextListener {
             PinpicService pinPicService = new PinpicService();
             pinPicService.deleteOrphanedHoler();
             //Sonderzeichen aus Namen in Medienobjekten und Kategorien entfernen
-            ImageVersionService mediaService = new ImageVersionService();
+            MediaService mediaService = new MediaService();
             mediaService.normalizeNames();
             //Alte TMP-Dateien im Repository-Temp Verzeichnis löschen
             File tmpPath = new File(Config.getTempPath());

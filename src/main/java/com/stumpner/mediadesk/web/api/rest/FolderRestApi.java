@@ -1,5 +1,7 @@
 package com.stumpner.mediadesk.web.api.rest;
 
+import com.stumpner.mediadesk.image.MediaObject;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.folder.FolderMultiLang;
 import com.stumpner.mediadesk.web.LngResolver;
@@ -9,8 +11,6 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
-import com.stumpner.mediadesk.image.ImageVersion;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -320,17 +320,17 @@ public class FolderRestApi extends RestBaseServlet {
 
     private void setFolderImage(HttpServletRequest request, HttpServletResponse response) {
 
-        System.out.println("set Folder Image");
-        List<ImageVersion> list = MediaObjectService.getSelectedImageList(request.getSession());
+        System.out.println("set Folder BasicMediaObject");
+        List<MediaObject> list = MediaObjectService.getSelectedImageList(request.getSession());
         int categoryId = getUriSectionInt(4, request);
 
         FolderService folderService = new FolderService();
         try {
             Folder c = folderService.getFolderById(categoryId);
             if (list.size()>0) {
-                ImageVersion mo = list.get(0);
+                MediaObject mo = list.get(0);
                 c.setPrimaryIvid(mo.getIvid());
-                System.out.println("set Folder Image");
+                System.out.println("set Folder BasicMediaObject");
                 folderService.save(c);
             }
         } catch (ObjectNotFoundException e) {
@@ -347,12 +347,12 @@ public class FolderRestApi extends RestBaseServlet {
 
         if (user.getRole()>=User.ROLE_EDITOR) {
 
-            List<ImageVersion> selectedList = MediaObjectService.getSelectedImageList(request.getSession());
+            List<MediaObject> selectedList = MediaObjectService.getSelectedImageList(request.getSession());
 
             int categoryId = getUriSectionInt(4, request);
 
             FolderService folderService = new FolderService();
-            for (ImageVersion mo : selectedList) {
+            for (MediaObject mo : selectedList) {
                 folderService.deleteMediaFromFolder(categoryId,mo.getIvid());
             }
 
@@ -373,9 +373,9 @@ public class FolderRestApi extends RestBaseServlet {
 
         if (user.getRole()>=User.ROLE_MASTEREDITOR) {
 
-            List<ImageVersion> selectedList = MediaObjectService.getSelectedImageList(request.getSession());
+            List<MediaObject> selectedList = MediaObjectService.getSelectedImageList(request.getSession());
 
-            ImageVersionService imageService = new ImageVersionService();
+            MediaService imageService = new MediaService();
             try {
                 imageService.deleteImageVersions(selectedList);
             } catch (IOServiceException e) {
@@ -396,14 +396,14 @@ public class FolderRestApi extends RestBaseServlet {
     private void insertSelected(HttpServletRequest request, HttpServletResponse response) {
 
 
-        List<ImageVersion> selectedList = MediaObjectService.getSelectedImageList(request.getSession());
+        List<MediaObject> selectedList = MediaObjectService.getSelectedImageList(request.getSession());
 
         int categoryId = getUriSectionInt(4, request);
 
         System.out.println("insert:"+categoryId);
 
         FolderService folderService = new FolderService();
-        for (ImageVersion mo : selectedList) {
+        for (MediaObject mo : selectedList) {
             try {
                 System.out.println("insert media:"+mo.getIvid());
                 folderService.addMediaToFolder(categoryId, mo.getIvid());
@@ -589,7 +589,7 @@ public class FolderRestApi extends RestBaseServlet {
     private void jsonCategoryMedialist(HttpServletRequest request, HttpServletResponse response) {
 
         LngResolver lngResolver = new LngResolver();
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         imageService.setUsedLanguage(lngResolver.resolveLng(request));
 
         //Loader-Class: definieren was geladen werden soll
@@ -603,7 +603,7 @@ public class FolderRestApi extends RestBaseServlet {
             System.out.println("NumberFormatException bei sortBy oder orderBy Parameter in jsonCategoryMedialist");
             e.printStackTrace();
         }
-        List<ImageVersionMultiLang> imageList = imageService.getCategoryImages(loaderClass);
+        List<MediaObjectMultiLang> imageList = imageService.getCategoryImages(loaderClass);
 
         /** Kategorie-Liste f�r den Thumbnail-View **/
         AclFolderService categoryService = new AclFolderService(request);
@@ -613,11 +613,11 @@ public class FolderRestApi extends RestBaseServlet {
             PrintWriter out = response.getWriter();
 
             out.println("[");
-            for (ImageVersionMultiLang mo : imageList) {
+            for (MediaObjectMultiLang mo : imageList) {
 
                 //ShoppingCart Logik (true/false) ob dieses Medienobjekt im Cart ist
                 ShoppingCartService cartService = new ShoppingCartService();
-                LightboxService lightboxService = new LightboxService();
+                FavoriteService favoriteService = new FavoriteService();
                 User user = WebHelper.getUser(request);
                 boolean inCart = false;
                 boolean inFav = false;
@@ -627,7 +627,7 @@ public class FolderRestApi extends RestBaseServlet {
                         inCart = cartService.isInCart(user.getUserId(), mo.getIvid());
                     }
                     if (Config.useLightbox) {
-                        inFav = lightboxService.isInFav(user.getUserId(), mo.getIvid());
+                        inFav = favoriteService.isInFav(user.getUserId(), mo.getIvid());
                     }
                 }
 

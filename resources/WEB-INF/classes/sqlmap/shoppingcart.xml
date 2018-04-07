@@ -6,7 +6,7 @@
 
 <sqlMap namespace="Shoppingcart">
 
-    <resultMap id="imageCartList" class="com.stumpner.mediadesk.image.ImageVersionCartObject">
+    <resultMap id="imageCartList" class="com.stumpner.mediadesk.image.CartObject">
         <result property="ivid" column="ivid"/>
         <result property="version" column="version"/>
         <result property="versionTitle" column="versiontitle"/>
@@ -102,13 +102,13 @@
         SELECT count(ivid) FROM shoppingcart WHERE userid = #value#
     </select>
 
-    <insert id="addImageToShoppingCart" parameterClass="com.stumpner.mediadesk.image.LightboxImageDescriptor">
+    <insert id="addImageToShoppingCart" parameterClass="com.stumpner.mediadesk.image.FavoriteMediaDescriptor">
         INSERT INTO shoppingcart
             (userid,ivid)
             VALUES (#userId#,#ivid#)
     </insert>
 
-    <delete id="removeImageFromShoppingCart" parameterClass="com.stumpner.mediadesk.image.LightboxImageDescriptor">
+    <delete id="removeImageFromShoppingCart" parameterClass="com.stumpner.mediadesk.image.FavoriteMediaDescriptor">
         DELETE FROM shoppingcart
         WHERE userid = #userId# AND ivid = #ivid#
     </delete>
@@ -118,7 +118,7 @@
         WHERE ivid = #value#
     </delete>
 
-    <update id="setPayTransactionId" parameterClass="com.stumpner.mediadesk.image.ImageVersionCartObject">
+    <update id="setPayTransactionId" parameterClass="com.stumpner.mediadesk.image.CartObject">
         UPDATE shoppingcart
         SET paytransactionid = #payTransactionId#
         WHERE userid = #userId# and ivid = #ivid#

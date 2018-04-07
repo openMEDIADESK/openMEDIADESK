@@ -2,12 +2,12 @@ package com.stumpner.mediadesk.core;
 
 import com.stumpner.mediadesk.core.database.sc.*;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
+import com.stumpner.mediadesk.image.MediaObject;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.pinpics.Pin;
 import com.stumpner.mediadesk.util.MailWrapper;
 import com.stumpner.mediadesk.search.SearchLogger;
 import com.stumpner.mediadesk.search.SearchEntity;
-import com.stumpner.mediadesk.image.ImageVersion;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.image.util.AutoImporter;
 
 import javax.mail.MessagingException;
@@ -144,9 +144,9 @@ public class CronService {
         Calendar c = GregorianCalendar.getInstance();
         c.add(Calendar.DAY_OF_YEAR, 1);
 
-        ImageVersionService is = new ImageVersionService();
-        List<ImageVersionMultiLang> list = is.getLicValidDue(c.getTime());
-        for (ImageVersionMultiLang m : list) {
+        MediaService is = new MediaService();
+        List<MediaObjectMultiLang> list = is.getLicValidDue(c.getTime());
+        for (MediaObjectMultiLang m : list) {
             mailBody = mailBody.append(m.getVersionName()+" "+m.getLicValid()+"\n");
         }
 
@@ -221,7 +221,7 @@ public class CronService {
     static void deleteOldPins() {
 
         //alte PINS löschen
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         PinpicService pinpicService = new PinpicService();
         FolderService folderService = new FolderService();
         Iterator pinPics = pinpicService.getPinpicList().iterator();
@@ -234,7 +234,7 @@ public class CronService {
                     //Bilder des Pins laden:
                     Iterator images = pinpicService.getPinpicImages(pin.getPinpicId()).iterator();
                     while (images.hasNext()) {
-                        ImageVersion imageVersion = (ImageVersion)images.next();
+                        MediaObject imageVersion = (MediaObject)images.next();
                         List categoryList = folderService.getFolderListFromImageVersion(imageVersion.getIvid());
                                 //todo: auch prüfen ob das bild in einem anderen pinpic vorkommt
                         if (categoryList.size()==0) {
@@ -267,7 +267,7 @@ public class CronService {
     private static void quotyCheck() {
 
         //Quota Check and Email
-        ImageVersionService mediaSevice = new ImageVersionService();
+        MediaService mediaSevice = new MediaService();
         BigDecimal quotaTotal = mediaSevice.getQuotaTotalMb();
         BigDecimal quotaAvailable = mediaSevice.getQuotaAvailableMb();
 

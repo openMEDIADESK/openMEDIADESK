@@ -2,8 +2,8 @@ package com.stumpner.mediadesk.core.database.sc;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.stumpner.mediadesk.core.database.AppSqlMap;
+import com.stumpner.mediadesk.image.MediaObject;
 import com.stumpner.mediadesk.stats.*;
-import com.stumpner.mediadesk.image.ImageVersion;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -257,8 +257,8 @@ public class DownloadLoggerService {
         sdl.setPinid(pinid);
         sdl.setPayTransactionId(payTransactionId);
 
-        ImageVersionService is = new ImageVersionService();
-        ImageVersion media = is.getImageVersionById(ivid);
+        MediaService is = new MediaService();
+        MediaObject media = is.getImageVersionById(ivid);
         sdl.setName(media.getVersionName());
 
         log(sdl);

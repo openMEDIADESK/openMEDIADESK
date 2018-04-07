@@ -30,8 +30,8 @@ import java.util.List;
 public interface IImageUtil {
 
     /**
-     * Resizes the Image to the given Horizontal value
-     * The Image is propertional resized, getting the exact value given by width, height is variable
+     * Resizes the BasicMediaObject to the given Horizontal value
+     * The BasicMediaObject is propertional resized, getting the exact value given by width, height is variable
      * @param originalFileName
      * @param resizeFileName
      * @param width

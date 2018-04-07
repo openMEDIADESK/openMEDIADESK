@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.MediaObject;
 import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.pinpics.Pin;
 import org.springframework.web.servlet.ModelAndView;
@@ -8,13 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.stumpner.mediadesk.core.database.sc.LightboxService;
+import com.stumpner.mediadesk.core.database.sc.FavoriteService;
 import com.stumpner.mediadesk.core.database.sc.PinpicService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.web.LngResolver;
 
@@ -116,15 +116,15 @@ public class PinPicViewController extends AbstractThumbnailViewController {
             if (session.getAttribute("user")!=null) {
                 //user eingeloggt
                 user = (User)session.getAttribute("user");
-                LightboxService lightboxService = new LightboxService();
+                FavoriteService favoriteService = new FavoriteService();
                 if (httpServletRequest.getParameter("lightbox").equals("add")) {
                     //hinzufÃ¼gen
-                    lightboxService.addImageToLightbox(
+                    favoriteService.addImageToLightbox(
                             Integer.parseInt((String)httpServletRequest.getParameter("ivid")), user.getUserId()
                     );
                 } else {
                     //lÃ¶schen
-                    lightboxService.removeImageToLightbox(
+                    favoriteService.removeImageToLightbox(
                             Integer.parseInt((String)httpServletRequest.getParameter("ivid")), user.getUserId()
                     );
                 }
@@ -165,11 +165,11 @@ public class PinPicViewController extends AbstractThumbnailViewController {
             for (int b=0;b<3;b++) {
                 //jeweils 3 folder in einer line
                 if (images.hasNext()) {
-                    ImageVersion imageVersion = (ImageVersion)images.next();
+                    MediaObject imageVersion = (MediaObject)images.next();
                     imageListLine.add(imageVersion);
                     foldersInLine++;
                 } else {
-                    imageListLine.add(new ImageVersion());
+                    imageListLine.add(new MediaObject());
                 }
             }
             if (foldersInLine>0)
@@ -267,12 +267,12 @@ public class PinPicViewController extends AbstractThumbnailViewController {
         return -1;
     }
 
-    protected void insert(ImageVersion image, HttpServletRequest request) throws DublicateEntry {
+    protected void insert(MediaObject image, HttpServletRequest request) throws DublicateEntry {
         PinpicService pinpicService = new PinpicService();
         pinpicService.addImageToPinpic(image.getIvid(),getPin(request).getPinpicId());
     }
 
-    protected void remove(ImageVersion image, HttpServletRequest request) {
+    protected void remove(MediaObject image, HttpServletRequest request) {
 
         PinpicService pinpicService = new PinpicService();
         pinpicService.deleteImageFromPinpic(image.getIvid(),getPin(request).getPinpicId());
@@ -287,7 +287,7 @@ public class PinPicViewController extends AbstractThumbnailViewController {
         PinpicService pinpicService = new PinpicService();
         List images = pinpicService.getPinpicImages(getPinId(request));
         int imageCount = images.size();
-        //System.out.println("Image-Count in PIN: "+imageCount);
+        //System.out.println("BasicMediaObject-Count in PIN: "+imageCount);
         return imageCount;
     }
 

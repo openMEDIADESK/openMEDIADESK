@@ -1,13 +1,13 @@
 package com.stumpner.mediadesk.web.api.rest;
 
+import com.stumpner.mediadesk.core.database.sc.MediaService;
+import com.stumpner.mediadesk.image.MediaObject;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.ShoppingCartService;
-import com.stumpner.mediadesk.core.database.sc.LightboxService;
+import com.stumpner.mediadesk.core.database.sc.FavoriteService;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
-import com.stumpner.mediadesk.image.ImageVersion;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.UserFactory;
 
@@ -77,16 +77,16 @@ public class FavRestApi extends RestBaseServlet {
 
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html");
-        LightboxService shoppingCartService = new LightboxService();
+        FavoriteService shoppingCartService = new FavoriteService();
         int userId = WebHelper.getUser(request).getUserId();
 
         if (request.getRequestURI().equalsIgnoreCase("/api/rest/fav/deleteselected")) {
             System.out.println("deleteselected - wird nicht mehr verwendet");
             //ausgew�hlte von den favoriten l�schen
                                /*
-            List<ImageVersion> list = MediaObjectService.getSelectedImageList(request.getSession());
+            List<MediaObject> list = MediaObjectService.getSelectedImageList(request.getSession());
             System.out.println("list");
-            for (ImageVersion mo : list) {
+            for (MediaObject mo : list) {
                 System.out.println("for");
                 shoppingCartService.removeImageToLightbox(mo.getIvid(), userId);
                 //MediaObjectService.deselectMedia(mo.getIvid(), request);
@@ -119,10 +119,10 @@ public class FavRestApi extends RestBaseServlet {
             if (request.getRequestURI().equalsIgnoreCase("/api/rest/fav/deleteselected")) {
                 //ausgew�hlte l�schen
 
-                LightboxService shoppingCartService = new LightboxService();
-                List<ImageVersion> list = MediaObjectService.getSelectedImageList(request.getSession());
+                FavoriteService shoppingCartService = new FavoriteService();
+                List<MediaObject> list = MediaObjectService.getSelectedImageList(request.getSession());
                 System.out.println("list");
-                for (ImageVersion mo : list) {
+                for (MediaObject mo : list) {
                     System.out.println("for");
                     shoppingCartService.removeImageToLightbox(mo.getIvid(), user.getUserId());
                     //MediaObjectService.deselectMedia(mo.getIvid(), request);
@@ -133,7 +133,7 @@ public class FavRestApi extends RestBaseServlet {
 
             } else {
                 int ivid = this.getUriSectionInt(4, request);
-                LightboxService shoppingCartService = new LightboxService();
+                FavoriteService shoppingCartService = new FavoriteService();
                 shoppingCartService.removeImageToLightbox(ivid, WebHelper.getUser(request).getUserId());
             }
 
@@ -146,23 +146,23 @@ public class FavRestApi extends RestBaseServlet {
     private void jsonCartMedialist(HttpServletRequest request, HttpServletResponse response) {
 
         LngResolver lngResolver = new LngResolver();
-        ImageVersionService imageService = new ImageVersionService();
+        MediaService imageService = new MediaService();
         imageService.setUsedLanguage(lngResolver.resolveLng(request));
 
-        LightboxService shoppingCartService = new LightboxService();
+        FavoriteService shoppingCartService = new FavoriteService();
         shoppingCartService.setUsedLanguage(lngResolver.resolveLng(request));
-        List<ImageVersionMultiLang> imageList = shoppingCartService.getLightboxImageList(getUser(request).getUserId());
+        List<MediaObjectMultiLang> imageList = shoppingCartService.getLightboxImageList(getUser(request).getUserId());
 
 
         try {
             PrintWriter out = response.getWriter();
 
             out.println("[");
-            for (ImageVersionMultiLang mo : imageList) {
+            for (MediaObjectMultiLang mo : imageList) {
 
                 //ShoppingCart Logik (true/false) ob dieses Medienobjekt im Cart ist
                 ShoppingCartService cartService = new ShoppingCartService();
-                LightboxService lightboxService = new LightboxService();
+                FavoriteService favoriteService = new FavoriteService();
                 User user = WebHelper.getUser(request);
                 boolean inCart = false;
                 boolean inFav = false;
@@ -172,7 +172,7 @@ public class FavRestApi extends RestBaseServlet {
                         inCart = cartService.isInCart(user.getUserId(), mo.getIvid());
                     }
                     if (Config.useLightbox) {
-                        inFav = lightboxService.isInFav(user.getUserId(), mo.getIvid());
+                        inFav = favoriteService.isInFav(user.getUserId(), mo.getIvid());
                     }
                 }
 

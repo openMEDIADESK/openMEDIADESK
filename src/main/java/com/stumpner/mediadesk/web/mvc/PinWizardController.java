@@ -1,7 +1,7 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.image.MediaObject;
 import com.stumpner.mediadesk.image.pinpics.Pin;
-import com.stumpner.mediadesk.image.ImageVersion;
 import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.inbox.InboxService;
 import com.stumpner.mediadesk.usermanagement.User;
@@ -131,7 +131,7 @@ public class PinWizardController extends SimpleFormControllerMd {
         PinpicService pinpicService = new PinpicService();
             Iterator selectedImages = selectedImageList.iterator();
             while (selectedImages.hasNext()) {
-                ImageVersion imageVersion = (ImageVersion)selectedImages.next();
+                MediaObject imageVersion = (MediaObject)selectedImages.next();
                 pinpicService.addImageToPinpic(imageVersion.getIvid(),pinId);
                 inboxService.removeImage(imageVersion.getIvid());
             }

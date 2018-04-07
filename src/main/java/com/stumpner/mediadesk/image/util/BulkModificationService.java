@@ -1,11 +1,11 @@
 package com.stumpner.mediadesk.image.util;
 
-import com.stumpner.mediadesk.image.ImageVersion;
+import com.stumpner.mediadesk.core.database.sc.MediaMetadataService;
+import com.stumpner.mediadesk.core.database.sc.MediaService;
+import com.stumpner.mediadesk.image.MediaObject;
 import com.stumpner.mediadesk.image.Metadata;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.util.MailWrapper;
-import com.stumpner.mediadesk.core.database.sc.ImageMetadataService;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.UserService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.usermanagement.User;
@@ -126,7 +126,7 @@ public class BulkModificationService {
 
                 } catch (Exception e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                    ImageVersion imageVersion = (ImageVersion)imageVersionList.get(getProcessed());
+                    MediaObject imageVersion = (MediaObject)imageVersionList.get(getProcessed());
                     if (errorRetryCounter<3) {
                         logger.error("BuldModification: Error on processing ["+getProcessed()+"/"+imageVersionList.size()+"] ivid="+imageVersion.getIvid()+" ["+e.getMessage()+"]");
                         errorRetryCounter++;
@@ -178,7 +178,7 @@ public class BulkModificationService {
 
         ImageToolbox it = new ImageToolbox();
         Logger logger = Logger.getLogger(BulkModificationService.class);
-        ImageVersion imageVersion = (ImageVersion)imageVersionList.get(processed);
+        MediaObject imageVersion = (MediaObject)imageVersionList.get(processed);
         if (imageVersion.getMayorMime().equalsIgnoreCase("image")) {
             logger.debug("BulkModification: ["+(processed+1)+"/"+imageVersionList.size()+"] redrawWatermark ImageIVID="+imageVersion.getIvid());
             it.generateThumbnail(imageVersion);
@@ -189,14 +189,14 @@ public class BulkModificationService {
     private static synchronized void processMetadata() throws MetadataReadException, IOServiceException {
 
         ImageMagickUtil imageUtil = new ImageMagickUtil(true);
-        ImageVersion imageVersion = (ImageVersion)imageVersionList.get(processed);
+        MediaObject imageVersion = (MediaObject)imageVersionList.get(processed);
 
         String fileName = Config.imageStorePath+ File.separator+imageVersion.getIvid()+"_0";
 
         Logger logger = Logger.getLogger(BulkModificationService.class);
         logger.debug("BulkModification: ["+(processed+1)+"/"+imageVersionList.size()+"] reimportMetadata ImageIVID="+imageVersion.getIvid());
 
-        ImageMetadataService imageMetadataService = new ImageMetadataService();
+        MediaMetadataService mediaMetadataService = new MediaMetadataService();
         //data auslesen (exif, iptc, bulk)
         List metadataList = null;
         metadataList = imageUtil.getImageBulkData(fileName);
@@ -210,7 +210,7 @@ public class BulkModificationService {
             metadata.setLang("");
             metadata.setVersionId(imageVersion.getVersion());
             //Metadaten nicht speichern (wird ja nur ausgelesen)
-            // imageMetadataService.addMetadata(metadata);
+            // mediaMetadataService.addMetadata(metadata);
 
             //logger.debug("Meta-Key: "+metadata.getMetaKey()+" | Meta-Value: "+metadata.getMetaValue()+ " | ");
 
@@ -314,7 +314,7 @@ public class BulkModificationService {
             }
         }
 
-        ImageVersionService imageVersionService = new ImageVersionService();
+        MediaService imageVersionService = new MediaService();
 
         imageVersionService.saveImageVersion(imageVersion);
     }

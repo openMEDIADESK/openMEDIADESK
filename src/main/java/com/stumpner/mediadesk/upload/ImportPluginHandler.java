@@ -2,7 +2,7 @@ package com.stumpner.mediadesk.upload;
 
 import java.io.File;
 
-import com.stumpner.mediadesk.core.MediaObject;
+import com.stumpner.mediadesk.core.IMediaObject;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
@@ -43,12 +43,12 @@ public interface ImportPluginHandler {
     public PluginResult validateFile(File file, PluginContext ctx) throws FileRejectException;
 
     /**
-     * In dieser Implementierung ist die Datei bereits importiert im Parameter mediaObject ist das bereits erstellte Datenbankobjekt mit der vergebenen ivid
-     * @param mediaObject
+     * In dieser Implementierung ist die Datei bereits importiert im Parameter IMediaObject ist das bereits erstellte Datenbankobjekt mit der vergebenen ivid
+     * @param IMediaObject
      * @param ctx
      * @return
      */
-    public PluginResult process(MediaObject mediaObject, PluginContext ctx);
+    public PluginResult process(IMediaObject IMediaObject, PluginContext ctx);
 
     /**
      * Mit der Implementierung dieser Methode kann das System die Funktionsf�higkeit des Plugins �berpr�fen, z.b. ob das Service installiert bzw. erreichbar ist

@@ -13,11 +13,11 @@ import java.util.LinkedList;
 import java.io.*;
 
 import com.stumpner.mediadesk.core.database.sc.FolderService;
+import com.stumpner.mediadesk.core.database.sc.MediaService;
+import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.folder.Folder;
-import com.stumpner.mediadesk.image.ImageVersionMultiLang;
 import com.stumpner.mediadesk.image.util.SizeExceedException;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.core.database.sc.ImageVersionService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.media.importing.ImportFactory;
 import com.stumpner.mediadesk.media.importing.MediaImportHandler;
@@ -125,8 +125,8 @@ public class NotExistingMediaObjectResource implements FileResource, PutableReso
             System.out.println("FileRejectException in NotExistingMediaObjectResource.java");
         }
 
-        ImageVersionService imageService = new ImageVersionService();
-        ImageVersionMultiLang media = (ImageVersionMultiLang)imageService.getImageVersionById(ivid);
+        MediaService imageService = new MediaService();
+        MediaObjectMultiLang media = (MediaObjectMultiLang)imageService.getImageVersionById(ivid);
         return new MediaObjectResource(folder,media);
     }
 
