@@ -17,7 +17,6 @@ import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.folder.Folder;
 import com.stumpner.mediadesk.image.folder.FolderMultiLang;
-import com.stumpner.mediadesk.image.inbox.InboxService;
 import com.stumpner.mediadesk.image.util.SizeExceedException;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.media.importing.ImportFactory;
@@ -349,8 +348,6 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
             //Wenn ein File �berschrieben wurde, auch die Verkn�pfungen aktualisieren
             renewLinkedCategories(media, overwrittenIvId);
 
-            InboxService inboxService = new InboxService();
-            inboxService.removeImage(media.getIvid());
 
             System.out.println("  [+] fertig...");
             return new MediaObjectResource(folder,media);

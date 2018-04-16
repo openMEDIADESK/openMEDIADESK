@@ -22,7 +22,6 @@ import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.inbox.InboxService;
 import org.apache.log4j.Logger;
 
 /*********************************************************
@@ -336,8 +335,6 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
                 logger.debug("setResourceContent: Speichern in Kategorie: "+categoryPath+" id="+ folder.getCategoryId());
                 folderService.addMediaToFolder(folder.getCategoryId(),ivid);
 
-                InboxService inboxService = new InboxService();
-                inboxService.removeImage(ivid);
                 length = getFile(imageVersion).length();
 
             } catch (Exception e) {

@@ -3,7 +3,6 @@ package com.stumpner.mediadesk.web.mvc;
 import com.stumpner.mediadesk.image.MediaObject;
 import com.stumpner.mediadesk.image.pinpics.Pin;
 import com.stumpner.mediadesk.image.folder.Folder;
-import com.stumpner.mediadesk.image.inbox.InboxService;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.web.mvc.commandclass.PinWizard;
 import com.stumpner.mediadesk.core.database.sc.PinpicService;
@@ -127,13 +126,11 @@ public class PinWizardController extends SimpleFormControllerMd {
 
     private void addImagesToPin(List selectedImageList, int pinId) {
 
-        InboxService inboxService = new InboxService();
         PinpicService pinpicService = new PinpicService();
             Iterator selectedImages = selectedImageList.iterator();
             while (selectedImages.hasNext()) {
                 MediaObject imageVersion = (MediaObject)selectedImages.next();
                 pinpicService.addImageToPinpic(imageVersion.getIvid(),pinId);
-                inboxService.removeImage(imageVersion.getIvid());
             }
 
     }

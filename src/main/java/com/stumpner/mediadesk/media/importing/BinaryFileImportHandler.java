@@ -3,7 +3,6 @@ package com.stumpner.mediadesk.media.importing;
 import com.stumpner.mediadesk.core.database.sc.MediaService;
 import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.util.SizeExceedException;
-import com.stumpner.mediadesk.image.inbox.InboxService;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 
@@ -107,9 +106,6 @@ public class BinaryFileImportHandler implements MediaImportHandler {
         }
 
 
-        //add to inbox
-        InboxService inboxService = new InboxService();
-        inboxService.addImage(imageVersion.getIvid());
         int importedIvid = imageVersion.getIvid();
 
         try {

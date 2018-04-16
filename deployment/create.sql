@@ -359,3 +359,11 @@ ALTER TABLE `category` MODIFY COLUMN `inheritacl` TINYINT(1) UNSIGNED NOT NULL D
 ALTER TABLE `imageversion` ADD COLUMN `licvalid` DATETIME AFTER `masterdataid`;
 
 ALTER TABLE `pinpic` ADD COLUMN `password` VARCHAR(100) NOT NULL DEFAULT '' AFTER `emailnotification`;
+
+DROP TABLE `folder`;
+DROP TABLE `folderholder`;
+DROP TABLE `filmreel`;
+DROP TABLE `filmreelholder`;
+DROP TABLE `inbox`;
+ALTER TABLE `category` RENAME TO `folder` ;
+ALTER TABLE `categoryholder` RENAME TO `folderholder` ;

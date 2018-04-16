@@ -58,7 +58,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         FolderMultiLang folder = new FolderMultiLang();
         try {
-            folder = (FolderMultiLang)smc.queryForObject("getCategoryById",new Integer(id));
+            folder = (FolderMultiLang)smc.queryForObject("getFolderById",new Integer(id));
             if (folder!=null) folder.setUsedLanguage(getUsedLanguage());
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -109,7 +109,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         loaderClass.setUsedLanguage(getUsedLanguage());
 
         try {
-            folderList = smc.queryForList("getCategorySubTree",loaderClass);
+            folderList = smc.queryForList("getFolderSubTree",loaderClass);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -150,7 +150,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         FolderMultiLang folder = new FolderMultiLang();
         try {
-            folder = (FolderMultiLang)smc.queryForObject("getCategoryByName",name);
+            folder = (FolderMultiLang)smc.queryForObject("getFolderByName",name);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -169,7 +169,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         loaderClass.setUsedLanguage(getUsedLanguage());
 
         try {
-            folderList = smc.queryForList("getCategoryList",loaderClass);
+            folderList = smc.queryForList("getFolderList",loaderClass);
             //folderList = smc.queryForPaginatedList("getFolderList",new Integer(numberOfResults),12);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -235,7 +235,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         loaderClass.setUsedLanguage(getUsedLanguage());
 
         try {
-            folderList = smc.queryForList("getCategoryListFromImageVersion", loaderClass);
+            folderList = smc.queryForList("getFolderListFromMediaObject", loaderClass);
             //categoryList = smc.queryForPaginatedList("getFolderList",new Integer(numberOfResults),12);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -253,7 +253,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
             if (folder.getFid().trim().length()==0) { folder.setFid(null); }
         }
         try {
-            smc.update("saveCategory",folder);
+            smc.update("saveFolder",folder);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -281,8 +281,8 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         }
 
         try {
-            smc.insert("addCategory",folder);
-            Integer maxFolderId = (Integer)smc.queryForObject("getMaxCategoryId",new Integer(0));
+            smc.insert("addFolder",folder);
+            Integer maxFolderId = (Integer)smc.queryForObject("getMaxFolderId",new Integer(0));
             folder.setCategoryId(maxFolderId.intValue());
 
             //Acl von Elternkategorie Übernehmen:
@@ -346,7 +346,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         }
 
         try {
-            smc.insert("addImageToCategory", folderHolder);
+            smc.insert("addMediaToFolder", folderHolder);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -366,7 +366,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         Integer count = 0;
         try {
-            count = (Integer)smc.queryForObject("isImageInCategory",new HolderClass(ivid,folderId));
+            count = (Integer)smc.queryForObject("isMediaInFolder",new HolderClass(ivid,folderId));
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -414,7 +414,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
 
         try {
-            smc.delete("deleteImageFromAllCategories", new Integer(ivid));
+            smc.delete("deleteMediaFromAllFolders", new Integer(ivid));
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -449,7 +449,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         }
 
         try {
-            smc.delete("deleteImageFromCategory", folderHolder);
+            smc.delete("deleteMediaFromFolder", folderHolder);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -473,13 +473,13 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         SqlMapClient smc = AppSqlMap.getSqlMapInstance();
 
         try {
-            smc.delete("deleteAllImagesFromCategory",new Integer(id));
+            smc.delete("deleteAllMediaFromFolder",new Integer(id));
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         try {
-            smc.delete("deleteCategoryById", new Integer(id));
+            smc.delete("deleteFolderById", new Integer(id));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -495,7 +495,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         /* Alle Ordner inklusive neu gerechneter Medienobjekt-anzahl (in dem ordner selbst) laden */
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         try {
-            allFolderList = smc.queryForList("getAllCategoryListIc",new Integer(folderId));
+            allFolderList = smc.queryForList("getAllFolderListIc",new Integer(folderId));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -599,7 +599,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         Integer folderId = null;
         try {
-            folderId = (Integer)smc.queryForObject("getCategoryIdByFid",fid);
+            folderId = (Integer)smc.queryForObject("getFolderIdByFid",fid);
             if (folderId==null) {
                 throw new ObjectNotFoundException("Folder mit der FID "+fid+" nicht gefunden.");
             }

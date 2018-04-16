@@ -4,7 +4,6 @@ import com.stumpner.mediadesk.image.BasicMediaObject;
 import com.stumpner.mediadesk.image.MediaObject;
 import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.folder.NameValidator;
-import com.stumpner.mediadesk.image.inbox.InboxService;
 import com.stumpner.mediadesk.core.database.AppSqlMap;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
@@ -93,22 +92,6 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
         return image;
     }
 
-    public List getFolderImages(SimpleLoaderClass loaderClass) {
-
-        SqlMapClient smc =AppSqlMap.getSqlMapInstance();
-        List imageList = new ArrayList();
-        loaderClass.setUsedLanguage(getUsedLanguage());
-
-        try {
-            imageList = smc.queryForList("getFolderImages",loaderClass);
-        } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-        return imageList;
-
-    }
-
     public List getCategoryImages(SimpleLoaderClass loaderClass) {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
@@ -116,7 +99,7 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
         loaderClass.setUsedLanguage(getUsedLanguage());
 
         try {
-            imageList = smc.queryForList("getCategoryImages",loaderClass);
+            imageList = smc.queryForList("getFolderMediaObjects",loaderClass);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -223,92 +206,6 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
         }
 
         return imageList;
-
-    }
-
-    public PaginatedList getFolderImagesPages(SimpleLoaderClass loaderClass, int itemsPerPage) {
-
-        SqlMapClient smc =AppSqlMap.getSqlMapInstance();
-        loaderClass.setUsedLanguage(getUsedLanguage());
-        PaginatedList userList = null;
-
-        try {
-            userList = smc.queryForPaginatedList("getFolderImages",loaderClass,itemsPerPage);
-        } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-        return userList;
-
-    }
-
-    public List getFolderImagesPages(SimpleLoaderClass loaderClass, int itemsPerPage, int page) {
-
-        SqlMapClient smc =AppSqlMap.getSqlMapInstance();
-        loaderClass.setUsedLanguage(getUsedLanguage());
-
-        loaderClass.setItemsPerPage(itemsPerPage);
-        loaderClass.setPage(page);
-        List userList = null;
-
-        try {
-            userList = smc.queryForList("getFolderImages",loaderClass);
-        } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-        return userList;
-
-    }
-
-    /**
-     * @deprecated use getCategoryImagePage für bessere Performance
-     * @param loaderClass
-     * @param itemsPerPage
-     * @return
-     */
-    public PaginatedList getCategoryImagesPages(SimpleLoaderClass loaderClass, int itemsPerPage) {
-
-        SqlMapClient smc =AppSqlMap.getSqlMapInstance();
-        PaginatedList userList = null;
-        loaderClass.setUsedLanguage(getUsedLanguage());
-
-        try {
-            userList = smc.queryForPaginatedList("getCategoryImages",loaderClass,itemsPerPage);
-        } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-        return userList;
-
-    }
-
-    /**
-     * Bessere Performance als getCategoryImagesPages
-     * @param loaderClass
-     * @param itemsPerPage
-     * @param page
-     * @return
-     */
-    public List getCategoryImagesPage(SimpleLoaderClass loaderClass, int itemsPerPage, int page) {
-
-        SqlMapClient smc =AppSqlMap.getSqlMapInstance();
-        List userList = null;
-        loaderClass.setUsedLanguage(getUsedLanguage());
-
-        loaderClass.setItemsPerPage(itemsPerPage);
-        loaderClass.setPage(page);
-        long startTime = System.currentTimeMillis();
-        logger.debug("getCategoryImages [SQL] (started)");
-
-        try {
-            userList = smc.queryForList("getCategoryImages",loaderClass);
-        } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-        logger.debug("getCategoryImages [SQL] (finished "+(System.currentTimeMillis()-startTime)+")");
-        return userList;
 
     }
 
@@ -427,13 +324,12 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
             FolderService folderService = new FolderService();
             FavoriteService favoriteService = new FavoriteService();
             ShoppingCartService shoppingCartService = new ShoppingCartService();
-            InboxService inboxService = new InboxService();
+
             /* Kategorieverknüpfungen lösen: bild(er) aus ordner und kategorien löschen */
             logger.debug("deleteImageVersion: delete image from all categories, folders, lightbox, shoppingcart, inbox");
             folderService.deleteMediaFromAllFolder(imageVersion.getIvid());
             favoriteService.deleteImageFromAllLightbox(imageVersion.getIvid());
             shoppingCartService.deleteImageFromAllShoppingCart(imageVersion.getIvid());
-            inboxService.removeImage(imageVersion.getIvid());
 
             //Medien-Objekt aus MediaObject-Tabelle löschen inkl. Metadaten:
             logger.debug("deleteImageVersion: delete object from imageversion-db-table");
@@ -607,7 +503,7 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
             stmt.addBatch("UPDATE imageversion set versionname = REPLACE(versionname,'\\\\','_') WHERE versionname LIKE '%\\\\\\\\%'");
             for (int a=1;a<notAllowedChars.length();a++) {
                 stmt.addBatch("UPDATE imageversion set versionname = REPLACE(versionname,'"+notAllowedChars.charAt(a)+"','_') WHERE versionname LIKE '%"+notAllowedChars.charAt(a)+"%'");
-                stmt.addBatch("UPDATE category SET catname = REPLACE(catname,'"+notAllowedChars.charAt(a)+"','_') WHERE catname LIKE '%"+notAllowedChars.charAt(a)+"%'");
+                stmt.addBatch("UPDATE folder SET catname = REPLACE(catname,'"+notAllowedChars.charAt(a)+"','_') WHERE catname LIKE '%"+notAllowedChars.charAt(a)+"%'");
             }
             stmt.executeBatch();
             stmt.close();

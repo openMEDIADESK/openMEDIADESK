@@ -1,7 +1,6 @@
 package com.stumpner.mediadesk.image;
 
 import com.stumpner.mediadesk.image.folder.Folder;
-import com.stumpner.mediadesk.image.inbox.InboxService;
 import com.stumpner.mediadesk.image.pinpics.Pin;
 import com.stumpner.mediadesk.core.database.sc.*;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
@@ -62,14 +61,12 @@ public class AutoMediaAssigner {
 
     public void assign(Object autoImportObject,int ivid) {
 
-        InboxService inboxService = new InboxService();
         if (autoImportObject!=null) {
             if (isAutoImportCategory(autoImportObject)) {
                 FolderService folderService = new FolderService();
                 Folder folder = (Folder)autoImportObject;
                 try {
                     folderService.addMediaToFolder(folder.getCategoryId(),ivid);
-                    inboxService.removeImage(ivid);
                 } catch (DublicateEntry dublicateEntry) {
                     dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }
@@ -78,7 +75,6 @@ public class AutoMediaAssigner {
                 PinpicService pinpicService = new PinpicService();
                 Pin pin = (Pin)autoImportObject;
                 pinpicService.addImageToPinpic(ivid, pin.getPinpicId());
-                inboxService.removeImage(ivid);
 
                 //Informieren, wenn aktiviert
                 if (pin.getEmailnotification().length()>0) {
@@ -99,7 +95,6 @@ public class AutoMediaAssigner {
         } else {
 
             //Wenn keinem Ziel zugewiesen, dann in den Arbeitsplat/Favoriten (Lightbox laden)
-            inboxService.removeImage(ivid);
             MediaService mediaService = new MediaService();
             MediaObjectMultiLang mediaObject = (MediaObjectMultiLang)mediaService.getImageVersionById(ivid);
 

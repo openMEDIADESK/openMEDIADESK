@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.stumpner.mediadesk.image.*;
 import com.stumpner.mediadesk.image.util.SizeExceedException;
-import com.stumpner.mediadesk.image.inbox.InboxService;
 import com.stumpner.mediadesk.core.database.sc.*;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
@@ -114,20 +113,6 @@ public class MediaDetailEditController extends AbstractAutoFillController {
             }
         }
         model.put("selectedList",new Integer(selectedImageCount));
-
-        /**
-         * Bilder in der Inbox
-         */
-        boolean inInbox=false;
-        int inboxImage = 0;
-        InboxService inboxService = new InboxService();
-        Iterator inboxs = inboxService.getInbox().iterator();
-        while (inboxs.hasNext()) {
-            MediaObject image = (MediaObject)inboxs.next();
-            if (image.getIvid()==ivid) { inInbox=true; }
-            inboxImage++;
-        }
-        model.put("inboxImage",new Integer((inInbox) ? inboxImage:0));
 
         /**
          * Custom-Lists

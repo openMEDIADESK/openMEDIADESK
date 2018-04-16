@@ -219,12 +219,12 @@
         </isNotEqual>
     </select>
 
-    <select id="getCategoryImages" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="imageList">
+    <select id="getFolderMediaObjects" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="imageList">
         SELECT
         <include refid="imageversionFields"/>
                  , '$usedLanguage$' as usedLanguage
-        FROM categoryholder
-        INNER JOIN imageversion ON categoryholder.ivid = imageversion.ivid
+        FROM folderholder
+        INNER JOIN imageversion ON folderholder.ivid = imageversion.ivid
         WHERE categoryid = #id#
         <isEqual compareValue="1" property="sortBy">
             ORDER BY photographdate
@@ -429,10 +429,6 @@
         WHERE fid = #fid#
     </select>
 
-    <delete id="aclimageDelete">
-        DELETE FROM aclimage
-    </delete>
-
     <select id="getImageCount" resultClass="int">
         SELECT count(*) as value FROM imageversion
     </select>
@@ -441,11 +437,15 @@
         SELECT SUM(kb) FROM imageversion
     </select>
 
+    <delete id="aclimageDelete">
+        DELETE FROM aclimage
+    </delete>
+
     <update id="aclimageUpdate">
         REPLACE INTO aclimage
           SELECT imageversion.ivid, categoryid as objectid, objecttype, principalid, principaltype, permission FROM imageversion
-            INNER JOIN categoryholder ON imageversion.ivid = categoryholder.ivid
-            INNER JOIN acldata ON acldata.objectid = categoryholder.categoryid AND objecttype = 10
+            INNER JOIN folderholder ON imageversion.ivid = folderholder.ivid
+            INNER JOIN acldata ON acldata.objectid = folderholder.categoryid AND objecttype = 10
     </update>
 
     <update id="normalizeNames">

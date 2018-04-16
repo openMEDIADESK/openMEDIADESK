@@ -6,7 +6,6 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.image.MediaObjectMultiLang;
 import com.stumpner.mediadesk.image.Metadata;
-import com.stumpner.mediadesk.image.inbox.InboxService;
 import com.stumpner.mediadesk.media.importing.AbstractImportFactory;
 
 import java.io.File;
@@ -156,9 +155,6 @@ public class ImageImport {
 
         //import to database
 
-        //add to inbox
-        InboxService inboxService = new InboxService();
-        inboxService.addImage(imageVersion.getIvid());
         importedIvid = imageVersion.getIvid();
 
         //import metadata
