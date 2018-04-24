@@ -149,7 +149,7 @@
             <include refid="mediaObjectFields"/>
                  , '$usedLanguage$' as usedLanguage
         FROM pinpicholder
-        INNER JOIN imageversion ON pinpicholder.ivid = imageversion.ivid
+        INNER JOIN mediaobject ON pinpicholder.ivid = mediaobject.ivid
         WHERE pinpicid = #id#
     </select>
 

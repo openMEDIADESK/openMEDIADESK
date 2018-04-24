@@ -106,7 +106,7 @@ public class WebdavResourceFactory implements ResourceFactory {
                     MediaService imageService = new MediaService();
                     SimpleLoaderClass loader = new SimpleLoaderClass();
                     loader.setId(folder.getCategoryId());
-                    List categoryMediaList = imageService.getCategoryImages(loader);
+                    List categoryMediaList = imageService.getFolderMediaObjects(loader);
 
                     for (Object aCategoryMedia : categoryMediaList) {
                         MediaObjectMultiLang media = (MediaObjectMultiLang)aCategoryMedia;

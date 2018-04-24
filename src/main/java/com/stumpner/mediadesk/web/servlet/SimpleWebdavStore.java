@@ -92,7 +92,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
             SimpleLoaderClass loaderClass = new SimpleLoaderClass();
 
                 loaderClass.setId(folder.getCategoryId());
-                List imageList = imageService.getCategoryImages(loaderClass);
+                List imageList = imageService.getFolderMediaObjects(loaderClass);
         List categoryList = folderService.getFolderList(folder.getCategoryId());
 
                 childrenNames = new String[imageList.size()+categoryList.size()];
@@ -153,7 +153,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
                 if (categoryList.size()==0) {
                     //Bilddatei löschen
                     try {
-                        imageService.deleteImageVersion(imageVersion);
+                        imageService.deleteMediaObject(imageVersion);
                     } catch (IOServiceException e1) {
                         e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     }
@@ -320,12 +320,12 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
                 importFile.delete();
                 logger.debug("setResourceContent: neue Datei hat ivid = "+ivid);
                 MediaService imageService = new MediaService();
-                MediaObjectMultiLang imageVersion = (MediaObjectMultiLang)imageService.getImageVersionById(ivid);
+                MediaObjectMultiLang imageVersion = (MediaObjectMultiLang)imageService.getMediaObjectById(ivid);
                 imageVersion.setVersionName(fileName);
                 imageVersion.setVersionTitle(fileName);
                 imageVersion.setVersionTitleLng1(fileName);
                 imageVersion.setVersionTitleLng2(fileName);
-                imageService.saveImageVersion(imageVersion);
+                imageService.saveMediaObject(imageVersion);
 
 
                 //Bild automatisch der Kategorie zuweisen:
@@ -465,7 +465,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
             }
             SimpleLoaderClass loaderClass = new SimpleLoaderClass();
             loaderClass.setId(folder2.getCategoryId());
-            List categoryImageList = imageService.getCategoryImages(loaderClass);
+            List categoryImageList = imageService.getFolderMediaObjects(loaderClass);
             Iterator categoryImages = categoryImageList.iterator();
             while (categoryImages.hasNext()) {
                 MediaObject imageVersion = (MediaObject)categoryImages.next();

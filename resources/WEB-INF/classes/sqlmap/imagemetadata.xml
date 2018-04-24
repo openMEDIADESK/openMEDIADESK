@@ -37,7 +37,7 @@
         WHERE imdid = #imdid#
     </update>
 
-    <delete id="deleteAllImageMetadataFromIvid" parameterClass="int">
+    <delete id="deleteAllMetadataFromIvid" parameterClass="int">
         DELETE FROM imagemetadata WHERE ivid = #value#
     </delete>
 

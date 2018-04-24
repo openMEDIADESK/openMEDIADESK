@@ -242,7 +242,7 @@ public class CronService {
                             //kommt in keiner Kategorie und keinem Folder vor, kann gelöscht werden
                             pinpicService.deleteImageFromPinpic(imageVersion.getIvid(),pin.getPinpicId());
                             try {
-                                imageService.deleteImageVersion(imageVersion);
+                                imageService.deleteMediaObject(imageVersion);
                             } catch (IOServiceException e) {
                                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                             }

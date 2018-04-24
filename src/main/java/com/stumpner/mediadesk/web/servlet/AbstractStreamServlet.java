@@ -168,7 +168,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
                             loader.setId(id);
                             loader.setOrderBy(Config.orderByCategory);
                             loader.setSortBy(Config.sortByCategory);
-                            List imageList = imageService.getCategoryImages(loader);
+                            List imageList = imageService.getFolderMediaObjects(loader);
                             if (imageList.size()>0) {
                                 //Pr�fen ob explizit ein Name in der Kategorie angegeben wurde, oder
                                 //das aktuellste File geladen werden soll (kein name angegeben)
@@ -199,7 +199,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
                         //Die URL kann entweder /podcast/object/#id#
                         //oder /podcast/object/#id#.#extention# sein
 
-                        MediaObject imageVersion = imageService.getImageVersionById(id);
+                        MediaObject imageVersion = imageService.getMediaObjectById(id);
 
                         if (imageVersion!=null) {
                             //check Permission

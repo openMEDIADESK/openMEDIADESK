@@ -184,7 +184,7 @@ public class FolderSelectorController extends SimpleFormControllerMd {
                     PinpicService pinService = new PinpicService();
                     int pinId = ((Integer)httpServletRequest.getSession().getAttribute("pinid")).intValue();
                     SimpleLoaderClass slc = new SimpleLoaderClass(category.getFolder().getCategoryId());
-                    List mediaList = mediaService.getCategoryImages(slc);
+                    List mediaList = mediaService.getFolderMediaObjects(slc);
                     Iterator mediaObjects = mediaList.iterator();
                     while (mediaObjects.hasNext()) {
                         MediaObject mediaObject = (MediaObject)mediaObjects.next();

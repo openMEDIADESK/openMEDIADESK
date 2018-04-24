@@ -177,7 +177,7 @@ public class VideoImportHandler extends AbstractAudioVideoImportHandler {
         //Metadaten schreiben:
         MediaMetadataService mediaMetadataService = new MediaMetadataService();
         MediaService mediaService = new MediaService();
-        MediaObjectMultiLang mediaObject = (MediaObjectMultiLang)mediaService.getImageVersionById(ivid);
+        MediaObjectMultiLang mediaObject = (MediaObjectMultiLang)mediaService.getMediaObjectById(ivid);
 
         for (Metadata metadata : metadataList) {
 
@@ -210,7 +210,7 @@ public class VideoImportHandler extends AbstractAudioVideoImportHandler {
         mediaObject.setHeight(videoHeight);
         mediaObject.setWidth(videoWidth);
         try {
-            mediaService.saveImageVersion(mediaObject);
+            mediaService.saveMediaObject(mediaObject);
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

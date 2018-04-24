@@ -63,7 +63,7 @@ public class MediaObjectService {
         LngResolver lngResolver = new LngResolver();
         imageService.setUsedLanguage(lngResolver.resolveLng(request));
         logger.debug("selectMedia: Loading MediaObject to select: "+ivid);
-        MediaObject imageVersion = imageService.getImageVersionById(ivid);
+        MediaObject imageVersion = imageService.getMediaObjectById(ivid);
         if (imageVersion!=null) { imageList.add(imageVersion); }
         else { logger.debug("selectMedia: BasicMediaObject ["+ivid+"] not loaded, does not exist"); return false; }
 

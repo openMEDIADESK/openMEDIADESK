@@ -82,7 +82,7 @@ public class BinaryFileImportHandler implements MediaImportHandler {
         MediaService imageService = new MediaService();
         try {
             logger.debug("Datei in der Datenbank anlegen...");
-            imageService.addImage(imageVersion);
+            imageService.addMedia(imageVersion);
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -109,7 +109,7 @@ public class BinaryFileImportHandler implements MediaImportHandler {
         int importedIvid = imageVersion.getIvid();
 
         try {
-            imageService.saveImageVersion(imageVersion);
+            imageService.saveMediaObject(imageVersion);
             ImportPluginHandlerChain.getInstance().process(imageVersion);
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

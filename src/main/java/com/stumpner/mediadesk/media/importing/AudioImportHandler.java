@@ -53,7 +53,7 @@ public class AudioImportHandler extends AbstractAudioVideoImportHandler {
         int ivid = super.processImport(file, userId);
 
         MediaService mediaService = new MediaService();
-        MediaObjectMultiLang mediaObject = (MediaObjectMultiLang)mediaService.getImageVersionById(ivid);
+        MediaObjectMultiLang mediaObject = (MediaObjectMultiLang)mediaService.getMediaObjectById(ivid);
         mediaObject.setDuration(duration);
         mediaObject.setBitrate(bitrate);
         mediaObject.setSamplerate(sampleRate);
@@ -108,7 +108,7 @@ public class AudioImportHandler extends AbstractAudioVideoImportHandler {
         }
 
         try {
-            mediaService.saveImageVersion(mediaObject);
+            mediaService.saveMediaObject(mediaObject);
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

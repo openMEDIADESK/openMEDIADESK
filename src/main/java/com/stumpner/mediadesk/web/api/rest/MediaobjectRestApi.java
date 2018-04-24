@@ -64,7 +64,7 @@ public class MediaobjectRestApi extends RestBaseServlet {
         LngResolver lngResolver = new LngResolver();
         MediaService mos = new MediaService();
         mos.setUsedLanguage(lngResolver.resolveLng(request));
-        MediaObjectMultiLang mo = (MediaObjectMultiLang)mos.getImageVersionById(ivid);
+        MediaObjectMultiLang mo = (MediaObjectMultiLang)mos.getMediaObjectById(ivid);
 
         int uriSectionCount = getUriSectionCount(request);
         //System.out.println("urisectioncount="+uriSectionCount);

@@ -88,7 +88,7 @@ public class MediaDeleteController extends SimpleFormControllerMd {
                 MediaService imageService = new MediaService();
                 if (httpServletRequest.getSession().getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES)!=null) {
                     List mediaList = (List)httpServletRequest.getSession().getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES);
-                    imageService.deleteImageVersions(
+                    imageService.deleteMediaObjects(
                             (List)httpServletRequest.getSession().getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES)
                     );
                     httpServletRequest.getSession().removeAttribute(Resources.SESSIONVAR_SELECTED_IMAGES);

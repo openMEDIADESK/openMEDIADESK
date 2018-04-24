@@ -80,7 +80,7 @@ public class AutoMediaAssigner {
                 if (pin.getEmailnotification().length()>0) {
 
                     MediaService imageService = new MediaService();
-                    MediaObjectMultiLang image = (MediaObjectMultiLang)imageService.getImageVersionById(ivid);
+                    MediaObjectMultiLang image = (MediaObjectMultiLang)imageService.getMediaObjectById(ivid);
 
                     String mailsubject = "PIN Upload: "+ pin.getPin() + " "+ pin.getPinpicName();
                     String mailbody = "Eine oder mehrere Dateien wurden in den PIN "+ pin.getPin() + " hochgeladen.";
@@ -96,7 +96,7 @@ public class AutoMediaAssigner {
 
             //Wenn keinem Ziel zugewiesen, dann in den Arbeitsplat/Favoriten (Lightbox laden)
             MediaService mediaService = new MediaService();
-            MediaObjectMultiLang mediaObject = (MediaObjectMultiLang)mediaService.getImageVersionById(ivid);
+            MediaObjectMultiLang mediaObject = (MediaObjectMultiLang)mediaService.getMediaObjectById(ivid);
 
             FavoriteService workspaceService = new FavoriteService();
             //System.out.println("CreatorUserId: "+mediaObject.getCreatorUserId()+" Lightbox: "+ivid);

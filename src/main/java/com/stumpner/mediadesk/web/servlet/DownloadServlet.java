@@ -100,7 +100,7 @@ public class DownloadServlet extends HttpServlet {
         boolean ividIsInImageList = true;
         //int ivid = Integer.parseInt(httpServletRequest.getParameter("ivid"));
         MediaService imageService = new MediaService();
-        //MediaObject image = imageService.getImageVersionById(ivid);
+        //MediaObject image = imageService.getMediaObjectById(ivid);
 
         List downloadImageList = getImageList(httpServletRequest);
         if (downloadImageList!=null) {
@@ -528,7 +528,7 @@ public class DownloadServlet extends HttpServlet {
             MediaObject imageVersion = (MediaObject)images.next();
             //todo: "verschÃ¶nern"
             //Hier muss jedes Bild nochmal neu aus der Datenbank geladen werden:
-            //MediaObject originalImage = ivs.getImageVersionById(imageVersion.getIvid());
+            //MediaObject originalImage = ivs.getMediaObjectById(imageVersion.getIvid());
             imageListString = imageListString + imageVersion.getImageNumber();
 
             //System.out.println("ImageTitle: "+imageVersion.getVersionTitle());
@@ -605,7 +605,7 @@ public class DownloadServlet extends HttpServlet {
                 List sselectedToDownloadList = (List)request.getSession().getAttribute(Resources.SESSIONVAR_DOWNLOAD_IMAGES);
                 if (sselectedToDownloadList==null) { //Wenn nicht über den Download-View Controller gegangen wird, ist in der Session keine liste
                     MediaService mediaService = new MediaService();
-                    MediaObject i = mediaService.getImageVersionById(ivid);
+                    MediaObject i = mediaService.getMediaObjectById(ivid);
                     sselectedToDownloadList = new LinkedList();
                     sselectedToDownloadList.add(i);
                 }

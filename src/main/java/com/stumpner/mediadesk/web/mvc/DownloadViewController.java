@@ -82,7 +82,7 @@ public class DownloadViewController extends AbstractPageController {
                         //Prüfen wenn der Parameter ivid nicht übergeben ist, wird ein error 404 Error ausgegeben
                         if (httpServletRequest.getParameter("ivid")==null) { httpServletResponse.sendError(404); return null; }
                         int ivid = Integer.parseInt(httpServletRequest.getParameter("ivid"));
-                        MediaObjectMultiLang media = (MediaObjectMultiLang)imageService.getImageVersionById(ivid);
+                        MediaObjectMultiLang media = (MediaObjectMultiLang)imageService.getMediaObjectById(ivid);
                         if (Config.useShoppingCart) {
                             BigDecimal price = Config.currency.isEmpty() ? BigDecimal.valueOf(1) : media.getPrice();
                             if (user.getRole()>= User.ROLE_USER) { //nur wenn eingeloggt, denn sonst wird unterhalb redirected
@@ -265,7 +265,7 @@ public class DownloadViewController extends AbstractPageController {
                                 }
                             }
                         if (isInPin) {
-                            selectedToDownloadList.add(imageService.getImageVersionById(ivid));
+                            selectedToDownloadList.add(imageService.getMediaObjectById(ivid));
                             try {
                                 response.sendRedirect(
                                     response.encodeRedirectURL("/download/?pin=ivid&ivid="+ivid)

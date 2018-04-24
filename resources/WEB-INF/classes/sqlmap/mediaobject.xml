@@ -84,14 +84,14 @@
             licvalid as licValid
     </sql>
 
-    <select id="getImageVersionById" parameterClass="int" resultClass="com.stumpner.mediadesk.image.MediaObjectMultiLang">
+    <select id="getMediaObjectById" parameterClass="int" resultClass="com.stumpner.mediadesk.image.MediaObjectMultiLang">
         SELECT
         <include refid="mediaObjectFields"/>
         FROM mediaobject
         WHERE ivid = #value#
     </select>
 
-    <select id="getImageByNumber" parameterClass="java.lang.String" resultClass="com.stumpner.mediadesk.image.BasicMediaObject">
+    <select id="getMediaObjectByNumber" parameterClass="java.lang.String" resultClass="com.stumpner.mediadesk.image.BasicMediaObject">
         SELECT
         <include refid="mediaObjectFields"/>
         FROM mediaobject
@@ -266,7 +266,7 @@
         WHERE licvalid &lt;= #value#
     </select>
 
-    <select id="getImagesByCratedate" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.DateLoaderClass" resultMap="imageList">
+    <select id="getMediaObjectByCratedate" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.DateLoaderClass" resultMap="imageList">
         SELECT
         <include refid="mediaObjectFields"/>
                  , '$usedLanguage$' as usedLanguage
@@ -276,7 +276,7 @@
 
     </select>
     
-    <select id="getLastImages" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.LastImagesLoaderClass" resultMap="imageList">
+    <select id="getMediaObjects" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.LastImagesLoaderClass" resultMap="imageList">
         SELECT         
         <include refid="mediaObjectFields"/>
                  , '$usedLanguage$' as usedLanguage
@@ -303,30 +303,7 @@
         LIMIT 0,#count#
     </select>
 
-    <select id="getImageVersionByImageAndVersion" parameterClass="com.stumpner.mediadesk.image.MediaObject" resultClass="com.stumpner.mediadesk.image.MediaObject">
-        SELECT
-            ivid    as ivid,
-            version as version,
-            versiontitle    as versionTitle,
-            versionname     as versionName,
-            imageid         as imageId,
-            createdate      as createDate,
-            creatoruserid   as creatorUserId,
-            note            as note,
-            versionsubtitle as versionSubTitle
-        FROM mediaobject
-        WHERE version = #version#
-            AND imageid = #imageId#
-    </select>
-
-    <select id="getMaxVersionFromImageByImageId" parameterClass="int" resultClass="int">
-        SELECT
-            MAX(version) as value
-        FROM mediaobject
-        WHERE imageid = #value#
-    </select>
-
-    <insert id="addImageVersion" parameterClass="com.stumpner.mediadesk.image.MediaObjectMultiLang">
+    <insert id="addMediaObject" parameterClass="com.stumpner.mediadesk.image.MediaObjectMultiLang">
         <selectKey keyProperty="ivid" type="post" resultClass="int">
 		    SELECT LAST_INSERT_ID() AS value
 	    </selectKey>
@@ -335,7 +312,7 @@
         VALUES (NULL,#imageId#,#version#,#createDate#,#creatorUserId#,#note#,#info#,#infoLng1#,#infoLng2#,#noteLng1#,#noteLng2#,#keywords#,#customList1#,#customList2#,#customList3#)
     </insert>
 
-    <update id="saveImageVersion" parameterClass="com.stumpner.mediadesk.image.MediaObjectMultiLang">
+    <update id="saveMediaObject" parameterClass="com.stumpner.mediadesk.image.MediaObjectMultiLang">
         UPDATE mediaobject
         SET versiontitle = #versionTitle#,
             versiontitlelng1 = #versionTitleLng1#,
@@ -414,12 +391,8 @@
         WHERE ivid = #ivid#
     </update>
 
-    <delete id="deleteImageVersion" parameterClass="int">
+    <delete id="deleteMediaObject" parameterClass="int">
         DELETE FROM mediaobject WHERE ivid = #value#
-    </delete>
-
-    <delete id="deleteImageVersionsByImageId" parameterClass="int">
-        DELETE FROM mediaobject WHERE imageid = #value#
     </delete>
 
     <select id="getMediaObjectIdByFid" parameterClass="java.lang.String" resultClass="int">
@@ -429,19 +402,19 @@
         WHERE fid = #fid#
     </select>
 
-    <select id="getImageCount" resultClass="int">
+    <select id="getMediaCount" resultClass="int">
         SELECT count(*) as value FROM mediaobject
     </select>
 
-    <select id="getImageKb" resultClass="int">
+    <select id="getUsedKb" resultClass="int">
         SELECT SUM(kb) FROM mediaobject
     </select>
 
-    <delete id="aclimageDelete">
+    <delete id="aclDelete">
         DELETE FROM aclimage
     </delete>
 
-    <update id="aclimageUpdate">
+    <update id="aclUpdate">
         REPLACE INTO aclimage
           SELECT mediaobject.ivid, categoryid as objectid, objecttype, principalid, principaltype, permission FROM mediaobject
             INNER JOIN folderholder ON mediaobject.ivid = folderholder.ivid

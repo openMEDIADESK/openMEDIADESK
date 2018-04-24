@@ -104,7 +104,7 @@ public class SearchresultRestApi extends RestBaseServlet {
 
             MediaService imageService = new MediaService();
             try {
-                imageService.deleteImageVersions(selectedList);
+                imageService.deleteMediaObjects(selectedList);
             } catch (IOServiceException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }

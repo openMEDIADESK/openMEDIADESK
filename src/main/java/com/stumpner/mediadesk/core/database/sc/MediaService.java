@@ -14,7 +14,6 @@ import com.stumpner.mediadesk.core.database.sc.loader.DateLoaderClass;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.ibatis.sqlmap.client.SqlMapClient;
-import com.ibatis.common.util.PaginatedList;
 
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -64,9 +63,9 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
      * @param ivid
      * @return
      */
-    public MediaObject getImageVersionById(int ivid) {
+    public MediaObject getMediaObjectById(int ivid) {
 
-        return this.getImageVersionById(ivid, new MediaObjectMultiLang());
+        return this.getMediaObjectById(ivid, new MediaObjectMultiLang());
 
     }
 
@@ -76,14 +75,14 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
      * @param image
      * @return
      */
-    protected MediaObject getImageVersionById(int ivid, MediaObjectMultiLang image) {
+    protected MediaObject getMediaObjectById(int ivid, MediaObjectMultiLang image) {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         DataSource ds = smc.getDataSource();
         
 
         try {
-            image = (MediaObjectMultiLang)smc.queryForObject("getImageVersionById",new Integer(ivid));
+            image = (MediaObjectMultiLang)smc.queryForObject("getMediaObjectById",new Integer(ivid));
             if (image!=null) image.setUsedLanguage(getUsedLanguage());
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -92,7 +91,7 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
         return image;
     }
 
-    public List getCategoryImages(SimpleLoaderClass loaderClass) {
+    public List getFolderMediaObjects(SimpleLoaderClass loaderClass) {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         List imageList = new ArrayList();
@@ -116,7 +115,7 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
         lc.setUsedLanguage(getUsedLanguage());
 
         try {
-            mediaList = smc.queryForList("getImagesByCratedate",lc);
+            mediaList = smc.queryForList("getMediaObjectByCratedate",lc);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -125,7 +124,7 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
 
     }
 
-    public List getLastImages(int count) {
+    public List getLastMediaObjects(int count) {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         List imageList = null;
@@ -136,7 +135,7 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
         loaderClass.setUsedLanguage(getUsedLanguage());
 
         try {
-            imageList = smc.queryForList("getLastImages",loaderClass);
+            imageList = smc.queryForList("getLastMediaObjects",loaderClass);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -145,7 +144,7 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
 
     }
 
-    public List getLastImagesAcl(int count, User user) {
+    public List getLastMediaObjectsAcl(int count, User user) {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         List imageList = null;
@@ -158,7 +157,7 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
         loaderClass.setUserPrincipal(user.getUserId());
 
         try {
-            imageList = smc.queryForList("getLastImages",loaderClass);
+            imageList = smc.queryForList("getLastMediaObjects",loaderClass);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -167,58 +166,18 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
 
     }
 
-    public PaginatedList getLastImagesPages(int count) {
-
-        SqlMapClient smc =AppSqlMap.getSqlMapInstance();
-        PaginatedList imageList = null;
-
-        LastImagesLoaderClass loaderClass = new LastImagesLoaderClass();
-        loaderClass.setSortBy(Config.sortByLatest);
-        loaderClass.setCount(count);
-        loaderClass.setUsedLanguage(getUsedLanguage());
-
-        try {
-            imageList = smc.queryForPaginatedList("getLastImages",loaderClass,Config.itemCountPerPage);
-        } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-        return imageList;
-
-    }
-
-    public PaginatedList getLastImagesPagesAcl(int count, User user) {
-
-        SqlMapClient smc =AppSqlMap.getSqlMapInstance();
-        PaginatedList imageList = null;
-
-        LastImagesLoaderClass loaderClass = new LastImagesLoaderClass();
-        loaderClass.setSortBy(Config.sortByLatest);
-        loaderClass.setCount(count);
-        loaderClass.setUsedLanguage(getUsedLanguage());
-        loaderClass.setGroupPrincipal(user.getSecurityGroup());
-        loaderClass.setUserPrincipal(user.getUserId());
-
-        try {
-            imageList = smc.queryForPaginatedList("getLastImages",loaderClass,Config.itemCountPerPage);
-        } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-        return imageList;
-
-    }
-
-    public void saveImageVersion(BasicMediaObject imageVersion) throws IOServiceException {
+    public void saveMediaObject(BasicMediaObject media) throws IOServiceException {
 
         SqlMapClient smc = AppSqlMap.getSqlMapInstance();
-        MediaObjectMultiLang mediaObject = (MediaObjectMultiLang)imageVersion;
+        MediaObjectMultiLang mediaObject = (MediaObjectMultiLang)media;
         //Wenn Fid = leer dann auf NULL setzen, wegen Unique-ID
         if (mediaObject.getFid()!=null) {
             if (mediaObject.getFid().trim().length()==0) { mediaObject.setFid(null); }
         }
 
+        /* Not in use because of buggy logic
             if (mediaObject.getMayorMime().equalsIgnoreCase("audio")) {
+
 
                 //Bei Audio den Titel DE und EN als <Artist> - <Title> speichern
                 StringBuffer sb = new StringBuffer("");
@@ -229,42 +188,42 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
                 sb.append(mediaObject.getVersionTitle());
                 mediaObject.setVersionTitleLng1(sb.toString());
                 mediaObject.setVersionTitleLng2(sb.toString());
-            }
+            }*/
 
         try {
-            smc.update("saveImageVersion",mediaObject);
+            smc.update("saveMediaObject",mediaObject);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
     }
 
-    public MediaObject addImage(MediaObject image) throws IOServiceException {
+    public MediaObject addMedia(MediaObject media) throws IOServiceException {
 
-        //super.addImage(image); wird nichtmehr benötigt, da image und imageversion - tabellen
+        //super.addMedia(media); wird nichtmehr benötigt, da media und imageversion - tabellen
         //auf eine tabelle zusammengeführt wurden --> imageversion
-        this.addImageVersion(image);
+        this.addMediaObject(media);
 
-        return image;
+        return media;
     }
 
-    public void addImageVersion(MediaObject imageversion) throws IOServiceException {
+    public void addMediaObject(MediaObject mediaObject) throws IOServiceException {
 
-        /* aus addImage */
+        /* aus addMedia */
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
-        imageversion.setCreateDate(new Date());
+        mediaObject.setCreateDate(new Date());
         try {
 
             //If BasicMediaObject has no number, take systemtime as number:
-            if (imageversion.getImageNumber().length()==0) {
+            if (mediaObject.getImageNumber().length()==0) {
                 String numberString = Long.toString(System.currentTimeMillis());
                 if (numberString.length()>100) {
                     numberString = numberString.substring(1,99);
                 }
-                imageversion.setImageNumber(numberString);
+                mediaObject.setImageNumber(numberString);
             }
-            this.getImageByNumber(imageversion.getImageNumber());
+            this.getMediaObjectByNumber(mediaObject.getImageNumber());
             //sorry imagenumber exists, throw DublicateEntry Exception
             throw new DublicateEntry("MediaService.addMedia(): DublicateEntry");
 
@@ -272,33 +231,33 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
             //okay - user does not exist, go on...
         }
 
-        imageversion.setCreateDate(new Date());
+        mediaObject.setCreateDate(new Date());
         //Wenn Fid = leer dann auf NULL setzen, wegen Unique-ID
-        if (imageversion.getFid()!=null) {
-            if (imageversion.getFid().trim().length()==0) { imageversion.setFid(null); }
+        if (mediaObject.getFid()!=null) {
+            if (mediaObject.getFid().trim().length()==0) { mediaObject.setFid(null); }
         }
 
         try {
-            Integer obj = (Integer)smc.insert("addImageVersion",imageversion);
+            Integer obj = (Integer)smc.insert("addMediaObject",mediaObject);
             //System.out.println("Inserted Primary Key: "+obj.getClass().getName());
             //System.out.println("Inserted Primary val: "+obj.toString());
-            imageversion.setIvid(obj.intValue());
-            imageversion.setImageId(obj.intValue());
+            mediaObject.setIvid(obj.intValue());
+            mediaObject.setImageId(obj.intValue());
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
-        this.save(imageversion);
+        this.save(mediaObject);
 
     }
 
-    public void updateImageAcl() {
+    public void updateAcl() {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         try {
             smc.startTransaction();
-            smc.delete("aclimageDelete");
-            smc.update("aclimageUpdate");
+            smc.delete("aclDelete");
+            smc.update("aclUpdate");
             smc.commitTransaction();
             smc.endTransaction();
 
@@ -307,18 +266,18 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
         }
     }
 
-    public void deleteImage(int ivid) throws IOServiceException {
+    public void deleteMedia(int ivid) throws IOServiceException {
 
-        MediaObject imageVersion = this.getImageVersionById(ivid);
-        this.deleteImageVersion(imageVersion);
+        MediaObject media = this.getMediaObjectById(ivid);
+        this.deleteMediaObject(media);
 
     }
 
-    public void deleteImageVersion(MediaObject imageVersion) throws IOServiceException {
+    public void deleteMediaObject(MediaObject mediaObject) throws IOServiceException {
 
         SqlMapClient smc = AppSqlMap.getSqlMapInstance();
         Logger logger = Logger.getLogger(MediaService.class);
-        logger.info("MediaService: deleteMedia, ivid="+imageVersion.getIvid());
+        logger.info("MediaService: deleteMedia, ivid="+mediaObject.getIvid());
 
         try {
             FolderService folderService = new FolderService();
@@ -326,21 +285,21 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
             ShoppingCartService shoppingCartService = new ShoppingCartService();
 
             /* Kategorieverknüpfungen lösen: bild(er) aus ordner und kategorien löschen */
-            logger.debug("deleteImageVersion: delete image from all categories, folders, lightbox, shoppingcart, inbox");
-            folderService.deleteMediaFromAllFolder(imageVersion.getIvid());
-            favoriteService.deleteImageFromAllLightbox(imageVersion.getIvid());
-            shoppingCartService.deleteImageFromAllShoppingCart(imageVersion.getIvid());
+            logger.debug("deleteMediaObject: delete image from all categories, folders, lightbox, shoppingcart, inbox");
+            folderService.deleteMediaFromAllFolder(mediaObject.getIvid());
+            favoriteService.deleteImageFromAllLightbox(mediaObject.getIvid());
+            shoppingCartService.deleteImageFromAllShoppingCart(mediaObject.getIvid());
 
             //Medien-Objekt aus MediaObject-Tabelle löschen inkl. Metadaten:
-            logger.debug("deleteImageVersion: delete object from imageversion-db-table");
-            smc.delete("deleteAllImageMetadataFromIvid", new Integer(imageVersion.getIvid()));
-            logger.debug("deleteImageVersion: delete metadata for ivid");
-            smc.delete("deleteImageVersion",new Integer(imageVersion.getIvid()));
+            logger.debug("deleteMediaObject: delete object from imageversion-db-table");
+            smc.delete("deleteAllMetadataFromIvid", new Integer(mediaObject.getIvid()));
+            logger.debug("deleteMediaObject: delete metadata for ivid");
+            smc.delete("deleteMediaObject",new Integer(mediaObject.getIvid()));
             //datei löschen:
-            new File(Config.imageStorePath+"/"+imageVersion.getIvid()+"_0").delete();
-            new File(Config.imageStorePath+"/"+imageVersion.getIvid()+"_1").delete();
-            new File(Config.imageStorePath+"/"+imageVersion.getIvid()+"_2").delete();
-            File file4 = new File(Config.imageStorePath+"/"+imageVersion.getIvid()+"_4");
+            new File(Config.imageStorePath+"/"+mediaObject.getIvid()+"_0").delete();
+            new File(Config.imageStorePath+"/"+mediaObject.getIvid()+"_1").delete();
+            new File(Config.imageStorePath+"/"+mediaObject.getIvid()+"_2").delete();
+            File file4 = new File(Config.imageStorePath+"/"+mediaObject.getIvid()+"_4");
             if (file4.exists()) { file4.delete(); }
 
         } catch (SQLException e) {
@@ -349,22 +308,22 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
 
     }
 
-    public void deleteImageVersions(List imageVersionList) throws IOServiceException {
+    public void deleteMediaObjects(List mediaObjectList) throws IOServiceException {
 
-        Iterator imageVersions = imageVersionList.iterator();
+        Iterator mediaObjects = mediaObjectList.iterator();
 
-        while(imageVersions.hasNext()) {
-            MediaObject imageVersion = (MediaObject)imageVersions.next();
-            deleteImageVersion(imageVersion);
+        while(mediaObjects.hasNext()) {
+            MediaObject media = (MediaObject)mediaObjects.next();
+            deleteMediaObject(media);
         }
     }
 
-    public int getImageCount() {
+    public int getMediaCount() {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         Integer count = new Integer(0);
         try {
-            count = (Integer)smc.queryForObject("getImageCount",null);
+            count = (Integer)smc.queryForObject("getMediaCount",null);
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -376,12 +335,12 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
      * Gibt den benötigten Speicherplatz in Mb zurück
      * @return
      */
-    public int getImageMb() {
+    public int getUsedMb() {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         Integer count = new Integer(0);
         try {
-            count = (Integer)smc.queryForObject("getImageKb",null);
+            count = (Integer)smc.queryForObject("getUsedKb",null);
             if (count==null) {
                 //Wenn noch keine Bilder in der Datenbank sind wird null
                 //zurückgegeben, deshalb das null abfangen und 0 speichern
@@ -394,14 +353,14 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
         return count.intValue()/1000;
     }
 
-    public Object getImageByNumber(String number) throws ObjectNotFoundException, IOServiceException {
+    public Object getMediaObjectByNumber(String number) throws ObjectNotFoundException, IOServiceException {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
 
         BasicMediaObject image = new BasicMediaObject();
 
         try {
-            image = (BasicMediaObject)smc.queryForObject("getImageByNumber",number);
+            image = (BasicMediaObject)smc.queryForObject("getMediaObjectByNumber",number);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -415,7 +374,7 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
     }
 
     public Object getById(int id) throws ObjectNotFoundException, IOServiceException {
-        return this.getImageVersionById(id);
+        return this.getMediaObjectById(id);
     }
 
     public Object getByName(String name) throws ObjectNotFoundException, IOServiceException {
@@ -423,16 +382,16 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
     }
 
     public void save(Object object) throws IOServiceException {
-        this.saveImageVersion((MediaObject)object);
+        this.saveMediaObject((MediaObject)object);
     }
 
     public void add(Object object) throws IOServiceException {
-        this.addImageVersion((MediaObject)object);
+        this.addMediaObject((MediaObject)object);
     }
 
     public void deleteById(int id) throws IOServiceException {
-        MediaObject imageVersion = this.getImageVersionById(id);
-        this.deleteImageVersion(imageVersion);
+        MediaObject media = this.getMediaObjectById(id);
+        this.deleteMediaObject(media);
     }
 
     public int getMediaObjectIdByFid(String fid) throws ObjectNotFoundException, IOServiceException {
@@ -468,11 +427,11 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
      * @return
      */
     public long getQuotaUsed() {
-        return (long)getImageMb()*1000000;
+        return (long) getUsedMb()*1000000;
     }
 
     public BigDecimal getQuotaUsedMb() {
-        return BigDecimal.valueOf(getImageMb());
+        return BigDecimal.valueOf(getUsedMb());
     }
 
     /**

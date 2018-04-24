@@ -194,7 +194,7 @@ public class MediaObjectResource implements FileResource {
                 }
                 media.setVersionName(s);
                 try {
-                    mediaService.saveImageVersion(media);
+                    mediaService.saveMediaObject(media);
                 } catch (IOServiceException e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }

@@ -66,7 +66,7 @@ public class MediaMetadataService {
         MediaDetailEditCommand mediaDetailEditCommand = new MediaDetailEditCommand();
         MediaMetadataService mediaMetadataService = new MediaMetadataService();
 
-        MediaObject imageVersion = imageService.getImageVersionById(ivid);
+        MediaObject imageVersion = imageService.getMediaObjectById(ivid);
         if (imageVersion!=null) {
             mediaDetailEditCommand.setImageVersion(imageVersion);
             mediaDetailEditCommand.setMetadata(mediaMetadataService.getMetadata(ivid));

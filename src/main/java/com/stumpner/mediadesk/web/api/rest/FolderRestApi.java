@@ -377,7 +377,7 @@ public class FolderRestApi extends RestBaseServlet {
 
             MediaService imageService = new MediaService();
             try {
-                imageService.deleteImageVersions(selectedList);
+                imageService.deleteMediaObjects(selectedList);
             } catch (IOServiceException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
@@ -603,7 +603,7 @@ public class FolderRestApi extends RestBaseServlet {
             System.out.println("NumberFormatException bei sortBy oder orderBy Parameter in jsonCategoryMedialist");
             e.printStackTrace();
         }
-        List<MediaObjectMultiLang> imageList = imageService.getCategoryImages(loaderClass);
+        List<MediaObjectMultiLang> imageList = imageService.getFolderMediaObjects(loaderClass);
 
         /** Kategorie-Liste f�r den Thumbnail-View **/
         AclFolderService categoryService = new AclFolderService(request);

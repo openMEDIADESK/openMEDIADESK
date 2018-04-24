@@ -214,7 +214,7 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
         MediaService imageService = new MediaService();
         SimpleLoaderClass loader = new SimpleLoaderClass();
         loader.setId(id);
-        List categoryMediaList = imageService.getCategoryImages(loader);
+        List categoryMediaList = imageService.getFolderMediaObjects(loader);
 
         for (Object aCategoryMedia : categoryMediaList) {
             MediaObjectMultiLang media = (MediaObjectMultiLang)aCategoryMedia;
@@ -253,7 +253,7 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
                         //Medien-Objekt mit Gr��e 0-Bytes (Platzhalter) wird �berschrieben, daher l�schen
                     //todo: �berall l�schen oder nur hier l�schen?
                         try {
-                            mediaService.deleteImageVersion(res.getMediaObject());
+                            mediaService.deleteMediaObject(res.getMediaObject());
                         } catch (IOServiceException e) {
                             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                         }
@@ -334,13 +334,13 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
             }
 
             MediaService imageService = new MediaService();
-            MediaObjectMultiLang media = (MediaObjectMultiLang)imageService.getImageVersionById(ivid);
+            MediaObjectMultiLang media = (MediaObjectMultiLang)imageService.getMediaObjectById(ivid);
             media.setVersionName(newName);
             media.setVersionTitle(newName);
             media.setVersionTitleLng1(newName);
             media.setVersionTitleLng2(newName);
             try {
-                imageService.saveImageVersion(media);
+                imageService.saveMediaObject(media);
             } catch (IOServiceException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
@@ -400,13 +400,13 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
         MediaService imageService = new MediaService();
         try {
             logger.debug("Datei in der Datenbank anlegen...");
-            imageVersion = (MediaObjectMultiLang)imageService.addImage(imageVersion);
+            imageVersion = (MediaObjectMultiLang)imageService.addMedia(imageVersion);
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
         try {
-            imageService.saveImageVersion(imageVersion);
+            imageService.saveMediaObject(imageVersion);
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

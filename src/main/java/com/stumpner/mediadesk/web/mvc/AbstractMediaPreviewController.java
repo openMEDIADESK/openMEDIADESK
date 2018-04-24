@@ -101,7 +101,7 @@ public abstract class AbstractMediaPreviewController extends AbstractPageControl
         MediaService imageService = new MediaService();
         LngResolver lngResolver = new LngResolver();
         imageService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-        MediaObject image = imageService.getImageVersionById(
+        MediaObject image = imageService.getMediaObjectById(
                 Integer.parseInt(httpServletRequest.getParameter("id")));
 
         if (image==null) {

@@ -79,12 +79,12 @@ public class LicenceChecker extends TimerTask {
     public int getImageCount() {
 
         MediaService imageService = new MediaService();
-        return imageService.getImageCount();
+        return imageService.getMediaCount();
     }
 
     public int getImageMb() {
 
         MediaService imageService = new MediaService();
-        return imageService.getImageMb();
+        return imageService.getUsedMb();
     }
 }

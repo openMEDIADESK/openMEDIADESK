@@ -47,7 +47,7 @@ public class PdfImportHandler extends BinaryFileImportHandler {
         int ivid = super.processImport(file, userId);
 
         //MediaService mediaService = new MediaService();
-        //MediaObjectMultiLang mediaObject = (MediaObjectMultiLang) mediaService.getImageVersionById(ivid);
+        //MediaObjectMultiLang mediaObject = (MediaObjectMultiLang) mediaService.getMediaObjectById(ivid);
 
         String filenameJpegExtract = file.getPath() + System.currentTimeMillis() + "_pdf.jpg";
         createJpegFromPdf(file, filenameJpegExtract);

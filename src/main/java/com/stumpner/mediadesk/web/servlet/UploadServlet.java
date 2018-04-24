@@ -231,7 +231,7 @@ public class UploadServlet extends HttpServlet {
 
                             MediaService imageService = new MediaService();
                             LicenceChecker licenceChecker = new LicenceChecker();
-                            int imageCount = imageService.getImageCount(); //Anzahl der Bilder in der Datenbank überpr.
+                            int imageCount = imageService.getMediaCount(); //Anzahl der Bilder in der Datenbank überpr.
 
                             //System.out.println("Before import");
                                 if (sizeInBytes/1000<Config.maxImageSize) {

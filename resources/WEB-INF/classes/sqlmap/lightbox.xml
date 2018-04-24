@@ -60,7 +60,7 @@
             <include refid="mediaObjectFields"/>
                  , '$usedLanguage$' as usedLanguage
         FROM lightbox
-        INNER JOIN imageversion ON lightbox.ivid = imageversion.ivid
+        INNER JOIN mediaobject ON lightbox.ivid = mediaobject.ivid
         WHERE lightbox.userid = #id#
     </select>
 

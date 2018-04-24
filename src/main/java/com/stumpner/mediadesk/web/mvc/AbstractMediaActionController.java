@@ -138,7 +138,7 @@ public abstract class AbstractMediaActionController extends AbstractMediaSelectC
             } else {
                 //remove Parameter mit einem anderen Wert
                 Integer ivid = Integer.parseInt(httpServletRequest.getParameter("remove"));
-                MediaObject image = imageService.getImageVersionById(ivid);
+                MediaObject image = imageService.getMediaObjectById(ivid);
                 this.remove(image, httpServletRequest);
             }
         }

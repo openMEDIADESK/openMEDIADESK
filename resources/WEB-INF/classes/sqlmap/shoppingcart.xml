@@ -94,7 +94,7 @@
             shoppingcart.paytransactionid as paytransactionid,
             '$usedLanguage$' as usedLanguage
         FROM shoppingcart
-        INNER JOIN imageversion ON shoppingcart.ivid = imageversion.ivid
+        INNER JOIN mediaobject ON shoppingcart.ivid = mediaobject.ivid
         WHERE shoppingcart.userid = #id#
     </select>
 

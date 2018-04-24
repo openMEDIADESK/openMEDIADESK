@@ -126,7 +126,7 @@ public class NotExistingMediaObjectResource implements FileResource, PutableReso
         }
 
         MediaService imageService = new MediaService();
-        MediaObjectMultiLang media = (MediaObjectMultiLang)imageService.getImageVersionById(ivid);
+        MediaObjectMultiLang media = (MediaObjectMultiLang)imageService.getMediaObjectById(ivid);
         return new MediaObjectResource(folder,media);
     }
 

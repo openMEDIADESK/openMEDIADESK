@@ -112,7 +112,7 @@ public class FolderContent extends HttpServlet {
                 mediaService.setUsedLanguage(lngResolver.resolveLng(request));
                 SimpleLoaderClass loader = new SimpleLoaderClass();
                 loader.setId(categoryId);
-                List<MediaObjectMultiLang> mediaObjectList = mediaService.getCategoryImages(loader);
+                List<MediaObjectMultiLang> mediaObjectList = mediaService.getFolderMediaObjects(loader);
 
                 Iterator<MediaObjectMultiLang> mediaIt = mediaObjectList.iterator();
                 while (mediaIt.hasNext()) {

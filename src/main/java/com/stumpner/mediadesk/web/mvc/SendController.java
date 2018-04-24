@@ -95,7 +95,7 @@ public class SendController extends SimpleFormControllerMd {
         MediaService imageService = new MediaService();
         LngResolver lngResolver = new LngResolver();
         imageService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-        MediaObject image = imageService.getImageVersionById(ivid);
+        MediaObject image = imageService.getMediaObjectById(ivid);
         if (image==null) { throw new Http404Exception("ivid="+ivid+" not found"); }
 
 

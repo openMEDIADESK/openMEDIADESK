@@ -151,7 +151,7 @@ public class CategoryApi extends ApiBase {
         MediaService imageService = new MediaService();
         SimpleLoaderClass loaderClass = new SimpleLoaderClass();
         loaderClass.setId(Integer.parseInt(parameter[0]));
-        List imageList = imageService.getCategoryImages(loaderClass);
+        List imageList = imageService.getFolderMediaObjects(loaderClass);
         Iterator images = imageList.iterator();
         while (images.hasNext()) {
             MediaObject imageVersion = (MediaObject)images.next();
@@ -174,7 +174,7 @@ public class CategoryApi extends ApiBase {
             MediaService imageService = new MediaService();
             SimpleLoaderClass loaderClass = new SimpleLoaderClass();
             loaderClass.setId(Integer.parseInt(parameter[0]));
-            List categoryImages = imageService.getCategoryImages(loaderClass);
+            List categoryImages = imageService.getFolderMediaObjects(loaderClass);
             Folder folder = folderService.getFolderById(loaderClass.getId());
 
             folderService.deleteMediaFromFolder(folder,categoryImages);
@@ -407,13 +407,13 @@ public class CategoryApi extends ApiBase {
                     Folder folder = folderService.getFolderById(categoryId);
                     SimpleLoaderClass loaderClass = new SimpleLoaderClass();
                     loaderClass.setId(categoryId);
-                    List imageList = imageService.getCategoryImages(loaderClass);
+                    List imageList = imageService.getFolderMediaObjects(loaderClass);
                     Iterator images = imageList.iterator();
                     while (images.hasNext()) {
                         MediaObject image = (MediaObject)images.next();
                         List categoryList = folderService.getFolderListFromImageVersion(image.getIvid());
                         if (categoryList.size()==1) {
-                            imageService.deleteImageVersion(image);
+                            imageService.deleteMediaObject(image);
                         }
                         folderService.deleteMediaFromFolder(folder,image);
                     }

@@ -258,7 +258,7 @@ public class DownloadLoggerService {
         sdl.setPayTransactionId(payTransactionId);
 
         MediaService is = new MediaService();
-        MediaObject media = is.getImageVersionById(ivid);
+        MediaObject media = is.getMediaObjectById(ivid);
         sdl.setName(media.getVersionName());
 
         log(sdl);

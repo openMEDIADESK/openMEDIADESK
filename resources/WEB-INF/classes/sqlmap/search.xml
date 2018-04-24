@@ -58,15 +58,15 @@
     </resultMap>
 
     <sql id="queryFields">
-            imageversion.ivid    as ivid,
+            mediaobject.ivid    as ivid,
             version as version,
             versiontitle    as versionTitle,
             versionname     as versionName,
             info                as info,
             imageid         as imageId,
-            imageversion.createdate      as createDate,
-            imageversion.creatoruserid   as creatorUserId,
-            imageversion.note            as note,
+            mediaobject.createdate      as createDate,
+            mediaobject.creatoruserid   as creatorUserId,
+            mediaobject.note            as note,
             versionsubtitle as versionSubTitle,
             photographeralias as photographerAlias,
             photographeruserid as photographerUserId,
@@ -112,7 +112,7 @@
         <include refid="queryFields"/>
                  , '$usedLanguage$' as usedLanguage
         FROM searchtmp
-        INNER JOIN imageversion ON searchtmp.ivid = imageversion.ivid
+        INNER JOIN mediaobject ON searchtmp.ivid = mediaobject.ivid
         WHERE
           suid = #suid#
         ORDER BY photographdate DESC, imagenumber ASC 
@@ -123,7 +123,7 @@
 
     <update id="prepareImageQuery" parameterClass="com.stumpner.mediadesk.search.KeywordSearchProperty">
        INSERT INTO searchtmp
-        SELECT DISTINCT null as stid, #suid# as suid, imageversion.ivid as ivid, now() as searchtime,
+        SELECT DISTINCT null as stid, #suid# as suid, mediaobject.ivid as ivid, now() as searchtime,
         (0
             + ((MATCH(versionsubtitlelng1,versionsubtitlelng2,versiontitlelng1,versiontitlelng2,keywords,byline,sitelng1,sitelng2,infolng1,infolng2,people) AGAINST (#keywords# IN BOOLEAN MODE)))
         ) as score
@@ -131,13 +131,13 @@
         <isEqual compareValue="true" property="aclEnabled">
         <!-- poor performance FROM (SELECT DISTINCT ivid FROM aclimage WHERE principalid = #principalId#) AS aclimage -->
         FROM aclimage
-        INNER JOIN imageversion on aclimage.ivid = imageversion.ivid AND
+        INNER JOIN mediaobject on aclimage.ivid = mediaobject.ivid AND
             ((aclimage.principalid = #groupPrincipal# AND aclimage.principaltype = 1) OR (aclimage.principalid = #userPrincipal# AND aclimage.principaltype = 2))
         </isEqual>
         <!-- \acl section -->
         <!-- NON-acl section -->
         <isEqual compareValue="false" property="aclEnabled">
-        FROM imageversion
+        FROM mediaobject
         </isEqual>
         <!-- \NON-acl section -->
         WHERE
@@ -152,13 +152,13 @@
         <isEqual compareValue="true" property="aclEnabled">
         <!-- poor performance FROM (SELECT DISTINCT ivid FROM aclimage WHERE principalid = #principalId#) AS aclimage -->
         FROM aclimage
-        INNER JOIN imageversion on aclimage.ivid = imageversion.ivid AND
+        INNER JOIN mediaobject on aclimage.ivid = mediaobject.ivid AND
             ((aclimage.principalid = #groupPrincipal# AND aclimage.principaltype = 1) OR (aclimage.principalid = #userPrincipal# AND aclimage.principaltype = 2))
         </isEqual>
         <!-- \acl section -->
         <!-- NON-acl section -->
         <isEqual compareValue="false" property="aclEnabled">
-        FROM imageversion
+        FROM mediaobject
         </isEqual>
         <!-- \NON-acl section -->
         WHERE
@@ -168,18 +168,18 @@
 
     <update id="prepareImageNumberQuery" parameterClass="com.stumpner.mediadesk.search.SearchProperty">
        INSERT INTO searchtmp
-        SELECT DISTINCT null as stid, #suid# as suid, imageversion.ivid as ivid, now() as searchtime, 100 as score
+        SELECT DISTINCT null as stid, #suid# as suid, mediaobject.ivid as ivid, now() as searchtime, 100 as score
         <!-- acl section -->
         <isEqual compareValue="true" property="aclEnabled">
         <!-- poor performance FROM (SELECT DISTINCT ivid FROM aclimage WHERE principalid = #principalId#) AS aclimage -->
         FROM aclimage
-        INNER JOIN imageversion on aclimage.ivid = imageversion.ivid AND
+        INNER JOIN mediaobject on aclimage.ivid = mediaobject.ivid AND
             ((aclimage.principalid = #groupPrincipal# AND aclimage.principaltype = 1) OR (aclimage.principalid = #userPrincipal# AND aclimage.principaltype = 2))
         </isEqual>
         <!-- \acl section -->
         <!-- NON-acl section -->
         <isEqual compareValue="false" property="aclEnabled">
-        FROM imageversion
+        FROM mediaobject
         </isEqual>
         <!-- \NON-acl section -->
         WHERE
@@ -189,12 +189,12 @@
 
     <update id="prepareReQuery" parameterClass="com.stumpner.mediadesk.search.SearchProperty">
        INSERT INTO searchtmp
-        SELECT DISTINCT null as stid, #requery# as suid, imageversion.ivid as ivid, now() as searchtime,
+        SELECT DISTINCT null as stid, #requery# as suid, mediaobject.ivid as ivid, now() as searchtime,
         (0
             + ((MATCH(versionsubtitlelng1,versionsubtitlelng2,versiontitlelng1,versiontitlelng2,keywords,byline,sitelng1,sitelng2,infolng1,infolng2,people) AGAINST (#keywords# IN BOOLEAN MODE)))
         ) as score
         FROM searchtmp
-        INNER JOIN imageversion ON searchtmp.ivid = imageversion.ivid
+        INNER JOIN mediaobject ON searchtmp.ivid = mediaobject.ivid
         WHERE
         (
         MATCH(versionsubtitlelng1,versionsubtitlelng2,versiontitlelng1,versiontitlelng2,keywords,byline,sitelng1,sitelng2,infolng1,infolng2,people) AGAINST (#keywords# IN BOOLEAN MODE)
@@ -204,12 +204,12 @@
     
     <update id="prepareOrphanedQuery" parameterClass="com.stumpner.mediadesk.search.SearchProperty">
        INSERT INTO searchtmp
-        SELECT null as stid, #suid# as suid, imageversion.ivid as ivid, now() as searchtime, 1 as score
-        FROM imageversion
-        LEFT OUTER JOIN categoryholder ON categoryholder.ivid = imageversion.ivid
-        LEFT OUTER JOIN folderholder ON folderholder.ivid = imageversion.ivid
-        LEFT OUTER JOIN pinpicholder ON pinpicholder.ivid = imageversion.ivid
-        LEFT OUTER JOIN inbox ON inbox.ivid = imageversion.ivid
+        SELECT null as stid, #suid# as suid, mediaobject.ivid as ivid, now() as searchtime, 1 as score
+        FROM mediaobject
+        LEFT OUTER JOIN categoryholder ON categoryholder.ivid = mediaobject.ivid
+        LEFT OUTER JOIN folderholder ON folderholder.ivid = mediaobject.ivid
+        LEFT OUTER JOIN pinpicholder ON pinpicholder.ivid = mediaobject.ivid
+        LEFT OUTER JOIN inbox ON inbox.ivid = mediaobject.ivid
         WHERE fhid IS NULL AND chid IS NULL AND phid IS NULL AND inboxid IS NULL
     </update>
 
@@ -222,7 +222,7 @@
 
     <update id="prepareAdvancedImageQuery" parameterClass="com.stumpner.mediadesk.search.MediaSearchProperty">
        INSERT INTO searchtmp
-        SELECT DISTINCT null as stid, #suid# as suid, imageversion.ivid as ivid, now() as searchtime,
+        SELECT DISTINCT null as stid, #suid# as suid, mediaobject.ivid as ivid, now() as searchtime,
             (
             0
         <isNotEmpty property="site">
@@ -240,13 +240,13 @@
         <isEqual compareValue="true" property="aclEnabled">
         <!-- poor performance FROM (SELECT DISTINCT ivid FROM aclimage WHERE principalid = #principalId#) AS aclimage -->
         FROM aclimage
-        INNER JOIN imageversion on aclimage.ivid = imageversion.ivid AND
+        INNER JOIN mediaobject on aclimage.ivid = mediaobject.ivid AND
             ((aclimage.principalid = #groupPrincipal# AND aclimage.principaltype = 1) OR (aclimage.principalid = #userPrincipal# AND aclimage.principaltype = 2))
         </isEqual>
         <!-- \acl section -->
         <!-- NON-acl section -->
         <isEqual compareValue="false" property="aclEnabled">
-        FROM imageversion
+        FROM mediaobject
         </isEqual>
         <!-- \NON-acl section -->
         WHERE
@@ -311,7 +311,7 @@
                 ACL-Section: erstellt einen temp-table mit den images für eine security-group
                 |ivid|principaltype|principalid|
                  -->
-        INNER JOIN categoryholder ON imageversion.ivid = categoryholder.ivid
+        INNER JOIN categoryholder ON mediaobject.ivid = categoryholder.ivid
         INNER JOIN acldata ON acldata.objectid = categoryholder.categoryid
             AND (objecttype = 10 OR objecttype = 11)
             AND principalid = 0

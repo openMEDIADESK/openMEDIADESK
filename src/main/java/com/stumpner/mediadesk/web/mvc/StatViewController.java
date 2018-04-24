@@ -116,8 +116,8 @@ public class StatViewController extends AbstractPageController {
         httpServletRequest.setAttribute("licMaxMb",new Integer(Config.licMaxMb));
         httpServletRequest.setAttribute("licMaxUsers",new Integer(Config.licMaxUsers));
         httpServletRequest.setAttribute("licTo",Config.licTo);
-        httpServletRequest.setAttribute("imageCount",new Integer(imageService.getImageCount()));
-        httpServletRequest.setAttribute("imageMb",new Integer(imageService.getImageMb()));
+        httpServletRequest.setAttribute("imageCount",new Integer(imageService.getMediaCount()));
+        httpServletRequest.setAttribute("imageMb",new Integer(imageService.getUsedMb()));
 
         BigDecimal quotaTotal = imageService.getQuotaTotalMb();
         BigDecimal quotaAvailable = imageService.getQuotaAvailableMb();

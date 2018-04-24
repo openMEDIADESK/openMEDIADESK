@@ -316,7 +316,7 @@ public class BulkModificationService {
 
         MediaService imageVersionService = new MediaService();
 
-        imageVersionService.saveImageVersion(imageVersion);
+        imageVersionService.saveMediaObject(imageVersion);
     }
 
 }

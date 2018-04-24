@@ -54,7 +54,7 @@ public class DatabaseService {
             //AclImage Neu aufbauen:
             logger.debug("DatabseService: updateing ImageACL");
             MediaService ivs = new MediaService();
-            ivs.updateImageAcl();
+            ivs.updateAcl();
             triggerStage1 = false;
 
         }

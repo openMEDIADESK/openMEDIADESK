@@ -121,7 +121,7 @@ public class RssServlet extends HttpServlet {
             loaderClass.setId(folderId);
             loaderClass.setOrderBy(Config.orderByFolder);
             loaderClass.setSortBy(Config.sortByFolder);
-            itemList = imageService.getCategoryImages(loaderClass);
+            itemList = imageService.getFolderMediaObjects(loaderClass);
 
             FolderService folderService = new FolderService();
             folderService.setUsedLanguage(lngResolver.resolveLng(request));

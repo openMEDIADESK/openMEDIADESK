@@ -164,11 +164,11 @@ public class StatusServlet extends HttpServlet {
         w.write("getServerNameUrl:                     "+ WebHelper.getServerNameUrl(request)+"\n");
         w.write("=====================================================\n");
         w.write("Max-MB : "+ new Integer(Config.licMaxMb)+"\n");
-        w.write("Used-MB: "+ new Integer(imageService.getImageMb())+"\n");
+        w.write("Used-MB: "+ new Integer(imageService.getUsedMb())+"\n");
         w.write("licId  : "+ Config.licId+"\n");
         w.write("licFunc: "+ Config.licFunc+"\n");
         w.write("=====================================================\n");
-        w.write("Objekte: "+ new Integer(imageService.getImageCount())+"\n");
+        w.write("Objekte: "+ new Integer(imageService.getMediaCount())+"\n");
         w.write("FreeMem: "+ new Long(Runtime.getRuntime().freeMemory())+"\n");
         w.write("= scheduler: ========================================\n");
         if (WebContextListener.nightly !=null) {
@@ -194,7 +194,7 @@ public class StatusServlet extends HttpServlet {
         httpServletRequest.setAttribute("licMaxUsers",new Integer(Config.licMaxUsers));
 
         httpServletRequest.setAttribute("imageCount",new Integer(imageService.getMediaCount()));
-        httpServletRequest.setAttribute("imageMb",new Integer(imageService.getImageMb()));
+        httpServletRequest.setAttribute("imageMb",new Integer(imageService.getUsedMb()));
          */
         //super.doGet(request, response);    //To change body of overridden methods use File | Settings | File Templates.
     }

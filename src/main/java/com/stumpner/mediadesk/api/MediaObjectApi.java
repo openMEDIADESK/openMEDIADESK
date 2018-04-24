@@ -119,7 +119,7 @@ public class MediaObjectApi extends ApiBase {
         StringBuffer sb = new StringBuffer();
         int ivid = Integer.parseInt(parameter[0]);
         MediaService imageService = new MediaService();
-        MediaObjectMultiLang imageVersion = (MediaObjectMultiLang)imageService.getImageVersionById(ivid);
+        MediaObjectMultiLang imageVersion = (MediaObjectMultiLang)imageService.getMediaObjectById(ivid);
         sb.append("createdate="+imageVersion.getCreateDate().getTime()+";");
         sb.append("versionname="+imageVersion.getVersionName()+";");
         sb.append("versiontitlelng1="+imageVersion.getVersionTitleLng1()+";");
@@ -135,7 +135,7 @@ public class MediaObjectApi extends ApiBase {
         String key = parameter[1];
         String value = parameter[2];
         MediaService imageService = new MediaService();
-        MediaObjectMultiLang imageVersion = (MediaObjectMultiLang)imageService.getImageVersionById(ivid);
+        MediaObjectMultiLang imageVersion = (MediaObjectMultiLang)imageService.getMediaObjectById(ivid);
 
         if (key.equalsIgnoreCase("versionname")) {
             imageVersion.setVersionName(value);
@@ -157,7 +157,7 @@ public class MediaObjectApi extends ApiBase {
         }
 
         try {
-            imageService.saveImageVersion(imageVersion);
+            imageService.saveMediaObject(imageVersion);
             return "OK";
         } catch (IOServiceException e) {
             return "ERROR";
@@ -169,7 +169,7 @@ public class MediaObjectApi extends ApiBase {
         int ivid = Integer.parseInt(parameter[0]);
         MediaService imageService = new MediaService();
         try {
-            imageService.deleteImage(ivid);
+            imageService.deleteMedia(ivid);
             return "OK";
         } catch (IOServiceException e) {
             return "ERROR";
