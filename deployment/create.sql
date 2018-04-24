@@ -288,3 +288,5 @@ CREATE TABLE `shoppingcart` (
   `paytransactionid` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`liid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+
+ALTER TABLE `imageversion` RENAME TO `mediaobject` ;

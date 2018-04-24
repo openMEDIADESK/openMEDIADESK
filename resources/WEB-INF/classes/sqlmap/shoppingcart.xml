@@ -89,7 +89,7 @@
 
     <select id="getShoppingCartImageList" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="imageCartList" >
         SELECT
-            <include refid="imageversionFields"/>,
+            <include refid="mediaObjectFields"/>,
             shoppingcart.userid as userid,
             shoppingcart.paytransactionid as paytransactionid,
             '$usedLanguage$' as usedLanguage

@@ -146,7 +146,7 @@
     </resultMap>
     <select id="getPinpicImages" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="imageList">
         SELECT
-            <include refid="imageversionFields"/>
+            <include refid="mediaObjectFields"/>
                  , '$usedLanguage$' as usedLanguage
         FROM pinpicholder
         INNER JOIN imageversion ON pinpicholder.ivid = imageversion.ivid

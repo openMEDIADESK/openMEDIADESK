@@ -4,18 +4,18 @@
   PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
   "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
-<sqlMap namespace="Imageversion">
+<sqlMap namespace="Mediaobject">
 
-    <sql id="imageversionFields">
-            imageversion.ivid    as ivid,
+    <sql id="mediaObjectFields">
+            mediaobject.ivid    as ivid,
             version as version,
             versiontitle    as versionTitle,
             versionname     as versionName,
             info                as info,
             imageid         as imageId,
-            imageversion.createdate      as createDate,
-            imageversion.creatoruserid   as creatorUserId,
-            imageversion.note            as note,
+            mediaobject.createdate      as createDate,
+            mediaobject.creatoruserid   as creatorUserId,
+            mediaobject.note            as note,
             versionsubtitle as versionSubTitle,
             photographeralias as photographerAlias,
             photographeruserid as photographerUserId,
@@ -86,15 +86,15 @@
 
     <select id="getImageVersionById" parameterClass="int" resultClass="com.stumpner.mediadesk.image.MediaObjectMultiLang">
         SELECT
-        <include refid="imageversionFields"/>
-        FROM imageversion
+        <include refid="mediaObjectFields"/>
+        FROM mediaobject
         WHERE ivid = #value#
     </select>
 
     <select id="getImageByNumber" parameterClass="java.lang.String" resultClass="com.stumpner.mediadesk.image.BasicMediaObject">
         SELECT
-        <include refid="imageversionFields"/>
-        FROM imageversion
+        <include refid="mediaObjectFields"/>
+        FROM mediaobject
         WHERE imagenumber = #value#
     </select>
 
@@ -182,10 +182,10 @@
 
     <select id="getFolderImages" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="imageList">
         SELECT
-        <include refid="imageversionFields"/>
+        <include refid="mediaObjectFields"/>
                  , '$usedLanguage$' as usedLanguage
         FROM folderholder
-        INNER JOIN imageversion ON folderholder.ivid = imageversion.ivid
+        INNER JOIN mediaobject ON folderholder.ivid = mediaobject.ivid
         WHERE folderid = #id#
 
         <isEqual compareValue="1" property="sortBy">
@@ -221,10 +221,10 @@
 
     <select id="getFolderMediaObjects" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="imageList">
         SELECT
-        <include refid="imageversionFields"/>
+        <include refid="mediaObjectFields"/>
                  , '$usedLanguage$' as usedLanguage
         FROM folderholder
-        INNER JOIN imageversion ON folderholder.ivid = imageversion.ivid
+        INNER JOIN mediaobject ON folderholder.ivid = mediaobject.ivid
         WHERE categoryid = #id#
         <isEqual compareValue="1" property="sortBy">
             ORDER BY photographdate
@@ -260,17 +260,17 @@
 
     <select id="getLicValidDue" parameterClass="java.util.Date" resultMap="imageList">
         SELECT
-        <include refid="imageversionFields"/>
+        <include refid="mediaObjectFields"/>
                  , 1 as usedLanguage
-        FROM imageversion
+        FROM mediaobject
         WHERE licvalid &lt;= #value#
     </select>
 
     <select id="getImagesByCratedate" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.DateLoaderClass" resultMap="imageList">
         SELECT
-        <include refid="imageversionFields"/>
+        <include refid="mediaObjectFields"/>
                  , '$usedLanguage$' as usedLanguage
-        FROM imageversion
+        FROM mediaobject
         WHERE createdate &gt; #start# AND createdate &lt; #end#
         ORDER BY createdate DESC
 
@@ -278,14 +278,14 @@
     
     <select id="getLastImages" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.LastImagesLoaderClass" resultMap="imageList">
         SELECT         
-        <include refid="imageversionFields"/>
+        <include refid="mediaObjectFields"/>
                  , '$usedLanguage$' as usedLanguage
         <isEqual compareValue="0" property="userPrincipal">
-            FROM imageversion
+            FROM mediaobject
         </isEqual>
         <isNotEqual compareValue="0" property="userPrincipal">
-            FROM imageversion
-            WHERE imageversion.ivid IN
+            FROM mediaobject
+            WHERE mediaobject.ivid IN
              (SELECT DISTINCT aclimage.ivid FROM aclimage WHERE
 
                 ((aclimage.principalid = #groupPrincipal# AND aclimage.principaltype = 1) OR
@@ -314,7 +314,7 @@
             creatoruserid   as creatorUserId,
             note            as note,
             versionsubtitle as versionSubTitle
-        FROM imageversion
+        FROM mediaobject
         WHERE version = #version#
             AND imageid = #imageId#
     </select>
@@ -322,7 +322,7 @@
     <select id="getMaxVersionFromImageByImageId" parameterClass="int" resultClass="int">
         SELECT
             MAX(version) as value
-        FROM imageversion
+        FROM mediaobject
         WHERE imageid = #value#
     </select>
 
@@ -331,12 +331,12 @@
 		    SELECT LAST_INSERT_ID() AS value
 	    </selectKey>
         INSERT INTO
-        imageversion (ivid,imageid,version,createdate,creatoruserid,note,info,infolng1,infolng2,notelng1,notelng2,keywords,customlist1,customlist2,customlist3)
+        mediaobject (ivid,imageid,version,createdate,creatoruserid,note,info,infolng1,infolng2,notelng1,notelng2,keywords,customlist1,customlist2,customlist3)
         VALUES (NULL,#imageId#,#version#,#createDate#,#creatorUserId#,#note#,#info#,#infoLng1#,#infoLng2#,#noteLng1#,#noteLng2#,#keywords#,#customList1#,#customList2#,#customList3#)
     </insert>
 
     <update id="saveImageVersion" parameterClass="com.stumpner.mediadesk.image.MediaObjectMultiLang">
-        UPDATE imageversion
+        UPDATE mediaobject
         SET versiontitle = #versionTitle#,
             versiontitlelng1 = #versionTitleLng1#,
             versiontitlelng2 = #versionTitleLng2#,
@@ -415,26 +415,26 @@
     </update>
 
     <delete id="deleteImageVersion" parameterClass="int">
-        DELETE FROM imageversion WHERE ivid = #value#
+        DELETE FROM mediaobject WHERE ivid = #value#
     </delete>
 
     <delete id="deleteImageVersionsByImageId" parameterClass="int">
-        DELETE FROM imageversion WHERE imageid = #value#
+        DELETE FROM mediaobject WHERE imageid = #value#
     </delete>
 
     <select id="getMediaObjectIdByFid" parameterClass="java.lang.String" resultClass="int">
         SELECT
             ivid as value
-        FROM imageversion
+        FROM mediaobject
         WHERE fid = #fid#
     </select>
 
     <select id="getImageCount" resultClass="int">
-        SELECT count(*) as value FROM imageversion
+        SELECT count(*) as value FROM mediaobject
     </select>
 
     <select id="getImageKb" resultClass="int">
-        SELECT SUM(kb) FROM imageversion
+        SELECT SUM(kb) FROM mediaobject
     </select>
 
     <delete id="aclimageDelete">
@@ -443,13 +443,13 @@
 
     <update id="aclimageUpdate">
         REPLACE INTO aclimage
-          SELECT imageversion.ivid, categoryid as objectid, objecttype, principalid, principaltype, permission FROM imageversion
-            INNER JOIN folderholder ON imageversion.ivid = folderholder.ivid
+          SELECT mediaobject.ivid, categoryid as objectid, objecttype, principalid, principaltype, permission FROM mediaobject
+            INNER JOIN folderholder ON mediaobject.ivid = folderholder.ivid
             INNER JOIN acldata ON acldata.objectid = folderholder.categoryid AND objecttype = 10
     </update>
 
     <update id="normalizeNames">
-        UPDATE imageversion set versionname = REPLACE(versionname,'$value$','_') WHERE versionname LIKE '%$value$%'
+        UPDATE mediaobject set versionname = REPLACE(versionname,'$value$','_') WHERE versionname LIKE '%$value$%'
     </update>
 
 </sqlMap>

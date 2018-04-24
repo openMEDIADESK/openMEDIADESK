@@ -27,20 +27,20 @@
     <statement id="getDownloadLog" parameterClass="com.stumpner.mediadesk.stats.AllPicFilter" resultMap="downloadLog">
         SELECT downloadlogger.userid as userId, downloadlogger.ivid as ivid,
             downloadlogger.downloaddate as downloadDate,
-            imageversion.imagenumber as imageNumber, appuser.username as userName,
+            mediaobject.imagenumber as imageNumber, appuser.username as userName,
             downloadlogger.formatx, downloadlogger.formaty,
             downloadlogger.downloadtype as downloadtype,
             downloadlogger.ip as ip,
             downloadlogger.dns as dns,
             downloadlogger.bytes as bytes,
-            imageversion.versionname as medianame,
+            mediaobject.versionname as medianame,
             downloadlogger.pinid as pinid,
             pinpic.pin as pin,
             downloadlogger.paytransactionid as payTransactionId,
             downloadlogger.name as name
         FROM downloadlogger
         LEFT OUTER JOIN appuser ON downloadlogger.userid = appuser.userid
-        LEFT OUTER JOIN imageversion ON downloadlogger.ivid = imageversion.ivid
+        LEFT OUTER JOIN mediaobject ON downloadlogger.ivid = mediaobject.ivid
         LEFT OUTER JOIN pinpic ON downloadlogger.pinid = pinpic.pinpicid
         WHERE DATE_SUB(CURDATE(),INTERVAL $interval$) &lt;= downloaddate
           AND downloadtype = #downloadType#
@@ -59,18 +59,18 @@
     <statement id="getDownloadLogMonth" parameterClass="com.stumpner.mediadesk.stats.StatFilter" resultMap="downloadLog">
         SELECT downloadlogger.userid as userId, downloadlogger.ivid as ivid,
             downloadlogger.downloaddate as downloadDate,
-            imageversion.imagenumber as imageNumber, appuser.username as userName,
+            mediaobject.imagenumber as imageNumber, appuser.username as userName,
             downloadlogger.formatx, downloadlogger.formaty,
             downloadlogger.downloadtype as downloadtype,
             downloadlogger.ip as ip,
             downloadlogger.dns as dns,
             downloadlogger.bytes as bytes,
-            imageversion.versionname as medianame,
+            mediaobject.versionname as medianame,
             downloadlogger.paytransactionid as payTransactionId,
             downloadlogger.name as name
         FROM downloadlogger
         INNER JOIN appuser ON downloadlogger.userid = appuser.userid
-        INNER JOIN imageversion ON downloadlogger.ivid = imageversion.ivid
+        INNER JOIN mediaobject ON downloadlogger.ivid = mediaobject.ivid
         WHERE month(downloaddate) = month(#toDate#)
         ORDER BY downloaddate DESC
     </statement>
