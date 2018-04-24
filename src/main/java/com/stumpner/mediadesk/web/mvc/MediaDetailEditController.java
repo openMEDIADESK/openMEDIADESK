@@ -379,7 +379,9 @@ public class MediaDetailEditController extends AbstractAutoFillController {
         }
 
         MediaDetailEditCommand mediaDetailEditCommand = (MediaDetailEditCommand) o;
-        MediaObjectMultiLang imageVersion = (MediaObjectMultiLang) mediaDetailEditCommand.getImageVersion();
+        MediaObjectMultiLang media = (MediaObjectMultiLang) mediaDetailEditCommand.getImageVersion();
+        System.out.println("versionTitleLng1="+media.getVersionTitleLng1());
+        System.out.println("versionTitleLng2="+media.getVersionTitleLng1());
 
         if (httpServletRequest.getParameter("replaceFolder")!=null) {
             //folderimages ersetzen
@@ -397,10 +399,10 @@ public class MediaDetailEditController extends AbstractAutoFillController {
             this.copyMetadataOfMediaObjects(mediaDetailEditCommand,imageList);
         }
 
-        this.saveImage((MediaObjectMultiLang) mediaDetailEditCommand.getImageVersion());
+        this.saveMedia((MediaObjectMultiLang) mediaDetailEditCommand.getImageVersion());
 
         //Bei Text-Files Content Laden
-        if (imageVersion.getMayorMime().equalsIgnoreCase("text")) {
+        if (media.getMayorMime().equalsIgnoreCase("text")) {
             saveFileContent(mediaDetailEditCommand);
         }
 
@@ -438,7 +440,7 @@ public class MediaDetailEditController extends AbstractAutoFillController {
             logger.debug("copy image-data to "+imageTo.getIvid());
             this.copyIvid((MediaObjectMultiLang)imageVersion,(MediaObjectMultiLang)imageTo,
                     mediaDetailEditCommand.getCopyfield());
-            this.saveImage((MediaObjectMultiLang)imageTo);
+            this.saveMedia((MediaObjectMultiLang)imageTo);
         }
     }
 
@@ -447,20 +449,20 @@ public class MediaDetailEditController extends AbstractAutoFillController {
         MediaService imageService = new MediaService();
         SimpleLoaderClass loaderClass = new SimpleLoaderClass();
         loaderClass.setId(folderId);
-        List imageList = imageService.getCategoryImages(loaderClass);
+        List imageList = imageService.getFolderMediaObjects(loaderClass);
         //Daten kopieren:
         copyMetadataOfMediaObjects(mediaDetailEditCommand,imageList);
     }
 
-    private void saveImage(MediaObjectMultiLang image) {
+    private void saveMedia(MediaObjectMultiLang m) {
 
-        MediaService imageService = new MediaService();
-        logger.debug("save image [Date]"+image.getPhotographDate());
+        MediaService mediaService = new MediaService();
+        logger.debug("save mediaObject [Date]"+m.getPhotographDate());
         try {
-            int language = image.getUsedLanguage();
-            image.setUsedLanguage(0);
-            imageService.saveImageVersion(image);
-            image.setUsedLanguage(language);
+            int language = m.getUsedLanguage();
+            m.setUsedLanguage(0);
+            mediaService.saveMediaObject(m);
+            m.setUsedLanguage(language);
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
