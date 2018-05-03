@@ -7,7 +7,7 @@ import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.sc.UserService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
-import com.stumpner.mediadesk.lic.License;
+import com.stumpner.mediadesk.core.lic.License;
 import com.stumpner.mediadesk.web.mvc.FormatListController;
 import com.stumpner.mediadesk.web.mvc.ThumbnailModuleController;
 import com.stumpner.mediadesk.web.ResourceBundleChanger;

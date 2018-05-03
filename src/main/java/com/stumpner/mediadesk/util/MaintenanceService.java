@@ -4,7 +4,7 @@ import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.UserService;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.folder.FolderMultiLang;
+import com.stumpner.mediadesk.folder.FolderMultiLang;
 import com.stumpner.mediadesk.usermanagement.SecurityGroup;
 import com.stumpner.mediadesk.web.mvc.AclEditController;
 

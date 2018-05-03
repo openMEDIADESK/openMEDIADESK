@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.folder.Folder;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;

@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.pinpics.Pin;
+import com.stumpner.mediadesk.pin.Pin;
 import com.stumpner.mediadesk.core.database.sc.PinpicService;
 import com.stumpner.mediadesk.core.Config;
 import org.springframework.web.servlet.ModelAndView;
@@ -98,8 +98,8 @@ public class PinLoginController extends SimpleFormControllerMd {
         //pin.setUsed(pin.getUsed()+1);
         //pinpicService.save(pin);
         //pin einloggen
-        httpServletRequest.getSession().setAttribute("pinid",new Integer(pin.getPinpicId()));
-        //System.out.println("PIN: "+pin.getPinpicId());
+        httpServletRequest.getSession().setAttribute("pinid",new Integer(pin.getPinId()));
+        //System.out.println("PIN: "+pin.getPinId());
 
         httpServletResponse.sendRedirect(
                 httpServletResponse.encodeRedirectURL("pinview")

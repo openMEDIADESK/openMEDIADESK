@@ -79,9 +79,9 @@
           <td><dt:format pattern="yyyy-MM-dd" default=""><c:out value="${pin.createDate.time}"/></dt:format></td>
           <td>
               <a href="#" ng-click="openPinPopup('<c:out value="${site}"/>/<c:out value="${lng}"/>/pin?pin=<c:out value="${pin.pin}"/>')"><i class="fa fa-link"></i></a>&nbsp;
-              <a href="<c:url value="pinview"/>?pinid=<c:out value="${pin.pinpicId}"/>" title="zeigen"><i class="fa fa-database"></i></a>&nbsp;
-              <a href="<c:url value="pinedit"/>?pinid=<c:out value="${pin.pinpicId}"/>" title="bearbeiten"><i class="fa fa-pencil fa-fw"></i></a>&nbsp;
-              <a href="<c:url value="pindelete"/>?pinid=<c:out value="${pin.pinpicId}"/>" title="löschen"><i class="fa fa-trash"></i></a>&nbsp;</td>
+              <a href="<c:url value="pinview"/>?pinid=<c:out value="${pin.pinId}"/>" title="zeigen"><i class="fa fa-database"></i></a>&nbsp;
+              <a href="<c:url value="pinedit"/>?pinid=<c:out value="${pin.pinId}"/>" title="bearbeiten"><i class="fa fa-pencil fa-fw"></i></a>&nbsp;
+              <a href="<c:url value="pindelete"/>?pinid=<c:out value="${pin.pinId}"/>" title="löschen"><i class="fa fa-trash"></i></a>&nbsp;</td>
         </tr>
         </c:forEach>
       </tbody>

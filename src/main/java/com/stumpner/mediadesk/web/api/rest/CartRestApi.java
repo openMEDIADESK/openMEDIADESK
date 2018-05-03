@@ -1,7 +1,7 @@
 package com.stumpner.mediadesk.web.api.rest;
 
 import com.stumpner.mediadesk.core.database.sc.MediaService;
-import com.stumpner.mediadesk.image.MediaObjectMultiLang;
+import com.stumpner.mediadesk.media.MediaObjectMultiLang;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
 import com.stumpner.mediadesk.core.database.sc.ShoppingCartService;

@@ -1,7 +1,7 @@
 package com.stumpner.mediadesk.media.importing;
 
-import com.stumpner.mediadesk.image.util.SizeExceedException;
-import com.stumpner.mediadesk.image.util.ImageImport;
+import com.stumpner.mediadesk.media.image.util.SizeExceedException;
+import com.stumpner.mediadesk.media.image.util.ImageImport;
 
 import java.io.File;
 

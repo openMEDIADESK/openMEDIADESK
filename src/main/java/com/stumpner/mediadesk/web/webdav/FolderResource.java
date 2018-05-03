@@ -14,10 +14,10 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundExceptio
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.MediaObjectMultiLang;
-import com.stumpner.mediadesk.image.folder.Folder;
-import com.stumpner.mediadesk.image.folder.FolderMultiLang;
-import com.stumpner.mediadesk.image.util.SizeExceedException;
+import com.stumpner.mediadesk.media.MediaObjectMultiLang;
+import com.stumpner.mediadesk.folder.Folder;
+import com.stumpner.mediadesk.folder.FolderMultiLang;
+import com.stumpner.mediadesk.media.image.util.SizeExceedException;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.media.importing.ImportFactory;
 import com.stumpner.mediadesk.media.importing.MediaImportHandler;

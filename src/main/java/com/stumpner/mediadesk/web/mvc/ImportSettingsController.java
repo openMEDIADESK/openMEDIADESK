@@ -1,7 +1,7 @@
 package com.stumpner.mediadesk.web.mvc;
 
 import com.stumpner.mediadesk.core.database.sc.FolderService;
-import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.folder.Folder;
 import com.stumpner.mediadesk.web.mvc.commandclass.settings.ImportSettings;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.usermanagement.User;

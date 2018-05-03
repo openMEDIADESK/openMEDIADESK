@@ -1,8 +1,8 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.MediaObject;
-import com.stumpner.mediadesk.image.pinpics.Pin;
-import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.media.MediaObject;
+import com.stumpner.mediadesk.pin.Pin;
+import com.stumpner.mediadesk.folder.Folder;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.web.mvc.commandclass.PinWizard;
 import com.stumpner.mediadesk.core.database.sc.PinpicService;
@@ -111,8 +111,8 @@ public class PinWizardController extends SimpleFormControllerMd {
             pin.setEmailnotification(this.getUser(httpServletRequest).getEmail());
             pin.setDefaultview(Folder.VIEW_UNDEFINED);
             pin = pinpicService.add(pin);
-            addImagesToPin(pinWizard.getImageList(), pin.getPinpicId());
-            httpServletResponse.sendRedirect("pinedit?pinid="+ pin.getPinpicId());
+            addImagesToPin(pinWizard.getImageList(), pin.getPinId());
+            httpServletResponse.sendRedirect("pinedit?pinid="+ pin.getPinId());
         }
         if (pinWizard.getPinType()==PinWizard.TYPE_EXISTING) {
 

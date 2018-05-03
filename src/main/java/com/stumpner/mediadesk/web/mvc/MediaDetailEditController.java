@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.media.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.validation.BindException;
@@ -10,14 +11,13 @@ import org.apache.commons.io.FileUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.stumpner.mediadesk.image.*;
-import com.stumpner.mediadesk.image.util.SizeExceedException;
+import com.stumpner.mediadesk.media.image.util.SizeExceedException;
 import com.stumpner.mediadesk.core.database.sc.*;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.core.Resources;
-import com.stumpner.mediadesk.list.CustomListService;
+import com.stumpner.mediadesk.core.list.CustomListService;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.web.mvc.commandclass.settings.ApplicationSettings;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
@@ -32,7 +32,6 @@ import java.math.BigDecimal;
 
 import com.stumpner.mediadesk.media.importing.ImportFactory;
 import com.stumpner.mediadesk.media.importing.MediaImportHandler;
-import com.stumpner.mediadesk.media.MimeTypeNotSupportedException;
 import com.stumpner.mediadesk.upload.FileRejectException;
 
 /*********************************************************

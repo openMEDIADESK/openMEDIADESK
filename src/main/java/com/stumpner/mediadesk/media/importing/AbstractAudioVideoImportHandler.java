@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.LinkedList;
 
-import com.stumpner.mediadesk.image.Metadata;
+import com.stumpner.mediadesk.media.Metadata;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)

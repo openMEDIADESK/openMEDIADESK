@@ -2,7 +2,7 @@ package com.stumpner.mediadesk.web.mvc;
 
 import com.stumpner.mediadesk.core.database.sc.PinpicService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
-import com.stumpner.mediadesk.image.pinpics.Pin;
+import com.stumpner.mediadesk.pin.Pin;
 import com.stumpner.mediadesk.usermanagement.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -86,7 +86,7 @@ public class PinDeleteController extends SimpleFormControllerMd {
 
         PinpicService folderService = new PinpicService();
         try {
-            folderService.deleteById(pin.getPinpicId());
+            folderService.deleteById(pin.getPinId());
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

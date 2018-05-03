@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.core.database.sc.exceptions.QuotaExceededException;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.lic.LicenceChecker;
-import com.stumpner.mediadesk.image.folder.Folder;
-import com.stumpner.mediadesk.image.AutoMediaAssigner;
+import com.stumpner.mediadesk.core.lic.LicenceChecker;
+import com.stumpner.mediadesk.folder.Folder;
+import com.stumpner.mediadesk.media.AutoMediaAssigner;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)

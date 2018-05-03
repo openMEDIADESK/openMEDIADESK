@@ -1,9 +1,9 @@
 package com.stumpner.mediadesk.web.servlet;
 
-import com.stumpner.mediadesk.image.AutoMediaAssigner;
-import com.stumpner.mediadesk.image.folder.Folder;
-import com.stumpner.mediadesk.image.folder.FolderMultiLang;
-import com.stumpner.mediadesk.image.pinpics.Pin;
+import com.stumpner.mediadesk.media.AutoMediaAssigner;
+import com.stumpner.mediadesk.folder.Folder;
+import com.stumpner.mediadesk.folder.FolderMultiLang;
+import com.stumpner.mediadesk.pin.Pin;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.FileItem;
@@ -22,14 +22,14 @@ import java.util.Iterator;
 import java.security.acl.AclNotFoundException;
 
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.lic.LicenceChecker;
+import com.stumpner.mediadesk.core.lic.LicenceChecker;
 import com.stumpner.mediadesk.core.database.sc.*;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.Authenticator;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
-import com.stumpner.mediadesk.image.util.SizeExceedException;
+import com.stumpner.mediadesk.media.image.util.SizeExceedException;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
 import com.stumpner.mediadesk.media.importing.MediaImportHandler;
 import com.stumpner.mediadesk.media.importing.ImportFactory;
@@ -172,7 +172,7 @@ public class UploadServlet extends HttpServlet {
                             Pin pin = WebHelper.getPinFromContext(httpServletRequest);
                             assigner.clear(httpServletRequest);
                             assigner.setDestination(httpServletRequest, pin);
-                            pinpicId = pin.getPinpicId();
+                            pinpicId = pin.getPinId();
                             autoImportObject = assigner.getAutoImportObject(httpServletRequest);
                             hasAccess = true;
                         }

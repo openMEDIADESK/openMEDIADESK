@@ -2,13 +2,13 @@ package com.stumpner.mediadesk.core;
 
 import com.stumpner.mediadesk.core.database.sc.*;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
-import com.stumpner.mediadesk.image.MediaObject;
-import com.stumpner.mediadesk.image.MediaObjectMultiLang;
-import com.stumpner.mediadesk.image.pinpics.Pin;
+import com.stumpner.mediadesk.media.MediaObject;
+import com.stumpner.mediadesk.media.MediaObjectMultiLang;
+import com.stumpner.mediadesk.pin.Pin;
 import com.stumpner.mediadesk.util.MailWrapper;
 import com.stumpner.mediadesk.search.SearchLogger;
 import com.stumpner.mediadesk.search.SearchEntity;
-import com.stumpner.mediadesk.image.util.AutoImporter;
+import com.stumpner.mediadesk.media.image.util.AutoImporter;
 
 import javax.mail.MessagingException;
 import java.util.*;
@@ -232,7 +232,7 @@ public class CronService {
                 //System.out.println("+ AutoDelete is enabled");
                 if (pin.getUsed()>=pin.getMaxUse() || (pin.getEndDate().before(new Date()))) {
                     //Bilder des Pins laden:
-                    Iterator images = pinpicService.getPinpicImages(pin.getPinpicId()).iterator();
+                    Iterator images = pinpicService.getPinpicImages(pin.getPinId()).iterator();
                     while (images.hasNext()) {
                         MediaObject imageVersion = (MediaObject)images.next();
                         List categoryList = folderService.getFolderListFromImageVersion(imageVersion.getIvid());
@@ -240,7 +240,7 @@ public class CronService {
                         if (categoryList.size()==0) {
                             //System.out.println("Bild ist in keiner Kategorie und keinem Folder, löschen:");
                             //kommt in keiner Kategorie und keinem Folder vor, kann gelöscht werden
-                            pinpicService.deleteImageFromPinpic(imageVersion.getIvid(),pin.getPinpicId());
+                            pinpicService.deleteImageFromPinpic(imageVersion.getIvid(),pin.getPinId());
                             try {
                                 imageService.deleteMediaObject(imageVersion);
                             } catch (IOServiceException e) {
@@ -253,7 +253,7 @@ public class CronService {
 
                     //Pin löschen (immer löschen, in kategorie od. ordner verwendete bilder verbeleiben in der db, aber pin wird gelöscht
                     try {
-                        pinpicService.deleteById(pin.getPinpicId());
+                        pinpicService.deleteById(pin.getPinId());
                     } catch (IOServiceException e) {
                         e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     }

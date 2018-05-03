@@ -3,7 +3,7 @@ package com.stumpner.mediadesk.web.mvc;
 import com.stumpner.mediadesk.web.mvc.commandclass.Contact;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.util.MailWrapper;
-import com.stumpner.mediadesk.image.util.CustomTextService;
+import com.stumpner.mediadesk.media.image.util.CustomTextService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.validation.BindException;

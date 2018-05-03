@@ -4,7 +4,7 @@ import com.stumpner.mediadesk.core.database.sc.MediaSearchService;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.web.mvc.commandclass.BulkModification;
 import com.stumpner.mediadesk.search.*;
-import com.stumpner.mediadesk.image.util.BulkModificationService;
+import com.stumpner.mediadesk.media.image.util.BulkModificationService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 

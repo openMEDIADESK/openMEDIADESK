@@ -2,11 +2,11 @@ package com.stumpner.mediadesk.media.importing;
 
 import com.stumpner.mediadesk.core.database.sc.MediaMetadataService;
 import com.stumpner.mediadesk.core.database.sc.MediaService;
-import com.stumpner.mediadesk.image.MediaObjectMultiLang;
-import com.stumpner.mediadesk.image.util.SizeExceedException;
-import com.stumpner.mediadesk.image.util.ImageMagickUtil;
-import com.stumpner.mediadesk.image.util.IImageUtil;
-import com.stumpner.mediadesk.image.Metadata;
+import com.stumpner.mediadesk.media.MediaObjectMultiLang;
+import com.stumpner.mediadesk.media.image.util.SizeExceedException;
+import com.stumpner.mediadesk.media.image.util.ImageMagickUtil;
+import com.stumpner.mediadesk.media.image.util.IImageUtil;
+import com.stumpner.mediadesk.media.Metadata;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 

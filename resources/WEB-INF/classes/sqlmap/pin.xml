@@ -6,7 +6,7 @@
 
 <sqlMap namespace="Pinpic">
 
-    <insert id="addPinpic" parameterClass="com.stumpner.mediadesk.image.pinpics.Pin">
+    <insert id="addPinpic" parameterClass="com.stumpner.mediadesk.pin.Pin">
         INSERT INTO pinpic
             (pinpictitle,pinpicname,pin,note,used,createdate,maxuse,enabled,enddate,startdate,autodelete,directdownload,creatoruserid,defaultview,emailnotification,password)
             VALUES (#pinpicTitle#,#pinpicName#,#pin#,#note#,0,#createDate#,#maxUse#,#enabled#,#endDate#,#startDate#,#autoDelete#,#directDownload#,#creatorUserId#,#defaultview#,#emailnotification#,#password#)
@@ -14,7 +14,7 @@
 
     <select id="getPinpic" parameterClass="java.lang.String">
         SELECT
-            pinpicid as pinpicId,
+            pinpicid as pinId,
             pinpictitle as pinpicTitle,
             pinpicname as pinpicName,
             pin as pin,
@@ -36,9 +36,9 @@
         WHERE pin = #pin#
     </select>
 
-    <select id="getPinpicById" resultClass="com.stumpner.mediadesk.image.pinpics.PinExtended" parameterClass="java.lang.Integer">
+    <select id="getPinpicById" resultClass="com.stumpner.mediadesk.pin.PinExtended" parameterClass="java.lang.Integer">
         SELECT
-            pinpicid as pinpicId,
+            pinpicid as pinId,
             pinpictitle as pinpicTitle,
             pinpicname as pinpicName,
             pin as pin,
@@ -63,8 +63,8 @@
     </select>
 
 
-    <resultMap id="pinpicList" class="com.stumpner.mediadesk.image.pinpics.Pin">
-        <result property="pinpicId" column="pinpicid"/>
+    <resultMap id="pinpicList" class="com.stumpner.mediadesk.pin.Pin">
+        <result property="pinId" column="pinpicid"/>
         <result property="pinpicTitle" column="pinpictitle"/>
         <result property="pinpicName" column="pinpicname"/>
         <result property="pin" column="pin"/>
@@ -94,7 +94,7 @@
             ORDER BY createdate DESC
     </select>
 
-    <resultMap id="imageList" class="com.stumpner.mediadesk.image.MediaObjectMultiLang">
+    <resultMap id="imageList" class="com.stumpner.mediadesk.media.MediaObjectMultiLang">
         <result property="ivid" column="ivid"/>
         <result property="version" column="version"/>
         <result property="versionTitle" column="versiontitle"/>
@@ -153,9 +153,9 @@
         WHERE pinpicid = #id#
     </select>
 
-    <select id="getPinpicByPin" resultClass="com.stumpner.mediadesk.image.pinpics.Pin" parameterClass="java.lang.String">
+    <select id="getPinpicByPin" resultClass="com.stumpner.mediadesk.pin.Pin" parameterClass="java.lang.String">
         SELECT
-            pinpicid as pinpicId,
+            pinpicid as pinId,
             pinpictitle as pinpicTitle,
             pinpicname as pinpicName,
             pin as pin,
@@ -177,7 +177,7 @@
         WHERE pin = #value#
     </select>
 
-    <update id="savePinpic" parameterClass="com.stumpner.mediadesk.image.pinpics.Pin">
+    <update id="savePinpic" parameterClass="com.stumpner.mediadesk.pin.Pin">
         UPDATE pinpic SET
             pinpictitle = #pinpicTitle#,
             pinpicname = #pinpicName#,
@@ -193,7 +193,7 @@
             defaultview = #defaultview#,
             emailnotification = #emailnotification#,
             password = #password#
-        WHERE pinpicid = #pinpicId#
+        WHERE pinpicid = #pinId#
     </update>
 
     <delete id="deletePinpic" parameterClass="int">
@@ -201,15 +201,15 @@
             WHERE pinpicid = #value#
     </delete>
 
-    <insert id="addImageToPinpic" parameterClass="com.stumpner.mediadesk.image.pinpics.PinpicHolder">
+    <insert id="addImageToPinpic" parameterClass="com.stumpner.mediadesk.pin.PinHolder">
         INSERT INTO pinpicholder
             (pinpicid,ivid)
-            VALUES (#pinpicId#,#ivid#)
+            VALUES (#pinId#,#ivid#)
     </insert>
 
-    <delete id="deleteImageFromPinpic" parameterClass="com.stumpner.mediadesk.image.pinpics.PinpicHolder">
+    <delete id="deleteImageFromPinpic" parameterClass="com.stumpner.mediadesk.pin.PinHolder">
         DELETE FROM pinpicholder
-            WHERE pinpicid = #pinpicId# AND ivid = #ivid#
+            WHERE pinpicid = #pinId# AND ivid = #ivid#
     </delete>
 
     <delete id="deleteOrphanedPinHolder" parameterClass="java.lang.String">

@@ -1,8 +1,8 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.MediaObject;
-import com.stumpner.mediadesk.image.folder.Folder;
-import com.stumpner.mediadesk.image.pinpics.Pin;
+import com.stumpner.mediadesk.media.MediaObject;
+import com.stumpner.mediadesk.folder.Folder;
+import com.stumpner.mediadesk.pin.Pin;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,7 +63,7 @@ public class PinPicViewController extends AbstractThumbnailViewController {
     String viewNameDirectDownload = "";
 
     protected int getContainerId(HttpServletRequest request) {
-        return getPin(request).getPinpicId();
+        return getPin(request).getPinId();
     }
 
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
@@ -269,13 +269,13 @@ public class PinPicViewController extends AbstractThumbnailViewController {
 
     protected void insert(MediaObject image, HttpServletRequest request) throws DublicateEntry {
         PinpicService pinpicService = new PinpicService();
-        pinpicService.addImageToPinpic(image.getIvid(),getPin(request).getPinpicId());
+        pinpicService.addImageToPinpic(image.getIvid(),getPin(request).getPinId());
     }
 
     protected void remove(MediaObject image, HttpServletRequest request) {
 
         PinpicService pinpicService = new PinpicService();
-        pinpicService.deleteImageFromPinpic(image.getIvid(),getPin(request).getPinpicId());
+        pinpicService.deleteImageFromPinpic(image.getIvid(),getPin(request).getPinId());
 
     }
 

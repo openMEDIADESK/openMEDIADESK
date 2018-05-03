@@ -1,9 +1,9 @@
 package com.stumpner.mediadesk.web.api.rest;
 
-import com.stumpner.mediadesk.image.MediaObject;
-import com.stumpner.mediadesk.image.MediaObjectMultiLang;
-import com.stumpner.mediadesk.image.folder.Folder;
-import com.stumpner.mediadesk.image.folder.FolderMultiLang;
+import com.stumpner.mediadesk.media.MediaObject;
+import com.stumpner.mediadesk.media.MediaObjectMultiLang;
+import com.stumpner.mediadesk.folder.Folder;
+import com.stumpner.mediadesk.folder.FolderMultiLang;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.core.database.sc.*;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;

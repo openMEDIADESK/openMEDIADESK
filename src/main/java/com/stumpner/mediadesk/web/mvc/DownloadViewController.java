@@ -1,9 +1,9 @@
 package com.stumpner.mediadesk.web.mvc;
 
 import com.stumpner.mediadesk.core.database.sc.MediaService;
-import com.stumpner.mediadesk.image.MediaObject;
-import com.stumpner.mediadesk.image.MediaObjectMultiLang;
-import com.stumpner.mediadesk.image.pinpics.Pin;
+import com.stumpner.mediadesk.media.MediaObject;
+import com.stumpner.mediadesk.media.MediaObjectMultiLang;
+import com.stumpner.mediadesk.pin.Pin;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;

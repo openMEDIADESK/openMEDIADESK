@@ -15,7 +15,7 @@
     Calendar calenderNow = GregorianCalendar.getInstance();
 
     while (categorys.hasNext()) {
-        com.stumpner.mediadesk.image.folder.Folder folder = (com.stumpner.mediadesk.image.folder.Folder)categorys.next();
+        com.stumpner.mediadesk.folder.Folder folder = (com.stumpner.mediadesk.folder.Folder)categorys.next();
         Date changedDate = new Date();
         double prio = 0.5;
         String mod = "always";

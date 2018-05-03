@@ -2,7 +2,7 @@ package com.stumpner.mediadesk.web.mvc;
 
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.core.database.sc.MenuService;
-import com.stumpner.mediadesk.menu.MenuType;
+import com.stumpner.mediadesk.web.menu.MenuType;
 import com.stumpner.mediadesk.web.LngResolver;
 import org.springframework.web.servlet.ModelAndView;
 

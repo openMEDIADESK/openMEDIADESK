@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.MediaObject;
+import com.stumpner.mediadesk.media.MediaObject;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.stumpner.mediadesk.core.database.sc.FavoriteService;
 import com.stumpner.mediadesk.core.database.sc.ShoppingCartService;
 import com.stumpner.mediadesk.core.Resources;
-import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.folder.Folder;
 import com.stumpner.mediadesk.usermanagement.User;
 
 import java.util.List;

@@ -1,8 +1,8 @@
 package com.stumpner.mediadesk.web.mvc;
 
 import com.stumpner.mediadesk.core.database.sc.FolderService;
-import com.stumpner.mediadesk.image.folder.Folder;
-import com.stumpner.mediadesk.image.folder.FolderMultiLang;
+import com.stumpner.mediadesk.folder.Folder;
+import com.stumpner.mediadesk.folder.FolderMultiLang;
 import com.stumpner.mediadesk.web.mvc.common.SimpleFormControllerMd;
 import com.stumpner.mediadesk.util.MaintenanceService;
 import com.stumpner.mediadesk.usermanagement.User;

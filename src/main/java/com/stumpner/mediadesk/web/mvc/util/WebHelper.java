@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.mvc.util;
 
-import com.stumpner.mediadesk.image.pinpics.Pin;
+import com.stumpner.mediadesk.pin.Pin;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.UserFactory;
 import com.stumpner.mediadesk.usermanagement.Authenticator;

@@ -441,7 +441,7 @@ will default to basic and digest authentication.      -->
     </error-page>
 
     <error-page>
-        <exception-type>com.stumpner.mediadesk.lic.LicenseException</exception-type>
+        <exception-type>com.stumpner.mediadesk.core.lic.LicenseException</exception-type>
         <location>/error_licensefailed.jsp</location>
     </error-page>
 

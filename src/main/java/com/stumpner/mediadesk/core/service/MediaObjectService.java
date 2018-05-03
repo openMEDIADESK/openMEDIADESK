@@ -2,9 +2,9 @@ package com.stumpner.mediadesk.core.service;
 
 import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.MediaService;
-import com.stumpner.mediadesk.image.MediaObject;
-import com.stumpner.mediadesk.image.MediaObjectMultiLang;
-import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.media.MediaObject;
+import com.stumpner.mediadesk.media.MediaObjectMultiLang;
+import com.stumpner.mediadesk.folder.Folder;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;

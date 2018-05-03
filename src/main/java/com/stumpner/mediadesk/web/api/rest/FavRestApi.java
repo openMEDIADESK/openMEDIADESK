@@ -1,13 +1,13 @@
 package com.stumpner.mediadesk.web.api.rest;
 
 import com.stumpner.mediadesk.core.database.sc.MediaService;
-import com.stumpner.mediadesk.image.MediaObject;
+import com.stumpner.mediadesk.media.MediaObject;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
 import com.stumpner.mediadesk.core.database.sc.ShoppingCartService;
 import com.stumpner.mediadesk.core.database.sc.FavoriteService;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.MediaObjectMultiLang;
+import com.stumpner.mediadesk.media.MediaObjectMultiLang;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.UserFactory;
 

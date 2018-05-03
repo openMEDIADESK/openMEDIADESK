@@ -6,7 +6,7 @@
 
 <sqlMap namespace="Menu">
 
-    <resultMap id="menuList" class="com.stumpner.mediadesk.menu.Menu">
+    <resultMap id="menuList" class="com.stumpner.mediadesk.web.menu.Menu">
         <result property="id" column="id"/>
         <result property="type" column="type"/>
         <result property="position" column="position"/>
@@ -18,7 +18,7 @@
         <result property="openAs" column="openas"/>
         <result property="usedLanguage" column="usedLanguage"/>
     </resultMap>
-    <select id="getMenu" parameterClass="com.stumpner.mediadesk.menu.MenuLoaderClass" resultMap="menuList">
+    <select id="getMenu" parameterClass="com.stumpner.mediadesk.web.menu.MenuLoaderClass" resultMap="menuList">
         SELECT
               id,
               type,
@@ -34,17 +34,17 @@
         WHERE type = #type#
     </select>
 
-    <select id="getMenuById" parameterClass="int" resultClass="com.stumpner.mediadesk.menu.Menu">
+    <select id="getMenuById" parameterClass="int" resultClass="com.stumpner.mediadesk.web.menu.Menu">
         SELECT * FROM menu WHERE id = #value#
     </select>
 
-    <insert id="addMenu" parameterClass="com.stumpner.mediadesk.menu.Menu">
+    <insert id="addMenu" parameterClass="com.stumpner.mediadesk.web.menu.Menu">
         INSERT INTO
         menu (type,position,visibleforrole,title,titlelng1,titlelng2,metadata,openas)
         VALUES (#type#,#position#,#visibleForRole#,#title#,#titleLng1#,#titleLng2#,#metaData#,#openAs#)
     </insert>
 
-    <update id="saveMenu" parameterClass="com.stumpner.mediadesk.menu.Menu">
+    <update id="saveMenu" parameterClass="com.stumpner.mediadesk.web.menu.Menu">
         UPDATE menu
         SET type = #type#,
             position = #position#,

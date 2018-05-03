@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.HashMap;
 
-import com.stumpner.mediadesk.lic.LicenceChecker;
+import com.stumpner.mediadesk.core.lic.LicenceChecker;
 import com.stumpner.mediadesk.core.Config;
 
 /*********************************************************

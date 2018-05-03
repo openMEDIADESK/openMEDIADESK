@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.util.CustomTextService;
+import com.stumpner.mediadesk.media.image.util.CustomTextService;
 
 import java.util.Map;
 import java.util.HashMap;

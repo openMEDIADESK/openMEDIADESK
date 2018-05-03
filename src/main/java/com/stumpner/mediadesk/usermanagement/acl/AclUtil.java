@@ -1,7 +1,7 @@
 package com.stumpner.mediadesk.usermanagement.acl;
 
-import com.stumpner.mediadesk.image.MediaObjectMultiLang;
-import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.media.MediaObjectMultiLang;
+import com.stumpner.mediadesk.folder.Folder;
 import net.stumpner.security.acl.AclControllerContext;
 import net.stumpner.security.acl.AclPermission;
 import net.stumpner.security.acl.AclController;

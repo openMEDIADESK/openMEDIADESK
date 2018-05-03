@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.mvc.commandclass;
 
-import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.folder.Folder;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)

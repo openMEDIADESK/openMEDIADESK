@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.MediaObject;
+import com.stumpner.mediadesk.media.MediaObject;
 import com.stumpner.mediadesk.web.mvc.commandclass.FormatSelector;
 import com.stumpner.mediadesk.web.mvc.exceptions.UndefinedWebStateException;
 import com.stumpner.mediadesk.core.Config;

@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.search;
 
-import com.stumpner.mediadesk.image.MediaObjectMultiLang;
+import com.stumpner.mediadesk.media.MediaObjectMultiLang;
 
 import java.util.ArrayList;
 

@@ -6,9 +6,9 @@ import com.bradmcevoy.http.Request;
 import com.bradmcevoy.http.Auth;
 import com.bradmcevoy.common.Path;
 import com.stumpner.mediadesk.core.database.sc.MediaService;
-import com.stumpner.mediadesk.image.MediaObjectMultiLang;
-import com.stumpner.mediadesk.image.folder.Folder;
-import com.stumpner.mediadesk.image.folder.FolderMultiLang;
+import com.stumpner.mediadesk.media.MediaObjectMultiLang;
+import com.stumpner.mediadesk.folder.Folder;
+import com.stumpner.mediadesk.folder.FolderMultiLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

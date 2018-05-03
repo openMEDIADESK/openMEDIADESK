@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
-import com.stumpner.mediadesk.image.MediaObject;
+import com.stumpner.mediadesk.media.MediaObject;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 
 /*********************************************************

@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.AutoMediaAssigner;
+import com.stumpner.mediadesk.media.AutoMediaAssigner;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 import org.apache.log4j.Logger;
@@ -17,12 +17,12 @@ import java.io.IOException;
 import java.io.FileOutputStream;
 
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.lic.LicenceChecker;
+import com.stumpner.mediadesk.core.lic.LicenceChecker;
 import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.QuotaExceededException;
-import com.stumpner.mediadesk.image.util.ImageImport;
-import com.stumpner.mediadesk.image.util.SizeExceedException;
-import com.stumpner.mediadesk.image.util.MetadataReadException;
+import com.stumpner.mediadesk.media.image.util.ImageImport;
+import com.stumpner.mediadesk.media.image.util.SizeExceedException;
+import com.stumpner.mediadesk.media.image.util.MetadataReadException;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.media.importing.MediaImportHandler;
 import com.stumpner.mediadesk.media.MimeTypeNotSupportedException;

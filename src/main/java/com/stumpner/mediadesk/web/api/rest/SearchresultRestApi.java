@@ -2,8 +2,8 @@ package com.stumpner.mediadesk.web.api.rest;
 
 import com.stumpner.mediadesk.core.database.sc.MediaSearchService;
 import com.stumpner.mediadesk.core.database.sc.MediaService;
-import com.stumpner.mediadesk.image.MediaObject;
-import com.stumpner.mediadesk.image.MediaObjectMultiLang;
+import com.stumpner.mediadesk.media.MediaObject;
+import com.stumpner.mediadesk.media.MediaObjectMultiLang;
 import com.stumpner.mediadesk.search.*;
 import com.stumpner.mediadesk.web.mvc.exceptions.SearchResultExpired;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;

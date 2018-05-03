@@ -4,14 +4,14 @@ import com.stumpner.mediadesk.core.database.AppSqlMap;
 import com.stumpner.mediadesk.core.database.sc.*;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
-import com.stumpner.mediadesk.lic.LicenceChecker;
+import com.stumpner.mediadesk.core.lic.LicenceChecker;
 import com.stumpner.mediadesk.util.IniFile;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.Authenticator;
 import com.stumpner.mediadesk.media.MimeCssMap;
 import com.stumpner.mediadesk.web.mvc.AclEditController;
-import com.stumpner.mediadesk.image.util.ImageImport;
-import com.stumpner.mediadesk.image.folder.FolderMultiLang;
+import com.stumpner.mediadesk.media.image.util.ImageImport;
+import com.stumpner.mediadesk.folder.FolderMultiLang;
 
 import javax.servlet.ServletContextListener;
 import javax.servlet.ServletContextEvent;

@@ -10,7 +10,7 @@ import com.stumpner.mediadesk.web.mvc.SuSIDEBaseController;
 import com.stumpner.mediadesk.web.LngResolver;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
 import com.stumpner.mediadesk.usermanagement.User;
-import com.stumpner.mediadesk.menu.MenuType;
+import com.stumpner.mediadesk.web.menu.MenuType;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;

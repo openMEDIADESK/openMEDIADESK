@@ -6,7 +6,7 @@
 
 <sqlMap namespace="Lightbox">
 
-    <resultMap id="imageList" class="com.stumpner.mediadesk.image.MediaObjectMultiLang">
+    <resultMap id="imageList" class="com.stumpner.mediadesk.media.MediaObjectMultiLang">
         <result property="ivid" column="ivid"/>
         <result property="version" column="version"/>
         <result property="versionTitle" column="versiontitle"/>
@@ -68,13 +68,13 @@
         SELECT count(ivid) FROM lightbox WHERE userid = #value#
     </select>
 
-    <insert id="addImageToLightbox" parameterClass="com.stumpner.mediadesk.image.FavoriteMediaDescriptor">
+    <insert id="addImageToLightbox" parameterClass="com.stumpner.mediadesk.media.FavoriteMediaDescriptor">
         INSERT INTO lightbox
             (userid,ivid)
             VALUES (#userId#,#ivid#)
     </insert>
 
-    <delete id="removeImageFromLightbox" parameterClass="com.stumpner.mediadesk.image.FavoriteMediaDescriptor">
+    <delete id="removeImageFromLightbox" parameterClass="com.stumpner.mediadesk.media.FavoriteMediaDescriptor">
         DELETE FROM lightbox
         WHERE userid = #userId# AND ivid = #ivid#
     </delete>

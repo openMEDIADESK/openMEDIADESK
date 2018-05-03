@@ -1,8 +1,8 @@
 package com.stumpner.mediadesk.web.servlet;
 
-import com.stumpner.mediadesk.image.MediaObject;
-import com.stumpner.mediadesk.image.MediaObjectMultiLang;
-import com.stumpner.mediadesk.image.pinpics.Pin;
+import com.stumpner.mediadesk.media.MediaObject;
+import com.stumpner.mediadesk.media.MediaObjectMultiLang;
+import com.stumpner.mediadesk.pin.Pin;
 import com.stumpner.mediadesk.util.Zip;
 import com.stumpner.mediadesk.util.MailWrapper;
 import com.stumpner.mediadesk.core.Resources;
@@ -10,8 +10,8 @@ import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.core.database.sc.*;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
-import com.stumpner.mediadesk.image.CartObject;
-import com.stumpner.mediadesk.image.util.ImageMagickUtil;
+import com.stumpner.mediadesk.media.CartObject;
+import com.stumpner.mediadesk.media.image.util.ImageMagickUtil;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.acl.AclUtil;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
@@ -858,7 +858,7 @@ public class DownloadServlet extends HttpServlet {
                     PinpicService pinpicService = new PinpicService();
                     Pin pinPic = new Pin();
                     pinPic = (Pin)pinpicService.getById(pinId);
-                    String pinPicString = String.valueOf(pinPic.getPinpicId());
+                    String pinPicString = String.valueOf(pinPic.getPinId());
                     if (!pinPicString.equalsIgnoreCase(
                             (String)request.getSession().getAttribute("alreadyTracked")
                     )) {
@@ -872,7 +872,7 @@ public class DownloadServlet extends HttpServlet {
                     while (images2.hasNext()) {
                         MediaObject mediaObject = (MediaObject)images2.next();
                         dlls2.log(0,mediaObject.getIvid(), null,
-                            SimpleDownloadLogger.DTYPE_PIN, request,0,pinPic.getPinpicId());
+                            SimpleDownloadLogger.DTYPE_PIN, request,0,pinPic.getPinId());
                     }
 
                 } catch (ObjectNotFoundException e) {

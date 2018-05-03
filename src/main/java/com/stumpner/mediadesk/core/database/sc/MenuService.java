@@ -1,7 +1,7 @@
 package com.stumpner.mediadesk.core.database.sc;
 
-import com.stumpner.mediadesk.menu.MenuLoaderClass;
-import com.stumpner.mediadesk.menu.Menu;
+import com.stumpner.mediadesk.web.menu.MenuLoaderClass;
+import com.stumpner.mediadesk.web.menu.Menu;
 import com.stumpner.mediadesk.core.database.AppSqlMap;
 
 import java.util.List;

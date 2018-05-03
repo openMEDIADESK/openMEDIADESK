@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.image.pinpics.Pin;
+import com.stumpner.mediadesk.pin.Pin;
 import org.springframework.validation.Validator;
 import org.springframework.validation.Errors;
 import com.stumpner.mediadesk.core.database.sc.PinpicService;
@@ -51,7 +51,7 @@ public class PinValidator implements Validator {
         PinpicService pinpicService = new PinpicService();
         try {
             Pin pin = pinpicService.getPinpicByPin(((Pin)o).getPin());
-            int imageCount = pinpicService.getPinpicImages(pin.getPinpicId()).size();
+            int imageCount = pinpicService.getPinpicImages(pin.getPinId()).size();
             if (imageCount<1 && !pin.isUploadEnabled()) {
                 errors.reject("pinlogin.error.noimage","!!!DM PIN EMPTY!!!");
             }

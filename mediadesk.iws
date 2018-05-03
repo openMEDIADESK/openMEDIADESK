@@ -61,6 +61,17 @@
   <component name="Cvs2Configuration">
     <option name="UPDATE_KEYWORD_SUBSTITUTION" value="NONE" />
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_TABLE_DETAILS" value="true" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <expand />
+    <select />
+  </component>
   <component name="DebuggerManager">
     <line_breakpoints converted="true">
       <breakpoint url="file://$PROJECT_DIR$/src/net/stumpner/md/web/webdav/WebdavResourceFactory.java" line="242" class="net.stumpner.md.web.webdav.WebdavResourceFactory" package="net.stumpner.md.web.webdav">
@@ -404,91 +415,101 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="web.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/WEB-INF/web.xml">
+      <file leaf-file-name="pin.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/pin.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="440" column="17" lean-forward="false" selection-start-line="440" selection-start-column="17" selection-end-line="440" selection-end-column="17" />
+            <state relative-caret-position="442">
+              <caret line="26" column="35" lean-forward="false" selection-start-line="26" selection-start-column="35" selection-end-line="26" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pAclEdit.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pAclEdit.jsp">
+      <file leaf-file-name="Pin.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/pin/Pin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="24" column="30" lean-forward="false" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
+            <state relative-caret-position="321">
+              <caret line="36" column="13" lean-forward="false" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AclEditController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/AclEditController.java">
+      <file leaf-file-name="MediaObjectMultiLang.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/MediaObjectMultiLang.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="188" column="34" lean-forward="false" selection-start-line="188" selection-start-column="34" selection-end-line="188" selection-end-column="34" />
+            <state relative-caret-position="-7">
+              <caret line="36" column="13" lean-forward="false" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FolderIndexController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/FolderIndexController.java">
+      <file leaf-file-name="Metadata.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/Metadata.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="274">
-              <caret line="409" column="29" lean-forward="false" selection-start-line="409" selection-start-column="29" selection-end-line="409" selection-end-column="29" />
+            <state relative-caret-position="-7">
+              <caret line="28" column="13" lean-forward="false" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FolderService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/FolderService.java">
+      <file leaf-file-name="SimpleMediaObject.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/SimpleMediaObject.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="31" column="40" lean-forward="false" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
+            <state relative-caret-position="236">
+              <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FolderEditController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/FolderEditController.java">
+      <file leaf-file-name="AutoMediaAssigner.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/AutoMediaAssigner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="339" column="55" lean-forward="false" selection-start-line="339" selection-start-column="55" selection-end-line="339" selection-end-column="55" />
+            <state relative-caret-position="-7">
+              <caret line="42" column="13" lean-forward="false" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SimpleFormControllerMd.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/common/SimpleFormControllerMd.java">
+      <file leaf-file-name="BasicMediaObject.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/BasicMediaObject.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="34" column="31" lean-forward="false" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
+            <state relative-caret-position="-7">
+              <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Config.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/Config.java">
+      <file leaf-file-name="CartObject.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/CartObject.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-7">
+              <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FavoriteMediaDescriptor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/FavoriteMediaDescriptor.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="109" column="56" lean-forward="false" selection-start-line="109" selection-start-column="56" selection-end-line="109" selection-end-column="56" />
+              <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FolderRestApi.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/api/rest/FolderRestApi.java">
+      <file leaf-file-name="PinHolder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/pin/PinHolder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="606" column="0" lean-forward="false" selection-start-line="606" selection-start-column="0" selection-end-line="606" selection-end-column="0" />
+            <state relative-caret-position="328">
+              <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -498,49 +519,58 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>springd</find>
-      <find>folderIndex</find>
-      <find>folderB</find>
-      <find>getAllCategoryListIc</find>
-      <find>folder.</find>
-      <find>category.</find>
-      <find>DatePick</find>
-      <find>EventMigrateInfo</find>
-      <find>showMigrate</find>
-      <find>showEvent</find>
-      <find>signup</find>
-      <find>Edit</find>
-      <find>cate</find>
-      <find>catego</find>
-      <find>rest/</find>
-      <find>folder</find>
-      <find>ApiRestCat</find>
-      <find>categoryedit.jsp</find>
-      <find>categoryedit</find>
-      <find>ApiJsonCategoryContentServlet</find>
-      <find>ApiJsonFolderContentServlet</find>
-      <find>Category</find>
-      <find>folderEd</find>
-      <find>settings</find>
-      <find>Dispat</find>
-      <find>Thumbnail</find>
-      <find>categoryList</find>
-      <find>canModifyCategory</find>
-      <find>parentCategoryList</find>
       <find>category</find>
+      <find>aclImage</find>
+      <find>aclimageDelete</find>
+      <find>aclimageUpdate</find>
+      <find>aclimage</find>
+      <find>aclImageList</find>
+      <find>aclIm</find>
+      <find>getAllCategoryListIc</find>
+      <find>category.</find>
+      <find>getAllFolderListIc</find>
+      <find>normalizeCatNames</find>
+      <find>getFolderList</find>
+      <find>categoryholder.</find>
+      <find>imageversionField</find>
+      <find>getImagesByCratedate</find>
+      <find>getLast</find>
+      <find>save</find>
+      <find>addImageVersion</find>
+      <find>acl</find>
+      <find>deleteIm</find>
+      <find>deleteAl</find>
+      <find>deleteAllImageMetadataFromIvid</find>
+      <find>getImageCount</find>
+      <find>getImageVersionBy</find>
+      <find>imageversion</find>
+      <find>getImageVersionByImageAndVersion</find>
+      <find>getMaxVersionFromImageByImageId</find>
+      <find>deleteImageVersionsByImageId</find>
+      <find>byNumber</find>
+      <find>image</find>
     </findStrings>
     <replaceStrings>
       <replace>mediadesk</replace>
       <replace>category</replace>
+      <replace>FROM folder</replace>
+      <replace>JOIN folder</replace>
+      <replace>folder.</replace>
+      <replace>getFolderList</replace>
+      <replace>mediaObjectFields</replace>
+      <replace>mediaobject</replace>
+      <replace>getMediaObjectByCratedate</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\work\openMEDIADESK-trunk\resources\WEB-INF\template\bootstrapbased</dir>
       <dir>C:\work\openMEDIADESK-trunk\src\main\java</dir>
       <dir>C:\work\openMEDIADESK-git\resources\WEB-INF</dir>
-      <dir>C:\work\openMEDIADESK-git\src\main\java</dir>
       <dir>C:\work\openMEDIADESK-git\resources\app\scripts</dir>
       <dir>C:\work\openMEDIADESK-git\resources</dir>
       <dir>C:\work\openMEDIADESK-git\resources\WEB-INF\template\bootstrapbased</dir>
+      <dir>C:\work\openMEDIADESK-git\src\main\java</dir>
+      <dir>C:\work\openMEDIADESK-git\resources\WEB-INF\classes\sqlmap</dir>
+      <dir>C:\work\openMEDIADESK-git\src\main\java\com</dir>
     </dirStrings>
   </component>
   <component name="FindManager">
@@ -561,57 +591,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/topsearch.jsp" />
-        <option value="$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/userinfo.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/LightboxViewController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/ShoppingCartViewController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/util/BreadCrumbItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/AbstractPageController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/AutoImageAssigner.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/ImageViewController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/PinPicViewController.java" />
-        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/category.xml" />
-        <option value="$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pCategory.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/SearchResultController.java" />
-        <option value="$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pSettingsMail.jsp" />
-        <option value="$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pSettings.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/category/FolderEditValidator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/category/FolderHolder.java" />
-        <option value="$PROJECT_DIR$/resources/WEB-INF/SqlMapConfig.xml" />
-        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/folder.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/CategoryService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/api/rest/CategoryRestApi.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/api/rest/FolderRestApi.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/CategoryIndexController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/CategoryEditController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/CategorySelectorController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/FolderSelectorController.java" />
-        <option value="$PROJECT_DIR$/resources/WEB-INF/IndexDispatcher-servlet.xml" />
-        <option value="$PROJECT_DIR$/resources/app/scripts/mediadeskangular.js" />
-        <option value="$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/footer.jsp" />
-        <option value="$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/foldertree.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/FolderBreakupController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/commandclass/SelectableCategory.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/commandclass/SelectableFolder.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/loader/CategoryLoaderClass.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/loader/FolderLoaderClass.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/commandclass/CategorySelection.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/commandclass/FolderSelection.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/webdav/CategoryResource.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/webdav/FolderResource.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/api/json/CategoryContent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/api/json/FolderContent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/api/CategoryApi.java" />
-        <option value="$PROJECT_DIR$/deployment/web.xml" />
-        <option value="$PROJECT_DIR$/resources/WEB-INF/web.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/common/SimpleFormControllerMd.java" />
         <option value="$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pFolder.jsp" />
-        <option value="$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pFolderEdit.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/ImageMetadataService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/MediaMetadataService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/DatabaseService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/search/ImageVersionSearchProperty.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/search/MediaSearchProperty.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/AbstractImagePreviewController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/AbstractMediaPreviewController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/AutoImageAssigner.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/LightboxImageDescriptor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/FavoriteMediaDescriptor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/util/Pop3ImageImport.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/util/Pop3Import.java" />
+        <option value="$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pUploadWeb.jsp" />
+        <option value="$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pUploadFs.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/ImportFilesystemController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/ImageImportFilesystemCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/ImportFtpCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/ImportFtpController.java" />
+        <option value="$PROJECT_DIR$/resources/WEB-INF/IndexDispatcher-servlet.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/LightboxService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/FavoriteService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/LightboxViewController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/FavoriteViewController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/MediaVersionService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/AutoMediaAssigner.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/util/ImageImport.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/importing/BinaryFileImportHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/PinWizardController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/servlet/SimpleWebdavStore.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/webdav/FolderResource.java" />
+        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/imageversion.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/FolderService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/FolderIndexController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/FolderEditController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/AclEditController.java" />
+        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/folder.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/Config.java" />
+        <option value="$PROJECT_DIR$/deployment/create.sql" />
+        <option value="$PROJECT_DIR$/deployment/update.sql" />
+        <option value="$PROJECT_DIR$/resources/WEB-INF/SqlMapConfig.xml" />
+        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/downloadlogger.xml" />
+        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/imagemetadata.xml" />
+        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/lightbox.xml" />
+        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/search.xml" />
+        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/shoppingcart.xml" />
+        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/mediaobject.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/MediaDetailEditController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/MediaService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/SimpleMediaObject.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/FavoriteMediaDescriptor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/pin/PinHolder.java" />
+        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/pin.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/pin/Pin.java" />
       </list>
     </option>
   </component>
@@ -622,7 +652,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="LogFilters">
-    <option name="FILTER_ERRORS" value="true" />
+    <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="true" />
     <option name="FILTER_INFO" value="true" />
     <option name="FILTER_DEBUG" value="true" />
@@ -818,9 +848,6 @@
     <option name="USE_CLIENT_FILTER" value="true" />
     <option name="CLIENT" value="" />
   </component>
-  <component name="PerforceDirect.Settings">
-    <option name="useNativeApi" value="true" />
-  </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="198" />
     <option name="y" value="29" />
@@ -932,7 +959,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
       <pane id="Scope">
         <subPane subId="Project Files">
           <expand>
@@ -953,32 +979,6 @@
             <path>
               <item name="Root" type="cbb8eebc:String" user="Root" />
               <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="resources" type="cbb8eebc:String" user="resources" />
-              <item name="app" type="cbb8eebc:String" user="app" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="resources" type="cbb8eebc:String" user="resources" />
-              <item name="app" type="cbb8eebc:String" user="app" />
-              <item name="scripts" type="cbb8eebc:String" user="scripts" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="resources" type="cbb8eebc:String" user="resources" />
-              <item name="app" type="cbb8eebc:String" user="app" />
-              <item name="templates" type="cbb8eebc:String" user="templates" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="resources" type="cbb8eebc:String" user="resources" />
-              <item name="WEB-INF" type="cbb8eebc:String" user="WEB-INF" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
               <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
             </path>
             <path>
@@ -1009,100 +1009,7 @@
               <item name="com" type="cbb8eebc:String" user="com" />
               <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
               <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
-              <item name="image" type="cbb8eebc:String" user="image" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
-              <item name="image" type="cbb8eebc:String" user="image" />
-              <item name="folder" type="cbb8eebc:String" user="folder" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
-              <item name="image" type="cbb8eebc:String" user="image" />
-              <item name="inbox" type="cbb8eebc:String" user="inbox" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
-              <item name="lic" type="cbb8eebc:String" user="lic" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
-              <item name="list" type="cbb8eebc:String" user="list" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
-              <item name="media" type="cbb8eebc:String" user="media" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
-              <item name="menu" type="cbb8eebc:String" user="menu" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
-              <item name="search" type="cbb8eebc:String" user="search" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
-              <item name="security" type="cbb8eebc:String" user="security" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
-              <item name="stats" type="cbb8eebc:String" user="stats" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
-              <item name="stats" type="cbb8eebc:String" user="stats" />
-              <item name="dsp" type="cbb8eebc:String" user="dsp" />
+              <item name="pin" type="cbb8eebc:String" user="pin" />
             </path>
             <path>
               <item name="Root" type="cbb8eebc:String" user="Root" />
@@ -1112,111 +1019,6 @@
               <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
               <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
               <item name="upload" type="cbb8eebc:String" user="upload" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
-              <item name="upload" type="cbb8eebc:String" user="upload" />
-              <item name="plugin" type="cbb8eebc:String" user="plugin" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
-              <item name="upload" type="cbb8eebc:String" user="upload" />
-              <item name="util" type="cbb8eebc:String" user="util" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
-              <item name="usermanagement" type="cbb8eebc:String" user="usermanagement" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
-              <item name="web" type="cbb8eebc:String" user="web" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
-              <item name="web" type="cbb8eebc:String" user="web" />
-              <item name="servlet" type="cbb8eebc:String" user="servlet" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
-              <item name="web" type="cbb8eebc:String" user="web" />
-              <item name="stack" type="cbb8eebc:String" user="stack" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
-              <item name="web" type="cbb8eebc:String" user="web" />
-              <item name="tags" type="cbb8eebc:String" user="tags" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
-              <item name="web" type="cbb8eebc:String" user="web" />
-              <item name="template" type="cbb8eebc:String" user="template" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="mediadesk" type="cbb8eebc:String" user="mediadesk" />
-              <item name="web" type="cbb8eebc:String" user="web" />
-              <item name="webdav" type="cbb8eebc:String" user="webdav" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="sql" type="cbb8eebc:String" user="sql" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="src/main/java" type="cbb8eebc:String" user="src/main/java" />
-              <item name="com" type="cbb8eebc:String" user="com" />
-              <item name="stumpner" type="cbb8eebc:String" user="stumpner" />
-              <item name="sql" type="cbb8eebc:String" user="sql" />
-              <item name="installer" type="cbb8eebc:String" user="installer" />
             </path>
           </expand>
           <select />
@@ -1244,6 +1046,7 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1880,12 +1683,19 @@
       <workItem from="1519239170382" duration="1501000" />
       <workItem from="1520276152759" duration="6658000" />
       <workItem from="1521749594256" duration="513000" />
-      <workItem from="1522171788761" duration="2979000" />
+      <workItem from="1522171788761" duration="3575000" />
+      <workItem from="1522948535956" duration="5378000" />
+      <workItem from="1523035342796" duration="957000" />
+      <workItem from="1523124920195" duration="4630000" />
+      <workItem from="1523902827656" duration="3145000" />
+      <workItem from="1524161528977" duration="940000" />
+      <workItem from="1524594591604" duration="3753000" />
+      <workItem from="1525372514061" duration="902000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68226000" />
+    <option name="totallyTimeSpent" value="88527000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1912,31 +1722,31 @@
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20709492" sideWeight="0.5788913" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29434323" sideWeight="0.6108742" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="19" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25266525" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.08422175" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41903827" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32679096" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20709492" sideWeight="0.42110875" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20709492" sideWeight="0.39872068" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="18" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32777232" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36816874" sideWeight="0.78571427" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32694152" sideWeight="0.4978678" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36816874" sideWeight="0.70149255" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="20" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3304904" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3523454" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22339405" sideWeight="0.42963752" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29434323" sideWeight="0.3891258" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36435643" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3392226" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -2177,356 +1987,377 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/wikiLink.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/ImportFtpCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="986">
+          <caret line="71" column="19" lean-forward="false" selection-start-line="71" selection-start-column="19" selection-end-line="71" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/wMetadata.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/ImportFtpController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="4165">
+          <caret line="273" column="26" lean-forward="false" selection-start-line="273" selection-start-column="26" selection-end-line="273" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/wPreview.jsp">
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pUploadFtp.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        <state relative-caret-position="1819">
+          <caret line="107" column="12" lean-forward="false" selection-start-line="107" selection-start-column="12" selection-end-line="107" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/wPreviewFields.jsp">
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/IndexDispatcher-servlet.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="3502">
+          <caret line="206" column="11" lean-forward="false" selection-start-line="206" selection-start-column="11" selection-end-line="206" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/wTextpopup.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/FavoriteViewController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="10" lean-forward="false" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
+        <state relative-caret-position="680">
+          <caret line="52" column="64" lean-forward="false" selection-start-line="52" selection-start-column="64" selection-end-line="52" selection-end-column="64" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pSettings.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/MediaSearchService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+        <state relative-caret-position="493">
+          <caret line="40" column="40" lean-forward="false" selection-start-line="40" selection-start-column="40" selection-end-line="40" selection-end-column="40" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/folder/FolderEditValidator.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/MediaService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+        <state relative-caret-position="493">
+          <caret line="30" column="27" lean-forward="false" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#15487#15488#0" expanded="true" />
+            <element signature="e#15540#15541#0" expanded="true" />
+            <marker date="1525372852270" expanded="true" signature="16163:16267" ph="UPDATE image... " />
+            <marker date="1525372852270" expanded="true" signature="16361:16511" ph="UPDATE image... " />
+            <marker date="1525372852270" expanded="true" signature="16546:16679" ph="UPDATE categ... " />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/folder/FolderHolder.java">
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pUploadWeb.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        <state relative-caret-position="1649">
+          <caret line="97" column="108" lean-forward="false" selection-start-line="97" selection-start-column="108" selection-end-line="97" selection-end-column="108" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/filmreel/FilmReelImageList.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/image/util/ImageImport.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+        <state relative-caret-position="119">
+          <caret line="7" column="45" lean-forward="false" selection-start-line="7" selection-start-column="45" selection-end-line="7" selection-end-column="45" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/filmreel/FilmReelHolder.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/importing/BinaryFileImportHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        <state relative-caret-position="68">
+          <caret line="4" column="61" lean-forward="false" selection-start-line="4" selection-start-column="61" selection-end-line="4" selection-end-column="61" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/SqlMapConfig.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/PinWizardController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="35" column="35" lean-forward="false" selection-start-line="35" selection-start-column="35" selection-end-line="35" selection-end-column="35" />
+        <state relative-caret-position="68">
+          <caret line="4" column="50" lean-forward="false" selection-start-line="4" selection-start-column="50" selection-end-line="4" selection-end-column="50" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/image.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/servlet/SimpleWebdavStore.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/pinpic.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="54" lean-forward="false" selection-start-line="25" selection-start-column="54" selection-end-line="25" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pFolderSelector.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="23" lean-forward="false" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/filmreel.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/folder.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="36" lean-forward="false" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/filmreel/FilmReel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="36" column="30" lean-forward="false" selection-start-line="36" selection-start-column="30" selection-end-line="36" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/folder/Folder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="41" column="32" lean-forward="false" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/FolderSelectorController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="52" column="19" lean-forward="false" selection-start-line="52" selection-start-column="19" selection-end-line="52" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/footer.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="96" column="29" lean-forward="false" selection-start-line="96" selection-start-column="29" selection-end-line="96" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/app/templates/underconstruction.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/app/templates/mediapreview.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-970">
-          <caret line="26" column="23" lean-forward="false" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/foldertree.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="30" lean-forward="false" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/FolderBreakupController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="210" column="13" lean-forward="false" selection-start-line="210" selection-start-column="13" selection-end-line="210" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/inbox/InboxService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="46" column="37" lean-forward="true" selection-start-line="46" selection-start-column="37" selection-end-line="46" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/commandclass/SelectableFolder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="27" column="17" lean-forward="true" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/loader/FolderLoaderClass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="36" lean-forward="true" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/commandclass/FolderSelection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="36" column="63" lean-forward="true" selection-start-line="36" selection-start-column="63" selection-end-line="36" selection-end-column="63" />
+        <state relative-caret-position="236">
+          <caret line="23" column="42" lean-forward="false" selection-start-line="23" selection-start-column="42" selection-end-line="23" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/webdav/FolderResource.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
-          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+        <state relative-caret-position="236">
+          <caret line="18" column="59" lean-forward="false" selection-start-line="18" selection-start-column="59" selection-end-line="18" selection-end-column="59" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/api/json/FolderContent.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/inbox/InboxService.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/inbox/InboxItem.java" />
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/inbox.xml" />
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/applicationContext.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="58" column="19" lean-forward="false" selection-start-line="58" selection-start-column="19" selection-end-line="58" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/api/ApiBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="30" column="35" lean-forward="false" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/api/ApiClass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="17" lean-forward="false" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/api/CategoryApi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="47" column="46" lean-forward="false" selection-start-line="47" selection-start-column="46" selection-end-line="47" selection-end-column="46" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/SysadminDispatcher-servlet.xml" />
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/IndexDispatcher-servlet.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/filmreel/FilmReel.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/filmreel/FilmReelHolder.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/service/MediaObjectService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4131">
-          <caret line="243" column="22" lean-forward="false" selection-start-line="243" selection-start-column="14" selection-end-line="243" selection-end-column="22" />
-          <folding />
+        <state relative-caret-position="1139">
+          <caret line="81" column="96" lean-forward="false" selection-start-line="81" selection-start-column="96" selection-end-line="81" selection-end-column="96" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/SpringDispatcher-servlet.xml" />
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/SettingsDispatcher-servlet.xml" />
-    <entry file="file://$PROJECT_DIR$/deployment/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2125">
-          <caret line="125" column="0" lean-forward="false" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pAclEdit.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="30" lean-forward="false" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/app/scripts/mediadeskangular.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="413" column="35" lean-forward="false" selection-start-line="413" selection-start-column="35" selection-end-line="413" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pFolder.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="21" column="36" lean-forward="false" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pFolderEdit.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="21" column="36" lean-forward="false" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="440" column="17" lean-forward="false" selection-start-line="440" selection-start-column="17" selection-end-line="440" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/api/rest/FolderRestApi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="606" column="0" lean-forward="false" selection-start-line="606" selection-start-column="0" selection-end-line="606" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/FolderIndexController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="409" column="29" lean-forward="false" selection-start-line="409" selection-start-column="29" selection-end-line="409" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/AclEditController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="188" column="34" lean-forward="false" selection-start-line="188" selection-start-column="34" selection-end-line="188" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/image.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/FolderService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="31" column="40" lean-forward="false" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/FolderEditController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="339" column="55" lean-forward="false" selection-start-line="339" selection-start-column="55" selection-end-line="339" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/common/SimpleFormControllerMd.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="34" column="31" lean-forward="false" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
+        <state relative-caret-position="2567">
+          <caret line="171" column="43" lean-forward="false" selection-start-line="171" selection-start-column="43" selection-end-line="171" selection-end-column="56" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/Config.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="130" column="24" lean-forward="true" selection-start-line="130" selection-start-column="24" selection-end-line="130" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deployment/create.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="478">
+          <caret line="291" column="33" lean-forward="false" selection-start-line="291" selection-start-column="33" selection-end-line="291" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deployment/update.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="22" lean-forward="false" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/folder.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="38" column="108" lean-forward="false" selection-start-line="38" selection-start-column="108" selection-end-line="38" selection-end-column="108" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/downloadlogger.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="68" column="37" lean-forward="false" selection-start-line="68" selection-start-column="37" selection-end-line="68" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/WebContextListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="179" column="0" lean-forward="false" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/imagemetadata.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="39" column="41" lean-forward="false" selection-start-line="39" selection-start-column="41" selection-end-line="39" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/FavoriteService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="52" column="42" lean-forward="false" selection-start-line="52" selection-start-column="42" selection-end-line="52" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/lightbox.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1054">
+          <caret line="62" column="50" lean-forward="false" selection-start-line="62" selection-start-column="50" selection-end-line="62" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/search.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5321">
+          <caret line="313" column="37" lean-forward="false" selection-start-line="313" selection-start-column="37" selection-end-line="313" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/shoppingcart.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1632">
+          <caret line="96" column="54" lean-forward="false" selection-start-line="96" selection-start-column="54" selection-end-line="96" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/mediaobject.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7038">
+          <caret line="414" column="13" lean-forward="false" selection-start-line="414" selection-start-column="13" selection-end-line="414" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/SqlMapConfig.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="32" lean-forward="false" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/MediaDetailEditController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3145">
+          <caret line="462" column="33" lean-forward="false" selection-start-line="462" selection-start-column="33" selection-end-line="462" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#showForm#0;class#MediaDetailEditController#0" expanded="false" />
+            <element signature="method#initBinder#0;class#MediaDetailEditController#0" expanded="false" />
+            <element signature="method#formBackingObject#0;class#MediaDetailEditController#0" expanded="false" />
+            <element signature="method#createNewFile#0;class#MediaDetailEditController#0" expanded="false" />
+            <element signature="method#doNameAsTitle#0;class#MediaDetailEditController#0" expanded="false" />
+            <element signature="method#doAutoFill#0;class#MediaDetailEditController#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/MediaService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="661">
+          <caret line="437" column="38" lean-forward="false" selection-start-line="437" selection-start-column="38" selection-end-line="437" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#15487#15488#0" expanded="true" />
+            <element signature="e#15540#15541#0" expanded="true" />
+            <marker date="1525372852270" expanded="true" signature="16163:16267" ph="UPDATE image... " />
+            <marker date="1525372852270" expanded="true" signature="16361:16511" ph="UPDATE image... " />
+            <marker date="1525372852270" expanded="true" signature="16546:16679" ph="UPDATE categ... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/IMultiLangObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="28" column="17" lean-forward="false" selection-start-line="28" selection-start-column="17" selection-end-line="28" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/MediaDetailEditCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/MediaDetailEditValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/MediaObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/MediaObjectMultiLang.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="36" column="13" lean-forward="false" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/Metadata.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="28" column="13" lean-forward="false" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/SimpleMediaObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/AutoMediaAssigner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="42" column="13" lean-forward="false" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/BasicMediaObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/CartObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/FavoriteMediaDescriptor.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="109" column="56" lean-forward="false" selection-start-line="109" selection-start-column="56" selection-end-line="109" selection-end-column="56" />
+          <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/pin/PinHolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/pin.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="35" lean-forward="false" selection-start-line="26" selection-start-column="35" selection-end-line="26" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/pin/Pin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="36" column="13" lean-forward="false" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
           <folding />
         </state>
       </provider>

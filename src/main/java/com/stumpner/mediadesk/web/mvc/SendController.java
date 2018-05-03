@@ -1,7 +1,7 @@
 package com.stumpner.mediadesk.web.mvc;
 
 import com.stumpner.mediadesk.core.database.sc.MediaService;
-import com.stumpner.mediadesk.image.MediaObject;
+import com.stumpner.mediadesk.media.MediaObject;
 import com.stumpner.mediadesk.web.mvc.commandclass.SendCommand;
 import com.stumpner.mediadesk.web.mvc.exceptions.Http404Exception;
 import com.stumpner.mediadesk.web.LngResolver;

@@ -3,8 +3,8 @@ package com.stumpner.mediadesk.web.mvc;
 import com.stumpner.mediadesk.web.mvc.commandclass.settings.CustomFieldSettings;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.list.CustomListService;
-import com.stumpner.mediadesk.list.CustomListEntry;
+import com.stumpner.mediadesk.core.list.CustomListService;
+import com.stumpner.mediadesk.core.list.CustomListEntry;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 

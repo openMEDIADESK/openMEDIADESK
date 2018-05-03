@@ -6,7 +6,7 @@
 
 <sqlMap namespace="Folder">
 
-    <select id="getFolderById" parameterClass="int" resultClass="com.stumpner.mediadesk.image.folder.FolderMultiLang">
+    <select id="getFolderById" parameterClass="int" resultClass="com.stumpner.mediadesk.folder.FolderMultiLang">
         SELECT
             categoryid      as categoryId,
             cattitle        as catTitle,
@@ -36,7 +36,7 @@
         WHERE categoryid = #value#
     </select>
     
-    <select id="getFolderByName" parameterClass="java.lang.String" resultClass="com.stumpner.mediadesk.image.folder.FolderMultiLang">
+    <select id="getFolderByName" parameterClass="java.lang.String" resultClass="com.stumpner.mediadesk.folder.FolderMultiLang">
         SELECT
             categoryid      as categoryId,
             cattitle        as catTitle,
@@ -68,7 +68,7 @@
         WHERE catname = #value#
     </select>
 
-    <resultMap id="folderList" class="com.stumpner.mediadesk.image.folder.FolderMultiLang">
+    <resultMap id="folderList" class="com.stumpner.mediadesk.folder.FolderMultiLang">
         <result property="categoryId" column="categoryid"/>
         <result property="catTitle" column="cattitle"/>
         <result property="catName" column="catname"/>
@@ -317,19 +317,19 @@
         FROM folder
     </select>
 
-    <insert id="addFolder" parameterClass="com.stumpner.mediadesk.image.folder.FolderMultiLang">
+    <insert id="addFolder" parameterClass="com.stumpner.mediadesk.folder.FolderMultiLang">
         INSERT INTO
         folder (cattitle,catname,description,parent,changeddate,imagecount,imagecounts,cattitlelng1,cattitlelng2,descriptionlng1,descriptionlng2,icon,sortby,orderby,defaultview,createdate,primaryivid,categorydate,creatoruserid,fid,public,inheritacl,protected)
         VALUES (#catTitle#,#catName#,#description#,#parent#,#changedDate#,#imageCount#,#imageCountS#,#catTitleLng1#,#catTitleLng2#,#descriptionLng1#,#descriptionLng2#,#icon#,#sortBy#,#orderBy#,#defaultview#,#createDate#,#primaryIvid#,#categoryDate#,#creatorUserId#,#fid#,#publicAcl#,#inheritAcl#,#protectedAcl#)
     </insert>
 
-    <insert id="addMediaToFolder" parameterClass="com.stumpner.mediadesk.image.folder.FolderHolder">
+    <insert id="addMediaToFolder" parameterClass="com.stumpner.mediadesk.folder.FolderHolder">
         INSERT INTO
         folderholder (categoryid,ivid)
         VALUES (#categoryId#,#ivid#)
     </insert>
 
-    <delete id="deleteMediaFromFolder" parameterClass="com.stumpner.mediadesk.image.folder.FolderHolder">
+    <delete id="deleteMediaFromFolder" parameterClass="com.stumpner.mediadesk.folder.FolderHolder">
         DELETE FROM folderholder
         WHERE categoryid = #categoryId# AND ivid = #ivid#
     </delete>
@@ -349,7 +349,7 @@
         WHERE categoryid = #categoryId#
     </delete>
 
-    <update id="saveFolder" parameterClass="com.stumpner.mediadesk.image.folder.FolderMultiLang">
+    <update id="saveFolder" parameterClass="com.stumpner.mediadesk.folder.FolderMultiLang">
         UPDATE folder
         SET cattitle = #catTitle#,
             catname = #catName#,

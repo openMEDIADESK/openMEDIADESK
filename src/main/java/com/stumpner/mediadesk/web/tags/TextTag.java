@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.tags;
 
-import com.stumpner.mediadesk.image.util.CustomTextService;
+import com.stumpner.mediadesk.media.image.util.CustomTextService;
 
 import javax.servlet.jsp.tagext.TagSupport;
 import javax.servlet.jsp.JspException;

@@ -1,6 +1,6 @@
 <%@ page import="com.stumpner.mediadesk.usermanagement.User,
                  com.stumpner.mediadesk.core.Config"%>
-<%@ page import="com.stumpner.mediadesk.image.util.CustomTextService"%>
+<%@ page import="com.stumpner.mediadesk.media.image.util.CustomTextService"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="/mediadesk" prefix="mediadesk" %>
@@ -13,7 +13,7 @@
 <!-- jsp:include page="modalparking.jsp"/ -->
 
 <!-- spalte2 -->
-<div class="col-sm-10 main" ng-controller="ThumbnailViewCtrl" ng-init="initMosView('/api/rest/pin',<c:out value="${pin.pinpicId}"/>,'<c:out value="${view}"/>',<c:out value="${selectedImages}"/>, <c:out value="${sortBy}"/>, <c:out value="${orderBy}"/>)"> <!-- col-sm-10 main SPALTE 2 FÜR INHALT -->
+<div class="col-sm-10 main" ng-controller="ThumbnailViewCtrl" ng-init="initMosView('/api/rest/pin',<c:out value="${pin.pinId}"/>,'<c:out value="${view}"/>',<c:out value="${selectedImages}"/>, <c:out value="${sortBy}"/>, <c:out value="${orderBy}"/>)"> <!-- col-sm-10 main SPALTE 2 FÜR INHALT -->
 <!-- ###################################################################################################################################################### -->
 <!-- HIER STARTET DER INHALTSBEREICH ###################################################################################################################### -->
 <!-- breadcrumbs -->

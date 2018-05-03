@@ -1,6 +1,6 @@
 <%@ page import="com.stumpner.mediadesk.usermanagement.User,
                  com.stumpner.mediadesk.core.Config"%>
-<%@ page import="com.stumpner.mediadesk.image.util.CustomTextService"%>
+<%@ page import="com.stumpner.mediadesk.media.image.util.CustomTextService"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="/mediadesk" prefix="mediadesk" %>

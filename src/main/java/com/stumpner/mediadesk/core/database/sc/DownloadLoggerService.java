@@ -2,7 +2,7 @@ package com.stumpner.mediadesk.core.database.sc;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.stumpner.mediadesk.core.database.AppSqlMap;
-import com.stumpner.mediadesk.image.MediaObject;
+import com.stumpner.mediadesk.media.MediaObject;
 import com.stumpner.mediadesk.stats.*;
 
 import javax.servlet.http.HttpServletRequest;

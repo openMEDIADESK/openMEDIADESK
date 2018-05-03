@@ -7,7 +7,7 @@
 <%@ page import="com.stumpner.mediadesk.web.stack.WebStack"%>
 <%@ page import="com.stumpner.mediadesk.usermanagement.User"%>
 <%@ page import="javax.mail.MessagingException"%>
-<%@ page import="com.stumpner.mediadesk.lic.License" %>
+<%@ page import="com.stumpner.mediadesk.core.lic.License" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     /*********************************************************

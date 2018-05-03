@@ -2,9 +2,9 @@ package com.stumpner.mediadesk.core.database.sc;
 
 import com.stumpner.mediadesk.core.database.AppSqlMap;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
-import com.stumpner.mediadesk.image.FavoriteMediaDescriptor;
-import com.stumpner.mediadesk.image.MediaObject;
-import com.stumpner.mediadesk.image.MediaObjectMultiLang;
+import com.stumpner.mediadesk.media.FavoriteMediaDescriptor;
+import com.stumpner.mediadesk.media.MediaObject;
+import com.stumpner.mediadesk.media.MediaObjectMultiLang;
 
 import java.util.List;
 import java.util.LinkedList;

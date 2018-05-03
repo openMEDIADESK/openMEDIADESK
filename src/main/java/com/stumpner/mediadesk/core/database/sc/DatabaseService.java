@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.core.database.sc;
 
-import com.stumpner.mediadesk.image.util.Pop3Import;
+import com.stumpner.mediadesk.media.image.util.Pop3Import;
 import org.apache.log4j.Logger;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.stumpner.mediadesk.core.database.AppSqlMap;

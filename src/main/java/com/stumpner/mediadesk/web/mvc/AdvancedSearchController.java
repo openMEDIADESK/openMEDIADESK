@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.list.CustomListService;
+import com.stumpner.mediadesk.core.list.CustomListService;
 import com.stumpner.mediadesk.core.database.sc.MultiLanguageService;
 import com.stumpner.mediadesk.web.LngResolver;
 

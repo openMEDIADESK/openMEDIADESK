@@ -1,7 +1,7 @@
 package com.stumpner.mediadesk.web.mvc;
 
 import com.stumpner.mediadesk.core.database.sc.MediaSearchService;
-import com.stumpner.mediadesk.image.MediaObject;
+import com.stumpner.mediadesk.media.MediaObject;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.log4j.Logger;
 

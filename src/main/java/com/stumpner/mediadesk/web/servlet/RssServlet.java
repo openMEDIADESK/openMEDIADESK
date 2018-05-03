@@ -6,8 +6,8 @@ import com.stumpner.mediadesk.core.database.sc.FolderService;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
-import com.stumpner.mediadesk.image.MediaObject;
-import com.stumpner.mediadesk.image.folder.Folder;
+import com.stumpner.mediadesk.media.MediaObject;
+import com.stumpner.mediadesk.folder.Folder;
 import com.stumpner.mediadesk.web.LngResolver;
 
 import javax.servlet.http.HttpServlet;

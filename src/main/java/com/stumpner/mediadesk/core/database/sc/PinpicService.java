@@ -6,10 +6,10 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
 import com.stumpner.mediadesk.core.database.AppSqlMap;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.MediaObjectMultiLang;
-import com.stumpner.mediadesk.image.pinpics.Pin;
+import com.stumpner.mediadesk.media.MediaObjectMultiLang;
+import com.stumpner.mediadesk.pin.Pin;
 import com.stumpner.mediadesk.util.Crypt;
-import com.stumpner.mediadesk.image.pinpics.PinpicHolder;
+import com.stumpner.mediadesk.pin.PinHolder;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.common.util.PaginatedList;
@@ -99,7 +99,7 @@ public class PinpicService extends MultiLanguageService {
      */
     private void handlePasswort(Pin pin) throws IOServiceException, ObjectNotFoundException, UnsupportedEncodingException {
 
-        Pin oldPin = (Pin)this.getById(pin.getPinpicId());
+        Pin oldPin = (Pin)this.getById(pin.getPinId());
         //System.out.println("clear password: "+pin.getPassword());
         String formPasswordEncrypted = Crypt.getHashSHA256(pin.getPassword());//Crypt.getHash(pin.getPassword());
 
@@ -296,12 +296,12 @@ public class PinpicService extends MultiLanguageService {
     public void addImageToPinpic(int ivid, int pinpicId) {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
-        PinpicHolder pinpicHolder = new PinpicHolder();
-        pinpicHolder.setIvid(ivid);
-        pinpicHolder.setPinpicId(pinpicId);
+        PinHolder pinHolder = new PinHolder();
+        pinHolder.setIvid(ivid);
+        pinHolder.setPinId(pinpicId);
 
         try {
-            smc.insert("addImageToPinpic",pinpicHolder);
+            smc.insert("addImageToPinpic", pinHolder);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -310,12 +310,12 @@ public class PinpicService extends MultiLanguageService {
     public void deleteImageFromPinpic(int ivid, int pinpicId) {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
-        PinpicHolder pinpicHolder = new PinpicHolder();
-        pinpicHolder.setIvid(ivid);
-        pinpicHolder.setPinpicId(pinpicId);
+        PinHolder pinHolder = new PinHolder();
+        pinHolder.setIvid(ivid);
+        pinHolder.setPinId(pinpicId);
 
         try {
-            smc.delete("deleteImageFromPinpic",pinpicHolder);
+            smc.delete("deleteImageFromPinpic", pinHolder);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

@@ -4,9 +4,9 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundExceptio
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.AppSqlMap;
 import com.stumpner.mediadesk.core.Config;
-import com.stumpner.mediadesk.image.MediaDetailEditCommand;
-import com.stumpner.mediadesk.image.MediaObject;
-import com.stumpner.mediadesk.image.Metadata;
+import com.stumpner.mediadesk.media.MediaDetailEditCommand;
+import com.stumpner.mediadesk.media.MediaObject;
+import com.stumpner.mediadesk.media.Metadata;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.ibatis.sqlmap.client.SqlMapClient;
 

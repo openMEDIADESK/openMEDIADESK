@@ -10,8 +10,8 @@ import java.io.IOException;
 
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
-import com.stumpner.mediadesk.lic.License;
-import com.stumpner.mediadesk.lic.LicenseException;
+import com.stumpner.mediadesk.core.lic.License;
+import com.stumpner.mediadesk.core.lic.LicenseException;
 import com.stumpner.mediadesk.web.stack.WebStack;
 import com.stumpner.mediadesk.web.mvc.util.WebHelper;
 import com.stumpner.mediadesk.web.mvc.util.BreadCrumbItem;

@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.tags;
 
-import com.stumpner.mediadesk.image.MediaObject;
+import com.stumpner.mediadesk.media.MediaObject;
 import com.stumpner.mediadesk.core.Resources;
 
 import javax.servlet.jsp.tagext.TagSupport;

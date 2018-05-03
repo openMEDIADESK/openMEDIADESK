@@ -6,7 +6,7 @@
 
 <sqlMap namespace="customlist">
 
-    <select id="getCustomListEntry" parameterClass="int" resultClass="com.stumpner.mediadesk.list.CustomListEntry">
+    <select id="getCustomListEntry" parameterClass="int" resultClass="com.stumpner.mediadesk.core.list.CustomListEntry">
         SELECT
             id as id,
             clid as clid,
@@ -17,7 +17,7 @@
         WHERE id = #value#
     </select>
 
-    <resultMap id="customListEntryList" class="com.stumpner.mediadesk.list.CustomListEntry">
+    <resultMap id="customListEntryList" class="com.stumpner.mediadesk.core.list.CustomListEntry">
         <result property="id" column="id"/>
         <result property="clid" column="clid"/>
         <result property="name" column="name"/>
@@ -25,7 +25,7 @@
         <result property="titleLng2" column="titlelng2"/>
         <result property="usedLanguage" column="usedLanguage"/>
     </resultMap>
-    <statement id="getCustomListEntries" parameterClass="com.stumpner.mediadesk.list.LoaderClass" resultMap="customListEntryList">
+    <statement id="getCustomListEntries" parameterClass="com.stumpner.mediadesk.core.list.LoaderClass" resultMap="customListEntryList">
         SELECT  id,
                 clid,
                 name,
@@ -36,18 +36,18 @@
          WHERE clid = #clid#
     </statement>
 
-    <insert id="addCustomListEntry" parameterClass="com.stumpner.mediadesk.list.CustomListEntry">
+    <insert id="addCustomListEntry" parameterClass="com.stumpner.mediadesk.core.list.CustomListEntry">
         INSERT INTO
         customlistholder (clid,name,titlelng1,titlelng2)
         VALUES (#clid#, #name#, #titleLng1#, #titleLng2#)
     </insert>
 
-    <delete id="deleteCustomListEntry" parameterClass="com.stumpner.mediadesk.list.CustomListEntry">
+    <delete id="deleteCustomListEntry" parameterClass="com.stumpner.mediadesk.core.list.CustomListEntry">
         DELETE FROM customlistholder
         WHERE id = #id#
     </delete>
 
-    <update id="saveCustomListEntry" parameterClass="com.stumpner.mediadesk.list.CustomListEntry">
+    <update id="saveCustomListEntry" parameterClass="com.stumpner.mediadesk.core.list.CustomListEntry">
         UPDATE customlistholder
         SET
             name = #name#,

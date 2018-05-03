@@ -6,7 +6,7 @@
 
 <sqlMap namespace="Imagemetadata">
 
-    <resultMap id="imagemetadataList" class="com.stumpner.mediadesk.image.Metadata">
+    <resultMap id="imagemetadataList" class="com.stumpner.mediadesk.media.Metadata">
         <result property="imdid" column="imdid"/>
         <result property="imageId" column="imageid"/>
         <result property="versionId" column="versionid"/>
@@ -22,13 +22,13 @@
         WHERE ivid = #value#
     </select>
 
-    <insert id="addImageMetadata" parameterClass="com.stumpner.mediadesk.image.Metadata">
+    <insert id="addImageMetadata" parameterClass="com.stumpner.mediadesk.media.Metadata">
         INSERT INTO
         imagemetadata (imageid,versionid,metakey,metavalue,exiftag,lang,ivid)
         VALUES (#imageId#,#versionId#,#metaKey#,#metaValue#,#exifTag#,#lang#,#ivid#)
     </insert>
 
-    <update id="saveImageMetadata" parameterClass="com.stumpner.mediadesk.image.Metadata">
+    <update id="saveImageMetadata" parameterClass="com.stumpner.mediadesk.media.Metadata">
         UPDATE imagemetadata
         SET metakey = #metaKey#,
             metavalue = #metaValue#,
