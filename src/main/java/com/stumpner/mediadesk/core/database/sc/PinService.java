@@ -45,7 +45,7 @@ import java.util.List;
  * Time: 22:00:29
  * To change this template use File | Settings | File Templates.
  */
-public class PinpicService extends MultiLanguageService {
+public class PinService extends MultiLanguageService {
 
     public Object getById(int id) throws ObjectNotFoundException, IOServiceException {
         // getPinpicById
@@ -54,7 +54,7 @@ public class PinpicService extends MultiLanguageService {
         Pin pin = new Pin();
 
         try {
-            pin = (Pin)smc.queryForObject("getPinpicById",new Integer(id));
+            pin = (Pin)smc.queryForObject("getPinById",new Integer(id));
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -79,7 +79,7 @@ public class PinpicService extends MultiLanguageService {
         try {
             handlePasswort(pin);
 
-            smc.update("savePinpic", pin);
+            smc.update("savePin", pin);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (ObjectNotFoundException e) {
@@ -150,18 +150,18 @@ public class PinpicService extends MultiLanguageService {
         try {
             this.getByName(pin.getPin());
             //sorry pin exists, throw DublicateEntry Exception
-            throw new DublicateEntry("PinpicService.add(): DublicateEntry");
+            throw new DublicateEntry("PinService.add(): DublicateEntry");
         } catch (ObjectNotFoundException e) {
             //okay - pin does not exist, go on...
         }
 
         try {
-            smc.insert("addPinpic", pin);
+            smc.insert("addPin", pin);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         try {
-            object = smc.queryForObject("getPinpicByPin", pin.getPin());
+            object = smc.queryForObject("getPinByPin", pin.getPin());
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -231,7 +231,7 @@ public class PinpicService extends MultiLanguageService {
 
         SqlMapClient smc = AppSqlMap.getSqlMapInstance();
         try {
-            smc.delete("deletePinpic",new Integer(id));
+            smc.delete("deletePin",new Integer(id));
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -245,7 +245,7 @@ public class PinpicService extends MultiLanguageService {
         Pin pinpic = new Pin();
 
         try {
-            pinpic = (Pin)smc.queryForObject("getPinpicByPin",pin);
+            pinpic = (Pin)smc.queryForObject("getPinByPin",pin);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -268,7 +268,7 @@ public class PinpicService extends MultiLanguageService {
         loaderClass.setUsedLanguage(getUsedLanguage());
 
         try {
-            imageList = smc.queryForList("getPinpicImages",loaderClass);
+            imageList = smc.queryForList("getPinMediaObjects",loaderClass);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -285,7 +285,7 @@ public class PinpicService extends MultiLanguageService {
         PaginatedList imageList = null;
 
         try {
-            imageList = smc.queryForPaginatedList("getPinpicImages",loaderClass,itemsPerPage);
+            imageList = smc.queryForPaginatedList("getPinMediaObjects",loaderClass,itemsPerPage);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -301,7 +301,7 @@ public class PinpicService extends MultiLanguageService {
         pinHolder.setPinId(pinpicId);
 
         try {
-            smc.insert("addImageToPinpic", pinHolder);
+            smc.insert("addMediaToPin", pinHolder);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -315,7 +315,7 @@ public class PinpicService extends MultiLanguageService {
         pinHolder.setPinId(pinpicId);
 
         try {
-            smc.delete("deleteImageFromPinpic", pinHolder);
+            smc.delete("deleteMediaFromPin", pinHolder);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -327,7 +327,7 @@ public class PinpicService extends MultiLanguageService {
         List pinpicList = new LinkedList();
 
         try {
-            pinpicList = smc.queryForList("getPinpicList",null);
+            pinpicList = smc.queryForList("getPinList",null);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

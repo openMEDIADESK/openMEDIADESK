@@ -1,11 +1,11 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.core.database.sc.PinService;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.stumpner.mediadesk.core.database.sc.PinpicService;
 import com.stumpner.mediadesk.usermanagement.User;
 
 /*********************************************************
@@ -43,7 +43,7 @@ public class PinPicListController extends AbstractPageController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 
-        PinpicService pinpicService = new PinpicService();
+        PinService pinService = new PinService();
         
         return super.handleRequestInternal(httpServletRequest, httpServletResponse);    //To change body of overridden methods use File | Settings | File Templates.
     }

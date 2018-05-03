@@ -1,6 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
-import com.stumpner.mediadesk.core.database.sc.PinpicService;
+import com.stumpner.mediadesk.core.database.sc.PinService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.pin.Pin;
 import com.stumpner.mediadesk.usermanagement.User;
@@ -52,7 +52,7 @@ public class PinDeleteController extends SimpleFormControllerMd {
 
     protected Object formBackingObject(HttpServletRequest httpServletRequest) throws Exception {
 
-        PinpicService userService = new PinpicService();
+        PinService userService = new PinService();
         int userId = Integer.parseInt(httpServletRequest.getParameter("pinid"));
         Pin user = (Pin)userService.getById(userId);
 
@@ -84,7 +84,7 @@ public class PinDeleteController extends SimpleFormControllerMd {
 
     private void deletePin(Pin pin) {
 
-        PinpicService folderService = new PinpicService();
+        PinService folderService = new PinService();
         try {
             folderService.deleteById(pin.getPinId());
         } catch (IOServiceException e) {

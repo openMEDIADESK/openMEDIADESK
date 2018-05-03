@@ -1,9 +1,9 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.core.database.sc.PinService;
 import com.stumpner.mediadesk.pin.Pin;
 import org.springframework.validation.Validator;
 import org.springframework.validation.Errors;
-import com.stumpner.mediadesk.core.database.sc.PinpicService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.web.mvc.commandclass.PinLogin;
 
@@ -48,10 +48,10 @@ public class PinValidator implements Validator {
     public void validate(Object o, Errors errors) {
 
         PinLogin pinLogin = (PinLogin)o;
-        PinpicService pinpicService = new PinpicService();
+        PinService pinService = new PinService();
         try {
-            Pin pin = pinpicService.getPinpicByPin(((Pin)o).getPin());
-            int imageCount = pinpicService.getPinpicImages(pin.getPinId()).size();
+            Pin pin = pinService.getPinpicByPin(((Pin)o).getPin());
+            int imageCount = pinService.getPinpicImages(pin.getPinId()).size();
             if (imageCount<1 && !pin.isUploadEnabled()) {
                 errors.reject("pinlogin.error.noimage","!!!DM PIN EMPTY!!!");
             }
@@ -62,7 +62,7 @@ public class PinValidator implements Validator {
                     pinLogin.setUsePassword(true);
                     errors.reject("pinlogin.enterpassword","!!!ENTER PIN PASSWORD!!!");
                 } else {
-                    if (!pinpicService.checkPassword(pinLogin, pin)) {
+                    if (!pinService.checkPassword(pinLogin, pin)) {
                         errors.reject("pinlogin.falsepassword","!!!PIN PASSWORD FALSE!!!");
                     } else {
                         //Passwort ok

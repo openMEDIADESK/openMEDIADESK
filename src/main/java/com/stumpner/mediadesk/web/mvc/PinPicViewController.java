@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.core.database.sc.PinService;
 import com.stumpner.mediadesk.media.MediaObject;
 import com.stumpner.mediadesk.folder.Folder;
 import com.stumpner.mediadesk.pin.Pin;
@@ -10,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.stumpner.mediadesk.core.database.sc.FavoriteService;
-import com.stumpner.mediadesk.core.database.sc.PinpicService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
@@ -103,9 +103,9 @@ public class PinPicViewController extends AbstractThumbnailViewController {
             return null;
         }
 
-        PinpicService pinpicService = new PinpicService();
+        PinService pinService = new PinService();
         LngResolver lngResolver = new LngResolver();
-        pinpicService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
+        pinService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
         Folder folder = new Folder();
         folder.setCatTitle("Pin");
         User user = (User)httpServletRequest.getSession().getAttribute("user");
@@ -132,8 +132,8 @@ public class PinPicViewController extends AbstractThumbnailViewController {
         }
 
         //PaginatedList imageList = lightboxService.getLightboxImagesPaginatedList(user.getUserId(),12);
-        pinpicService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-        PaginatedList imageList = pinpicService.getPinpicImagesPaginated(pinId, Config.itemCountPerPage);
+        pinService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
+        PaginatedList imageList = pinService.getPinpicImagesPaginated(pinId, Config.itemCountPerPage);
 
         int numberOfPages = 1;
         while (imageList.nextPage()) {
@@ -199,7 +199,7 @@ public class PinPicViewController extends AbstractThumbnailViewController {
             //model.remove("error");
         }
 
-        Pin pin = (Pin)pinpicService.getById(pinId);
+        Pin pin = (Pin) pinService.getById(pinId);
         httpServletRequest.setAttribute("pin",pin);
 
 
@@ -241,8 +241,8 @@ public class PinPicViewController extends AbstractThumbnailViewController {
             if (getPinId(request)!=-1) {
                 try {
                     request.getSession().setAttribute("pinid",getPinId(request));
-                    PinpicService pinpicService = new PinpicService();
-                    Pin pin = (Pin)pinpicService.getById(getPinId(request));
+                    PinService pinService = new PinService();
+                    Pin pin = (Pin) pinService.getById(getPinId(request));
                     request.setAttribute("pin",pin);
                     return pin;
 
@@ -268,14 +268,14 @@ public class PinPicViewController extends AbstractThumbnailViewController {
     }
 
     protected void insert(MediaObject image, HttpServletRequest request) throws DublicateEntry {
-        PinpicService pinpicService = new PinpicService();
-        pinpicService.addImageToPinpic(image.getIvid(),getPin(request).getPinId());
+        PinService pinService = new PinService();
+        pinService.addImageToPinpic(image.getIvid(),getPin(request).getPinId());
     }
 
     protected void remove(MediaObject image, HttpServletRequest request) {
 
-        PinpicService pinpicService = new PinpicService();
-        pinpicService.deleteImageFromPinpic(image.getIvid(),getPin(request).getPinId());
+        PinService pinService = new PinService();
+        pinService.deleteImageFromPinpic(image.getIvid(),getPin(request).getPinId());
 
     }
 
@@ -284,8 +284,8 @@ public class PinPicViewController extends AbstractThumbnailViewController {
     }
 
     protected int getImageCount(HttpServletRequest request) {
-        PinpicService pinpicService = new PinpicService();
-        List images = pinpicService.getPinpicImages(getPinId(request));
+        PinService pinService = new PinService();
+        List images = pinService.getPinpicImages(getPinId(request));
         int imageCount = images.size();
         //System.out.println("BasicMediaObject-Count in PIN: "+imageCount);
         return imageCount;

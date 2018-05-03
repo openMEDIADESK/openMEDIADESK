@@ -6,3 +6,7 @@ DROP TABLE `inbox`;
 ALTER TABLE `category` RENAME TO `folder` ;
 ALTER TABLE `categoryholder` RENAME TO `folderholder` ;
 ALTER TABLE `imageversion` RENAME TO `mediaobject` ;
+ALTER TABLE `pinpic` RENAME TO `pin` ;
+ALTER TABLE `pinpicholder` RENAME TO `pinholder` ;
+ALTER TABLE `pinholder` CHANGE COLUMN `pinpicid` `pinid` INT(11) NOT NULL DEFAULT '0' ;
+ALTER TABLE `pin` CHANGE COLUMN `pinpicid` `pinid` INT(11) NOT NULL , CHANGE COLUMN `pinpictitle` `pintitle` VARCHAR(100) NOT NULL , CHANGE COLUMN `pinpicname` `pinname` VARCHAR(100) NOT NULL ;

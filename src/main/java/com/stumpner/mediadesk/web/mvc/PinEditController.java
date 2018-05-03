@@ -1,8 +1,8 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.core.database.sc.PinService;
 import com.stumpner.mediadesk.pin.Pin;
 import com.stumpner.mediadesk.usermanagement.User;
-import com.stumpner.mediadesk.core.database.sc.PinpicService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -60,8 +60,8 @@ public class PinEditController extends SimpleFormControllerMd {
         if (request.getParameter("redirectTo")!=null) { request.getSession().setAttribute("redirectTo", request.getParameter("redirectTo")); }
         Pin pin = new Pin();
         if (request.getParameter("pinid")!=null) {
-            PinpicService pinpicService = new PinpicService();
-            pin = (Pin)pinpicService.getById(Integer.parseInt(request.getParameter("pinid")));
+            PinService pinService = new PinService();
+            pin = (Pin) pinService.getById(Integer.parseInt(request.getParameter("pinid")));
         }
         return pin;
         //return super.formBackingObject(request);    //To change body of overridden methods use File | Settings | File Templates.
@@ -122,13 +122,13 @@ public class PinEditController extends SimpleFormControllerMd {
 
     private void save(Pin pin) {
 
-        PinpicService pinpicService = new PinpicService();
+        PinService pinService = new PinService();
         try {
-            if (pin.getPinpicTitle().length()==0) {
-                pin.setPinpicTitle(pin.getPinpicName());
+            if (pin.getPinTitle().length()==0) {
+                pin.setPinTitle(pin.getPinName());
             }
 
-            pinpicService.save(pin);
+            pinService.save(pin);
         } catch(IOServiceException e) {
             e.printStackTrace();
         }

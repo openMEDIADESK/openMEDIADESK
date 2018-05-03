@@ -1,6 +1,7 @@
 package com.stumpner.mediadesk.web.mvc;
 
 import com.stumpner.mediadesk.core.database.sc.FolderService;
+import com.stumpner.mediadesk.core.database.sc.PinService;
 import com.stumpner.mediadesk.media.AutoMediaAssigner;
 import com.stumpner.mediadesk.folder.Folder;
 import com.stumpner.mediadesk.pin.Pin;
@@ -17,7 +18,6 @@ import com.stumpner.mediadesk.util.WebFileUploadBean;
 import com.stumpner.mediadesk.util.MailWrapper;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.core.lic.LicenceChecker;
-import com.stumpner.mediadesk.core.database.sc.PinpicService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.QuotaExceededException;
@@ -166,7 +166,7 @@ public class UploadWebController extends ModelFormPageController {
             if (!request.getParameter("pinid").equalsIgnoreCase("")) {
                 //Dateien automatich in den Pin laden...
                 autoMediaAssigner.clear(request);
-                PinpicService pinService = new PinpicService();
+                PinService pinService = new PinService();
                 Pin pin = (Pin)pinService.getById(Integer.parseInt(request.getParameter("pinid")));
                 autoMediaAssigner.setDestination(request,pin);
             }

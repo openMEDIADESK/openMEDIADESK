@@ -89,7 +89,7 @@ CREATE TABLE `folder` (
   `description` varchar(100) NOT NULL,
   `parent` int(10) unsigned NOT NULL DEFAULT '0',
   `changeddate` datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
-  `imagecount` int(11) NOT NULL DEFAULT '0',
+  `mediacount` int(11) NOT NULL DEFAULT '0',
   `imagecounts` int(11) NOT NULL DEFAULT '0',
   `cattitlelng1` varchar(100) NOT NULL,
   `cattitlelng2` varchar(100) NOT NULL,
@@ -290,3 +290,7 @@ CREATE TABLE `shoppingcart` (
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 
 ALTER TABLE `imageversion` RENAME TO `mediaobject` ;
+ALTER TABLE `pinpic` RENAME TO `pin` ;
+ALTER TABLE `pinpicholder` RENAME TO `pinholder` ;
+ALTER TABLE `pinholder` CHANGE COLUMN `pinpicid` `pinid` INT(11) NOT NULL DEFAULT '0' ;
+ALTER TABLE `pin` CHANGE COLUMN `pinpicid` `pinid` INT(11) NOT NULL , CHANGE COLUMN `pinpictitle` `pintitle` VARCHAR(100) NOT NULL , CHANGE COLUMN `pinpicname` `pinname` VARCHAR(100) NOT NULL ;

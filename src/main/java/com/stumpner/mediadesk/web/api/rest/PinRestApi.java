@@ -115,7 +115,7 @@ public class PinRestApi extends RestBaseServlet {
         LngResolver lngResolver = new LngResolver();
         MediaService imageService = new MediaService();
         //imageService.setUsedLanguage(lngResolver.resolveLng(request));
-        PinpicService pinService = new PinpicService();
+        PinService pinService = new PinService();
         pinService.setUsedLanguage(lngResolver.resolveLng(request));
 
 
@@ -249,7 +249,7 @@ public class PinRestApi extends RestBaseServlet {
 
         System.out.println("insert to pin:"+categoryId);
 
-        PinpicService categoryService = new PinpicService();
+        PinService categoryService = new PinService();
         for (MediaObject mo : selectedList) {
             //try {
                 System.out.println("insert media:"+mo.getIvid());
@@ -269,7 +269,7 @@ public class PinRestApi extends RestBaseServlet {
 
         int pinId = getUriSectionInt(4, request);
 
-        PinpicService pinPicService = new PinpicService();
+        PinService pinPicService = new PinService();
         try {
             Pin pin = (Pin)pinPicService.getById(pinId);
             if (accessAllowed(pin,WebHelper.getUser(request))) {

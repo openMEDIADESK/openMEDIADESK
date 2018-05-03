@@ -26,7 +26,7 @@
 </ol>
 <!-- /breadcrumbs -->
 <!-- ordnertitel und infos -->
-<h3><c:out value="${pin.pinpicTitle}"/>   <c:if test="${empty pin.pinpicTitle}">PIN-Download</c:if></h3>
+<h3><c:out value="${pin.pinTitle}"/>   <c:if test="${empty pin.pinTitle}">PIN-Download</c:if></h3>
 <h4><c:out value="${pin.note}"/></h4>
 <!-- /ordnertitel und infos -->
 <!-- mediadesk abstand -->

@@ -222,9 +222,9 @@ public class CronService {
 
         //alte PINS löschen
         MediaService imageService = new MediaService();
-        PinpicService pinpicService = new PinpicService();
+        PinService pinService = new PinService();
         FolderService folderService = new FolderService();
-        Iterator pinPics = pinpicService.getPinpicList().iterator();
+        Iterator pinPics = pinService.getPinpicList().iterator();
         while (pinPics.hasNext()) {
             Pin pin = (Pin)pinPics.next();
             System.out.println("Checking for Pin Auto-Delete for: "+pin.getPin());
@@ -232,7 +232,7 @@ public class CronService {
                 //System.out.println("+ AutoDelete is enabled");
                 if (pin.getUsed()>=pin.getMaxUse() || (pin.getEndDate().before(new Date()))) {
                     //Bilder des Pins laden:
-                    Iterator images = pinpicService.getPinpicImages(pin.getPinId()).iterator();
+                    Iterator images = pinService.getPinpicImages(pin.getPinId()).iterator();
                     while (images.hasNext()) {
                         MediaObject imageVersion = (MediaObject)images.next();
                         List categoryList = folderService.getFolderListFromImageVersion(imageVersion.getIvid());
@@ -240,7 +240,7 @@ public class CronService {
                         if (categoryList.size()==0) {
                             //System.out.println("Bild ist in keiner Kategorie und keinem Folder, löschen:");
                             //kommt in keiner Kategorie und keinem Folder vor, kann gelöscht werden
-                            pinpicService.deleteImageFromPinpic(imageVersion.getIvid(),pin.getPinId());
+                            pinService.deleteImageFromPinpic(imageVersion.getIvid(),pin.getPinId());
                             try {
                                 imageService.deleteMediaObject(imageVersion);
                             } catch (IOServiceException e) {
@@ -253,7 +253,7 @@ public class CronService {
 
                     //Pin löschen (immer löschen, in kategorie od. ordner verwendete bilder verbeleiben in der db, aber pin wird gelöscht
                     try {
-                        pinpicService.deleteById(pin.getPinId());
+                        pinService.deleteById(pin.getPinId());
                     } catch (IOServiceException e) {
                         e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     }

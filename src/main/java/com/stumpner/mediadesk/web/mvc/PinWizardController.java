@@ -5,7 +5,7 @@ import com.stumpner.mediadesk.pin.Pin;
 import com.stumpner.mediadesk.folder.Folder;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.web.mvc.commandclass.PinWizard;
-import com.stumpner.mediadesk.core.database.sc.PinpicService;
+import com.stumpner.mediadesk.core.database.sc.PinService;
 import com.stumpner.mediadesk.core.Resources;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
@@ -62,15 +62,15 @@ public class PinWizardController extends SimpleFormControllerMd {
     protected Object formBackingObject(HttpServletRequest httpServletRequest) throws Exception {
 
         PinWizard pinWizard = new PinWizard();
-        PinpicService pinpicService = new PinpicService();
+        PinService pinService = new PinService();
         User loggedInUser = getUser(httpServletRequest);
 
         if (loggedInUser.getRole()==User.ROLE_ADMIN) {
             //Admin sieht alle
-            pinWizard.setPinList( pinpicService.getPinpicList() );
+            pinWizard.setPinList( pinService.getPinpicList() );
         } else {
             //Andere User sehen nur die eigenen Pins
-            pinWizard.setPinList( pinpicService.getPinpicList(loggedInUser) );
+            pinWizard.setPinList( pinService.getPinpicList(loggedInUser) );
         }
         pinWizard.setImageList(((List)httpServletRequest.getSession().getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES)));
         return pinWizard;
@@ -105,12 +105,12 @@ public class PinWizardController extends SimpleFormControllerMd {
         User user = this.getUser(httpServletRequest);
 
         if (pinWizard.getPinType()==PinWizard.TYPE_NEW) {
-            PinpicService pinpicService = new PinpicService();
+            PinService pinService = new PinService();
             Pin pin = new Pin();
             pin.setCreatorUserId(user.getUserId());
             pin.setEmailnotification(this.getUser(httpServletRequest).getEmail());
             pin.setDefaultview(Folder.VIEW_UNDEFINED);
-            pin = pinpicService.add(pin);
+            pin = pinService.add(pin);
             addImagesToPin(pinWizard.getImageList(), pin.getPinId());
             httpServletResponse.sendRedirect("pinedit?pinid="+ pin.getPinId());
         }
@@ -126,11 +126,11 @@ public class PinWizardController extends SimpleFormControllerMd {
 
     private void addImagesToPin(List selectedImageList, int pinId) {
 
-        PinpicService pinpicService = new PinpicService();
+        PinService pinService = new PinService();
             Iterator selectedImages = selectedImageList.iterator();
             while (selectedImages.hasNext()) {
                 MediaObject imageVersion = (MediaObject)selectedImages.next();
-                pinpicService.addImageToPinpic(imageVersion.getIvid(),pinId);
+                pinService.addImageToPinpic(imageVersion.getIvid(),pinId);
             }
 
     }

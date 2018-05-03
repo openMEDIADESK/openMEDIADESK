@@ -35,8 +35,8 @@ public class Pin {
     public static final int VIEW_LIST = 2;
 
     int pinId = -1;
-    String pinpicTitle = "";
-    String pinpicName = "";
+    String pinTitle = "";
+    String pinName = "";
     String pin = "";
     String note = "";
     int used = -1;
@@ -45,7 +45,7 @@ public class Pin {
     boolean enabled = true;
     Date endDate = new Date(0);
     Date startDate = new Date(0);
-    int imagecount = -1;
+    int mediacount = -1;
     boolean autoDelete = true; //Pin und die Bilder/Dateien werden nach Ablauf automatisch gelöscht (nur wenn die Bilder nicht einer kategorie zugewiesen sind)
     boolean directDownload = false; //Wird der Pin aufgerufen, werden automatisch die Bilder zum Download angeboten (ohne weiteren klick)
     int creatorUserId = 0; //Ersteller des Pins
@@ -73,20 +73,20 @@ public class Pin {
         this.pinId = pinId;
     }
 
-    public String getPinpicTitle() {
-        return pinpicTitle;
+    public String getPinTitle() {
+        return pinTitle;
     }
 
-    public void setPinpicTitle(String pinpicTitle) {
-        this.pinpicTitle = pinpicTitle;
+    public void setPinTitle(String pinTitle) {
+        this.pinTitle = pinTitle;
     }
 
-    public String getPinpicName() {
-        return pinpicName;
+    public String getPinName() {
+        return pinName;
     }
 
-    public void setPinpicName(String pinpicName) {
-        this.pinpicName = pinpicName;
+    public void setPinName(String pinName) {
+        this.pinName = pinName;
     }
 
     public String getPin() {
@@ -121,12 +121,12 @@ public class Pin {
         this.createDate = createDate;
     }
 
-    public int getImagecount() {
-        return imagecount;
+    public int getMediacount() {
+        return mediacount;
     }
 
-    public void setImagecount(int imagecount) {
-        this.imagecount = imagecount;
+    public void setMediacount(int mediacount) {
+        this.mediacount = mediacount;
     }
 
     public int getMaxUse() {

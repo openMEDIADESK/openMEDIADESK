@@ -59,7 +59,7 @@
 
                 <select class="form-control" id="selectedPinId" name="selectedPinId">
                     <c:forEach var="pin" items="${command.pinList}">
-                        <option value="<c:out value="${pin.pinId}"/>"><c:out value="${pin.pin}"/> <c:out value="${pin.pinpicTitle}"/></option>
+                        <option value="<c:out value="${pin.pinId}"/>"><c:out value="${pin.pin}"/> <c:out value="${pin.pinTitle}"/></option>
                     </c:forEach>
                 </select>
             </div>

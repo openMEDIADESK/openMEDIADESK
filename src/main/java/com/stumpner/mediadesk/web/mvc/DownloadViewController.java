@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 import com.stumpner.mediadesk.core.Resources;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.core.database.sc.ShoppingCartService;
-import com.stumpner.mediadesk.core.database.sc.PinpicService;
+import com.stumpner.mediadesk.core.database.sc.PinService;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.usermanagement.acl.AclContextFactory;
@@ -239,7 +239,7 @@ public class DownloadViewController extends AbstractPageController {
     private void handlePinDownload(HttpServletRequest request, HttpServletResponse response) {
 
         int pinId = ((Integer)request.getSession().getAttribute("pinid"));
-        PinpicService pinService = new PinpicService();
+        PinService pinService = new PinService();
         MediaService imageService = new MediaService();
         LngResolver lngResolver = new LngResolver();
         imageService.setUsedLanguage(lngResolver.resolveLng(request));

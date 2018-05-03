@@ -1,7 +1,7 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.core.database.sc.PinService;
 import com.stumpner.mediadesk.pin.Pin;
-import com.stumpner.mediadesk.core.database.sc.PinpicService;
 import com.stumpner.mediadesk.core.Config;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
@@ -89,14 +89,14 @@ public class PinLoginController extends SimpleFormControllerMd {
     protected ModelAndView onSubmit(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, BindException e) throws Exception {
 
         Pin pin = (Pin)o;
-        PinpicService pinpicService = new PinpicService();
+        PinService pinService = new PinService();
         Logger logger = Logger.getLogger(LoginController.class);
         //this.setContentTemplateFile("login_success.jsp",httpServletRequest);
         HttpSession session = httpServletRequest.getSession();
         logger.info("PINlogin: user="+ pin.getPin());
-        pin = pinpicService.getPinpicByPin(pin.getPin());
+        pin = pinService.getPinpicByPin(pin.getPin());
         //pin.setUsed(pin.getUsed()+1);
-        //pinpicService.save(pin);
+        //pinService.save(pin);
         //pin einloggen
         httpServletRequest.getSession().setAttribute("pinid",new Integer(pin.getPinId()));
         //System.out.println("PIN: "+pin.getPinId());

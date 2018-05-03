@@ -48,7 +48,7 @@
         </div>
     </spring:bind>
 
-    <spring:bind path="command.pinpicName">
+    <spring:bind path="command.pinName">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="input<c:out value="${status.expression}"/>"><spring:message code="pinedit.name"/></label>
         <input type="text" class="form-control input-sm" id="input<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -59,7 +59,7 @@
         </div>
     </spring:bind>
 
-    <spring:bind path="command.pinpicTitle">
+    <spring:bind path="command.pinTitle">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="input<c:out value="${status.expression}"/>"><spring:message code="pinedit.title"/></label>
         <input type="tel" class="form-control input-sm" id="input<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>

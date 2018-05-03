@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.web.mvc.util;
 
+import com.stumpner.mediadesk.core.database.sc.PinService;
 import com.stumpner.mediadesk.pin.Pin;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.UserFactory;
@@ -7,7 +8,6 @@ import com.stumpner.mediadesk.usermanagement.Authenticator;
 import com.stumpner.mediadesk.usermanagement.UserAuthentication;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
-import com.stumpner.mediadesk.core.database.sc.PinpicService;
 import com.stumpner.mediadesk.core.database.sc.UserService;
 import com.stumpner.mediadesk.web.LocaleResolver;
 
@@ -59,9 +59,9 @@ public class WebHelper {
 
         Pin pin = null;
         if (pinId!=0) {
-            PinpicService pinpicService = new PinpicService();
+            PinService pinService = new PinService();
             try {
-                pin = (Pin)pinpicService.getById(pinId);
+                pin = (Pin) pinService.getById(pinId);
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();
             } catch (IOServiceException e) {
@@ -78,9 +78,9 @@ public class WebHelper {
             //Besucher/GÃ¤ste (nicht angemeldet) die in einen PIN eingeloggt sind
             if (request.getSession().getAttribute("pinid")!=null) {
                 int pinpicId = ((Integer)request.getSession().getAttribute("pinid")).intValue();
-                PinpicService pinpicService = new PinpicService();
+                PinService pinService = new PinService();
                 try {
-                    Pin pin = (Pin)pinpicService.getById(pinpicId);
+                    Pin pin = (Pin) pinService.getById(pinpicId);
                     if (pin.isUploadEnabled()) {
                         return true;
                     }

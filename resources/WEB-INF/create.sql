@@ -49,7 +49,7 @@ CREATE TABLE `category` (
   `description` varchar(100) NOT NULL,
   `parent` int(10) unsigned NOT NULL default '0',
   `changeddate` datetime NOT NULL default '1970-01-01 00:00:00',
-  `imagecount` int(11) NOT NULL default '0',
+  `mediacount` int(11) NOT NULL default '0',
   `imagecounts` int(11) NOT NULL default '0',
   `cattitlelng1` varchar(100) NOT NULL,
   `cattitlelng2` varchar(100) NOT NULL,

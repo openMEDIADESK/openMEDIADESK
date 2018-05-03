@@ -72,9 +72,9 @@ public class AutoMediaAssigner {
                 }
             }
             if (isAutoImportPin(autoImportObject)) {
-                PinpicService pinpicService = new PinpicService();
+                PinService pinService = new PinService();
                 Pin pin = (Pin)autoImportObject;
-                pinpicService.addImageToPinpic(ivid, pin.getPinId());
+                pinService.addImageToPinpic(ivid, pin.getPinId());
 
                 //Informieren, wenn aktiviert
                 if (pin.getEmailnotification().length()>0) {
@@ -82,7 +82,7 @@ public class AutoMediaAssigner {
                     MediaService imageService = new MediaService();
                     MediaObjectMultiLang image = (MediaObjectMultiLang)imageService.getMediaObjectById(ivid);
 
-                    String mailsubject = "PIN Upload: "+ pin.getPin() + " "+ pin.getPinpicName();
+                    String mailsubject = "PIN Upload: "+ pin.getPin() + " "+ pin.getPinName();
                     String mailbody = "Eine oder mehrere Dateien wurden in den PIN "+ pin.getPin() + " hochgeladen.";
                     mailbody = mailbody + "\n\nWeitere Informationen: ";
                     mailbody = mailbody + "\n\n + Dateiname: "+image.getVersionName()+" ("+image.getVersionTitle()+")";
@@ -117,9 +117,9 @@ public class AutoMediaAssigner {
             }
 
             if (isPin) {
-                PinpicService pinpicService = new PinpicService();
+                PinService pinService = new PinService();
                 try {
-                    Pin pin = (Pin)pinpicService.getById(Integer.parseInt(request.getParameter("pinid")));
+                    Pin pin = (Pin) pinService.getById(Integer.parseInt(request.getParameter("pinid")));
                     return pin;
                 } catch (ObjectNotFoundException e) {
                     return null;

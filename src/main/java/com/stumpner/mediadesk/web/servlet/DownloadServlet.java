@@ -225,12 +225,12 @@ public class DownloadServlet extends HttpServlet {
         if (getDownloadType(httpServletRequest)==DOWNLOAD_TYPE_PINPIC) {
 
                 int pinId = ((Integer)httpServletRequest.getSession().getAttribute("pinid")).intValue();
-                PinpicService pinpicService = new PinpicService();
+                PinService pinService = new PinService();
                 Pin pinPic = new Pin();
             try {
-                pinPic = (Pin)pinpicService.getById(pinId);
+                pinPic = (Pin) pinService.getById(pinId);
 
-                String fileNameWithoutSpace = pinPic.getPinpicTitle().replace(' ','_');
+                String fileNameWithoutSpace = pinPic.getPinTitle().replace(' ','_');
                 if (fileNameWithoutSpace.length()>0) {
                     fileName = fileNameWithoutSpace;
                 }
@@ -570,11 +570,11 @@ public class DownloadServlet extends HttpServlet {
                 )) {
                     request.getSession().setAttribute("alreadyInformed",pinPicString);
                     mf = new MessageFormat("PIN {0} [{1}] wurde heruntergeladen.\n\n{2}\nDownload-Zeit: {3}");
-                    PinpicService pinService = new PinpicService();
+                    PinService pinService = new PinService();
                     //todo: PinId
                     try {
                         Pin pin = (Pin)pinService.getById(pinId);
-                        Object[] param = { pin.getPin() , pin.getPinpicName() , imageListString, new Date() };
+                        Object[] param = { pin.getPin() , pin.getPinName() , imageListString, new Date() };
                         mailbody = mf.format(param);
 
                         if (pin.getEmailnotification().length()>0) {
@@ -630,13 +630,13 @@ public class DownloadServlet extends HttpServlet {
             case DownloadServlet.DOWNLOAD_TYPE_PINPIC:
 
                 int pinId = ((Integer)request.getSession().getAttribute("pinid")).intValue();
-                PinpicService pinpicService = new PinpicService();
+                PinService pinService = new PinService();
                 LngResolver lngResolver = new LngResolver();
-                pinpicService.setUsedLanguage(lngResolver.resolveLng(request));
+                pinService.setUsedLanguage(lngResolver.resolveLng(request));
                 //PrÃ¼fen ob alle Bilder des Pins oder nur ausgewÃ¤hlte angezeigt werden sollen:
                 if (request.getParameter("ivid")!=null) {
                     //Einzelnes Bild soll heruntergeladen werden
-                    List pinImageList = pinpicService.getPinpicImages(pinId);
+                    List pinImageList = pinService.getPinpicImages(pinId);
                     Iterator pinImages = pinImageList.iterator();
                     while (pinImages.hasNext()) {
                         MediaObject imageVersion = (MediaObject)pinImages.next();
@@ -646,17 +646,17 @@ public class DownloadServlet extends HttpServlet {
                     }
 
                 } else if (request.getSession().getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES)!=null) {
-                    List pinImageList = pinpicService.getPinpicImages(pinId);
+                    List pinImageList = pinService.getPinpicImages(pinId);
                     List selectedImageList = (List)request.getSession().getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES);
                     pinImageList.retainAll(selectedImageList);
                     downloadImageList = selectedImageList;
                     if (request.getParameter("pinpic").equalsIgnoreCase("all")) {
-                        downloadImageList = pinpicService.getPinpicImages(pinId);
+                        downloadImageList = pinService.getPinpicImages(pinId);
                     }
                 } else {
                     if (request.getParameter("pinpic").equalsIgnoreCase("all")) {
                         //Alle Bilder im Pin herunterladen...
-                        downloadImageList = pinpicService.getPinpicImages(pinId);
+                        downloadImageList = pinService.getPinpicImages(pinId);
                     }
                 }
                 break;
@@ -718,10 +718,10 @@ public class DownloadServlet extends HttpServlet {
            case DownloadServlet.DOWNLOAD_TYPE_PINPIC:
 
                 int pinId = ((Integer)request.getSession().getAttribute("pinid")).intValue();
-                PinpicService pinpicService = new PinpicService();
+                PinService pinService = new PinService();
                 Pin pinPic = new Pin();
                 try {
-                    pinPic = (Pin)pinpicService.getById(pinId);
+                    pinPic = (Pin) pinService.getById(pinId);
                 } catch (ObjectNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOServiceException e) {
@@ -855,16 +855,16 @@ public class DownloadServlet extends HttpServlet {
 
                 int pinId = ((Integer)request.getSession().getAttribute("pinid")).intValue();
                 try {
-                    PinpicService pinpicService = new PinpicService();
+                    PinService pinService = new PinService();
                     Pin pinPic = new Pin();
-                    pinPic = (Pin)pinpicService.getById(pinId);
+                    pinPic = (Pin) pinService.getById(pinId);
                     String pinPicString = String.valueOf(pinPic.getPinId());
                     if (!pinPicString.equalsIgnoreCase(
                             (String)request.getSession().getAttribute("alreadyTracked")
                     )) {
                         request.getSession().setAttribute("alreadyTracked",pinPicString);
                         pinPic.setUsed(pinPic.getUsed()+1);
-                        pinpicService.save(pinPic);
+                        pinService.save(pinPic);
                     }
 
                     DownloadLoggerService dlls2 = new DownloadLoggerService();
@@ -954,7 +954,7 @@ public class DownloadServlet extends HttpServlet {
         //PrÃ¼fen ob PIN
         if (request.getSession().getAttribute("pinid")!=null) {
             int pinId = ((Integer)request.getSession().getAttribute("pinid"));
-            PinpicService pinService = new PinpicService();
+            PinService pinService = new PinService();
             List pinpicImageList = pinService.getPinpicImages(pinId);
             Iterator pinpicImages = pinpicImageList.iterator();
             while (pinpicImages.hasNext()) {

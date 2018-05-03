@@ -6,17 +6,17 @@
 
 <sqlMap namespace="Pinpic">
 
-    <insert id="addPinpic" parameterClass="com.stumpner.mediadesk.pin.Pin">
-        INSERT INTO pinpic
-            (pinpictitle,pinpicname,pin,note,used,createdate,maxuse,enabled,enddate,startdate,autodelete,directdownload,creatoruserid,defaultview,emailnotification,password)
-            VALUES (#pinpicTitle#,#pinpicName#,#pin#,#note#,0,#createDate#,#maxUse#,#enabled#,#endDate#,#startDate#,#autoDelete#,#directDownload#,#creatorUserId#,#defaultview#,#emailnotification#,#password#)
+    <insert id="addPin" parameterClass="com.stumpner.mediadesk.pin.Pin">
+        INSERT INTO pin
+            (pintitle,pinname,pin,note,used,createdate,maxuse,enabled,enddate,startdate,autodelete,directdownload,creatoruserid,defaultview,emailnotification,password)
+            VALUES (#pinTitle#,#pinName#,#pin#,#note#,0,#createDate#,#maxUse#,#enabled#,#endDate#,#startDate#,#autoDelete#,#directDownload#,#creatorUserId#,#defaultview#,#emailnotification#,#password#)
     </insert>
 
-    <select id="getPinpic" parameterClass="java.lang.String">
+    <select id="getPin" parameterClass="java.lang.String">
         SELECT
-            pinpicid as pinId,
-            pinpictitle as pinpicTitle,
-            pinpicname as pinpicName,
+            pinid as pinId,
+            pintitle as pinTitle,
+            pinname as pinName,
             pin as pin,
             note as note,
             used as used,
@@ -31,22 +31,22 @@
             uploadenabled as uploadEnabled,
             defaultview as defaultview,
             emailnotification as emailnotification,
-            pinpic.password as password
-        FROM pinpic
+            pin.password as password
+        FROM pin
         WHERE pin = #pin#
     </select>
 
-    <select id="getPinpicById" resultClass="com.stumpner.mediadesk.pin.PinExtended" parameterClass="java.lang.Integer">
+    <select id="getPinById" resultClass="com.stumpner.mediadesk.pin.PinExtended" parameterClass="java.lang.Integer">
         SELECT
-            pinpicid as pinId,
-            pinpictitle as pinpicTitle,
-            pinpicname as pinpicName,
+            pinid as pinId,
+            pintitle as pinTitle,
+            pinname as pinName,
             pin as pin,
             note as note,
             used as used,
             createdate as createDate,
             maxuse as maxUse,
-            pinpic.enabled as enabled,
+            pin.enabled as enabled,
             enddate as endDate,
             startdate as startDate,
             autodelete as autoDelete,
@@ -56,17 +56,17 @@
             appuser.username as creatorUsername,
             defaultview as defaultview,
             emailnotification as emailnotification,
-            pinpic.password as password
-        FROM pinpic
-        LEFT OUTER JOIN appuser ON pinpic.creatoruserid = appuser.userid
-        WHERE pinpicid = #value#
+            pin.password as password
+        FROM pin
+        LEFT OUTER JOIN appuser ON pin.creatoruserid = appuser.userid
+        WHERE pinid = #value#
     </select>
 
 
-    <resultMap id="pinpicList" class="com.stumpner.mediadesk.pin.Pin">
-        <result property="pinId" column="pinpicid"/>
-        <result property="pinpicTitle" column="pinpictitle"/>
-        <result property="pinpicName" column="pinpicname"/>
+    <resultMap id="pinList" class="com.stumpner.mediadesk.pin.Pin">
+        <result property="pinId" column="pinid"/>
+        <result property="pinTitle" column="pintitle"/>
+        <result property="pinName" column="pinname"/>
         <result property="pin" column="pin"/>
         <result property="note" column="note"/>
         <result property="used" column="used"/>
@@ -75,7 +75,7 @@
         <result property="enabled" column="enabled"/>
         <result property="endDate" column="enddate"/>
         <result property="startDate" column="startdate"/>
-        <result property="imagecount" column="imagecount"/>
+        <result property="mediacount" column="mediacount"/>
         <result property="autoDelete" column="autodelete"/>
         <result property="directDownload" column="directdownload"/>
         <result property="creatorUserId" column="creatoruserid"/>
@@ -83,24 +83,23 @@
         <result property="defaultview" column="defaultview"/>
         <result property="emailnotification" column="emailnotification"/>
     </resultMap>
-    <select id="getPinpicList" parameterClass="int" resultMap="pinpicList">
-        SELECT pinpic.pinpicid, pinpic.pinpictitle, pinpic.pinpicname, pinpic.pin,
-                pinpic.note, pinpic.used, pinpic.createdate, pinpic.maxuse, pinpic.enabled,
-                pinpic.enddate, pinpic.startdate, pinpic.autodelete, pinpic.directdownload,
-                pinpic.creatoruserid, pinpic.uploadenabled, pinpic.defaultview, pinpic.emailnotification,
-                count(pinpicholder.ivid) as imagecount FROM pinpicholder
-               RIGHT OUTER JOIN pinpic ON pinpicholder.pinpicid = pinpic.pinpicid
-            GROUP BY pinpic.pinpicid
+    <select id="getPinList" parameterClass="int" resultMap="pinList">
+        SELECT pin.pinid, pin.pintitle, pin.pinname, pin.pin,
+                pin.note, pin.used, pin.createdate, pin.maxuse, pin.enabled,
+                pin.enddate, pin.startdate, pin.autodelete, pin.directdownload,
+                pin.creatoruserid, pin.uploadenabled, pin.defaultview, pin.emailnotification,
+                count(pinholder.ivid) as mediacount FROM pinholder
+               RIGHT OUTER JOIN pin ON pinholder.pinid = pin.pinid
+            GROUP BY pin.pinid
             ORDER BY createdate DESC
     </select>
 
-    <resultMap id="imageList" class="com.stumpner.mediadesk.media.MediaObjectMultiLang">
+    <resultMap id="mediaList" class="com.stumpner.mediadesk.media.MediaObjectMultiLang">
         <result property="ivid" column="ivid"/>
         <result property="version" column="version"/>
         <result property="versionTitle" column="versiontitle"/>
         <result property="versionName" column="versionname"/>
         <result property="info" column="info"/>
-        <result property="imageId" column="imageid"/>
         <result property="createDate" column="createdate"/>
         <result property="creatorUserId" column="creatoruserid"/>
         <result property="note" column="note"/>
@@ -144,20 +143,20 @@
         <result property="mimeType" column="mimetype"/>
         <result property="extention" column="extention"/>
     </resultMap>
-    <select id="getPinpicImages" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="imageList">
+    <select id="getPinMediaObjects" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="mediaList">
         SELECT
             <include refid="mediaObjectFields"/>
                  , '$usedLanguage$' as usedLanguage
-        FROM pinpicholder
-        INNER JOIN mediaobject ON pinpicholder.ivid = mediaobject.ivid
-        WHERE pinpicid = #id#
+        FROM pinholder
+        INNER JOIN mediaobject ON pinholder.ivid = mediaobject.ivid
+        WHERE pinid = #id#
     </select>
 
-    <select id="getPinpicByPin" resultClass="com.stumpner.mediadesk.pin.Pin" parameterClass="java.lang.String">
+    <select id="getPinByPin" resultClass="com.stumpner.mediadesk.pin.Pin" parameterClass="java.lang.String">
         SELECT
-            pinpicid as pinId,
-            pinpictitle as pinpicTitle,
-            pinpicname as pinpicName,
+            pinid as pinId,
+            pintitle as pinTitle,
+            pinname as pinName,
             pin as pin,
             note as note,
             used as used,
@@ -173,14 +172,14 @@
             defaultview as defaultview,
             emailnotification as emailnotification,
             pinpic.password as password
-        FROM pinpic
+        FROM pin
         WHERE pin = #value#
     </select>
 
-    <update id="savePinpic" parameterClass="com.stumpner.mediadesk.pin.Pin">
-        UPDATE pinpic SET
-            pinpictitle = #pinpicTitle#,
-            pinpicname = #pinpicName#,
+    <update id="savePin" parameterClass="com.stumpner.mediadesk.pin.Pin">
+        UPDATE pin SET
+            pintitle = #pinTitle#,
+            pinname = #pinName#,
             note = #note#,
             used = #used#,
             maxuse = #maxUse#,
@@ -193,30 +192,30 @@
             defaultview = #defaultview#,
             emailnotification = #emailnotification#,
             password = #password#
-        WHERE pinpicid = #pinId#
+        WHERE pinid = #pinId#
     </update>
 
-    <delete id="deletePinpic" parameterClass="int">
-        DELETE FROM pinpic
-            WHERE pinpicid = #value#
+    <delete id="deletePin" parameterClass="int">
+        DELETE FROM pin
+            WHERE pinid = #value#
     </delete>
 
-    <insert id="addImageToPinpic" parameterClass="com.stumpner.mediadesk.pin.PinHolder">
-        INSERT INTO pinpicholder
-            (pinpicid,ivid)
+    <insert id="addMediaToPin" parameterClass="com.stumpner.mediadesk.pin.PinHolder">
+        INSERT INTO pinholder
+            (pinid,ivid)
             VALUES (#pinId#,#ivid#)
     </insert>
 
-    <delete id="deleteImageFromPinpic" parameterClass="com.stumpner.mediadesk.pin.PinHolder">
-        DELETE FROM pinpicholder
-            WHERE pinpicid = #pinId# AND ivid = #ivid#
+    <delete id="deleteMediaFromPin" parameterClass="com.stumpner.mediadesk.pin.PinHolder">
+        DELETE FROM pinholder
+            WHERE pinid = #pinId# AND ivid = #ivid#
     </delete>
 
     <delete id="deleteOrphanedPinHolder" parameterClass="java.lang.String">
-        DELETE FROM pinpicholder
-          USING pinpicholder
-          LEFT OUTER JOIN pinpic ON pinpicholder.pinpicid = pinpic.pinpicid
-          WHERE pinpic.pinpicid IS NULL
+        DELETE FROM pinholder
+          USING pinholder
+          LEFT OUTER JOIN pin ON pinholder.pinid = pin.pinid
+          WHERE pin.pinid IS NULL
     </delete>
 
 </sqlMap>

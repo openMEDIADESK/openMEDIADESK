@@ -96,7 +96,7 @@ public class FolderSelectorController extends SimpleFormControllerMd {
         FolderSelection folderSelection = (FolderSelection)o;
 
         if (folderSelection.getType().equalsIgnoreCase("PIN")) {
-            PinpicService ps = new PinpicService();
+            PinService ps = new PinService();
             Pin pin = (Pin)ps.getById(folderSelection.getId());
             request.setAttribute("targetname",pin.getPin());
             request.setAttribute("headline","categoryselector.headline");
@@ -181,7 +181,7 @@ public class FolderSelectorController extends SimpleFormControllerMd {
                  */
 
                 if (folderSelection.getType().equalsIgnoreCase("PIN")) {
-                    PinpicService pinService = new PinpicService();
+                    PinService pinService = new PinService();
                     int pinId = ((Integer)httpServletRequest.getSession().getAttribute("pinid")).intValue();
                     SimpleLoaderClass slc = new SimpleLoaderClass(category.getFolder().getCategoryId());
                     List mediaList = mediaService.getFolderMediaObjects(slc);

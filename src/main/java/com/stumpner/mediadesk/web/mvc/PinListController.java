@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import com.stumpner.mediadesk.core.database.sc.PinService;
 import com.stumpner.mediadesk.folder.Folder;
 import com.stumpner.mediadesk.pin.Pin;
 import org.springframework.web.servlet.ModelAndView;
@@ -7,7 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.stumpner.mediadesk.core.database.sc.PinpicService;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.usermanagement.User;
 
@@ -52,7 +52,7 @@ public class PinListController extends AbstractPageController {
         Config.putDmsConfigToRequest(httpServletRequest);
         if (this.checkPermission(httpServletRequest)) {
 
-            PinpicService folderService = new PinpicService();
+            PinService folderService = new PinService();
 
             if (httpServletRequest.getParameter("func")!=null) {
                 if (httpServletRequest.getParameter("func").equalsIgnoreCase("add")) {

@@ -74,7 +74,7 @@
 
         <tr>
           <td scope="row"><c:out value="${pin.pin}"/></td>
-          <td><c:out value="${pin.pinpicTitle}"/></td>
+          <td><c:out value="${pin.pinTitle}"/></td>
           <td><c:out value="${pin.used}"/></td>
           <td><dt:format pattern="yyyy-MM-dd" default=""><c:out value="${pin.createDate.time}"/></dt:format></td>
           <td>
