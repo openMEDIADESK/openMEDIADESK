@@ -103,10 +103,10 @@ public class ImageImport {
 
         if (Config.importImageNumberSerially) {
             logger.debug("Primary-Key als Bildnummer setzen...");
-            imageVersion.setImageNumber(Integer.toString(imageVersion.getIvid()));
+            imageVersion.setMediaNumber(Integer.toString(imageVersion.getIvid()));
         }
 
-        logger.info("Added Media-Objekt to mediaDESK: "+imageVersion.getImageId()+" Number: "+imageVersion.getImageNumber());
+        logger.info("Added Media-Objekt to mediaDESK: "+imageVersion.getImageId()+" Number: "+imageVersion.getMediaNumber());
 
         //orientation:
         // 0 - square
@@ -214,7 +214,7 @@ public class ImageImport {
                 imageVersion.setRestrictionsLng2(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importNumber)) {
-                imageVersion.setImageNumber(metadata.getMetaValue());
+                imageVersion.setMediaNumber(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importByline)) {
                 imageVersion.setByline(metadata.getMetaValue());

@@ -122,7 +122,7 @@ public class MediaobjectRestApi extends RestBaseServlet {
         responseObj.put("ivid",String.valueOf(mo.getIvid()));
         responseObj.put("caption",getCaption(mo));
         responseObj.put("name",mo.getVersionName());
-        responseObj.put("imagenumber",mo.getImageNumber());
+        responseObj.put("imagenumber",mo.getMediaNumber());
         responseObj.put("title",mo.getVersionTitle());
 
         responseObj.put("titleLng1",mo.getVersionTitleLng1());
@@ -191,7 +191,7 @@ public class MediaobjectRestApi extends RestBaseServlet {
                 out.println("  \"ivid\" : "+mo.getIvid()+",");
                 out.println("  \"caption\" : \""+StringEscapeUtils.escapeJson(getCaption(mo))+"\",");
                 out.println("  \"name\" : \""+StringEscapeUtils.escapeJson(mo.getVersionName())+"\",");
-                out.println("  \"imagenumber\" : \""+StringEscapeUtils.escapeJson(mo.getImageNumber())+"\",");
+                out.println("  \"imagenumber\" : \""+StringEscapeUtils.escapeJson(mo.getMediaNumber())+"\",");
                 out.println("  \"title\" : \""+StringEscapeUtils.escapeJson(mo.getVersionTitle())+"\",");
                 out.println("  \"subtitle\" : \""+StringEscapeUtils.escapeJson(mo.getVersionSubTitle())+"\",");
                 out.println("  \"info\" : \""+StringEscapeUtils.escapeJson(mo.getInfo())+"\",");

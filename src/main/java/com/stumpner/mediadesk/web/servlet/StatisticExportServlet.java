@@ -102,7 +102,7 @@ public class StatisticExportServlet extends HttpServlet {
             w.write(getType(log.getDownloadtype())+";");
             w.write(String.valueOf(log.getUserName())+";");
             w.write(String.valueOf(log.getUserId())+";");
-            w.write(String.valueOf(log.getImageNumber())+";");
+            w.write(String.valueOf(log.getMediaNumber())+";");
             w.write(String.valueOf(log.getMediaName())+";");
             w.write(String.valueOf(log.getName())+";");
             w.write(String.valueOf(log.getIvid())+";");

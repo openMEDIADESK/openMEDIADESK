@@ -135,7 +135,7 @@ public class DownloadServlet extends HttpServlet {
                 File file = new File(filename);
                 String downloadFilename = "";
                 if (Config.downloadImageFilename.equalsIgnoreCase("imageNumber")) {
-                    downloadFilename = image.getImageNumber();
+                    downloadFilename = image.getMediaNumber();
                 }
                 if (Config.downloadImageFilename.equalsIgnoreCase("versionTitle")) {
                     downloadFilename = image.getVersionTitle().replaceAll(" ","_");
@@ -296,9 +296,9 @@ public class DownloadServlet extends HttpServlet {
                     imageFile = handleSpecialDownloadResolution(imageVersion,httpServletRequest);
                 }
 
-                filenameInZip = imageVersion.getImageNumber(); // <- ist "standard"
+                filenameInZip = imageVersion.getMediaNumber(); // <- ist "standard"
                 if (Config.downloadImageFilename.equalsIgnoreCase("imageNumber")) {
-                    filenameInZip = imageVersion.getImageNumber();
+                    filenameInZip = imageVersion.getMediaNumber();
                 }
                 if (Config.downloadImageFilename.equalsIgnoreCase("versionTitle")) {
                     filenameInZip = imageVersion.getVersionTitle();
@@ -529,7 +529,7 @@ public class DownloadServlet extends HttpServlet {
             //todo: "verschÃ¶nern"
             //Hier muss jedes Bild nochmal neu aus der Datenbank geladen werden:
             //MediaObject originalImage = ivs.getMediaObjectById(imageVersion.getIvid());
-            imageListString = imageListString + imageVersion.getImageNumber();
+            imageListString = imageListString + imageVersion.getMediaNumber();
 
             //System.out.println("ImageTitle: "+imageVersion.getVersionTitle());
             if (imageVersion.getVersionTitle().length()>0) {

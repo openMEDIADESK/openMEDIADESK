@@ -137,7 +137,7 @@ public class CartRestApi extends RestBaseServlet {
                 out.println("  \"caption\" : \""+StringEscapeUtils.escapeJson(getCaption(mediaObject))+"\",");
                 out.println("  \"title\" : \""+StringEscapeUtils.escapeJson(mediaObject.getVersionTitle())+"\",");
                 out.println("  \"name\" : \""+StringEscapeUtils.escapeJson(mediaObject.getVersionName())+"\",");
-                out.println("  \"imagenumber\" : \""+mediaObject.getImageNumber()+"\",");
+                out.println("  \"imagenumber\" : \""+mediaObject.getMediaNumber()+"\",");
                 out.println("  \"title\" : \""+StringEscapeUtils.escapeJson(mediaObject.getVersionTitle())+"\",");
                 out.println("  \"subtitle\" : \""+StringEscapeUtils.escapeJson(mediaObject.getVersionSubTitle())+"\",");
                 out.println("  \"info\" : \""+StringEscapeUtils.escapeJson(mediaObject.getInfo())+"\",");

@@ -236,7 +236,7 @@ public class BulkModificationService {
                 imageVersion.setRestrictions(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importNumber)) {
-                imageVersion.setImageNumber(metadata.getMetaValue());
+                imageVersion.setMediaNumber(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importByline)) {
                 imageVersion.setByline(metadata.getMetaValue());

@@ -49,7 +49,7 @@
         </div>
         <div>
 
-        Media Number #: <c:out value="${command.imageVersion.imageNumber}"/><br/>
+        Media Number #: <c:out value="${command.imageVersion.mediaNumber}"/><br/>
 
         </div>
     </div>
@@ -669,7 +669,7 @@
                 <form>
                   <div class="form-group">
         ID: <c:out value="${command.imageVersion.ivid}"/><br/>
-        Media Number #: <c:out value="${command.imageVersion.imageNumber}"/><br/>
+        Media Number #: <c:out value="${command.imageVersion.mediaNumber}"/><br/>
         <spring:message code="imageedit.createdate"/> <dt:format pattern="dd MMMM yyyy, HH:mm" default=""><c:out value="${command.imageVersion.createDate.time}"/></dt:format><br/>
         <spring:message code="imageedit.by"/> <c:out value="${command.creator.userName}"/><br/>
         Mime: <c:out value="${command.imageVersion.primaryMimeType}"/><br/>

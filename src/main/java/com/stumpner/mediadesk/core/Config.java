@@ -107,9 +107,9 @@ public class Config {
 
     // Programm Settings
                                                    //sr6
-    public static String versionNumbner = "2018n20180419";//- a1...n,b1...n,rc1...n,rtm,sr1...n";
-    public static String versionDate = "2018-04-19";
-    public static String SERIAL_UID = "2018041900";
+    public static String versionNumbner = "2018n20180503";//- a1...n,b1...n,rc1...n,rtm,sr1...n";
+    public static String versionDate = "2018-05-03";
+    public static String SERIAL_UID = "2018050300";
 
     // --- Programm: Folder
 

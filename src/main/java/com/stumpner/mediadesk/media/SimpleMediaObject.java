@@ -32,12 +32,15 @@ import java.util.Date;
  */
 public class SimpleMediaObject {
 
+    /**
+     * @deprecated: wird nicht mehr verwendet
+     */
     protected int imageId = -1;
     private String imageName = "";
     private String imageTitle = "";
     private String imageSubTitle = "";
     private Date createDate;
-    private String imageNumber = "";
+    private String mediaNumber = "";
 
     public int getImageId() {
         return imageId;
@@ -79,11 +82,11 @@ public class SimpleMediaObject {
         this.createDate = createDate;
     }
 
-    public String getImageNumber() {
-        return imageNumber;
+    public String getMediaNumber() {
+        return mediaNumber;
     }
 
-    public void setImageNumber(String imageNumber) {
-        this.imageNumber = imageNumber;
+    public void setMediaNumber(String mediaNumber) {
+        this.mediaNumber = mediaNumber;
     }
 }

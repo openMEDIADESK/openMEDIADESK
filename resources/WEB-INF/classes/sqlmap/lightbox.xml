@@ -6,7 +6,7 @@
 
 <sqlMap namespace="Lightbox">
 
-    <resultMap id="imageList" class="com.stumpner.mediadesk.media.MediaObjectMultiLang">
+    <resultMap id="mediaList" class="com.stumpner.mediadesk.media.MediaObjectMultiLang">
         <result property="ivid" column="ivid"/>
         <result property="version" column="version"/>
         <result property="versionTitle" column="versiontitle"/>
@@ -17,7 +17,7 @@
         <result property="creatorUserId" column="creatoruserid"/>
         <result property="note" column="note"/>
         <result property="versionSubTitle" column="versionsubtitle"/>
-        <result property="imageNumber" column="imagenumber"/>
+        <result property="mediaNumber" column="medianumber"/>
         <result property="photographDate" column="photographdate"/>
         <result property="photographerAlias" column="photographeralias"/>
         <result property="byline" column="byline"/>
@@ -55,7 +55,7 @@
         <result property="mimeType" column="mimetype"/>
         <result property="extention" column="extention"/>
     </resultMap>
-    <select id="getLightboxImageList" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="imageList" >
+    <select id="getLightboxImageList" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="mediaList" >
         SELECT
             <include refid="mediaObjectFields"/>
                  , '$usedLanguage$' as usedLanguage

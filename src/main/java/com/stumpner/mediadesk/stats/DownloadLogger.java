@@ -28,7 +28,7 @@ package com.stumpner.mediadesk.stats;
  */
 public class DownloadLogger extends SimpleDownloadLogger {
 
-    String imageNumber = "";
+    String mediaNumber = "";
     String userName = "";
     String mediaName = "";
     String pin = "";
@@ -41,12 +41,12 @@ public class DownloadLogger extends SimpleDownloadLogger {
         }
     }
 
-    public String getImageNumber() {
-        return imageNumber;
+    public String getMediaNumber() {
+        return mediaNumber;
     }
 
-    public void setImageNumber(String imageNumber) {
-        this.imageNumber = imageNumber;
+    public void setMediaNumber(String mediaNumber) {
+        this.mediaNumber = mediaNumber;
     }
 
     public String getUserName() {

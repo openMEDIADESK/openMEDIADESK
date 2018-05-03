@@ -73,7 +73,7 @@
     <div class="md-download-info">
     <!-- NEU IN DER ANZEIGE WARENKORB -->
         <div class="md-item-text"><span class="lead"><c:out value="${image.versionTitle}"/></span></div>
-		<div class="md-item-text"># <c:out value="${image.imageNumber}"/></div>
+		<div class="md-item-text"># <c:out value="${image.mediaNumber}"/></div>
         <div class="md-item-text"><c:out value="${image.versionSubTitle}"/></div>
         <c:if test="${useFormatSelector}">
         <div class="md-item-text">Format:</div>

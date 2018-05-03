@@ -216,14 +216,14 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
         try {
 
             //If BasicMediaObject has no number, take systemtime as number:
-            if (mediaObject.getImageNumber().length()==0) {
+            if (mediaObject.getMediaNumber().length()==0) {
                 String numberString = Long.toString(System.currentTimeMillis());
                 if (numberString.length()>100) {
                     numberString = numberString.substring(1,99);
                 }
-                mediaObject.setImageNumber(numberString);
+                mediaObject.setMediaNumber(numberString);
             }
-            this.getMediaObjectByNumber(mediaObject.getImageNumber());
+            this.getMediaObjectByNumber(mediaObject.getMediaNumber());
             //sorry imagenumber exists, throw DublicateEntry Exception
             throw new DublicateEntry("MediaService.addMedia(): DublicateEntry");
 

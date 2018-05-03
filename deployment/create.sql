@@ -294,3 +294,4 @@ ALTER TABLE `pinpic` RENAME TO `pin` ;
 ALTER TABLE `pinpicholder` RENAME TO `pinholder` ;
 ALTER TABLE `pinholder` CHANGE COLUMN `pinpicid` `pinid` INT(11) NOT NULL DEFAULT '0' ;
 ALTER TABLE `pin` CHANGE COLUMN `pinpicid` `pinid` INT(11) NOT NULL , CHANGE COLUMN `pinpictitle` `pintitle` VARCHAR(100) NOT NULL , CHANGE COLUMN `pinpicname` `pinname` VARCHAR(100) NOT NULL ;
+ALTER TABLE `mediaobject` CHANGE COLUMN `imagenumber` `medianumber` VARCHAR(255) NOT NULL DEFAULT '' ;

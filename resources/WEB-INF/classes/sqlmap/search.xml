@@ -17,7 +17,7 @@
         <result property="creatorUserId" column="creatoruserid"/>
         <result property="note" column="note"/>
         <result property="versionSubTitle" column="versionsubtitle"/>
-        <result property="imageNumber" column="imagenumber"/>
+        <result property="mediaNumber" column="imagenumber"/>
         <result property="photographDate" column="photographdate"/>
         <result property="photographerAlias" column="photographeralias"/>
         <result property="byline" column="byline"/>
@@ -72,7 +72,7 @@
             photographeruserid as photographerUserId,
             byline          as byline,
             photographdate  as photographDate,
-            imagenumber     as imageNumber,
+            imagenumber     as mediaNumber,
             restrictions    as restrictions,
             lastdatachange  as lastDataChange,
             keywords        as keywords,

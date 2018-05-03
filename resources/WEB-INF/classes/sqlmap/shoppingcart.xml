@@ -6,7 +6,7 @@
 
 <sqlMap namespace="Shoppingcart">
 
-    <resultMap id="imageCartList" class="com.stumpner.mediadesk.media.CartObject">
+    <resultMap id="mediaCartList" class="com.stumpner.mediadesk.media.CartObject">
         <result property="ivid" column="ivid"/>
         <result property="version" column="version"/>
         <result property="versionTitle" column="versiontitle"/>
@@ -17,7 +17,7 @@
         <result property="creatorUserId" column="creatoruserid"/>
         <result property="note" column="note"/>
         <result property="versionSubTitle" column="versionsubtitle"/>
-        <result property="imageNumber" column="imagenumber"/>
+        <result property="mediaNumber" column="medianumber"/>
         <result property="photographDate" column="photographdate"/>
         <result property="photographerAlias" column="photographeralias"/>
         <result property="byline" column="byline"/>
@@ -87,7 +87,7 @@
         <result property="userId" column="userid"/>
     </resultMap>
 
-    <select id="getShoppingCartImageList" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="imageCartList" >
+    <select id="getShoppingCartImageList" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="mediaCartList" >
         SELECT
             <include refid="mediaObjectFields"/>,
             shoppingcart.userid as userid,

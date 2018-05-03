@@ -104,7 +104,7 @@
         <result property="creatorUserId" column="creatoruserid"/>
         <result property="note" column="note"/>
         <result property="versionSubTitle" column="versionsubtitle"/>
-        <result property="imageNumber" column="imagenumber"/>
+        <result property="mediaNumber" column="medianumber"/>
         <result property="photographDate" column="photographdate"/>
         <result property="photographerAlias" column="photographeralias"/>
         <result property="byline" column="byline"/>

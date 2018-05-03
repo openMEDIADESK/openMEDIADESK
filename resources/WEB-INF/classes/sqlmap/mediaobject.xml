@@ -21,7 +21,7 @@
             photographeruserid as photographerUserId,
             byline          as byline,
             photographdate  as photographDate,
-            imagenumber     as imageNumber,
+            medianumber     as mediaNumber,
             restrictions    as restrictions,
             lastdatachange  as lastDataChange,
             keywords        as keywords,
@@ -95,7 +95,7 @@
         SELECT
         <include refid="mediaObjectFields"/>
         FROM mediaobject
-        WHERE imagenumber = #value#
+        WHERE medianumber = #value#
     </select>
 
     <resultMap id="imageList" class="com.stumpner.mediadesk.media.MediaObjectMultiLang">
@@ -109,7 +109,7 @@
         <result property="creatorUserId" column="creatoruserid"/>
         <result property="note" column="note"/>
         <result property="versionSubTitle" column="versionsubtitle"/>
-        <result property="imageNumber" column="imagenumber"/>
+        <result property="mediaNumber" column="medianumber"/>
         <result property="photographDate" column="photographdate"/>
         <result property="photographerAlias" column="photographeralias"/>
         <result property="byline" column="byline"/>
@@ -329,7 +329,7 @@
             flag = #flag#,
             dpi = #dpi#,
 
-            imagenumber = #imageNumber#,
+            medianumber = #mediaNumber#,
             info = #info#,
             photographerAlias = #photographerAlias#,
             photographerUserId = #photographerUserId#,

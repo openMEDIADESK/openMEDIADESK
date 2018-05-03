@@ -635,7 +635,7 @@ public class FolderRestApi extends RestBaseServlet {
                 out.println("  \"ivid\" : "+mo.getIvid()+",");
                 out.println("  \"caption\" : \""+StringEscapeUtils.escapeJson(getCaption(mo))+"\",");
                 out.println("  \"name\" : \""+StringEscapeUtils.escapeJson(mo.getVersionName())+"\",");
-                out.println("  \"imagenumber\" : \""+StringEscapeUtils.escapeJson(mo.getImageNumber())+"\",");
+                out.println("  \"imagenumber\" : \""+StringEscapeUtils.escapeJson(mo.getMediaNumber())+"\",");
                 out.println("  \"title\" : \""+StringEscapeUtils.escapeJson(mo.getVersionTitle())+"\",");
                 out.println("  \"subtitle\" : \""+StringEscapeUtils.escapeJson(mo.getVersionSubTitle())+"\",");
                 out.println("  \"info\" : \""+StringEscapeUtils.escapeJson(mo.getInfo())+"\",");

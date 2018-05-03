@@ -9,7 +9,7 @@
     <resultMap id="downloadLog" class="com.stumpner.mediadesk.stats.DownloadLogger">
         <result property="userId" column="userid"/>
         <result property="userName" column="username"/>
-        <result property="imageNumber" column="imagenumber"/>
+        <result property="mediaNumber" column="imagenumber"/>
         <result property="downloadDate" column="downloaddate"/>
         <result property="ivid" column="ivid"/>
         <result property="formatx" column="formatx"/>
@@ -27,7 +27,7 @@
     <statement id="getDownloadLog" parameterClass="com.stumpner.mediadesk.stats.AllPicFilter" resultMap="downloadLog">
         SELECT downloadlogger.userid as userId, downloadlogger.ivid as ivid,
             downloadlogger.downloaddate as downloadDate,
-            mediaobject.imagenumber as imageNumber, appuser.username as userName,
+            mediaobject.imagenumber as mediaNumber, appuser.username as userName,
             downloadlogger.formatx, downloadlogger.formaty,
             downloadlogger.downloadtype as downloadtype,
             downloadlogger.ip as ip,
@@ -59,7 +59,7 @@
     <statement id="getDownloadLogMonth" parameterClass="com.stumpner.mediadesk.stats.StatFilter" resultMap="downloadLog">
         SELECT downloadlogger.userid as userId, downloadlogger.ivid as ivid,
             downloadlogger.downloaddate as downloadDate,
-            mediaobject.imagenumber as imageNumber, appuser.username as userName,
+            mediaobject.imagenumber as mediaNumber, appuser.username as userName,
             downloadlogger.formatx, downloadlogger.formaty,
             downloadlogger.downloadtype as downloadtype,
             downloadlogger.ip as ip,

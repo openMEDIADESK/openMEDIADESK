@@ -71,7 +71,7 @@
     <div class="md-download-info">
     <!-- NEU IN DER ANZEIGE WARENKORB -->
         <div class="md-item-text"><span class="lead"><c:out value="${downloadList.versionTitle}"/></span></div>
-        <div class="md-item-text"># <c:out value="${downloadList.imageNumber}"/></div>
+        <div class="md-item-text"># <c:out value="${downloadList.mediaNumber}"/></div>
         <div class="md-item-text"><c:out value="${downloadList.versionSubTitle}"/></div>
 		<div class="md-item-text"><c:out value="${downloadList.info}"/></div>
         <div class="md-item-text"><c:out value="${downloadList.byline}"/></div>
@@ -146,7 +146,7 @@
     <div class="md-download-info">
     <!-- NEU IN DER ANZEIGE WARENKORB -->
         <div class="md-item-text"><span class="lead"><c:out value="${deniedImage.versionTitle}"/></span></div>
-        <div class="md-item-text"># <c:out value="${deniedImage.imageNumber}"/></div>
+        <div class="md-item-text"># <c:out value="${deniedImage.mediaNumber}"/></div>
         <div class="md-item-text"><c:out value="${deniedImage.versionSubTitle}"/></div>
 		<div class="md-item-text"><c:out value="${deniedImage.info}"/></div>
         <div class="md-item-text"><c:out value="${deniedImage.byline}"/></div>

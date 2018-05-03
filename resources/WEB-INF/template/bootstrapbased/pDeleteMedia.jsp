@@ -48,7 +48,7 @@
                           <c:if test="${image.mayorMime=='image'}"><a href="/<c:out value="${lng}"/>/image?id=<c:out value="${image.ivid}"/>" target="001" onClick="window.open('','001','scrollbars=yes,toolbar=no,location=no,directories=no,status=no,menubar=no,resizable=no,width=650,height=540');"><img alt="image" src="/imageservlet/<c:out value="${image.ivid}"/>/1/image.jpg" border="0"></a></c:if>
                       </div>
                       <div class="deleteData">
-                          <span class="imageNumber"><small># <c:out value="${image.imageNumber}"/></small></span>
+                          <span class="mediaNumber"><small># <c:out value="${image.mediaNumber}"/></small></span>
                           <span class="versionTitle"><c:out value="${image.versionTitle}"/></span>
                       </div>
                     </div>

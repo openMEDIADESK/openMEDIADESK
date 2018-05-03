@@ -100,7 +100,7 @@ public class StatisticRestApi extends RestBaseServlet {
                         out.println("  \"type\" : "+l.getDownloadtype()+",");
                         out.println("  \"formatx\" : "+l.getFormatx()+",");
                         out.println("  \"formaty\" : "+l.getFormaty()+",");
-                        out.println("  \"medianumber\" : \""+ StringEscapeUtils.escapeJson(l.getImageNumber())+"\",");
+                        out.println("  \"medianumber\" : \""+ StringEscapeUtils.escapeJson(l.getMediaNumber())+"\",");
                         out.println("  \"ip\" : \""+StringEscapeUtils.escapeJson(l.getIp())+"\",");
                         out.println("  \"medianame\" : \""+StringEscapeUtils.escapeJson(l.getMediaName())+"\",");
                         out.println("  \"name\" : \""+StringEscapeUtils.escapeJson(l.getName())+"\",");

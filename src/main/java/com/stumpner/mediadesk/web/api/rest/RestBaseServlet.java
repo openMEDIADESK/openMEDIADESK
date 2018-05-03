@@ -96,7 +96,7 @@ public class RestBaseServlet extends HttpServlet {
     public String getCaption(MediaObjectMultiLang mo) {
 
                 if (Config.downloadImageFilename.equalsIgnoreCase("imageNumber")) {
-                    return mo.getImageNumber();
+                    return mo.getMediaNumber();
                 }
                 if (Config.downloadImageFilename.equalsIgnoreCase("versionTitle")) {
                     return mo.getVersionTitle();

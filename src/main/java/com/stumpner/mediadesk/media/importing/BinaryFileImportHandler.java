@@ -89,10 +89,10 @@ public class BinaryFileImportHandler implements MediaImportHandler {
 
         if (Config.importImageNumberSerially) {
             logger.debug("Primary-Key als Bildnummer setzen...");
-            imageVersion.setImageNumber(Integer.toString(imageVersion.getIvid()));
+            imageVersion.setMediaNumber(Integer.toString(imageVersion.getIvid()));
         }
 
-        logger.info("Added Media-Object to mediaDESK: "+imageVersion.getImageId()+" Number: "+imageVersion.getImageNumber());
+        logger.info("Added Media-Object to mediaDESK: "+imageVersion.getImageId()+" Number: "+imageVersion.getMediaNumber());
 
         //original image ablegen:
         try {
