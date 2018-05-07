@@ -106,7 +106,7 @@ public class GlobalRequestDataProvider {
             ShoppingCartService shoppingCartService = new ShoppingCartService();
             User user = (User) request.getSession().getAttribute("user");
 
-            lightboxCount = favoriteService.getLightboxUserCount(user.getUserId());
+            lightboxCount = favoriteService.getFavUserCount(user.getUserId());
             shoppingCartCount = shoppingCartService.getShoppingCartUserCount(user.getUserId());
 
             request.setAttribute("showLightbox", lightboxCount>0 || Config.useLightbox ? true : false);

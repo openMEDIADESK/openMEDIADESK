@@ -297,3 +297,4 @@ ALTER TABLE `pin` CHANGE COLUMN `pinpicid` `pinid` INT(11) NOT NULL , CHANGE COL
 ALTER TABLE `mediaobject` CHANGE COLUMN `imagenumber` `medianumber` VARCHAR(255) NOT NULL DEFAULT '' ;
 ALTER TABLE `mediaobject` DROP COLUMN `imageid`, DROP COLUMN `version`, DROP INDEX `imageid_index` ;
 ALTER TABLE `imagemetadata` RENAME TO  `mediametadata` ;
+ALTER TABLE `lightbox` RENAME TO  `fav` ;

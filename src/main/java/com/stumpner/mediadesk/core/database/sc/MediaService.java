@@ -286,7 +286,7 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
             /* Kategorieverknüpfungen lösen: bild(er) aus ordner und kategorien löschen */
             logger.debug("deleteMediaObject: delete image from all categories, folders, lightbox, shoppingcart, inbox");
             folderService.deleteMediaFromAllFolder(mediaObject.getIvid());
-            favoriteService.deleteImageFromAllLightbox(mediaObject.getIvid());
+            favoriteService.deleteMeiaObjectFromAllFavs(mediaObject.getIvid());
             shoppingCartService.deleteImageFromAllShoppingCart(mediaObject.getIvid());
 
             //Medien-Objekt aus MediaObject-Tabelle löschen inkl. Metadaten:

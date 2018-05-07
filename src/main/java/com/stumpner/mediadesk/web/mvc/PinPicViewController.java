@@ -119,19 +119,19 @@ public class PinPicViewController extends AbstractThumbnailViewController {
                 FavoriteService favoriteService = new FavoriteService();
                 if (httpServletRequest.getParameter("lightbox").equals("add")) {
                     //hinzufÃ¼gen
-                    favoriteService.addImageToLightbox(
+                    favoriteService.addMediaToFav(
                             Integer.parseInt((String)httpServletRequest.getParameter("ivid")), user.getUserId()
                     );
                 } else {
                     //lÃ¶schen
-                    favoriteService.removeImageToLightbox(
+                    favoriteService.removeMediaFromFav(
                             Integer.parseInt((String)httpServletRequest.getParameter("ivid")), user.getUserId()
                     );
                 }
             }
         }
 
-        //PaginatedList imageList = lightboxService.getLightboxImagesPaginatedList(user.getUserId(),12);
+        //PaginatedList imageList = lightboxService.getMediaObjectListPaginated(user.getUserId(),12);
         pinService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
         PaginatedList imageList = pinService.getPinpicImagesPaginated(pinId, Config.itemCountPerPage);
 

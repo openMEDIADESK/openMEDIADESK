@@ -168,12 +168,12 @@ public abstract class AbstractMediaActionController extends AbstractMediaSelectC
                 FavoriteService favoriteService = new FavoriteService();
                 if (httpServletRequest.getParameter("lightbox").equals("add")) {
                     //hinzufügen
-                    favoriteService.addImageToLightbox(
+                    favoriteService.addMediaToFav(
                             Integer.parseInt((String)httpServletRequest.getParameter("ivid")), user.getUserId()
                     );
                 } else {
                     //löschen
-                    favoriteService.removeImageToLightbox(
+                    favoriteService.removeMediaFromFav(
                             Integer.parseInt((String)httpServletRequest.getParameter("ivid")), user.getUserId()
                     );
                 }

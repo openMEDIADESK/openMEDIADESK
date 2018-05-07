@@ -100,7 +100,7 @@ public class AutoMediaAssigner {
 
             FavoriteService workspaceService = new FavoriteService();
             //System.out.println("CreatorUserId: "+mediaObject.getCreatorUserId()+" Lightbox: "+ivid);
-            workspaceService.addImageToLightbox(ivid, mediaObject.getCreatorUserId());
+            workspaceService.addMediaToFav(ivid, mediaObject.getCreatorUserId());
         }
 
     }

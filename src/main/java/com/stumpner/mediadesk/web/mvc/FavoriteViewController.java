@@ -59,15 +59,15 @@ public class FavoriteViewController extends AbstractThumbnailAjaxController {
 
             if (httpServletRequest.getParameter("remove").equalsIgnoreCase("selectedMedia")) {
                 if (httpServletRequest.getSession().getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES)!=null) {
-                    favoriteService.removeImagesToLightbox(
+                    favoriteService.removeMediaListFromFav(
                             (List)httpServletRequest.getSession().getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES),
                             user.getUserId());
                     httpServletRequest.getSession().removeAttribute(Resources.SESSIONVAR_SELECTED_IMAGES);
                 }
             } else {
                 //remove all images
-                favoriteService.removeImagesToLightbox(
-                        favoriteService.getLightboxImageList(user.getUserId()),
+                favoriteService.removeMediaListFromFav(
+                        favoriteService.getMediaObjectList(user.getUserId()),
                         user.getUserId()
                 );
             }
@@ -83,17 +83,17 @@ public class FavoriteViewController extends AbstractThumbnailAjaxController {
                     shoppingCartService.addImagesToShoppingCart(
                             (List)httpServletRequest.getSession().getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES),
                             user.getUserId());
-                    favoriteService.removeImagesToLightbox((List)httpServletRequest.getSession().getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES),
+                    favoriteService.removeMediaListFromFav((List)httpServletRequest.getSession().getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES),
                             user.getUserId());
                     httpServletRequest.getSession().removeAttribute(Resources.SESSIONVAR_SELECTED_IMAGES);
                 }
             } else {
                 //alle
                 shoppingCartService.addImagesToShoppingCart(
-                        favoriteService.getLightboxImageList(user.getUserId()),
+                        favoriteService.getMediaObjectList(user.getUserId()),
                         user.getUserId());
-                favoriteService.removeImagesToLightbox(
-                        favoriteService.getLightboxImageList(user.getUserId()),
+                favoriteService.removeMediaListFromFav(
+                        favoriteService.getMediaObjectList(user.getUserId()),
                         user.getUserId());
             }
         }
@@ -115,7 +115,7 @@ public class FavoriteViewController extends AbstractThumbnailAjaxController {
 
     protected int getImageCount(HttpServletRequest request) {
         FavoriteService favoriteService = new FavoriteService();
-        return favoriteService.getLightboxUserCount(getUser(request).getUserId());
+        return favoriteService.getFavUserCount(getUser(request).getUserId());
     }
 
 }

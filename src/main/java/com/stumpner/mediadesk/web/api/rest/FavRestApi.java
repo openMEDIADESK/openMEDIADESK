@@ -88,7 +88,7 @@ public class FavRestApi extends RestBaseServlet {
             System.out.println("list");
             for (MediaObject mo : list) {
                 System.out.println("for");
-                shoppingCartService.removeImageToLightbox(mo.getIvid(), userId);
+                shoppingCartService.removeMediaFromFav(mo.getIvid(), userId);
                 //MediaObjectService.deselectMedia(mo.getIvid(), request);
             }
             MediaObjectService.deselectMedia(null, request);
@@ -101,7 +101,7 @@ public class FavRestApi extends RestBaseServlet {
         } else {
             System.out.println("add image to lightbox");
             int ivid = this.getUriSectionInt(4, request);
-            shoppingCartService.addImageToLightbox(ivid, userId);
+            shoppingCartService.addMediaToFav(ivid, userId);
         }
     }
 
@@ -124,7 +124,7 @@ public class FavRestApi extends RestBaseServlet {
                 System.out.println("list");
                 for (MediaObject mo : list) {
                     System.out.println("for");
-                    shoppingCartService.removeImageToLightbox(mo.getIvid(), user.getUserId());
+                    shoppingCartService.removeMediaFromFav(mo.getIvid(), user.getUserId());
                     //MediaObjectService.deselectMedia(mo.getIvid(), request);
                 }
                 MediaObjectService.deselectMedia(null, request);
@@ -134,7 +134,7 @@ public class FavRestApi extends RestBaseServlet {
             } else {
                 int ivid = this.getUriSectionInt(4, request);
                 FavoriteService shoppingCartService = new FavoriteService();
-                shoppingCartService.removeImageToLightbox(ivid, WebHelper.getUser(request).getUserId());
+                shoppingCartService.removeMediaFromFav(ivid, WebHelper.getUser(request).getUserId());
             }
 
         } else {
@@ -151,7 +151,7 @@ public class FavRestApi extends RestBaseServlet {
 
         FavoriteService shoppingCartService = new FavoriteService();
         shoppingCartService.setUsedLanguage(lngResolver.resolveLng(request));
-        List<MediaObjectMultiLang> imageList = shoppingCartService.getLightboxImageList(getUser(request).getUserId());
+        List<MediaObjectMultiLang> imageList = shoppingCartService.getMediaObjectList(getUser(request).getUserId());
 
 
         try {

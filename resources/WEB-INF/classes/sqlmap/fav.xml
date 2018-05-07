@@ -4,7 +4,7 @@
   PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
   "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
-<sqlMap namespace="Lightbox">
+<sqlMap namespace="Fav">
 
     <resultMap id="mediaList" class="com.stumpner.mediadesk.media.MediaObjectMultiLang">
         <result property="ivid" column="ivid"/>
@@ -53,32 +53,32 @@
         <result property="mimeType" column="mimetype"/>
         <result property="extention" column="extention"/>
     </resultMap>
-    <select id="getLightboxImageList" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="mediaList" >
+    <select id="getFavMediaList" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="mediaList" >
         SELECT
             <include refid="mediaObjectFields"/>
                  , '$usedLanguage$' as usedLanguage
-        FROM lightbox
-        INNER JOIN mediaobject ON lightbox.ivid = mediaobject.ivid
-        WHERE lightbox.userid = #id#
+        FROM fav
+        INNER JOIN mediaobject ON fav.ivid = mediaobject.ivid
+        WHERE fav.userid = #id#
     </select>
 
-    <select id="getLightboxUserCount" parameterClass="int" resultClass="int">
-        SELECT count(ivid) FROM lightbox WHERE userid = #value#
+    <select id="getFavUserCount" parameterClass="int" resultClass="int">
+        SELECT count(ivid) FROM fav WHERE userid = #value#
     </select>
 
-    <insert id="addImageToLightbox" parameterClass="com.stumpner.mediadesk.media.FavoriteMediaDescriptor">
-        INSERT INTO lightbox
+    <insert id="addMediaToFav" parameterClass="com.stumpner.mediadesk.media.FavoriteMediaDescriptor">
+        INSERT INTO fav
             (userid,ivid)
             VALUES (#userId#,#ivid#)
     </insert>
 
-    <delete id="removeImageFromLightbox" parameterClass="com.stumpner.mediadesk.media.FavoriteMediaDescriptor">
-        DELETE FROM lightbox
+    <delete id="removeMediaFromFav" parameterClass="com.stumpner.mediadesk.media.FavoriteMediaDescriptor">
+        DELETE FROM fav
         WHERE userid = #userId# AND ivid = #ivid#
     </delete>
     
-    <delete id="removeImageFromAllLightbox" parameterClass="int">
-        DELETE FROM lightbox
+    <delete id="removeMediaFromAllFavs" parameterClass="int">
+        DELETE FROM fav
         WHERE ivid = #value#
     </delete>
 

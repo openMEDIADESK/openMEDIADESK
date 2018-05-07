@@ -71,12 +71,12 @@ public abstract class AbstractMediaPreviewController extends AbstractPageControl
                 User user = (User)session.getAttribute("user");
                 if (httpServletRequest.getParameter("lightbox").equals("add")) {
                     //hinzufügen
-                    favoriteService.addImageToLightbox(
+                    favoriteService.addMediaToFav(
                             Integer.parseInt((String)httpServletRequest.getParameter("id")), user.getUserId()
                     );
                 } else {
                     //löschen
-                    favoriteService.removeImageToLightbox(
+                    favoriteService.removeMediaFromFav(
                             Integer.parseInt((String)httpServletRequest.getParameter("id")), user.getUserId()
                     );
                 }
@@ -122,7 +122,7 @@ public abstract class AbstractMediaPreviewController extends AbstractPageControl
         if (httpServletRequest.getSession().getAttribute("user")!=null) {
             User user = (User) httpServletRequest.getSession().getAttribute("user");
 
-            List lightboxList = favoriteService.getLightboxImageList(user.getUserId());
+            List lightboxList = favoriteService.getMediaObjectList(user.getUserId());
             Iterator lightboxImages = lightboxList.iterator();
             while (lightboxImages.hasNext()) {
                 MediaObject lightboxImage = (MediaObject) lightboxImages.next();
