@@ -296,3 +296,4 @@ ALTER TABLE `pinholder` CHANGE COLUMN `pinpicid` `pinid` INT(11) NOT NULL DEFAUL
 ALTER TABLE `pin` CHANGE COLUMN `pinpicid` `pinid` INT(11) NOT NULL , CHANGE COLUMN `pinpictitle` `pintitle` VARCHAR(100) NOT NULL , CHANGE COLUMN `pinpicname` `pinname` VARCHAR(100) NOT NULL ;
 ALTER TABLE `mediaobject` CHANGE COLUMN `imagenumber` `medianumber` VARCHAR(255) NOT NULL DEFAULT '' ;
 ALTER TABLE `mediaobject` DROP COLUMN `imageid`, DROP COLUMN `version`, DROP INDEX `imageid_index` ;
+ALTER TABLE `imagemetadata` RENAME TO  `mediametadata` ;

@@ -51,7 +51,7 @@ public class MediaMetadataService {
         List metadataList = new LinkedList();
 
         try {
-            metadataList = smc.queryForList("getImageMetadata",new Integer(ivid));
+            metadataList = smc.queryForList("getMediaMetadata",new Integer(ivid));
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -110,7 +110,7 @@ public class MediaMetadataService {
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
 
         try {
-            smc.insert("addImageMetadata",metadata);
+            smc.insert("addMediaMetadata",metadata);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -122,7 +122,7 @@ public class MediaMetadataService {
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
 
         try {
-            smc.update("saveImageMetadata",metadata);
+            smc.update("saveMediaMetadata",metadata);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -134,7 +134,7 @@ public class MediaMetadataService {
         SqlMapClient smc = AppSqlMap.getSqlMapInstance();
 
         try {
-            smc.delete("deleteAllImageMetadataFromIvid",new Integer(ivid));
+            smc.delete("deleteAllMetadataFromIvid",new Integer(ivid));
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

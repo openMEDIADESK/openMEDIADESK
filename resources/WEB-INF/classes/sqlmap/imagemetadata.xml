@@ -4,9 +4,9 @@
   PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
   "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
-<sqlMap namespace="Imagemetadata">
+<sqlMap namespace="Mediametadata">
 
-    <resultMap id="imagemetadataList" class="com.stumpner.mediadesk.media.Metadata">
+    <resultMap id="mediametadataList" class="com.stumpner.mediadesk.media.Metadata">
         <result property="imdid" column="imdid"/>
         <result property="metaKey" column="metakey"/>
         <result property="metaValue" column="metaValue"/>
@@ -14,20 +14,20 @@
         <result property="lang" column="lang"/>
         <result property="ivid" column="ivid"/>
     </resultMap>
-    <select id="getImageMetadata" parameterClass="int" resultMap="imagemetadataList">
+    <select id="getMediaMetadata" parameterClass="int" resultMap="mediametadataList">
         SELECT *
-        FROM imagemetadata
+        FROM mediametadata
         WHERE ivid = #value#
     </select>
 
-    <insert id="addImageMetadata" parameterClass="com.stumpner.mediadesk.media.Metadata">
+    <insert id="addMediaMetadata" parameterClass="com.stumpner.mediadesk.media.Metadata">
         INSERT INTO
-        imagemetadata (metakey,metavalue,exiftag,lang,ivid)
+        mediametadata (metakey,metavalue,exiftag,lang,ivid)
         VALUES (#metaKey#,#metaValue#,#exifTag#,#lang#,#ivid#)
     </insert>
 
-    <update id="saveImageMetadata" parameterClass="com.stumpner.mediadesk.media.Metadata">
-        UPDATE imagemetadata
+    <update id="saveMediaMetadata" parameterClass="com.stumpner.mediadesk.media.Metadata">
+        UPDATE mediametadata
         SET metakey = #metaKey#,
             metavalue = #metaValue#,
             exiftag = #exifTag#,
@@ -36,7 +36,7 @@
     </update>
 
     <delete id="deleteAllMetadataFromIvid" parameterClass="int">
-        DELETE FROM imagemetadata WHERE ivid = #value#
+        DELETE FROM mediametadata WHERE ivid = #value#
     </delete>
 
 </sqlMap>
