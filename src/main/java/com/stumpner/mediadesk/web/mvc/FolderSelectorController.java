@@ -174,7 +174,7 @@ public class FolderSelectorController extends SimpleFormControllerMd {
         FolderSelection folderSelection = (FolderSelection)o;
         for (SelectableFolder category : folderSelection.getCategoryList()) {
             if (category.isSelected()) {
-                //System.out.println("Selected: "+folder.getFolder().getCategoryId());
+                //System.out.println("Selected: "+folder.getFolder().getFolderId());
 
                 /**
                  * Kategorie-Inhalte einem PIN zuweisen
@@ -183,7 +183,7 @@ public class FolderSelectorController extends SimpleFormControllerMd {
                 if (folderSelection.getType().equalsIgnoreCase("PIN")) {
                     PinService pinService = new PinService();
                     int pinId = ((Integer)httpServletRequest.getSession().getAttribute("pinid")).intValue();
-                    SimpleLoaderClass slc = new SimpleLoaderClass(category.getFolder().getCategoryId());
+                    SimpleLoaderClass slc = new SimpleLoaderClass(category.getFolder().getFolderId());
                     List mediaList = mediaService.getFolderMediaObjects(slc);
                     Iterator mediaObjects = mediaList.iterator();
                     while (mediaObjects.hasNext()) {
@@ -207,10 +207,10 @@ public class FolderSelectorController extends SimpleFormControllerMd {
                     //Hat Zugriff
                     if (category.isSelected()) {
                         //nichts �ndern
-                        System.out.println("nichts tun (hatte bereits zugriff)"+category.getFolder().getCategoryId());
+                        System.out.println("nichts tun (hatte bereits zugriff)"+category.getFolder().getFolderId());
                     } else {
                         //zugriff entfernen
-                        System.out.println("Zugriff entfernen: "+category.getFolder().getCategoryId());
+                        System.out.println("Zugriff entfernen: "+category.getFolder().getFolderId());
                         acl.removePermission(securityGroup, permission);
                         if (permission.getAction().equalsIgnoreCase("read")) {
                             acl.removePermission(securityGroup, new AclPermission("view"));
@@ -222,7 +222,7 @@ public class FolderSelectorController extends SimpleFormControllerMd {
                     //Hat nicht Zugriff
                     if (category.isSelected()) {
                         //zugriff geben
-                        System.out.println("Zugriff geben (hatte nicht)"+category.getFolder().getCategoryId());
+                        System.out.println("Zugriff geben (hatte nicht)"+category.getFolder().getFolderId());
                         //acl.removePermission(securityGroup,  new AclPermission("view")); //eventuell existierende view berechtigungen entfernen
                         acl.addPermission(securityGroup, permission);
                         if (permission.getAction().equalsIgnoreCase("read")) {
@@ -233,7 +233,7 @@ public class FolderSelectorController extends SimpleFormControllerMd {
                         AclController.setAcl(category.getFolder(),acl);
                     } else {
                         //nichts �ndern
-                        System.out.println("Hatte keinen Zugriff, braucht auch keinen: "+category.getFolder().getCategoryId());
+                        System.out.println("Hatte keinen Zugriff, braucht auch keinen: "+category.getFolder().getFolderId());
                     }
                 }
             }

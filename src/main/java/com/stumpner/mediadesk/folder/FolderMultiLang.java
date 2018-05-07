@@ -34,8 +34,8 @@ public class FolderMultiLang extends Folder implements IMultiLangObject, AccessO
     private static final int ACL_TYPE_ID = 12;
 
     int usedLanguage = 0;
-    String catTitleLng1 = "";
-    String catTitleLng2 = "";
+    String folderTitleLng1 = "";
+    String folderTitleLng2 = "";
     String descriptionLng1 = "";
     String descriptionLng2 = "";
 
@@ -49,12 +49,12 @@ public class FolderMultiLang extends Folder implements IMultiLangObject, AccessO
         return this.usedLanguage;
     }
 
-    public String getCatTitle() {
+    public String getFolderTitle() {
 
         switch (getUsedLanguage()) {
-            case MultiLanguageService.LNG1: return getCatTitleLng1();
-            case MultiLanguageService.LNG2: return getCatTitleLng2();
-            default: return super.getCatTitle();
+            case MultiLanguageService.LNG1: return getFolderTitleLng1();
+            case MultiLanguageService.LNG2: return getFolderTitleLng2();
+            default: return super.getFolderTitle();
         }
     }
 
@@ -67,20 +67,20 @@ public class FolderMultiLang extends Folder implements IMultiLangObject, AccessO
         }
     }
 
-    public String getCatTitleLng1() {
-        return catTitleLng1;
+    public String getFolderTitleLng1() {
+        return folderTitleLng1;
     }
 
-    public void setCatTitleLng1(String catTitleLng1) {
-        this.catTitleLng1 = catTitleLng1;
+    public void setFolderTitleLng1(String folderTitleLng1) {
+        this.folderTitleLng1 = folderTitleLng1;
     }
 
-    public String getCatTitleLng2() {
-        return catTitleLng2;
+    public String getFolderTitleLng2() {
+        return folderTitleLng2;
     }
 
-    public void setCatTitleLng2(String catTitleLng2) {
-        this.catTitleLng2 = catTitleLng2;
+    public void setFolderTitleLng2(String folderTitleLng2) {
+        this.folderTitleLng2 = folderTitleLng2;
     }
 
     public String getDescriptionLng1() {
@@ -100,7 +100,7 @@ public class FolderMultiLang extends Folder implements IMultiLangObject, AccessO
     }
 
     public int getAccessObjectSerialId() {
-        return this.getCategoryId();
+        return this.getFolderId();
     }
 
     public int getAccessObjectTypeId() {

@@ -45,7 +45,7 @@
     <form method="post" action="<c:url value="/${lng}/folderselector"/>">
 
     <c:forEach items="${command.folderList}" var="listElement" varStatus="stat">
-        <spring:bind path="command.folderList[${stat.index}].folder.categoryId">
+        <spring:bind path="command.folderList[${stat.index}].folder.folderId">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="name">Ordner ID</label>
         <input type="text" class="form-control input-sm" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>">

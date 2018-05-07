@@ -9,7 +9,7 @@ import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.DublicateEntry;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass;
-import com.stumpner.mediadesk.core.database.sc.loader.LastImagesLoaderClass;
+import com.stumpner.mediadesk.core.database.sc.loader.LastMediaLoaderClass;
 import com.stumpner.mediadesk.core.database.sc.loader.DateLoaderClass;
 import com.stumpner.mediadesk.core.Config;
 import com.stumpner.mediadesk.usermanagement.User;
@@ -129,7 +129,7 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         List imageList = null;
 
-        LastImagesLoaderClass loaderClass = new LastImagesLoaderClass();
+        LastMediaLoaderClass loaderClass = new LastMediaLoaderClass();
         loaderClass.setSortBy(Config.sortByLatest);
         loaderClass.setCount(count);
         loaderClass.setUsedLanguage(getUsedLanguage());
@@ -149,7 +149,7 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         List imageList = null;
 
-        LastImagesLoaderClass loaderClass = new LastImagesLoaderClass();
+        LastMediaLoaderClass loaderClass = new LastMediaLoaderClass();
         loaderClass.setSortBy(Config.sortByLatest);
         loaderClass.setCount(count);
         loaderClass.setUsedLanguage(getUsedLanguage());

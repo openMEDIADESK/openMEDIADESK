@@ -37,9 +37,9 @@ public class Folder implements AccessObject {
     public static final int VIEW_THUMBNAILS = 1;
     public static final int VIEW_LIST = 2;
 
-    private int categoryId = -1;
-    private String catTitle = "";
-    private String catName = "";
+    private int folderId = -1;
+    private String folderTitle = "";
+    private String folderName = "";
     private String description = "";
     private int parent = 0;
     int sortBy = 0;
@@ -63,28 +63,28 @@ public class Folder implements AccessObject {
     private boolean childInheritAcl = false;
     private boolean protectedAcl = false;
 
-    public int getCategoryId() {
-        return categoryId;
+    public int getFolderId() {
+        return folderId;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setFolderId(int folderId) {
+        this.folderId = folderId;
     }
 
-    public String getCatTitle() {
-        return catTitle;
+    public String getFolderTitle() {
+        return folderTitle;
     }
 
-    public void setCatTitle(String catTitle) {
-        this.catTitle = catTitle;
+    public void setFolderTitle(String folderTitle) {
+        this.folderTitle = folderTitle;
     }
 
-    public String getCatName() {
-        return catName;
+    public String getFolderName() {
+        return folderName;
     }
 
-    public void setCatName(String catName) {
-        this.catName = NameValidator.normalize(catName);
+    public void setFolderName(String folderName) {
+        this.folderName = NameValidator.normalize(folderName);
     }
 
     public String getDescription() {
@@ -128,7 +128,7 @@ public class Folder implements AccessObject {
     }
 
     public int getAclObjectSerialId() {
-        return getCategoryId();  //To change body of implemented methods use File | Settings | File Templates.
+        return getFolderId();  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public int getAclObjectTypeId() {

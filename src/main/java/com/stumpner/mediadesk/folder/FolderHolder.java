@@ -27,15 +27,15 @@ package com.stumpner.mediadesk.folder;
  */
 public class FolderHolder {
 
-    private int categoryId = -1;
+    private int folderId = -1;
     private int ivid = -1;
 
-    public int getCategoryId() {
-        return categoryId;
+    public int getFolderId() {
+        return folderId;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setFolderId(int folderId) {
+        this.folderId = folderId;
     }
 
     public int getIvid() {

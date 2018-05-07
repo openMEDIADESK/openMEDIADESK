@@ -20,8 +20,8 @@ public class BreadCrumbItem {
         if (obj instanceof Folder) {
             Folder folder = (Folder)obj;
             url = "/index/cat";
-            id = folder.getCategoryId();
-            title = folder.getCatTitle();
+            id = folder.getFolderId();
+            title = folder.getFolderTitle();
             showFolder = true;
         }
     }

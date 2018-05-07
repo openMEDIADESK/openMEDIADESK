@@ -47,7 +47,7 @@
         <div class="row">
 
             <div class="col-xs-1">
-        <spring:bind path="command.folderList[${stat.index}].folder.categoryId">
+        <spring:bind path="command.folderList[${stat.index}].folder.folderId">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <!--<label for="name">Ordner ID</label>-->
             <c:if test="${listElement.folder.parent!=0}">&nbsp;</c:if>
@@ -58,7 +58,7 @@
             </div>
 
             <div class="col-xs-7">
-        <spring:bind path="command.folderList[${stat.index}].folder.catName">
+        <spring:bind path="command.folderList[${stat.index}].folder.folderName">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <input type="text" class="form-control input-sm" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" readonly="true">
         </div>

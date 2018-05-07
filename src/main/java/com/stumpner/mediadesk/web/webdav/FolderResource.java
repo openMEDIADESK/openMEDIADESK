@@ -71,17 +71,17 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
         this.folder = folder;
         this.resourceFactory = resourceFactory;
 
-        this.id = folder.getCategoryId();
-        this.categoryName = folder.getCatName();
+        this.id = folder.getFolderId();
+        this.categoryName = folder.getFolderName();
 
         FolderService folderService = new FolderService();
-        categoryList = folderService.getFolderList(folder.getCategoryId());
+        categoryList = folderService.getFolderList(folder.getFolderId());
     }
 
     public FolderResource(WebdavResourceFactory resourceFactory, String categoryPath) {
         folder = new FolderMultiLang();
-        folder.setCatName("root");
-        folder.setCategoryId(0);
+        folder.setFolderName("root");
+        folder.setFolderId(0);
         this.resourceFactory = resourceFactory;
         this.id = 0;
         this.categoryName = "root";
@@ -91,8 +91,8 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
         if (!categoryPath.equalsIgnoreCase("")) {
             try {
                 Folder folder = folderService.getFolderByPath(categoryPath);
-                this.id = folder.getCategoryId();
-                this.categoryName = folder.getCatName();
+                this.id = folder.getFolderId();
+                this.categoryName = folder.getFolderName();
             } catch (ObjectNotFoundException e) {
                 System.err.println("Pfad: "+categoryPath+" nicht gefunden");
             }
@@ -141,13 +141,13 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
     }
 
     public Resource child(String s) {
-        System.out.println("Webdav FolderResource.child: [string="+s+"]  ,categoryid="+ folder.getCategoryId()+",name="+ folder.getCatName());
+        System.out.println("Webdav FolderResource.child: [string="+s+"]  ,categoryid="+ folder.getFolderId()+",name="+ folder.getFolderName());
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public List<? extends Resource> getChildren() {
 
-        System.out.println("Webdav FolderResource.getChildren: ,categoryid="+ folder.getCategoryId()+",name="+ folder.getCatName());
+        System.out.println("Webdav FolderResource.getChildren: ,categoryid="+ folder.getFolderId()+",name="+ folder.getFolderName());
 
         List<Resource> list = new LinkedList<Resource>();
         AclFolderService categoryService = new AclFolderService(aclCtx);
@@ -157,7 +157,7 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
         
         //Home bzw Mandanten-Kategorie pr�fen: OB NUR HOME_DIR angezeigt werden sol
         if (Config.homeCategoryId!=-1) {
-            if (folder.getCategoryId()==0) {
+            if (folder.getFolderId()==0) {
                 //Aktuelle Kategorie = ROOT
                 if (user.getHomeCategoryId()!=-1) {
                     //Benutzer hat eine Home-Kategorie
@@ -175,13 +175,13 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
                     }
                 }
             }
-            if (folder.getCategoryId()==Config.homeCategoryId) {
+            if (folder.getFolderId()==Config.homeCategoryId) {
                 //Aktuelle Kategorie = Home-Categorie Container, nur die Home-Kategorie des aktuellen Users anzeigen
                 if (user.getHomeCategoryId()!=-1) {
                     if (Config.homeCategoryAsRoot) {
                         //Soll als Root angezeigt werden, daher nur Config.homeCategoryId anzeigen
                         try {
-                            List<Folder> folderList = categoryService.getFolderSubTree(folder.getCategoryId(),0);
+                            List<Folder> folderList = categoryService.getFolderSubTree(folder.getFolderId(),0);
                             for (Folder catListElem : folderList) {
                                 list.add(new FolderResource(resourceFactory, catListElem));
                             }
@@ -197,9 +197,9 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
         }
 
 
-        //categoryList = categoryService.getFolderList(folder.getCategoryId());
+        //categoryList = categoryService.getFolderList(folder.getFolderId());
         try {
-            categoryList = categoryService.getFolderSubTree(folder.getCategoryId(),0);
+            categoryList = categoryService.getFolderSubTree(folder.getFolderId(),0);
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (IOServiceException e) {
@@ -233,7 +233,7 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
         //    return null;
         //}
 
-        System.out.println("Webdav FolderResource.createNew: ["+newName+",length="+length+",contentType="+contentType+"] ,catid="+ folder.getCategoryId()+",catname="+ folder.getCatName());
+        System.out.println("Webdav FolderResource.createNew: ["+newName+",length="+length+",contentType="+contentType+"] ,catid="+ folder.getFolderId()+",catname="+ folder.getFolderName());
 
         int ivid = -1;
         int overwrittenIvId = -1;
@@ -259,7 +259,7 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
                         }
                     } else {
                         overwrittenIvId = res.getMediaObject().getIvid();
-                        folderService.deleteMediaFromFolder(folder.getCategoryId(),res.getMediaObject().getIvid());
+                        folderService.deleteMediaFromFolder(folder.getFolderId(),res.getMediaObject().getIvid());
                     }
 
                     //return null;
@@ -282,7 +282,7 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
             //EmptyMediaObject anlegen dass dann �berschrieben werden kann
             MediaObjectMultiLang media = createEmptyMediaObject(newName);
             try {
-                folderService.addMediaToFolder(folder.getCategoryId(),media.getIvid());
+                folderService.addMediaToFolder(folder.getFolderId(),media.getIvid());
             } catch (DublicateEntry dublicateEntry) {
                 dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
@@ -321,7 +321,7 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
                 File file = new File(Config.getTempPath()+File.separator+olFileName);
                 file.delete();
 
-                folderService.addMediaToFolder(folder.getCategoryId(),ivid);
+                folderService.addMediaToFolder(folder.getFolderId(),ivid);
 
             }  catch (MimeTypeNotSupportedException e) {
                 System.out.println("Diese Datei wird nicht unterst�tzt");
@@ -364,9 +364,9 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
         FolderService folderService = new FolderService();
         List<Folder> linkedFolderList = folderService.getFolderListFromImageVersion(overwrittenIvId);
         for (Folder linkedCat : linkedFolderList) {
-            folderService.deleteMediaFromFolder(linkedCat.getCategoryId(), overwrittenIvId);
+            folderService.deleteMediaFromFolder(linkedCat.getFolderId(), overwrittenIvId);
             try {
-                folderService.addMediaToFolder(linkedCat.getCategoryId(), media.getIvid());
+                folderService.addMediaToFolder(linkedCat.getFolderId(), media.getIvid());
             } catch (DublicateEntry dublicateEntry) {
                 dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
@@ -433,17 +433,17 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
         FolderService folderService = new FolderService();
         boolean isCreateAllowed = true;
 
-        //if (user.getRole()==User.ROLE_HOME_EDITOR) { isCreateAllowed = folderService.isCanModifyFolder(user,folder.getCategoryId()); }
+        //if (user.getRole()==User.ROLE_HOME_EDITOR) { isCreateAllowed = folderService.isCanModifyFolder(user,folder.getFolderId()); }
         //if (user.getRole()>=User.ROLE_MASTEREDITOR) { isCreateAllowed = true; } //Erst ab Rolle Editor darf jemand neue Objekte anlegen
 
         if (isCreateAllowed) {
 
             FolderMultiLang newCategory = new FolderMultiLang();
-            newCategory.setParent(folder.getCategoryId());
-            newCategory.setCatName(s);
-            newCategory.setCatTitle(s);
-            newCategory.setCatTitleLng1(s);
-            newCategory.setCatTitleLng2(s);
+            newCategory.setParent(folder.getFolderId());
+            newCategory.setFolderName(s);
+            newCategory.setFolderTitle(s);
+            newCategory.setFolderTitleLng1(s);
+            newCategory.setFolderTitleLng2(s);
 
             try {
                 folderService.addFolder(newCategory);
@@ -463,7 +463,7 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
         FolderService folderService = new FolderService();
         boolean isMoveAllowed = true;
 
-        //if (user.getRole()==User.ROLE_HOME_EDITOR) { isMoveAllowed = folderService.isCanModifyFolder(user,folder.getCategoryId()); }
+        //if (user.getRole()==User.ROLE_HOME_EDITOR) { isMoveAllowed = folderService.isCanModifyFolder(user,folder.getFolderId()); }
         //if (user.getRole()>=User.ROLE_MASTEREDITOR) { isMoveAllowed = true; } //Erst ab Rolle Editor darf jemand neue Objekte anlegen
 
         if (isMoveAllowed) {
@@ -472,17 +472,17 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
 
                 try {
                     //Umbenennen
-                    FolderMultiLang categoryML = (FolderMultiLang) folderService.getFolderById(folder.getCategoryId());
-                    if (categoryML.getCatTitle().equalsIgnoreCase(folder.getCatName())) {
-                        categoryML.setCatTitle(s);
+                    FolderMultiLang categoryML = (FolderMultiLang) folderService.getFolderById(folder.getFolderId());
+                    if (categoryML.getFolderTitle().equalsIgnoreCase(folder.getFolderName())) {
+                        categoryML.setFolderTitle(s);
                     }
-                    if (categoryML.getCatTitleLng1().equalsIgnoreCase(folder.getCatName())) {
-                        categoryML.setCatTitleLng1(s);
+                    if (categoryML.getFolderTitleLng1().equalsIgnoreCase(folder.getFolderName())) {
+                        categoryML.setFolderTitleLng1(s);
                     }
-                    if (categoryML.getCatTitleLng2().equalsIgnoreCase(folder.getCatName())) {
-                        categoryML.setCatTitleLng2(s);
+                    if (categoryML.getFolderTitleLng2().equalsIgnoreCase(folder.getFolderName())) {
+                        categoryML.setFolderTitleLng2(s);
                     }
-                    categoryML.setCatName(s);
+                    categoryML.setFolderName(s);
 
                     folderService.save(categoryML);
                 } catch (IOServiceException e) {
@@ -509,7 +509,7 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
         //if (user.getRole()>=User.ROLE_MASTEREDITOR) { //Erst ab Rolle Editor darf jemand neue Objekte anlegen
             FolderService folderService = new FolderService();
             try {
-                folderService.deleteById(folder.getCategoryId());
+                folderService.deleteById(folder.getFolderId());
             } catch (IOServiceException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }

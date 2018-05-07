@@ -64,7 +64,7 @@ public class MediaObjectResource implements FileResource {
     }
 
     public void copyTo(CollectionResource collectionResource, String s) {
-        System.out.println("Webdav copyTo Request: ["+media.getVersionName()+"] linkedFolder="+ linkedFolder.getCategoryId()+" - NOT IMPLEMENTED");
+        System.out.println("Webdav copyTo Request: ["+media.getVersionName()+"] linkedFolder="+ linkedFolder.getFolderId()+" - NOT IMPLEMENTED");
     }
 
     public String getUniqueId() {
@@ -110,22 +110,22 @@ public class MediaObjectResource implements FileResource {
     }
 
     public String checkRedirect(Request request) {
-        System.out.println("Webdav checkRedirect Request: ["+media.getVersionName()+"] linkedFolder="+ linkedFolder.getCategoryId()+"");
+        System.out.println("Webdav checkRedirect Request: ["+media.getVersionName()+"] linkedFolder="+ linkedFolder.getFolderId()+"");
         return null;
     }
 
     public void delete() {
 
         if (user.getRole()>=User.ROLE_EDITOR) { //Erst ab Rolle Editor darf jemand neue Objekte anlegen
-            System.out.println("Webdav Delete Request: ["+media.getVersionName()+"] linkedFolder="+ linkedFolder.getCategoryId());
+            System.out.println("Webdav Delete Request: ["+media.getVersionName()+"] linkedFolder="+ linkedFolder.getFolderId());
             FolderService folderService = new FolderService();
-            folderService.deleteMediaFromFolder(linkedFolder.getCategoryId(),media.getIvid());
+            folderService.deleteMediaFromFolder(linkedFolder.getFolderId(),media.getIvid());
         }
     }
 
     public void sendContent(OutputStream outputStream, Range range, Map<String, String> stringStringMap, String s) throws IOException, NotAuthorizedException, BadRequestException {
 
-        System.out.println("Webdav sendContent Request: ["+media.getVersionName()+"] linkedFolder="+ linkedFolder.getCategoryId()+"");
+        System.out.println("Webdav sendContent Request: ["+media.getVersionName()+"] linkedFolder="+ linkedFolder.getFolderId()+"");
         String filename = Config.imageStorePath+"/"+media.getIvid()+"_0";
 
         InputStream is = new BufferedInputStream(new FileInputStream(new File(filename)));
@@ -181,7 +181,7 @@ public class MediaObjectResource implements FileResource {
             int moveToCategoryId = Integer.parseInt(collectionResource.getUniqueId());
             MediaService mediaService = new MediaService();
             FolderService folderService = new FolderService();
-            if (linkedFolder.getCategoryId()==moveToCategoryId) {
+            if (linkedFolder.getFolderId()==moveToCategoryId) {
                 //Umbenennen
                 if (media.getVersionTitle().equalsIgnoreCase(media.getVersionName())) {
                     media.setVersionTitle(s);
@@ -211,7 +211,7 @@ public class MediaObjectResource implements FileResource {
 
         }
 
-        System.out.println("Webdav moveTo Request: ["+media.getVersionName()+"] linkedFolder="+ linkedFolder.getCategoryId()+" - NOT IMPLEMENTED");
+        System.out.println("Webdav moveTo Request: ["+media.getVersionName()+"] linkedFolder="+ linkedFolder.getFolderId()+" - NOT IMPLEMENTED");
     }
 
     public String processForm(Map<String, String> stringStringMap, Map<String, FileItem> stringFileItemMap) throws BadRequestException, NotAuthorizedException {

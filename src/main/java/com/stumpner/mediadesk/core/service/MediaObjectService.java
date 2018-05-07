@@ -79,7 +79,7 @@ public class MediaObjectService {
                     FolderService folderService = new FolderService();
                     Folder folder = folderService.getFolderById(folderId);
                     fromMap.put(imageVersion, folder);
-                    logger.debug("selectMedia: Herkunfts-Containterobject: "+ folder.getCategoryId()+" saved");
+                    logger.debug("selectMedia: Herkunfts-Containterobject: "+ folder.getFolderId()+" saved");
                 } catch (ObjectNotFoundException e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 } catch (IOServiceException e) {

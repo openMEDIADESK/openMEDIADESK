@@ -107,7 +107,7 @@ public class PinPicViewController extends AbstractThumbnailViewController {
         LngResolver lngResolver = new LngResolver();
         pinService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
         Folder folder = new Folder();
-        folder.setCatTitle("Pin");
+        folder.setFolderTitle("Pin");
         User user = (User)httpServletRequest.getSession().getAttribute("user");
 
         if (httpServletRequest.getParameter("lightbox")!=null) {

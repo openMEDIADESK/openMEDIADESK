@@ -141,13 +141,13 @@ public class MaintenanceService {
                 }
             }
 
-            this.resetAclState = "In Arbeit: Ordner ACL "+cat.getCategoryId()+" wird zur�ckgesetzt...";
+            this.resetAclState = "In Arbeit: Ordner ACL "+cat.getFolderId()+" wird zur�ckgesetzt...";
 
-            System.out.println("In Arbeit: Ordner ACL "+cat.getCategoryId()+" wird zur�ckgesetzt...");
+            System.out.println("In Arbeit: Ordner ACL "+cat.getFolderId()+" wird zur�ckgesetzt...");
 
             AclController.setAcl(cat, acl);
             AclEditController.renewFolderPublicProtectedStatus(cat);
-            setResetAcl(cat.getCategoryId(), folderService, securityGroupList);
+            setResetAcl(cat.getFolderId(), folderService, securityGroupList);
         }
 
     }

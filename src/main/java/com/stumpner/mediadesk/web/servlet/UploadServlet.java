@@ -388,10 +388,10 @@ public class UploadServlet extends HttpServlet {
                 /*Kategorie existiert noch nicht --> neue erstellen*/
                 category = new FolderMultiLang();
                 category.setParent(0);
-                category.setCatName(categoryName);
-                category.setCatTitle(categoryName);
-                category.setCatTitleLng1(categoryName);
-                category.setCatTitleLng2(categoryName);
+                category.setFolderName(categoryName);
+                category.setFolderTitle(categoryName);
+                category.setFolderTitleLng1(categoryName);
+                category.setFolderTitleLng2(categoryName);
                 category.setDescription("Autoimport");
                 try {
                     folderService.addFolder(category);
@@ -425,7 +425,7 @@ public class UploadServlet extends HttpServlet {
             } else {
                 // Root Folder
                 Folder c = new FolderMultiLang();
-                c.setCategoryId(0);
+                c.setFolderId(0);
                 autoImportObject = c;
             }
         }

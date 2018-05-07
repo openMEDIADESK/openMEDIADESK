@@ -132,8 +132,8 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
                 folder = folderService.getFolderById(id);
                 request.setAttribute("folder", folder);
             } else {
-                folder.setCategoryId(0);
-                folder.setCatTitle("");
+                folder.setFolderId(0);
+                folder.setFolderTitle("");
                 folder.setDescription("");
                 folder.setDefaultview(Config.categoryDefaultViewOnRoot);
                 request.setAttribute("folder", folder);
@@ -154,13 +154,13 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
 
         if (Config.podcastEnabled) {
             request.setAttribute("podcastEnabled",new Boolean(true));
-            request.setAttribute("podcastUrl","/rss/podcast/folder/"+ folder.getCategoryId());
+            request.setAttribute("podcastUrl","/rss/podcast/folder/"+ folder.getFolderId());
         } else {
             request.setAttribute("podcastEnabled",new Boolean(false));
         }
 
         //Für die Sharer Links
-        request.setAttribute("sharerTitle", URLEncoder.encode(folder.getCatTitle(),"UTF-8"));
+        request.setAttribute("sharerTitle", URLEncoder.encode(folder.getFolderTitle(),"UTF-8"));
 
         try {
             parentFolderList = folderService.getParentFolderList(id);
@@ -221,14 +221,14 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
         /* Kategorien laden und in das Model speichern */
         request.setAttribute("parentFolderList",parentFolderList);
         request.setAttribute("folderPathArray",getFolderPathArray(parentFolderList));
-        request.setAttribute("folderId", folder.getCategoryId());
+        request.setAttribute("folderId", folder.getFolderId());
         request.setAttribute("folderList",folderListTree);
         //todo: auslagern in AbstractThumbnailViewController
         request.setAttribute("showSorter",new Boolean(showSorter));
         request.setAttribute("showInsertUrl",new Boolean(isShowInsertUrl(request)));
         request.setAttribute("showRemoveUrl",new Boolean(isShowRemoveUrl(request)));
 
-        request.setAttribute("webSiteTitle", folder.getCatTitle());
+        request.setAttribute("webSiteTitle", folder.getFolderTitle());
 
         putOpenGraphDataAttributes(request);
 
@@ -287,7 +287,7 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
             Folder c = (Folder)request.getAttribute("folder");
             og.put("url",WebHelper.getServerNameUrlPathWithQueryString(request));
             og.put("type","article");
-            og.put("title",c.getCatTitle());
+            og.put("title",c.getFolderTitle());
             og.put("description",c.getDescription());
             og.put("site_name",Config.webTitle);
             if (c.getPrimaryIvid()>0) {
@@ -305,7 +305,7 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
         for (int a=0;a<parentFolderList.size();a++) {
             if (a>0) { sb = sb.append(","); }
             FolderMultiLang folder = (FolderMultiLang)parentFolderList.get(a);
-            sb = sb.append(folder.getCategoryId());
+            sb = sb.append(folder.getFolderId());
         }
         sb = sb.append("]");
         return sb.toString();
@@ -374,7 +374,7 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
             }
         } else {
             //"Hauptordner = 0"
-            folder.setCategoryId(0);
+            folder.setFolderId(0);
         }
         return folder;
     }

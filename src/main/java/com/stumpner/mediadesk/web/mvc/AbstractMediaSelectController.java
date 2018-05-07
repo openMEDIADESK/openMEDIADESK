@@ -70,7 +70,7 @@ public abstract class AbstractMediaSelectController extends AbstractMediaLoaderC
         Object container = getContainerObject(request);
         Integer categoryId = null;
         if (container!=null) {
-            categoryId = ((Folder)container).getCategoryId();
+            categoryId = ((Folder)container).getFolderId();
         }
         MediaObjectService.selectMedia(ivid, categoryId, request);
     }

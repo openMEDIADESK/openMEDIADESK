@@ -33,9 +33,9 @@ public class FolderTreeElement extends Folder {
     List subCategoryList = new ArrayList();
 
     public FolderTreeElement(Folder folder) {
-        this.setCategoryId(folder.getCategoryId());
-        this.setCatTitle(folder.getCatTitle());
-        this.setCatName(folder.getCatName());
+        this.setFolderId(folder.getFolderId());
+        this.setFolderTitle(folder.getFolderTitle());
+        this.setFolderName(folder.getFolderName());
         this.setDescription(folder.getDescription());
         this.setParent(folder.getParent());
         this.setImageCount(folder.getMediaCount());

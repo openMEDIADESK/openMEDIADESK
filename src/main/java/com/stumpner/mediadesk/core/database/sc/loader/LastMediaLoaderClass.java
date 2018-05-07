@@ -25,7 +25,7 @@ package com.stumpner.mediadesk.core.database.sc.loader;
  * Time: 21:32:07
  * To change this template use File | Settings | File Templates.
  */
-public class LastImagesLoaderClass extends SimpleLoaderClass {
+public class LastMediaLoaderClass extends SimpleLoaderClass {
 
     int count = 48;
     int groupPrincipal = 0;

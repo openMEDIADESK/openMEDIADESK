@@ -121,13 +121,13 @@ public class FolderService extends MultiLanguageService implements IServiceClass
             FolderTreeElement folderTreeElement = new FolderTreeElement(folder);
             if (folderTreeElement.getParent()==parentId) {
 
-                //cte.setCatTitle((String)categoryMap.get(new Integer(cte.getCategoryId())));
+                //cte.setFolderTitle((String)categoryMap.get(new Integer(cte.getFolderId())));
                 Iterator subCats = folderList.iterator();
                 int subElements = 0;
                 while (subCats.hasNext()) {
 
                     Folder subCat = (Folder)subCats.next();
-                    if (subCat.getParent()==folderTreeElement.getCategoryId()) {
+                    if (subCat.getParent()==folderTreeElement.getFolderId()) {
                         if (subElements<maxSubElements) {
                             folderTreeElement.getSubCategoryList().add(new FolderTreeElement(subCat));
                         }
@@ -214,12 +214,12 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         while (categories.hasNext()) {
             Folder folder = (Folder)categories.next();
             if (folder.getParent()==parentId) {
-                //System.out.println("Unterkategorie: "+folder.getCatName() + " ("+folder.getCategoryId()+")");
+                //System.out.println("Unterkategorie: "+folder.getFolderName() + " ("+folder.getFolderId()+")");
                 //gehört als Unterkategorie zu dieser Kategorie
-                folder.setCatName(submarker+" "+ folder.getCatName());
+                folder.setFolderName(submarker+" "+ folder.getFolderName());
                 folderListSuborder.add(folder);
                 folderListSuborder =
-                        getAllFolderListSuborderRecursive(folder.getCategoryId(),folderList,folderListSuborder,submarker+submarker);
+                        getAllFolderListSuborderRecursive(folder.getFolderId(),folderList,folderListSuborder,submarker+submarker);
             }
         }
 
@@ -270,9 +270,9 @@ public class FolderService extends MultiLanguageService implements IServiceClass
 
         List<FolderMultiLang> parentFolderList = getFolderList(folder.getParent());
         for (FolderMultiLang parentFolder : parentFolderList) {
-            if (parentFolder.getCatName().equalsIgnoreCase(folder.getCatName())) {
+            if (parentFolder.getFolderName().equalsIgnoreCase(folder.getFolderName())) {
                 //Kategorie mit diesem Namen existiert bereits
-                throw new DublicateEntry("Duplicate FolderName: "+folder.getCatName());
+                throw new DublicateEntry("Duplicate FolderName: "+folder.getFolderName());
             }
         }
         //Wenn Fid = leer dann auf NULL setzen, wegen Unique-ID
@@ -283,7 +283,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         try {
             smc.insert("addFolder",folder);
             Integer maxFolderId = (Integer)smc.queryForObject("getMaxFolderId",new Integer(0));
-            folder.setCategoryId(maxFolderId.intValue());
+            folder.setFolderId(maxFolderId.intValue());
 
             //Acl von Elternkategorie Übernehmen:
                     Acl acl = new Acl();
@@ -329,7 +329,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
 
         FolderHolder folderHolder = new FolderHolder();
-        folderHolder.setCategoryId(folderId);
+        folderHolder.setFolderId(folderId);
         folderHolder.setIvid(ivid);
 
         try {
@@ -385,7 +385,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
 
         FolderHolder folderHolder = new FolderHolder();
-        folderHolder.setCategoryId(folderId);
+        folderHolder.setFolderId(folderId);
         folderHolder.setIvid(imageVersion.getIvid());
 
         try {
@@ -424,7 +424,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
 
     public void deleteMediaFromFolder(Folder folder, MediaObject imageVersion) {
 
-        this.deleteMediaFromFolder(folder.getCategoryId(),imageVersion.getIvid());
+        this.deleteMediaFromFolder(folder.getFolderId(),imageVersion.getIvid());
     }
 
     public void deleteMediaFromFolder(int folderId, int ivid) {
@@ -432,7 +432,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
 
         FolderHolder folderHolder = new FolderHolder();
-        folderHolder.setCategoryId(folderId);
+        folderHolder.setFolderId(folderId);
         folderHolder.setIvid(ivid);
 
         try {
@@ -463,7 +463,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         while (images.hasNext()) {
 
             MediaObject mo = (MediaObject)images.next();
-            deleteMediaFromFolder(folder.getCategoryId(),mo.getIvid());
+            deleteMediaFromFolder(folder.getFolderId(),mo.getIvid());
         }
 
     }
@@ -512,7 +512,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         while (updateFolders.hasNext()) {
             Folder folder = (Folder)updateFolders.next();
             try {
-                //System.out.println("Kategorie speichern: "+folder.getCategoryId());
+                //System.out.println("Kategorie speichern: "+folder.getFolderId());
                 //System.out.println("BasicMediaObject-count: "+folder.getMediaCount());
                 //System.out.println("Images-count: "+folder.getImageCountS());
                 this.save(folder);
@@ -545,9 +545,9 @@ public class FolderService extends MultiLanguageService implements IServiceClass
             List parentFolderList = this.getParentFolderList(folderId);
             logger.debug("Root Ordner ist...");
             if (!parentFolderList.isEmpty()) {
-                logger.debug("RootOrdner von "+folderId+" = "+((Folder)parentFolderList.get(0)).getCategoryId());
+                logger.debug("RootOrdner von "+folderId+" = "+((Folder)parentFolderList.get(0)).getFolderId());
                 logger.debug("Media-Count berechnen...");
-                mediaCount = this.calcMediaCount(((Folder)parentFolderList.get(0)).getCategoryId());
+                mediaCount = this.calcMediaCount(((Folder)parentFolderList.get(0)).getFolderId());
             }
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -574,8 +574,8 @@ public class FolderService extends MultiLanguageService implements IServiceClass
             boolean found = false;
             while (folders.hasNext()) {
                 Folder folder = (Folder)folders.next();
-                if (folder.getCatName().equalsIgnoreCase(pathToken[a])) {
-                    folderId = folder.getCategoryId();
+                if (folder.getFolderName().equalsIgnoreCase(pathToken[a])) {
+                    folderId = folder.getFolderId();
                     found = true;
                     break;
                 }
@@ -626,7 +626,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
                 Iterator folders = folderList.iterator();
                 while (folders.hasNext()) {
                     Folder folder = (Folder)folders.next();
-                    if (folder.getCategoryId()==homeCategoryId) {
+                    if (folder.getFolderId()==homeCategoryId) {
                         return true;
                     }
                 }
@@ -645,7 +645,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
 
         List<Folder> list = getFolderList(folderId);
         for (Folder f : list) {
-            deleteRecursiv(f.getCategoryId());
+            deleteRecursiv(f.getFolderId());
         }
         deleteById(folderId);
     }

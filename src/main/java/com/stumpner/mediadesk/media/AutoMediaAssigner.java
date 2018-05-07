@@ -66,7 +66,7 @@ public class AutoMediaAssigner {
                 FolderService folderService = new FolderService();
                 Folder folder = (Folder)autoImportObject;
                 try {
-                    folderService.addMediaToFolder(folder.getCategoryId(),ivid);
+                    folderService.addMediaToFolder(folder.getFolderId(),ivid);
                 } catch (DublicateEntry dublicateEntry) {
                     dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }
@@ -175,7 +175,7 @@ public class AutoMediaAssigner {
 
             if (isAutoImportCategory(autoImportObject)) {
                 Folder folder = (Folder)autoImportObject;
-                return "c?id="+ folder.getCategoryId();
+                return "c?id="+ folder.getFolderId();
             }
             if (isAutoImportPin(autoImportObject)) {
                 Pin pin = (Pin)autoImportObject;

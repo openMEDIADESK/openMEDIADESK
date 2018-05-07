@@ -126,11 +126,11 @@ public class FolderBreakupController extends SimpleFormControllerMd {
         Iterator users = userList.iterator();
         while (users.hasNext()) {
             User user = (User)users.next();
-            if (user.getHomeCategoryId()== folder.getCategoryId()) {
+            if (user.getHomeCategoryId()== folder.getFolderId()) {
                 isHomeCategory = true;
             }
         }
-        if (Config.homeCategoryId== folder.getCategoryId()) {
+        if (Config.homeCategoryId== folder.getFolderId()) {
             isHomeCategory=true;
         }
         int selectedImageListSize = MediaObjectService.getSelectedImageList(httpServletRequest.getSession()).size();
@@ -140,14 +140,14 @@ public class FolderBreakupController extends SimpleFormControllerMd {
             model.put("headline","categorybreakup.headline");
             model.put("subheadline","categorybreakup.subheadline");
             model.put("text","categorybreakup.homecat");
-            model.put("nextUrl","cat?id="+folder.getCategoryId());*/
+            model.put("nextUrl","cat?id="+folder.getFolderId());*/
 
             httpServletRequest.setAttribute("headline","categorybreakup.headline");
             httpServletRequest.setAttribute("subheadline","categorybreakup.subheadline");
             httpServletRequest.setAttribute("info","categorybreakup.homecat");
-            httpServletRequest.setAttribute("infoArgument", folder.getCatTitle());
+            httpServletRequest.setAttribute("infoArgument", folder.getFolderTitle());
             if (selectedImageListSize>0) { httpServletRequest.setAttribute("attentionText","categorybreakup.attention"); }
-            httpServletRequest.setAttribute("redirectTo","cat?id="+ folder.getCategoryId());
+            httpServletRequest.setAttribute("redirectTo","cat?id="+ folder.getFolderId());
 
             return super.showForm(httpServletRequest,e,this.getFormView(),new HashMap());
         } else {
@@ -160,7 +160,7 @@ public class FolderBreakupController extends SimpleFormControllerMd {
             httpServletRequest.setAttribute("headline","categorybreakup.headline");
             httpServletRequest.setAttribute("subheadline","categorybreakup.subheadline");
             httpServletRequest.setAttribute("info","categorybreakup.text");
-            httpServletRequest.setAttribute("infoArgument", folder.getCatTitle());
+            httpServletRequest.setAttribute("infoArgument", folder.getFolderTitle());
             if (selectedImageListSize>0) { System.out.println("selectedImageSize>0"); httpServletRequest.setAttribute("attentionText","categorybreakup.attention"); }
             if (getChilds(folder)>0) {
                 httpServletRequest.setAttribute("useCbx",true);
@@ -179,7 +179,7 @@ public class FolderBreakupController extends SimpleFormControllerMd {
             this.deleteFolder((Folder)o);
             httpServletResponse.sendRedirect("cat?id="+ folder.getParent());
         } else {
-            httpServletResponse.sendRedirect("cat?id="+ folder.getCategoryId());
+            httpServletResponse.sendRedirect("cat?id="+ folder.getFolderId());
         }
 
         this.setContentTemplateFile("/message.jsp",httpServletRequest);
@@ -188,7 +188,7 @@ public class FolderBreakupController extends SimpleFormControllerMd {
         /*
         WebStack webStack = new WebStack(httpServletRequest);
         String redirectTo = webStack.pop();
-        if (redirectTo.contains("/cat") && redirectTo.contains("id="+folder.getCategoryId())) {
+        if (redirectTo.contains("/cat") && redirectTo.contains("id="+folder.getFolderId())) {
             //Nicht auf diese seite redirecten, da es sie nichtmehr gibt,
             // sondern auf die parent-Folder!
             httpServletResponse.sendRedirect("/index/cat?id="+folder.getParent());
@@ -205,9 +205,9 @@ public class FolderBreakupController extends SimpleFormControllerMd {
         FolderService folderService = new FolderService();
         try {
             if (getChilds(folder)>0) {
-                folderService.deleteRecursiv(folder.getCategoryId());
+                folderService.deleteRecursiv(folder.getFolderId());
             } else {
-                folderService.deleteById(folder.getCategoryId());
+                folderService.deleteById(folder.getFolderId());
             }
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -218,7 +218,7 @@ public class FolderBreakupController extends SimpleFormControllerMd {
     private int getChilds(Folder folder) {
 
         FolderService folderService = new FolderService();
-        int childs = folderService.getFolderList(folder.getCategoryId()).size();
+        int childs = folderService.getFolderList(folder.getFolderId()).size();
         return childs;
     }
 

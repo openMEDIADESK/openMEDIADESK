@@ -377,7 +377,7 @@ public class UploadWebController extends ModelFormPageController {
                 Folder folder = new Folder();
                 if (request.getParameter("catid").equalsIgnoreCase("0")) {
                     //Root-Kategory existiert nicht...
-                    folder.setCategoryId(0);
+                    folder.setFolderId(0);
                 } else {
                     folder = folderService.getFolderById(Integer.parseInt(
                             request.getParameter("catid")

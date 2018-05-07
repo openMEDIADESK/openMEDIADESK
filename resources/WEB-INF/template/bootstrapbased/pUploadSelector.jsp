@@ -42,8 +42,8 @@
 <div class="list-group">
 
     <c:forEach items="${allowedFolderList}" var="f">
-    <a href="<c:url value="uploadweb?catid=${f.categoryId}"/>" class="list-group-item">
-        <h4 class="list-group-item-heading"><c:out value="${f.catTitle}"/></h4>
+    <a href="<c:url value="uploadweb?catid=${f.folderId}"/>" class="list-group-item">
+        <h4 class="list-group-item-heading"><c:out value="${f.folderTitle}"/></h4>
         <p class="list-group-item-text"><c:out value="${f.description}"/></p>
     </a>
     </c:forEach>

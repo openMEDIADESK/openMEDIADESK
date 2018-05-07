@@ -21,19 +21,19 @@
 	<li><a href="<c:url value="${home}"/>"><i class="fa fa-folder-o fa-fw"></i> Home</a></li>
     <c:forEach items="${parentFolderList}" var="navItem" varStatus="loop">
         <c:url var="thisCatLink" value="/${lng}/cat">
-            <c:param name="id" value="${navItem.categoryId}"/>
+            <c:param name="id" value="${navItem.folderId}"/>
         </c:url>
         <c:if test="${!loop.last}">
-            <li><a href="<c:out value="${thisCatLink}"/>"><i class="fa fa-folder-open-o fa-fw"></i> <c:out value="${navItem.catTitle}"/></a></li>
+            <li><a href="<c:out value="${thisCatLink}"/>"><i class="fa fa-folder-open-o fa-fw"></i> <c:out value="${navItem.folderTitle}"/></a></li>
         </c:if>
         <c:if test="${loop.last}">
-            <li class="active"><i class="fa fa-folder-open-o fa-fw"></i> <c:out value="${folder.catTitle}"/></li>
+            <li class="active"><i class="fa fa-folder-open-o fa-fw"></i> <c:out value="${folder.folderTitle}"/></li>
         </c:if>
     </c:forEach>
 </ol>
 <!-- /breadcrumbs -->
 <!-- ordnertitel und infos -->
-<h3><c:out value="${folder.catTitle}"/><small>&nbsp;<c:out value="${folder.mediaCount}"/> <spring:message code="stat.pics"/></small></h3>
+<h3><c:out value="${folder.folderTitle}"/><small>&nbsp;<c:out value="${folder.mediaCount}"/> <spring:message code="stat.pics"/></small></h3>
 <h4><c:out value="${folder.description}"/></h4>
 <!-- /ordnertitel und infos -->
 <!-- mediadesk abstand -->

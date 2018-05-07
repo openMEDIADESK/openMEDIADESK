@@ -58,7 +58,7 @@ public class NotExistingMediaObjectResource implements FileResource, PutableReso
 
     public NotExistingMediaObjectResource(Folder linkedFolder, Path path) {
 
-        System.out.println("creating new object in cat: "+ linkedFolder.getCategoryId()+" path: "+path);
+        System.out.println("creating new object in cat: "+ linkedFolder.getFolderId()+" path: "+path);
 
         this.folder = linkedFolder;
         this.path = path;
@@ -113,7 +113,7 @@ public class NotExistingMediaObjectResource implements FileResource, PutableReso
             File file = new File(Config.getTempPath()+File.separator+olFileName);
             file.delete();
             FolderService folderService = new FolderService();
-            folderService.addMediaToFolder(folder.getCategoryId(),ivid);
+            folderService.addMediaToFolder(folder.getFolderId(),ivid);
 
         }  catch (MimeTypeNotSupportedException e) {
             System.out.println("Diese Datei wird nicht unterst�tzt");

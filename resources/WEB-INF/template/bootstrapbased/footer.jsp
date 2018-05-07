@@ -81,7 +81,7 @@
         <mediadesk:login>
         <c:if test="${showLightbox}"><li><a href="<c:url value="/${lng}/f"/>"><spring:message code="left.lightbox"/> <span class="label label-success" ng-bind="properties.favCount"></span></a></li></c:if>
         <c:if test="${useShoppingCart}"><li><a href="<c:url value="/${lng}/shop"/>"><spring:message code="left.shoppingcart"/> <span class="label label-success" ng-bind="properties.cartCount"></span></a></li></c:if>
-        <li ng-show="properties.role>=10"><a href="<c:url value="/${lng}/folderedit?parent=${folder.categoryId}"/>"><spring:message code="sm.cat.createnew"/></a></li>
+        <li ng-show="properties.role>=10"><a href="<c:url value="/${lng}/folderedit?parent=${folder.folderId}"/>"><spring:message code="sm.cat.createnew"/></a></li>
         </mediadesk:login>
         <c:forEach items="${footer3Links}" var="menue">
             <c:url value="${menue.linkUrl}" var="linkUrl">

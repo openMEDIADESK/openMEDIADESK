@@ -216,7 +216,7 @@ public class FolderRestApi extends RestBaseServlet {
                 FolderMultiLang sessionObject = (FolderMultiLang)session.getAttribute(FolderEditController.class.getName()+".FORM.command");
 
                 if (sessionObject!=null) {
-                    if (sessionObject.getCategoryId()==sessionObject.getCategoryId()) {
+                    if (sessionObject.getFolderId()==sessionObject.getFolderId()) {
                         System.out.println("using edit mode");
                         folder = sessionObject;
                     }
@@ -226,10 +226,10 @@ public class FolderRestApi extends RestBaseServlet {
 
             /*
             Map<String,String> jsonValueMap = new HashMap<String,String>(); //Hier werden die Werte gespeichert!!
-            jsonValueMap.put("id",String.valueOf(folder.getCategoryId()));
-            jsonValueMap.put("name",folder.getCatName());
-            jsonValueMap.put("titleLng1",folder.getCatTitleLng1());
-            jsonValueMap.put("titleLng2",folder.getCatTitleLng2());
+            jsonValueMap.put("id",String.valueOf(folder.getFolderId()));
+            jsonValueMap.put("name",folder.getFolderName());
+            jsonValueMap.put("titleLng1",folder.getFolderTitleLng1());
+            jsonValueMap.put("titleLng2",folder.getFolderTitleLng2());
             */
             /*
             if (request.getServletContext().getAttribute("splashPageValueMap")!=null) {
@@ -238,10 +238,10 @@ public class FolderRestApi extends RestBaseServlet {
 
             JSONObject responseObj = new JSONObject();
 
-            responseObj.put("id",String.valueOf(folder.getCategoryId()));
-            responseObj.put("name",folder.getCatName());
-            responseObj.put("titleLng1",folder.getCatTitleLng1());
-            responseObj.put("titleLng2",folder.getCatTitleLng2());
+            responseObj.put("id",String.valueOf(folder.getFolderId()));
+            responseObj.put("name",folder.getFolderName());
+            responseObj.put("titleLng1",folder.getFolderTitleLng1());
+            responseObj.put("titleLng2",folder.getFolderTitleLng2());
                /*
             for (String key : splashPageValueMap.keySet()) {
                 responseObj.put(key,splashPageValueMap.get(key));
@@ -458,11 +458,11 @@ public class FolderRestApi extends RestBaseServlet {
 
                 boolean checkedValue = false;
                 Folder folder = (Folder)folders.next();
-                String categoryTitle = folder.getCatTitle(); //folder.getCatTitle().replace('"',' ');
+                String categoryTitle = folder.getFolderTitle(); //folder.getFolderTitle().replace('"',' ');
 
                 out.println("  {");
-                out.println("    \"id\":\""+ folder.getCategoryId()+"\",");
-                out.println("    \"name\":\""+StringEscapeUtils.escapeJson(folder.getCatName())+"\",");
+                out.println("    \"id\":\""+ folder.getFolderId()+"\",");
+                out.println("    \"name\":\""+StringEscapeUtils.escapeJson(folder.getFolderName())+"\",");
                 out.println("    \"title\":\""+StringEscapeUtils.escapeJson(categoryTitle)+"\",");
                 out.println("    \"pivid\":\""+ folder.getPrimaryIvid()+"\",");
                 out.println("    \"parent\":\""+ folder.getParent()+"\",");
@@ -544,20 +544,20 @@ public class FolderRestApi extends RestBaseServlet {
 
                 boolean checkedValue = false;
                 Folder folder = (Folder)folders.next();
-                String categoryTitle = folder.getCatTitle(); // folder.getCatTitle().replace('"',' ');
+                String categoryTitle = folder.getFolderTitle(); // folder.getFolderTitle().replace('"',' ');
 
                 out.println("  {");
-                out.println("    \"id\":\""+ folder.getCategoryId()+"\",");
+                out.println("    \"id\":\""+ folder.getFolderId()+"\",");
                 out.println("    \"title\":\""+StringEscapeUtils.escapeJson(categoryTitle)+"\",");
 
-                List folderList2 = categoryService.getFolderSubTree(folder.getCategoryId(),0);
+                List folderList2 = categoryService.getFolderSubTree(folder.getFolderId(),0);
                 StringBuffer sb = new StringBuffer();
 
                 Iterator folders2 = folderList2.iterator();
                 while (folders2.hasNext()) {
                     Folder cat2 = (Folder)folders2.next();
                     sb = sb.append("{");
-                    sb = sb.append("\"folder\":\""+StringEscapeUtils.escapeJson(cat2.getCatTitle())+"\", \"id\":\""+cat2.getCategoryId()+"\", \"info\":\"nix\"");
+                    sb = sb.append("\"folder\":\""+StringEscapeUtils.escapeJson(cat2.getFolderTitle())+"\", \"id\":\""+cat2.getFolderId()+"\", \"info\":\"nix\"");
                     sb = sb.append("}");
                     if (folders2.hasNext()) {
                         sb = sb.append(", ");
@@ -589,13 +589,13 @@ public class FolderRestApi extends RestBaseServlet {
     private void jsonCategoryMedialist(HttpServletRequest request, HttpServletResponse response) {
 
         LngResolver lngResolver = new LngResolver();
-        MediaService imageService = new MediaService();
-        imageService.setUsedLanguage(lngResolver.resolveLng(request));
+        MediaService mediaService = new MediaService();
+        mediaService.setUsedLanguage(lngResolver.resolveLng(request));
 
         //Loader-Class: definieren was geladen werden soll
-        int categoryId = getUriSectionInt(4, request);
+        int folderId = getUriSectionInt(4, request);
         SimpleLoaderClass loaderClass = new SimpleLoaderClass();
-        loaderClass.setId(categoryId);
+        loaderClass.setId(folderId);
         try {
             if (request.getParameter("sortBy")!=null) { loaderClass.setSortBy(Integer.parseInt(request.getParameter("sortBy"))); }
             if (request.getParameter("orderBy")!=null) { loaderClass.setOrderBy(Integer.parseInt(request.getParameter("orderBy"))); }
@@ -603,9 +603,9 @@ public class FolderRestApi extends RestBaseServlet {
             System.out.println("NumberFormatException bei sortBy oder orderBy Parameter in jsonCategoryMedialist");
             e.printStackTrace();
         }
-        List<MediaObjectMultiLang> imageList = imageService.getFolderMediaObjects(loaderClass);
+        List<MediaObjectMultiLang> mediaList = mediaService.getFolderMediaObjects(loaderClass);
 
-        /** Kategorie-Liste f�r den Thumbnail-View **/
+        /** Ordner-Liste für den Thumbnail-View **/
         AclFolderService categoryService = new AclFolderService(request);
         categoryService.setUsedLanguage(lngResolver.resolveLng(request));
 
@@ -613,7 +613,7 @@ public class FolderRestApi extends RestBaseServlet {
             PrintWriter out = response.getWriter();
 
             out.println("[");
-            for (MediaObjectMultiLang mo : imageList) {
+            for (MediaObjectMultiLang mo : mediaList) {
 
                 //ShoppingCart Logik (true/false) ob dieses Medienobjekt im Cart ist
                 ShoppingCartService cartService = new ShoppingCartService();
@@ -684,7 +684,7 @@ public class FolderRestApi extends RestBaseServlet {
                 out.println("  \"cart\" : "+ (inCart ? "true" : "false") +"," );
                 out.println("  \"selected\" : "+ (MediaObjectService.isSelected(mo, request) ? "true" : "false") );
 
-                if (imageList.indexOf(mo)<imageList.size()-1) {
+                if (mediaList.indexOf(mo)<mediaList.size()-1) {
                     out.println(" },");
                 } else {
                     //Letztes Element

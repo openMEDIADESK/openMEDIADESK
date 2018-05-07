@@ -231,15 +231,15 @@ public class UserService implements IServiceClass {
             FolderService folderService = new FolderService();
             FolderMultiLang category = new FolderMultiLang();
             category.setParent(Config.homeCategoryId);
-            category.setCatName(homeCategoryName);
-            category.setCatTitle(user.getName());
-            category.setCatTitleLng1(user.getName());
-            category.setCatTitleLng2(user.getName());
+            category.setFolderName(homeCategoryName);
+            category.setFolderTitle(user.getName());
+            category.setFolderTitleLng1(user.getName());
+            category.setFolderTitleLng2(user.getName());
             folderService.addFolder(category);
 
             try {
                 category = (FolderMultiLang) folderService.getFolderByName(homeCategoryName);
-                user.setHomeCategoryId(category.getCategoryId());
+                user.setHomeCategoryId(category.getFolderId());
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }

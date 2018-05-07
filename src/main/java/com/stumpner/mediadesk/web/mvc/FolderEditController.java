@@ -101,7 +101,7 @@ public class FolderEditController extends AbstractAutoFillController {
                         folder.setParent(0);
                     }
                 }
-                folder.setCategoryId(FOLDER_NEW);
+                folder.setFolderId(FOLDER_NEW);
             }
 
             //Hilfsweise das Objekt sofort in die Session speichern...
@@ -172,8 +172,8 @@ public class FolderEditController extends AbstractAutoFillController {
         FolderService folderService = new FolderService();
         List parentFolderList = new ArrayList();
         try {
-            if (folder.getCategoryId()!=0) {
-                parentFolderList = folderService.getParentFolderList(folder.getCategoryId());
+            if (folder.getFolderId()!=0) {
+                parentFolderList = folderService.getParentFolderList(folder.getFolderId());
             } else {
                 parentFolderList = folderService.getParentFolderList(folder.getParent());
             }
@@ -237,7 +237,7 @@ public class FolderEditController extends AbstractAutoFillController {
         }
 
         FolderMultiLang folder = (FolderMultiLang)o;
-        if (folder.getCategoryId()== FOLDER_NEW) {
+        if (folder.getFolderId()== FOLDER_NEW) {
             //kategorie creator setzen
             User user = (User)httpServletRequest.getSession().getAttribute("user");
         }
@@ -261,8 +261,8 @@ public class FolderEditController extends AbstractAutoFillController {
 
         //Sessionvariablen in der sortierung usw zwischengespeichert wird, leeren
         //AbstractMediaLoaderController Zeile 82
-        httpServletRequest.getSession().removeAttribute("sortBy"+FolderIndexController.class.getName()+"."+folder.getCategoryId());
-        httpServletRequest.getSession().removeAttribute("orderBy"+FolderIndexController.class.getName()+"."+folder.getCategoryId());
+        httpServletRequest.getSession().removeAttribute("sortBy"+FolderIndexController.class.getName()+"."+folder.getFolderId());
+        httpServletRequest.getSession().removeAttribute("orderBy"+FolderIndexController.class.getName()+"."+folder.getFolderId());
 
         String redirectTo = null;
 
@@ -273,14 +273,14 @@ public class FolderEditController extends AbstractAutoFillController {
             LngResolver lngResolver = new LngResolver();
             folder.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
             httpServletRequest.getSession().setAttribute("accessObject",folder);
-            httpServletRequest.getSession().setAttribute("redirectTo","folderedit?id="+folder.getCategoryId());
+            httpServletRequest.getSession().setAttribute("redirectTo","folderedit?id="+folder.getFolderId());
 
             redirectTo = httpServletResponse.encodeRedirectURL("acl");
 
         } else {
             //Zum Ordner umleiten
-            int redirectToFolderId = folder.getCategoryId();
-            if (folder.getCategoryId()== FOLDER_NEW) {
+            int redirectToFolderId = folder.getFolderId();
+            if (folder.getFolderId()== FOLDER_NEW) {
                 redirectToFolderId = folder.getParent();
             }
 
@@ -312,9 +312,9 @@ public class FolderEditController extends AbstractAutoFillController {
     private void inheritAclToChildsRekursive(FolderMultiLang folder, Acl acl) {
 
         FolderService folderService = new FolderService();
-        List<FolderMultiLang> list = folderService.getFolderList(folder.getCategoryId());
+        List<FolderMultiLang> list = folderService.getFolderList(folder.getFolderId());
         for (FolderMultiLang c : list) {
-            System.out.println("working c "+c.getCategoryId());
+            System.out.println("working c "+c.getFolderId());
             AclController.setAcl(c, acl);
             inheritAclToChildsRekursive(c, acl);
             try {
@@ -379,12 +379,12 @@ public class FolderEditController extends AbstractAutoFillController {
 
         FolderService folderService = new FolderService();
 
-        if (folder.getCatTitle().equalsIgnoreCase("")) {
+        if (folder.getFolderTitle().equalsIgnoreCase("")) {
             //Ordnertitel auf den Kategorienamen setzen, wenn kein titel eingegeben wurde!
-            folder.setCatTitle(folder.getCatName());
+            folder.setFolderTitle(folder.getFolderName());
         }
 
-        if (folder.getCategoryId()== FolderEditController.FOLDER_NEW) {
+        if (folder.getFolderId()== FolderEditController.FOLDER_NEW) {
             folderService.addFolder(folder);
             //TODO: ACL von Elternkategorie kopieren:
         } else {
@@ -398,35 +398,35 @@ public class FolderEditController extends AbstractAutoFillController {
         FolderMultiLang folder = (FolderMultiLang)o;
 
         //Wenn kein Name angegeben wurde, den Titel LNG1 als Name verwenden
-        if (folder.getCatName().length()==0 && folder.getCatTitleLng1().length()>0) {
-            folder.setCatName(folder.getCatTitleLng1());
+        if (folder.getFolderName().length()==0 && folder.getFolderTitleLng1().length()>0) {
+            folder.setFolderName(folder.getFolderTitleLng1());
         }
 
-        folder.setCatTitleLng1(
+        folder.setFolderTitleLng1(
                 doAutoFillField(
-                        folder.getCatTitleLng1(),
-                        folder.getCatName(),""
+                        folder.getFolderTitleLng1(),
+                        folder.getFolderName(),""
                 )
         );
-        folder.setCatTitleLng2(
+        folder.setFolderTitleLng2(
                 doAutoFillField(
-                        folder.getCatTitleLng2(),
-                        folder.getCatName(),""
+                        folder.getFolderTitleLng2(),
+                        folder.getFolderName(),""
                 )
         );
     }
 
     void doAutoFill(Object o) {
         FolderMultiLang folder = (FolderMultiLang)o;
-        folder.setCatTitleLng1(
-                doAutoFillField(folder.getCatTitleLng1(),
-                        folder.getCatTitleLng2(),
-                        folder.getCatName())
+        folder.setFolderTitleLng1(
+                doAutoFillField(folder.getFolderTitleLng1(),
+                        folder.getFolderTitleLng2(),
+                        folder.getFolderName())
         );
-        folder.setCatTitleLng2(
-                doAutoFillField(folder.getCatTitleLng2(),
-                        folder.getCatTitle(),
-                        folder.getCatName())
+        folder.setFolderTitleLng2(
+                doAutoFillField(folder.getFolderTitleLng2(),
+                        folder.getFolderTitle(),
+                        folder.getFolderName())
         );
         folder.setDescriptionLng1(
                 doAutoFillField(folder.getDescriptionLng1(),

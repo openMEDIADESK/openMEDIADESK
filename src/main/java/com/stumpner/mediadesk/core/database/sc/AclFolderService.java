@@ -125,7 +125,7 @@ public class AclFolderService extends FolderService {
                 if (homeFoundInParent) {
                     mangledList.add(folder);
                 }
-                if (folder.getCategoryId()==getUser().getHomeCategoryId()) {
+                if (folder.getFolderId()==getUser().getHomeCategoryId()) {
                     homeFoundInParent = true;
                     if (!Config.homeCategoryAsRoot) {
                         mangledList.add(folder);

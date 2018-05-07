@@ -100,7 +100,7 @@ public class MaintenanceSettingsController extends SimpleFormControllerMd {
         for (FolderMultiLang cat : categoryList) {
             cat.setDefaultview(Folder.VIEW_UNDEFINED);
             cs.save(cat);
-            setCategoryViewToAuto(cat.getCategoryId(),cs);
+            setCategoryViewToAuto(cat.getFolderId(),cs);
         }
     }
 

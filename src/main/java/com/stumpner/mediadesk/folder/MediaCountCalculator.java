@@ -41,7 +41,7 @@ public class MediaCountCalculator {
         Iterator it = folderList.iterator();
         while (it.hasNext()) {
             Folder cat = (Folder)it.next();
-            if (cat.getCategoryId()==id) {
+            if (cat.getFolderId()==id) {
                 return cat;
             }
         }
@@ -77,7 +77,7 @@ public class MediaCountCalculator {
 
         while (it.hasNext()) {
             Folder cat = (Folder)it.next();
-            int catCount = getMediaCountRec(cat.getCategoryId());
+            int catCount = getMediaCountRec(cat.getFolderId());
             count += catCount;
         }
 

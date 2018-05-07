@@ -52,7 +52,7 @@ public class FavoriteViewController extends AbstractThumbnailAjaxController {
 
         FavoriteService favoriteService = new FavoriteService();
         Folder folder = new Folder();
-        folder.setCatTitle("Favorites");
+        folder.setFolderTitle("Favorites");
         User user = getUser(httpServletRequest);
 
         if (httpServletRequest.getParameter("remove")!=null) {

@@ -44,7 +44,7 @@
                 <!-- ENDE Nicht angemeldet -->
             <c:if test="${showMenuUpload}">
             <c:url value="/${lng}/uploadweb" var="uploadUrl">
-                <c:param name="catid" value="${folder.categoryId}"/>
+                <c:param name="catid" value="${folder.folderId}"/>
             </c:url>
             <li><a href="<c:out value="${uploadUrl}"/>"><i class="fa fa-cloud-upload fa-lg fa-fw md-text-prim"></i></a></li>
             </c:if>

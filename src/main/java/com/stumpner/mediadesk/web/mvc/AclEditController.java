@@ -69,7 +69,7 @@ public class AclEditController extends SimpleFormControllerMd {
             throw new UndefinedWebStateException("No ACL-Object set.");
         AccessObject accessObject = (AccessObject)httpServletRequest.getSession().getAttribute("accessObject");
         //Folder folder = new Folder();
-        //folder.getCategoryId();
+        //folder.getFolderId();
         Acl acl = AclController.getAcl(accessObject);
         return acl;
 
@@ -168,10 +168,10 @@ public class AclEditController extends SimpleFormControllerMd {
     private void inheritAclToChildsRekursive(Acl acl, FolderMultiLang c) {
 
             FolderService folderService = new FolderService();
-            List<FolderMultiLang> list = folderService.getFolderList(c.getCategoryId());
+            List<FolderMultiLang> list = folderService.getFolderList(c.getFolderId());
             for (FolderMultiLang ic : list) {
                 if (ic.isInheritAcl()) {
-                    System.out.println("inherit acl to cat: "+ic.getCategoryId()+" "+ic.getCatName());
+                    System.out.println("inherit acl to cat: "+ic.getFolderId()+" "+ic.getFolderName());
                     AclController.setAcl(ic, acl);
                     try {
                         renewFolderPublicProtectedStatus(ic);

@@ -107,7 +107,7 @@ public class MediaObjectApi extends ApiBase {
         Iterator categories = categoryList.iterator();
         while (categories.hasNext()) {
             Folder folder = (Folder)categories.next();
-            sb.append(folder.getCategoryId()+";");
+            sb.append(folder.getFolderId()+";");
         }
 
         return sb.toString();

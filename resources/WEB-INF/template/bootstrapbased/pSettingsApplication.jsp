@@ -207,7 +207,7 @@
                             <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
                                 <option value="-1"<c:if test="${status.value==-1}"> selected</c:if>>nicht verwenden</option>
                                 <c:forEach items="${rootCategoryList}" var="cat">
-                                    <option value="<c:out value="${cat.categoryId}"/>"<c:if test="${status.value==cat.categoryId}"> selected</c:if>><c:out value="${cat.catTitle}"/></option>
+                                    <option value="<c:out value="${cat.folderId}"/>"<c:if test="${status.value==cat.folderId}"> selected</c:if>><c:out value="${cat.folderTitle}"/></option>
                                 </c:forEach>
                             </select>
                     </div>

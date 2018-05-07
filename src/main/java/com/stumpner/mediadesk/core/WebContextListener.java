@@ -423,7 +423,7 @@ public class WebContextListener implements ServletContextListener {
         for (FolderMultiLang c : l) {
             try {
                 AclEditController.renewFolderPublicProtectedStatus(c);
-                renewCategoryPublicProtectedStatusRekursiv(c.getCategoryId());
+                renewCategoryPublicProtectedStatusRekursiv(c.getFolderId());
             } catch (AclNotFoundException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             } catch (IOServiceException e) {

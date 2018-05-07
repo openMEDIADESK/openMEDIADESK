@@ -140,7 +140,7 @@ public class TreeAclController extends SimpleFormControllerMd {
                     lastParent = category.getParent();
                 }
 
-                lastCategory = category.getCategoryId();
+                lastCategory = category.getFolderId();
 
                 TreeAclCommand.TreeAclCommandEntity selCat = new TreeAclCommand.TreeAclCommandEntity();
                 selCat.setFolder(category);

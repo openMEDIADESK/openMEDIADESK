@@ -18,12 +18,12 @@
 <!-- breadcrumbs -->
 <ol class="breadcrumb">
 	<li><a href="<c:url value="${home}"/>"><i class="fa fa-folder-o fa-fw"></i> Home</a></li>
-    <li><a href="<c:url value="${redirectTo}"/>"><i class="fa fa-folder-open-o fa-fw"></i> <c:out value="${accessObject.catTitle}"/></a></li>
+    <li><a href="<c:url value="${redirectTo}"/>"><i class="fa fa-folder-open-o fa-fw"></i> <c:out value="${accessObject.folderTitle}"/></a></li>
     <li class="active"><i class="fa fa-lock fa-fw"></i> <spring:message code="acl.headline" arguments=""/></li>
 </ol>
 <!-- /breadcrumbs -->
 <!-- ordnertitel und infos -->
-<h3><spring:message code="acl.headline" arguments=""/> <c:out value="${accessObject.catTitle}"/></h3>
+<h3><spring:message code="acl.headline" arguments=""/> <c:out value="${accessObject.folderTitle}"/></h3>
 <h4><spring:message code="acl.permittedare"/></h4>
 <!-- /ordnertitel und infos -->
 <!-- mediadesk abstand -->

@@ -50,22 +50,22 @@
                 }
             }
 
-            System.out.println("Now: "+calenderNow.getTime()+" Cal: "+calendar.getTime()+" mod= "+mod+" cat= "+ folder.getCategoryId());
+            System.out.println("Now: "+calenderNow.getTime()+" Cal: "+calendar.getTime()+" mod= "+mod+" cat= "+ folder.getFolderId());
         } else {
-            System.out.println("changed date == null! cat"+ folder.getCategoryId());
+            System.out.println("changed date == null! cat"+ folder.getFolderId());
         }
 
 
 %>
    <url>
-    <loc>http://<%= request.getServerName() %>/de/cat?id=<%= folder.getCategoryId() %></loc>
+    <loc>http://<%= request.getServerName() %>/de/cat?id=<%= folder.getFolderId() %></loc>
     <lastmod><%= df.format(changedDate) %></lastmod>
     <changefreq><%= mod %></changefreq>
     <priority><%= prio %></priority>
    </url>
 <% if (Config.multiLang) { %>
    <url>
-    <loc>http://<%= request.getServerName() %>/en/cat?id=<%= folder.getCategoryId() %></loc>
+    <loc>http://<%= request.getServerName() %>/en/cat?id=<%= folder.getFolderId() %></loc>
     <lastmod><%= df.format(changedDate) %></lastmod>
     <changefreq><%= mod %></changefreq>
     <priority><%= prio %></priority>

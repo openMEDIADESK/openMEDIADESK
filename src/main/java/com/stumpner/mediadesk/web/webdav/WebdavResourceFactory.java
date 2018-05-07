@@ -86,7 +86,7 @@ public class WebdavResourceFactory implements ResourceFactory {
             try {
                 FolderMultiLang category = (FolderMultiLang) folderService.getFolderByPath(path.toString());
                 //Unterkategorie
-                System.out.println("Webdav Resource Request: ["+path+"] = CATEGORY,id="+category.getCategoryId()+",name="+category.getCatName());
+                System.out.println("Webdav Resource Request: ["+path+"] = CATEGORY,id="+category.getFolderId()+",name="+category.getFolderName());
                 return new FolderResource(this,category);
             } catch (ObjectNotFoundException e) {
                 //Medienobjekt in einer Kategorie (Keine Kategorie: - pr�fung auf Medienobjekt in der Kategorie)
@@ -100,12 +100,12 @@ public class WebdavResourceFactory implements ResourceFactory {
                         folder = folderService.getFolderByPath(path.getParent().toString());
                     } else {
                         folder = new Folder();
-                        folder.setCategoryId(0);
+                        folder.setFolderId(0);
                     }
 
                     MediaService imageService = new MediaService();
                     SimpleLoaderClass loader = new SimpleLoaderClass();
-                    loader.setId(folder.getCategoryId());
+                    loader.setId(folder.getFolderId());
                     List categoryMediaList = imageService.getFolderMediaObjects(loader);
 
                     for (Object aCategoryMedia : categoryMediaList) {
@@ -222,7 +222,7 @@ public class WebdavResourceFactory implements ResourceFactory {
     public static boolean authroise(Request request, Folder folder, User user, AclControllerContext aclCtx) {
 
         //muss nach dem ACL Context initialisieren erfolgen, da der ACL Context noch ben�tigt wird
-        if (folder.getCategoryId()==0) { return true; } //Root-Kategorie immer berechtigen
+        if (folder.getFolderId()==0) { return true; } //Root-Kategorie immer berechtigen
 
         //---------------------
         if (aclCtx==null) { return false; }
