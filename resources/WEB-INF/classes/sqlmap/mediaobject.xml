@@ -96,7 +96,7 @@
         WHERE medianumber = #value#
     </select>
 
-    <resultMap id="imageList" class="com.stumpner.mediadesk.media.MediaObjectMultiLang">
+    <resultMap id="mediaList" class="com.stumpner.mediadesk.media.MediaObjectMultiLang">
         <result property="ivid" column="ivid"/>
         <result property="versionTitle" column="versiontitle"/>
         <result property="versionName" column="versionname"/>
@@ -176,46 +176,7 @@
         <result property="licValid" column="licvalid"/>
     </resultMap>
 
-    <select id="getFolderImages" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="imageList">
-        SELECT
-        <include refid="mediaObjectFields"/>
-                 , '$usedLanguage$' as usedLanguage
-        FROM folderholder
-        INNER JOIN mediaobject ON folderholder.ivid = mediaobject.ivid
-        WHERE folderid = #id#
-
-        <isEqual compareValue="1" property="sortBy">
-            ORDER BY photographdate
-        </isEqual>
-        <isEqual compareValue="2" property="sortBy">
-            ORDER BY versiontitle
-        </isEqual>
-        <isEqual compareValue="3" property="sortBy">
-            ORDER BY people
-        </isEqual>
-        <isEqual compareValue="4" property="sortBy">
-            ORDER BY site
-        </isEqual>
-        <isEqual compareValue="5" property="sortBy">
-            ORDER BY byline
-        </isEqual>
-        <isEqual compareValue="6" property="sortBy">
-            ORDER BY createdate
-        </isEqual>
-
-        <isEqual compareValue="1" property="orderBy">
-            ASC
-        </isEqual>
-        <isEqual compareValue="2" property="orderBy">
-            DESC
-        </isEqual>
-
-        <isNotEqual compareValue="-1" property="page">
-            LIMIT $start$, $itemsPerPage$
-        </isNotEqual>
-    </select>
-
-    <select id="getFolderMediaObjects" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="imageList">
+    <select id="getFolderMediaObjects" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="mediaList">
         SELECT
         <include refid="mediaObjectFields"/>
                  , '$usedLanguage$' as usedLanguage
@@ -248,13 +209,9 @@
             DESC
         </isEqual>
 
-        <isNotEqual compareValue="-1" property="page">
-            LIMIT $start$, $itemsPerPage$
-        </isNotEqual>
-
     </select>
 
-    <select id="getLicValidDue" parameterClass="java.util.Date" resultMap="imageList">
+    <select id="getLicValidDue" parameterClass="java.util.Date" resultMap="mediaList">
         SELECT
         <include refid="mediaObjectFields"/>
                  , 1 as usedLanguage
@@ -262,7 +219,7 @@
         WHERE licvalid &lt;= #value#
     </select>
 
-    <select id="getMediaObjectByCratedate" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.DateLoaderClass" resultMap="imageList">
+    <select id="getMediaObjectByCratedate" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.DateLoaderClass" resultMap="mediaList">
         SELECT
         <include refid="mediaObjectFields"/>
                  , '$usedLanguage$' as usedLanguage
@@ -272,7 +229,7 @@
 
     </select>
     
-    <select id="getMediaObjects" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.LastImagesLoaderClass" resultMap="imageList">
+    <select id="getMediaObjects" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.LastMediaLoaderClass" resultMap="mediaList">
         SELECT         
         <include refid="mediaObjectFields"/>
                  , '$usedLanguage$' as usedLanguage
