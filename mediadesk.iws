@@ -475,21 +475,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="search.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/search.xml">
+      <file leaf-file-name="mediametadata.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/mediametadata.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="13" lean-forward="false" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="13" />
+            <state relative-caret-position="310">
+              <caret line="19" column="28" lean-forward="false" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="imagemetadata.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/imagemetadata.xml">
+      <file leaf-file-name="SqlMapConfig.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/WEB-INF/SqlMapConfig.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="8" column="36" lean-forward="false" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
+            <state relative-caret-position="442">
+              <caret line="26" column="44" lean-forward="false" selection-start-line="26" selection-start-column="44" selection-end-line="26" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -616,7 +616,6 @@
         <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/imageversion.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/FolderService.java" />
         <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/folder.xml" />
-        <option value="$PROJECT_DIR$/resources/WEB-INF/SqlMapConfig.xml" />
         <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/downloadlogger.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/FavoriteMediaDescriptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/pin/PinHolder.java" />
@@ -644,6 +643,7 @@
         <option value="$PROJECT_DIR$/deployment/update.sql" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/MediaMetadataService.java" />
         <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/imagemetadata.xml" />
+        <option value="$PROJECT_DIR$/resources/WEB-INF/SqlMapConfig.xml" />
       </list>
     </option>
   </component>
@@ -1754,12 +1754,12 @@
       <workItem from="1524161528977" duration="940000" />
       <workItem from="1524594591604" duration="3753000" />
       <workItem from="1525372514061" duration="4107000" />
-      <workItem from="1525716743252" duration="2498000" />
+      <workItem from="1525716743252" duration="2637000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="94230000" />
+    <option name="totallyTimeSpent" value="94369000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -2107,13 +2107,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/SqlMapConfig.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="32" lean-forward="false" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/IMultiLangObject.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-7">
@@ -2424,10 +2417,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/imagemetadata.xml">
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/mediametadata.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="8" column="36" lean-forward="false" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
+        <state relative-caret-position="310">
+          <caret line="19" column="28" lean-forward="false" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/SqlMapConfig.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="44" lean-forward="false" selection-start-line="26" selection-start-column="44" selection-end-line="26" selection-end-column="44" />
           <folding />
         </state>
       </provider>

@@ -22,7 +22,7 @@
     </transactionManager>
     <sqlMap resource="sqlmap/user.xml"/>
     <sqlMap resource="sqlmap/mediaobject.xml"/>
-    <sqlMap resource="sqlmap/imagemetadata.xml"/>
+    <sqlMap resource="sqlmap/mediametadata.xml"/>
     <sqlMap resource="sqlmap/pin.xml"/>
     <sqlMap resource="sqlmap/lightbox.xml"/>
     <sqlMap resource="sqlmap/shoppingcart.xml"/>
