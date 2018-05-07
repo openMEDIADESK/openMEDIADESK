@@ -205,10 +205,8 @@ public class BulkModificationService {
         Iterator metadatas = metadataList.iterator();
         while (metadatas.hasNext()) {
             Metadata metadata = (Metadata)metadatas.next();
-            metadata.setImageId(imageVersion.getImageId());
             metadata.setIvid(imageVersion.getIvid());
             metadata.setLang("");
-            metadata.setVersionId(imageVersion.getVersion());
             //Metadaten nicht speichern (wird ja nur ausgelesen)
             // mediaMetadataService.addMetadata(metadata);
 
@@ -216,15 +214,12 @@ public class BulkModificationService {
 
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importName)) {
                 imageVersion.setVersionName(metadata.getMetaValue());
-                imageVersion.setImageName(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importTitle)) {
                 imageVersion.setVersionTitle(metadata.getMetaValue());
-                imageVersion.setImageTitle(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importSubtitle)) {
                 imageVersion.setVersionSubTitle(metadata.getMetaValue());
-                imageVersion.setImageSubTitle(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importKeywords)) {
                 imageVersion.setKeywords(metadata.getMetaValue());

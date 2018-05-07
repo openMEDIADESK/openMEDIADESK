@@ -96,7 +96,6 @@
 
     <resultMap id="mediaList" class="com.stumpner.mediadesk.media.MediaObjectMultiLang">
         <result property="ivid" column="ivid"/>
-        <result property="version" column="version"/>
         <result property="versionTitle" column="versiontitle"/>
         <result property="versionName" column="versionname"/>
         <result property="info" column="info"/>

@@ -418,8 +418,28 @@
       <file leaf-file-name="pin.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/pin.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="33" lean-forward="false" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
+            <state relative-caret-position="-340">
+              <caret line="97" column="47" lean-forward="false" selection-start-line="97" selection-start-column="47" selection-end-line="97" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="update.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/deployment/update.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="100" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="create.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/deployment/create.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="410">
+              <caret line="293" column="37" lean-forward="false" selection-start-line="293" selection-start-column="37" selection-end-line="293" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -428,28 +448,18 @@
       <file leaf-file-name="mediaobject.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/mediaobject.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="326" column="28" lean-forward="false" selection-start-line="326" selection-start-column="28" selection-end-line="326" selection-end-column="28" />
+            <state relative-caret-position="194">
+              <caret line="312" column="35" lean-forward="false" selection-start-line="312" selection-start-column="35" selection-end-line="312" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MediaObject.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/MediaObject.java">
+      <file leaf-file-name="folder.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/folder.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="347">
-              <caret line="33" column="31" lean-forward="false" selection-start-line="33" selection-start-column="31" selection-end-line="33" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BasicMediaObject.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/BasicMediaObject.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="44" column="31" lean-forward="false" selection-start-line="44" selection-start-column="31" selection-end-line="44" selection-end-column="31" />
+            <state relative-caret-position="194">
+              <caret line="35" column="29" lean-forward="false" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -458,62 +468,49 @@
       <file leaf-file-name="lightbox.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/lightbox.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="701">
-              <caret line="57" column="136" lean-forward="false" selection-start-line="57" selection-start-column="136" selection-end-line="57" selection-end-column="136" />
+            <state relative-caret-position="-459">
+              <caret line="12" column="47" lean-forward="false" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="downloadlogger.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="downloadlogger.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/downloadlogger.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="63" lean-forward="false" selection-start-line="16" selection-start-column="63" selection-end-line="16" selection-end-column="63" />
+            <state relative-caret-position="544">
+              <caret line="35" column="33" lean-forward="false" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DownloadLogger.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/stats/DownloadLogger.java">
+      <file leaf-file-name="search.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/search.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="38" column="16" lean-forward="false" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="16" />
+            <state relative-caret-position="0">
+              <caret line="0" column="13" lean-forward="false" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Config.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/Config.java">
+      <file leaf-file-name="imagemetadata.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/imagemetadata.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="123" column="46" lean-forward="false" selection-start-line="123" selection-start-column="46" selection-end-line="123" selection-end-column="46" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="shoppingcart.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="shoppingcart.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/shoppingcart.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="117" column="28" lean-forward="false" selection-start-line="117" selection-start-column="28" selection-end-line="117" selection-end-column="28" />
+            <state relative-caret-position="-1398">
+              <caret line="12" column="47" lean-forward="false" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SimpleMediaObject.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/SimpleMediaObject.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-              <folding>
-                <element signature="e#1379#1380#0" expanded="true" />
-                <element signature="e#1409#1410#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -522,10 +519,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>aclImageList</find>
-      <find>aclIm</find>
-      <find>getAllCategoryListIc</find>
-      <find>category.</find>
       <find>getAllFolderListIc</find>
       <find>normalizeCatNames</find>
       <find>getFolderList</find>
@@ -552,6 +545,10 @@
       <find>mediaList</find>
       <find>pinpicid</find>
       <find>imagenumber</find>
+      <find>deleteAllImageMetadataFromImageId</find>
+      <find>#version#</find>
+      <find>MediaObjectMultiLang</find>
+      <find>version</find>
     </findStrings>
     <replaceStrings>
       <replace>mediadesk</replace>
@@ -595,13 +592,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/DatabaseService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/search/ImageVersionSearchProperty.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/search/MediaSearchProperty.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/AbstractImagePreviewController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/AbstractMediaPreviewController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/AutoImageAssigner.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/LightboxImageDescriptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/FavoriteMediaDescriptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/util/Pop3ImageImport.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/util/Pop3Import.java" />
@@ -619,7 +609,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/MediaVersionService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/AutoMediaAssigner.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/image/util/ImageImport.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/importing/BinaryFileImportHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/PinWizardController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/servlet/SimpleWebdavStore.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/webdav/FolderResource.java" />
@@ -628,24 +617,32 @@
         <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/folder.xml" />
         <option value="$PROJECT_DIR$/resources/WEB-INF/SqlMapConfig.xml" />
         <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/downloadlogger.xml" />
-        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/imagemetadata.xml" />
-        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/search.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/MediaDetailEditController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/MediaService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/FavoriteMediaDescriptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/pin/PinHolder.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/pin/Pin.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/PinpicService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/PinService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/SimpleMediaObject.java" />
-        <option value="$PROJECT_DIR$/deployment/update.sql" />
-        <option value="$PROJECT_DIR$/deployment/create.sql" />
-        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/mediaobject.xml" />
-        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/pin.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/stats/DownloadLogger.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/Config.java" />
-        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/lightbox.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/api/json/FolderContent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/importing/BinaryFileImportHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/MediaService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/image/util/ImageImport.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/image/util/BulkModificationService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/SimpleMediaObject.java" />
+        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/mediaobject.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/importing/AudioImportHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/MediaDetailEditController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/importing/VideoImportHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/Metadata.java" />
+        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/imagemetadata.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/MediaMetadataService.java" />
+        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/search.xml" />
         <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/shoppingcart.xml" />
+        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/lightbox.xml" />
+        <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/pin.xml" />
+        <option value="$PROJECT_DIR$/deployment/update.sql" />
+        <option value="$PROJECT_DIR$/deployment/create.sql" />
       </list>
     </option>
   </component>
@@ -926,6 +923,28 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="snapdox" type="b2602c69:ProjectViewProjectNode" />
+              <item name="openMEDIADESK-trunk" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="snapdox" type="b2602c69:ProjectViewProjectNode" />
+              <item name="openMEDIADESK-trunk" type="462c0819:PsiDirectoryNode" />
+              <item name="deployment" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="snapdox" type="b2602c69:ProjectViewProjectNode" />
+              <item name="openMEDIADESK-trunk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="PackagesPane">
         <subPane>
           <expand>
@@ -1089,28 +1108,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="snapdox" type="b2602c69:ProjectViewProjectNode" />
-              <item name="openMEDIADESK-trunk" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="snapdox" type="b2602c69:ProjectViewProjectNode" />
-              <item name="openMEDIADESK-trunk" type="462c0819:PsiDirectoryNode" />
-              <item name="deployment" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="snapdox" type="b2602c69:ProjectViewProjectNode" />
-              <item name="openMEDIADESK-trunk" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -1755,12 +1752,13 @@
       <workItem from="1523902827656" duration="3145000" />
       <workItem from="1524161528977" duration="940000" />
       <workItem from="1524594591604" duration="3753000" />
-      <workItem from="1525372514061" duration="4040000" />
+      <workItem from="1525372514061" duration="4107000" />
+      <workItem from="1525716743252" duration="2001000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="91665000" />
+    <option name="totallyTimeSpent" value="93733000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1784,9 +1782,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36816874" sideWeight="0.123667374" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36816874" sideWeight="0.12739871" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="19" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1797,18 +1796,18 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41903827" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32679096" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20709492" sideWeight="0.39392325" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20709492" sideWeight="0.3891258" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="18" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36816874" sideWeight="0.8726013" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32694152" sideWeight="0.4978678" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36816874" sideWeight="0.87633264" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="20" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3523454" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35607675" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29434323" sideWeight="0.3795309" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29434323" sideWeight="0.37473348" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36435643" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -2051,66 +2050,10 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pUploadFtp.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1819">
-          <caret line="107" column="12" lean-forward="false" selection-start-line="107" selection-start-column="12" selection-end-line="107" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/IndexDispatcher-servlet.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3502">
-          <caret line="206" column="11" lean-forward="false" selection-start-line="206" selection-start-column="11" selection-end-line="206" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/FavoriteViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="52" column="64" lean-forward="false" selection-start-line="52" selection-start-column="64" selection-end-line="52" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/MediaSearchService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="40" column="40" lean-forward="false" selection-start-line="40" selection-start-column="40" selection-end-line="40" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/MediaService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="30" column="27" lean-forward="false" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1525375847506" expanded="true" signature="16163:16267" ph="UPDATE image... " />
-            <marker date="1525375847506" expanded="true" signature="16361:16511" ph="UPDATE image... " />
-            <marker date="1525375847506" expanded="true" signature="16546:16679" ph="UPDATE categ... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pUploadWeb.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1649">
           <caret line="97" column="108" lean-forward="false" selection-start-line="97" selection-start-column="108" selection-end-line="97" selection-end-column="108" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/image/util/ImageImport.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="45" lean-forward="false" selection-start-line="7" selection-start-column="45" selection-end-line="7" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/importing/BinaryFileImportHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="61" lean-forward="false" selection-start-line="4" selection-start-column="61" selection-end-line="4" selection-end-column="61" />
         </state>
       </provider>
     </entry>
@@ -2156,30 +2099,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/image.xml" />
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/folder.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="38" column="108" lean-forward="false" selection-start-line="38" selection-start-column="108" selection-end-line="38" selection-end-column="108" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/WebContextListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="179" column="0" lean-forward="false" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/imagemetadata.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="39" column="41" lean-forward="false" selection-start-line="39" selection-start-column="41" selection-end-line="39" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/FavoriteService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="680">
@@ -2188,35 +2107,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/search.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5321">
-          <caret line="313" column="37" lean-forward="false" selection-start-line="313" selection-start-column="37" selection-end-line="313" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/WEB-INF/SqlMapConfig.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="25" column="32" lean-forward="false" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/MediaDetailEditController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3145">
-          <caret line="462" column="33" lean-forward="false" selection-start-line="462" selection-start-column="33" selection-end-line="462" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#showForm#0;class#MediaDetailEditController#0" expanded="false" />
-            <element signature="method#initBinder#0;class#MediaDetailEditController#0" expanded="false" />
-            <element signature="method#formBackingObject#0;class#MediaDetailEditController#0" expanded="false" />
-            <element signature="method#createNewFile#0;class#MediaDetailEditController#0" expanded="false" />
-            <element signature="method#doNameAsTitle#0;class#MediaDetailEditController#0" expanded="false" />
-            <element signature="method#doAutoFill#0;class#MediaDetailEditController#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2248,14 +2142,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-7">
           <caret line="36" column="13" lean-forward="false" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/Metadata.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7">
-          <caret line="28" column="13" lean-forward="false" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -2297,8 +2183,8 @@
         <state relative-caret-position="566">
           <caret line="51" column="34" lean-forward="false" selection-start-line="51" selection-start-column="34" selection-end-line="51" selection-end-column="34" />
           <folding>
-            <element signature="e#3225#3226#0" expanded="true" />
-            <element signature="e#3258#3259#0" expanded="true" />
+            <element signature="e#3225#3226#0" expanded="false" />
+            <element signature="e#3258#3259#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2319,89 +2205,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/MediaService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1124">
-          <caret line="412" column="7" lean-forward="false" selection-start-line="412" selection-start-column="7" selection-end-line="412" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1525375847506" expanded="true" signature="16163:16267" ph="UPDATE image... " />
-            <marker date="1525375847506" expanded="true" signature="16361:16511" ph="UPDATE image... " />
-            <marker date="1525375847506" expanded="true" signature="16546:16679" ph="UPDATE categ... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/deployment/update.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="102" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/deployment/create.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="296" column="41" lean-forward="false" selection-start-line="296" selection-start-column="41" selection-end-line="296" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/mediaobject.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="326" column="28" lean-forward="false" selection-start-line="326" selection-start-column="28" selection-end-line="326" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/pin.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="33" lean-forward="false" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/MediaObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="33" column="31" lean-forward="false" selection-start-line="33" selection-start-column="31" selection-end-line="33" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/SimpleMediaObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-          <folding>
-            <element signature="e#1379#1380#0" expanded="true" />
-            <element signature="e#1409#1410#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/BasicMediaObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="44" column="31" lean-forward="false" selection-start-line="44" selection-start-column="31" selection-end-line="44" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/downloadlogger.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="63" lean-forward="false" selection-start-line="16" selection-start-column="63" selection-end-line="16" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/stats/DownloadLogger.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
+        <state relative-caret-position="646">
           <caret line="38" column="16" lean-forward="false" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="16" />
           <folding />
         </state>
@@ -2409,24 +2215,219 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/Config.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
+        <state relative-caret-position="1598">
           <caret line="123" column="46" lean-forward="false" selection-start-line="123" selection-start-column="46" selection-end-line="123" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/lightbox.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/MediaObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="701">
-          <caret line="57" column="136" lean-forward="false" selection-start-line="57" selection-start-column="136" selection-end-line="57" selection-end-column="136" />
+        <state relative-caret-position="170">
+          <caret line="30" column="44" lean-forward="false" selection-start-line="30" selection-start-column="44" selection-end-line="30" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/api/json/FolderContent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="126" column="162" lean-forward="false" selection-start-line="126" selection-start-column="162" selection-end-line="126" selection-end-column="162" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/importing/BinaryFileImportHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="94" column="78" lean-forward="false" selection-start-line="94" selection-start-column="78" selection-end-line="94" selection-end-column="78" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/MediaService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="243" column="48" lean-forward="false" selection-start-line="243" selection-start-column="48" selection-end-line="243" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#15435#15436#0" expanded="true" />
+            <element signature="e#15488#15489#0" expanded="true" />
+            <marker date="1525717404289" expanded="true" signature="16111:16215" ph="UPDATE image... " />
+            <marker date="1525717404289" expanded="true" signature="16309:16459" ph="UPDATE image... " />
+            <marker date="1525717404289" expanded="true" signature="16494:16627" ph="UPDATE categ... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/image/util/ImageImport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="193" column="77" lean-forward="false" selection-start-line="193" selection-start-column="77" selection-end-line="193" selection-end-column="77" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/image/util/BulkModificationService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="221" column="73" lean-forward="false" selection-start-line="221" selection-start-column="73" selection-end-line="221" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/BasicMediaObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="32" column="50" lean-forward="false" selection-start-line="32" selection-start-column="50" selection-end-line="32" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/SimpleMediaObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="447">
+          <caret line="39" column="5" lean-forward="true" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/importing/AudioImportHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="66" column="33" lean-forward="false" selection-start-line="66" selection-start-column="33" selection-end-line="66" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/MediaDetailEditController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="653" column="90" lean-forward="false" selection-start-line="653" selection-start-column="90" selection-end-line="653" selection-end-column="90" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#showForm#0;class#MediaDetailEditController#0" expanded="false" />
+            <element signature="method#initBinder#0;class#MediaDetailEditController#0" expanded="false" />
+            <element signature="method#formBackingObject#0;class#MediaDetailEditController#0" expanded="false" />
+            <element signature="method#createNewFile#0;class#MediaDetailEditController#0" expanded="false" />
+            <element signature="method#doNameAsTitle#0;class#MediaDetailEditController#0" expanded="false" />
+            <element signature="method#doAutoFill#0;class#MediaDetailEditController#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/importing/VideoImportHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="184" column="33" lean-forward="false" selection-start-line="184" selection-start-column="33" selection-end-line="184" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/Metadata.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="35" column="26" lean-forward="false" selection-start-line="35" selection-start-column="26" selection-end-line="35" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/MediaMetadataService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="523">
+          <caret line="141" column="0" lean-forward="false" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/WebContextListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="236" column="0" lean-forward="false" selection-start-line="236" selection-start-column="0" selection-end-line="236" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/mediaobject.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="312" column="35" lean-forward="false" selection-start-line="312" selection-start-column="35" selection-end-line="312" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/folder.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="35" column="29" lean-forward="false" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/search.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="13" lean-forward="false" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/shoppingcart.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="117" column="28" lean-forward="false" selection-start-line="117" selection-start-column="28" selection-end-line="117" selection-end-column="28" />
+        <state relative-caret-position="-1398">
+          <caret line="12" column="47" lean-forward="false" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/lightbox.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-459">
+          <caret line="12" column="47" lean-forward="false" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/imagemetadata.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/pin.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-340">
+          <caret line="97" column="47" lean-forward="false" selection-start-line="97" selection-start-column="47" selection-end-line="97" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deployment/update.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="100" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deployment/create.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="293" column="37" lean-forward="false" selection-start-line="293" selection-start-column="37" selection-end-line="293" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/downloadlogger.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="35" column="33" lean-forward="false" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
           <folding />
         </state>
       </provider>

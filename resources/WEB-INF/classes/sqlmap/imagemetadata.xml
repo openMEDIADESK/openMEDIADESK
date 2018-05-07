@@ -8,8 +8,6 @@
 
     <resultMap id="imagemetadataList" class="com.stumpner.mediadesk.media.Metadata">
         <result property="imdid" column="imdid"/>
-        <result property="imageId" column="imageid"/>
-        <result property="versionId" column="versionid"/>
         <result property="metaKey" column="metakey"/>
         <result property="metaValue" column="metaValue"/>
         <result property="exifTag" column="exiftag"/>
@@ -24,8 +22,8 @@
 
     <insert id="addImageMetadata" parameterClass="com.stumpner.mediadesk.media.Metadata">
         INSERT INTO
-        imagemetadata (imageid,versionid,metakey,metavalue,exiftag,lang,ivid)
-        VALUES (#imageId#,#versionId#,#metaKey#,#metaValue#,#exifTag#,#lang#,#ivid#)
+        imagemetadata (metakey,metavalue,exiftag,lang,ivid)
+        VALUES (#metaKey#,#metaValue#,#exifTag#,#lang#,#ivid#)
     </insert>
 
     <update id="saveImageMetadata" parameterClass="com.stumpner.mediadesk.media.Metadata">
@@ -39,10 +37,6 @@
 
     <delete id="deleteAllMetadataFromIvid" parameterClass="int">
         DELETE FROM imagemetadata WHERE ivid = #value#
-    </delete>
-
-    <delete id="deleteAllImageMetadataFromImageId" parameterClass="int">
-        DELETE FROM imagemetadata WHERE imageid = #value#
     </delete>
 
 </sqlMap>

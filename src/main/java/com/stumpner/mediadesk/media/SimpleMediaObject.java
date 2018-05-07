@@ -32,47 +32,8 @@ import java.util.Date;
  */
 public class SimpleMediaObject {
 
-    /**
-     * @deprecated: wird nicht mehr verwendet
-     */
-    protected int imageId = -1;
-    private String imageName = "";
-    private String imageTitle = "";
-    private String imageSubTitle = "";
     private Date createDate;
     private String mediaNumber = "";
-
-    public int getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
-    }
-
-    public String getImageName() {
-        return imageName;
-    }
-
-    public void setImageName(String imageName) {
-        this.imageName = NameValidator.normalize(imageName);
-    }
-
-    public String getImageTitle() {
-        return imageTitle;
-    }
-
-    public String getImageSubTitle() {
-        return imageSubTitle;
-    }
-
-    public void setImageSubTitle(String imageSubTitle) {
-        this.imageSubTitle = imageSubTitle;
-    }
-
-    public void setImageTitle(String imageTitle) {
-        this.imageTitle = imageTitle;
-    }
 
     public Date getCreateDate() {
         return createDate;

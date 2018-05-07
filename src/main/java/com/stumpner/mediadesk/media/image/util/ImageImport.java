@@ -106,7 +106,7 @@ public class ImageImport {
             imageVersion.setMediaNumber(Integer.toString(imageVersion.getIvid()));
         }
 
-        logger.info("Added Media-Objekt to mediaDESK: "+imageVersion.getImageId()+" Number: "+imageVersion.getMediaNumber());
+        logger.info("Added Media-Objekt to mediaDESK: "+imageVersion.getIvid()+" Number: "+imageVersion.getMediaNumber());
 
         //orientation:
         // 0 - square
@@ -166,9 +166,7 @@ public class ImageImport {
         //Dateiname im Import-Filesytem als Meta-Data
         Metadata md = new Metadata();
         md.setExifTag(false);
-        md.setImageId(imageVersion.getImageId());
         md.setIvid(imageVersion.getIvid());
-        md.setVersionId(imageVersion.getVersion());
         md.setMetaKey("Filename");
         md.setMetaValue(file.getName());
         metadataList.add(md);
@@ -176,29 +174,24 @@ public class ImageImport {
         Iterator metadatas = metadataList.iterator();
         while (metadatas.hasNext()) {
             Metadata metadata = (Metadata)metadatas.next();
-            metadata.setImageId(imageVersion.getImageId());
             metadata.setIvid(imageVersion.getIvid());
             metadata.setLang("");
-            metadata.setVersionId(imageVersion.getVersion());
             mediaMetadataService.addMetadata(metadata);
 
             logger.debug("Meta-Key: "+metadata.getMetaKey()+" | Meta-Value: "+metadata.getMetaValue()+ " | ");
 
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importName)) {
                 imageVersion.setVersionName(metadata.getMetaValue());
-                imageVersion.setImageName(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importTitle)) {
                 imageVersion.setVersionTitle(metadata.getMetaValue());
                 imageVersion.setVersionTitleLng1(metadata.getMetaValue());
                 imageVersion.setVersionTitleLng2(metadata.getMetaValue());
-                imageVersion.setImageTitle(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importSubtitle)) {
                 imageVersion.setVersionSubTitle(metadata.getMetaValue());
                 imageVersion.setVersionSubTitleLng1(metadata.getMetaValue());
                 imageVersion.setVersionSubTitleLng2(metadata.getMetaValue());
-                imageVersion.setImageSubTitle(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importKeywords)) {
                 imageVersion.setKeywords(metadata.getMetaValue());

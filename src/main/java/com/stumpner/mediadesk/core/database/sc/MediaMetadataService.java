@@ -140,14 +140,4 @@ public class MediaMetadataService {
         }
     }
 
-    public void deleteAllMetadataFromImageId(int imageId) {
-
-        SqlMapClient smc = AppSqlMap.getSqlMapInstance();
-
-        try {
-            smc.delete("deleteAllImageMetadataFromImageId",new Integer(imageId));
-        } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-    }
 }

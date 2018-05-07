@@ -121,10 +121,10 @@ public class FolderContent extends HttpServlet {
                     //Content
                     jsonOutput.append("\n{");
 
-                    jsonOutput.append("\"id\":\"" + mediaObject.getImageId() + "\",");
+                    jsonOutput.append("\"id\":\"" + mediaObject.getIvid() + "\",");
                     jsonOutput.append("\"title\":\"" + mediaObject.getVersionTitle() + "\",");
                     jsonOutput.append("\"mime\":\"" + mediaObject.getMimeType() + "\",");
-                    jsonOutput.append("\"downloadUrl\":\"/de/download;jsessionid="+request.getSession().getId()+"?download=ivid&amp;ivid=" + mediaObject.getImageId() + "\"");
+                    jsonOutput.append("\"downloadUrl\":\"/de/download;jsessionid="+request.getSession().getId()+"?download=ivid&amp;ivid=" + mediaObject.getIvid() + "\"");
 
                     jsonOutput.append("}");
 

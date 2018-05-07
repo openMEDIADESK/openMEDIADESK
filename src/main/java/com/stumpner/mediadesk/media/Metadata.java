@@ -29,8 +29,6 @@ package com.stumpner.mediadesk.media;
 public class Metadata {
 
     private int imdid = -1;
-    private int imageId = -1;
-    private int versionId = -1;
     private String metaKey = "";
     private String metaValue = "";
     private boolean exifTag = false;
@@ -44,22 +42,6 @@ public class Metadata {
 
     public void setImdid(int imdid) {
         this.imdid = imdid;
-    }
-
-    public int getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
-    }
-
-    public int getVersionId() {
-        return versionId;
-    }
-
-    public void setVersionId(int versionId) {
-        this.versionId = versionId;
     }
 
     public String getMetaKey() {

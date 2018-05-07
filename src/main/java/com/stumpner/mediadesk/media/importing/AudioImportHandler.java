@@ -65,7 +65,6 @@ public class AudioImportHandler extends AbstractAudioVideoImportHandler {
 
             metadata.setIvid(mediaObject.getIvid());
             metadata.setLang("");
-            metadata.setVersionId(mediaObject.getVersion());
             mediaMetadataService.addMetadata(metadata);
 
             //System.out.println("Metadata: "+metadata.getMetaKey()+" -> "+metadata.getMetaValue());

@@ -92,7 +92,7 @@ public class BinaryFileImportHandler implements MediaImportHandler {
             imageVersion.setMediaNumber(Integer.toString(imageVersion.getIvid()));
         }
 
-        logger.info("Added Media-Object to mediaDESK: "+imageVersion.getImageId()+" Number: "+imageVersion.getMediaNumber());
+        logger.info("Added Media-Object to mediaDESK: "+imageVersion.getIvid()+" Number: "+imageVersion.getMediaNumber());
 
         //original image ablegen:
         try {

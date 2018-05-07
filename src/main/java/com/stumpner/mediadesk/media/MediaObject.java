@@ -31,7 +31,6 @@ import java.util.Date;
 public class MediaObject extends BasicMediaObject {
 
     protected int ivid = -1;
-    protected int version = -1;
     protected String versionTitle = "";
     protected String versionSubTitle = "";
     protected String versionName = "";
@@ -78,14 +77,6 @@ public class MediaObject extends BasicMediaObject {
 
     public void setIvid(int ivid) {
         this.ivid = ivid;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
     }
 
     public String getVersionTitle() {

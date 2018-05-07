@@ -183,7 +183,6 @@ public class VideoImportHandler extends AbstractAudioVideoImportHandler {
 
             metadata.setIvid(mediaObject.getIvid());
             metadata.setLang("");
-            metadata.setVersionId(mediaObject.getVersion());
             mediaMetadataService.addMetadata(metadata);
 
             if (metadata.getMetaKey().equalsIgnoreCase("artist")) {

@@ -485,10 +485,6 @@ public class MediaDetailEditController extends AbstractAutoFillController {
             for (int p=0;p<fields.length;p++) {
 
                 if (fields[p].equalsIgnoreCase("versionTitle")) {
-                    ividTo.setImageTitle(ividFrom.getImageTitle()); }
-                if (fields[p].equalsIgnoreCase("versionSubTitle")) {
-                    ividTo.setImageSubTitle(ividFrom.getImageSubTitle()); }
-                if (fields[p].equalsIgnoreCase("versionTitle")) {
                     ividTo.setVersionTitle(ividFrom.getVersionTitle()); }
                 if (fields[p].equalsIgnoreCase("versionTitleLng1")) {
                     ividTo.setVersionTitleLng1(ividFrom.getVersionTitleLng1()); }
@@ -595,14 +591,6 @@ public class MediaDetailEditController extends AbstractAutoFillController {
                 //System.out.println("Copy-Field: "+fields[p]);
 
                 if (fields[p].equalsIgnoreCase("versionTitle")) {
-                //    System.out.println("-> ImageTitle");
-                    ividTo.setImageTitle(       ividFrom.getImageTitle());
-                }
-                if (fields[p].equalsIgnoreCase("versionSubTitle")) {
-                //    System.out.println("-> ImageSubTitle");
-                    ividTo.setImageSubTitle(    ividFrom.getImageSubTitle());
-                }
-                if (fields[p].equalsIgnoreCase("versionTitle")) {
                 //    System.out.println("-> VersionTitle");
                     ividTo.setVersionTitle(     ividFrom.getVersionTitle());
                 }
@@ -659,11 +647,11 @@ public class MediaDetailEditController extends AbstractAutoFillController {
             if (metadata.getLang().length()>0) {
                 if (metadata.getImdid()==-1) {
                     //add
-                    logger.debug("add Metadata to image, ivid: "+metadata.getIvid()+", imageid: "+metadata.getImageId()+" data: "+metadata.getMetaValue());
+                    logger.debug("add Metadata to image, ivid: "+metadata.getIvid()+", data: "+metadata.getMetaValue());
                     ims.addMetadata(metadata);
                 } else {
                     //update
-                    logger.debug("update Metadata to image, ivid: "+metadata.getIvid()+", imageid: "+metadata.getImageId()+" data: "+metadata.getMetaValue());
+                    logger.debug("update Metadata to image, ivid: "+metadata.getIvid()+", data: "+metadata.getMetaValue());
                     ims.saveMetadata(metadata);
                 }
             }

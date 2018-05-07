@@ -242,7 +242,6 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
             //System.out.println("Inserted Primary Key: "+obj.getClass().getName());
             //System.out.println("Inserted Primary val: "+obj.toString());
             mediaObject.setIvid(obj.intValue());
-            mediaObject.setImageId(obj.intValue());
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

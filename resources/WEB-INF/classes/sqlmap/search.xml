@@ -8,11 +8,9 @@
 
     <resultMap id="imageList" class="com.stumpner.mediadesk.media.MediaObjectMultiLang">
         <result property="ivid" column="ivid"/>
-        <result property="version" column="version"/>
         <result property="versionTitle" column="versiontitle"/>
         <result property="versionName" column="versionname"/>
         <result property="info" column="info"/>
-        <result property="imageId" column="imageid"/>
         <result property="createDate" column="createdate"/>
         <result property="creatorUserId" column="creatoruserid"/>
         <result property="note" column="note"/>
@@ -59,11 +57,9 @@
 
     <sql id="queryFields">
             mediaobject.ivid    as ivid,
-            version as version,
             versiontitle    as versionTitle,
             versionname     as versionName,
             info                as info,
-            imageid         as imageId,
             mediaobject.createdate      as createDate,
             mediaobject.creatoruserid   as creatorUserId,
             mediaobject.note            as note,
