@@ -78,6 +78,7 @@ Frameworks used by openMEDIADESK
 
 * https://openmediadesk.org
 * https://wiki.openmediadesk.net
+* Twitter https://twitter.com/openMEDIADESK
 
 Download binary/war: http://get.openmediadesk.org
 
@@ -160,6 +161,7 @@ Frameworks used by openMEDIADESK
 
 * https://openmediadesk.org
 * https://wiki.openmediadesk.net
+* Twitter https://twitter.com/openMEDIADESK
 
 Download unter http://get.openmediadesk.org
 
