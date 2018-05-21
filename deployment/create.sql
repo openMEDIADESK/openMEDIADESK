@@ -298,3 +298,4 @@ ALTER TABLE `mediaobject` CHANGE COLUMN `imagenumber` `medianumber` VARCHAR(255)
 ALTER TABLE `mediaobject` DROP COLUMN `imageid`, DROP COLUMN `version`, DROP INDEX `imageid_index` ;
 ALTER TABLE `imagemetadata` RENAME TO  `mediametadata` ;
 ALTER TABLE `lightbox` RENAME TO  `fav` ;
+ALTER TABLE `pin` MODIFY pinid INTEGER NOT NULL AUTO_INCREMENT;
