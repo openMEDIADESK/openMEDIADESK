@@ -170,7 +170,7 @@
             uploadenabled as uploadEnabled,
             defaultview as defaultview,
             emailnotification as emailnotification,
-            pinpic.password as password
+            pin.password as password
         FROM pin
         WHERE pin = #value#
     </select>
