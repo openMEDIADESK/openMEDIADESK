@@ -51,7 +51,7 @@ public class DatabaseService {
             FolderService folderService = new FolderService();
             folderService.calcMediaCount(0);
 
-            //AclImage Neu aufbauen:
+            //Rebuild AclMedia Table:
             logger.debug("DatabseService: updateing ImageACL");
             MediaService ivs = new MediaService();
             ivs.updateAcl();

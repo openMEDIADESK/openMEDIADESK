@@ -125,10 +125,9 @@
         ) as score
         <!-- acl section -->
         <isEqual compareValue="true" property="aclEnabled">
-        <!-- poor performance FROM (SELECT DISTINCT ivid FROM aclimage WHERE principalid = #principalId#) AS aclimage -->
-        FROM aclimage
-        INNER JOIN mediaobject on aclimage.ivid = mediaobject.ivid AND
-            ((aclimage.principalid = #groupPrincipal# AND aclimage.principaltype = 1) OR (aclimage.principalid = #userPrincipal# AND aclimage.principaltype = 2))
+        FROM aclmedia
+        INNER JOIN mediaobject on aclmedia.ivid = mediaobject.ivid AND
+            ((aclmedia.principalid = #groupPrincipal# AND aclmedia.principaltype = 1) OR (aclmedia.principalid = #userPrincipal# AND aclmedia.principaltype = 2))
         </isEqual>
         <!-- \acl section -->
         <!-- NON-acl section -->
@@ -146,10 +145,9 @@
          , '$usedLanguage$' as usedLanguage
         <!-- acl section -->
         <isEqual compareValue="true" property="aclEnabled">
-        <!-- poor performance FROM (SELECT DISTINCT ivid FROM aclimage WHERE principalid = #principalId#) AS aclimage -->
-        FROM aclimage
-        INNER JOIN mediaobject on aclimage.ivid = mediaobject.ivid AND
-            ((aclimage.principalid = #groupPrincipal# AND aclimage.principaltype = 1) OR (aclimage.principalid = #userPrincipal# AND aclimage.principaltype = 2))
+        FROM aclmedia
+        INNER JOIN mediaobject on aclmedia.ivid = mediaobject.ivid AND
+            ((aclmedia.principalid = #groupPrincipal# AND aclmedia.principaltype = 1) OR (aclmedia.principalid = #userPrincipal# AND aclmedia.principaltype = 2))
         </isEqual>
         <!-- \acl section -->
         <!-- NON-acl section -->
@@ -167,10 +165,9 @@
         SELECT DISTINCT null as stid, #suid# as suid, mediaobject.ivid as ivid, now() as searchtime, 100 as score
         <!-- acl section -->
         <isEqual compareValue="true" property="aclEnabled">
-        <!-- poor performance FROM (SELECT DISTINCT ivid FROM aclimage WHERE principalid = #principalId#) AS aclimage -->
-        FROM aclimage
-        INNER JOIN mediaobject on aclimage.ivid = mediaobject.ivid AND
-            ((aclimage.principalid = #groupPrincipal# AND aclimage.principaltype = 1) OR (aclimage.principalid = #userPrincipal# AND aclimage.principaltype = 2))
+        FROM aclmedia
+        INNER JOIN mediaobject on aclmedia.ivid = mediaobject.ivid AND
+            ((aclmedia.principalid = #groupPrincipal# AND aclmedia.principaltype = 1) OR (aclmedia.principalid = #userPrincipal# AND aclmedia.principaltype = 2))
         </isEqual>
         <!-- \acl section -->
         <!-- NON-acl section -->
@@ -234,10 +231,9 @@
             as score
         <!-- acl section -->
         <isEqual compareValue="true" property="aclEnabled">
-        <!-- poor performance FROM (SELECT DISTINCT ivid FROM aclimage WHERE principalid = #principalId#) AS aclimage -->
-        FROM aclimage
-        INNER JOIN mediaobject on aclimage.ivid = mediaobject.ivid AND
-            ((aclimage.principalid = #groupPrincipal# AND aclimage.principaltype = 1) OR (aclimage.principalid = #userPrincipal# AND aclimage.principaltype = 2))
+        FROM aclmedia
+        INNER JOIN mediaobject on aclmedia.ivid = mediaobject.ivid AND
+            ((aclmedia.principalid = #groupPrincipal# AND aclmedia.principaltype = 1) OR (aclmedia.principalid = #userPrincipal# AND aclmedia.principaltype = 2))
         </isEqual>
         <!-- \acl section -->
         <!-- NON-acl section -->
@@ -300,19 +296,6 @@
             AND licvalid &lt;= #licValid#
         </isNotEmpty>
         LIMIT 0,1000
-    </update>
-
-    <update id="aclImagelist">
-                <!--
-                ACL-Section: erstellt einen temp-table mit den images für eine security-group
-                |ivid|principaltype|principalid|
-                 -->
-        INNER JOIN categoryholder ON mediaobject.ivid = categoryholder.ivid
-        INNER JOIN acldata ON acldata.objectid = categoryholder.categoryid
-            AND (objecttype = 10 OR objecttype = 11)
-            AND principalid = 0
-            AND permission = "read"
-        <!-- \end ACL-Section -->
     </update>
 
     <update id="resetSearch">

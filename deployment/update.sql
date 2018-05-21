@@ -15,3 +15,4 @@ ALTER TABLE `mediaobject` DROP COLUMN `imageid`, DROP COLUMN `version`, DROP IND
 ALTER TABLE `imagemetadata` RENAME TO  `mediametadata` ;
 ALTER TABLE `lightbox` RENAME TO  `fav` ;
 ALTER TABLE `pin` MODIFY pinid INTEGER NOT NULL AUTO_INCREMENT;
+ALTER TABLE `aclimage` RENAME TO  `aclmedia`;

@@ -239,10 +239,10 @@
         <isNotEqual compareValue="0" property="userPrincipal">
             FROM mediaobject
             WHERE mediaobject.ivid IN
-             (SELECT DISTINCT aclimage.ivid FROM aclimage WHERE
+             (SELECT DISTINCT aclmedia.ivid FROM aclmedia WHERE
 
-                ((aclimage.principalid = #groupPrincipal# AND aclimage.principaltype = 1) OR
-                (aclimage.principalid = #userPrincipal# AND aclimage.principaltype = 2))
+                ((aclmedia.principalid = #groupPrincipal# AND aclmedia.principaltype = 1) OR
+                (aclmedia.principalid = #userPrincipal# AND aclmedia.principaltype = 2))
 
             )
         </isNotEqual>
@@ -363,11 +363,11 @@
     </select>
 
     <delete id="aclDelete">
-        DELETE FROM aclimage
+        DELETE FROM aclmedia
     </delete>
 
     <update id="aclUpdate">
-        REPLACE INTO aclimage
+        REPLACE INTO aclmedia
           SELECT mediaobject.ivid, categoryid as objectid, objecttype, principalid, principaltype, permission FROM mediaobject
             INNER JOIN folderholder ON mediaobject.ivid = folderholder.ivid
             INNER JOIN acldata ON acldata.objectid = folderholder.categoryid AND objecttype = 10
