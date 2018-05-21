@@ -72,7 +72,7 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
         this.resourceFactory = resourceFactory;
 
         this.id = folder.getFolderId();
-        this.categoryName = folder.getFolderName();
+        this.categoryName = folder.getName();
 
         FolderService folderService = new FolderService();
         categoryList = folderService.getFolderList(folder.getFolderId());
@@ -80,7 +80,7 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
 
     public FolderResource(WebdavResourceFactory resourceFactory, String categoryPath) {
         folder = new FolderMultiLang();
-        folder.setFolderName("root");
+        folder.setName("root");
         folder.setFolderId(0);
         this.resourceFactory = resourceFactory;
         this.id = 0;
@@ -92,7 +92,7 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
             try {
                 Folder folder = folderService.getFolderByPath(categoryPath);
                 this.id = folder.getFolderId();
-                this.categoryName = folder.getFolderName();
+                this.categoryName = folder.getName();
             } catch (ObjectNotFoundException e) {
                 System.err.println("Pfad: "+categoryPath+" nicht gefunden");
             }
@@ -141,13 +141,13 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
     }
 
     public Resource child(String s) {
-        System.out.println("Webdav FolderResource.child: [string="+s+"]  ,categoryid="+ folder.getFolderId()+",name="+ folder.getFolderName());
+        System.out.println("Webdav FolderResource.child: [string="+s+"]  ,categoryid="+ folder.getFolderId()+",name="+ folder.getName());
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public List<? extends Resource> getChildren() {
 
-        System.out.println("Webdav FolderResource.getChildren: ,categoryid="+ folder.getFolderId()+",name="+ folder.getFolderName());
+        System.out.println("Webdav FolderResource.getChildren: ,categoryid="+ folder.getFolderId()+",name="+ folder.getName());
 
         List<Resource> list = new LinkedList<Resource>();
         AclFolderService categoryService = new AclFolderService(aclCtx);
@@ -233,7 +233,7 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
         //    return null;
         //}
 
-        System.out.println("Webdav FolderResource.createNew: ["+newName+",length="+length+",contentType="+contentType+"] ,catid="+ folder.getFolderId()+",catname="+ folder.getFolderName());
+        System.out.println("Webdav FolderResource.createNew: ["+newName+",length="+length+",contentType="+contentType+"] ,catid="+ folder.getFolderId()+",catname="+ folder.getName());
 
         int ivid = -1;
         int overwrittenIvId = -1;
@@ -440,10 +440,10 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
 
             FolderMultiLang newCategory = new FolderMultiLang();
             newCategory.setParent(folder.getFolderId());
-            newCategory.setFolderName(s);
-            newCategory.setFolderTitle(s);
-            newCategory.setFolderTitleLng1(s);
-            newCategory.setFolderTitleLng2(s);
+            newCategory.setName(s);
+            newCategory.setTitle(s);
+            newCategory.setTitleLng1(s);
+            newCategory.setTitleLng2(s);
 
             try {
                 folderService.addFolder(newCategory);
@@ -473,16 +473,16 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
                 try {
                     //Umbenennen
                     FolderMultiLang categoryML = (FolderMultiLang) folderService.getFolderById(folder.getFolderId());
-                    if (categoryML.getFolderTitle().equalsIgnoreCase(folder.getFolderName())) {
-                        categoryML.setFolderTitle(s);
+                    if (categoryML.getTitle().equalsIgnoreCase(folder.getName())) {
+                        categoryML.setTitle(s);
                     }
-                    if (categoryML.getFolderTitleLng1().equalsIgnoreCase(folder.getFolderName())) {
-                        categoryML.setFolderTitleLng1(s);
+                    if (categoryML.getTitleLng1().equalsIgnoreCase(folder.getName())) {
+                        categoryML.setTitleLng1(s);
                     }
-                    if (categoryML.getFolderTitleLng2().equalsIgnoreCase(folder.getFolderName())) {
-                        categoryML.setFolderTitleLng2(s);
+                    if (categoryML.getTitleLng2().equalsIgnoreCase(folder.getName())) {
+                        categoryML.setTitleLng2(s);
                     }
-                    categoryML.setFolderName(s);
+                    categoryML.setName(s);
 
                     folderService.save(categoryML);
                 } catch (IOServiceException e) {

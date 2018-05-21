@@ -21,7 +21,7 @@ public class BreadCrumbItem {
             Folder folder = (Folder)obj;
             url = "/index/cat";
             id = folder.getFolderId();
-            title = folder.getFolderTitle();
+            title = folder.getTitle();
             showFolder = true;
         }
     }

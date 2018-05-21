@@ -24,16 +24,16 @@
             <c:param name="id" value="${navItem.folderId}"/>
         </c:url>
         <c:if test="${!loop.last}">
-            <li><a href="<c:out value="${thisCatLink}"/>"><i class="fa fa-folder-open-o fa-fw"></i> <c:out value="${navItem.folderTitle}"/></a></li>
+            <li><a href="<c:out value="${thisCatLink}"/>"><i class="fa fa-folder-open-o fa-fw"></i> <c:out value="${navItem.title}"/></a></li>
         </c:if>
         <c:if test="${loop.last}">
-            <li class="active"><i class="fa fa-folder-open-o fa-fw"></i> <c:out value="${folder.folderTitle}"/></li>
+            <li class="active"><i class="fa fa-folder-open-o fa-fw"></i> <c:out value="${folder.title}"/></li>
         </c:if>
     </c:forEach>
 </ol>
 <!-- /breadcrumbs -->
 <!-- ordnertitel und infos -->
-<h3><c:out value="${folder.folderTitle}"/><small>&nbsp;<c:out value="${folder.mediaCount}"/> <spring:message code="stat.pics"/></small></h3>
+<h3><c:out value="${folder.title}"/><small>&nbsp;<c:out value="${folder.mediaCount}"/> <spring:message code="stat.pics"/></small></h3>
 <h4><c:out value="${folder.description}"/></h4>
 <!-- /ordnertitel und infos -->
 <!-- mediadesk abstand -->

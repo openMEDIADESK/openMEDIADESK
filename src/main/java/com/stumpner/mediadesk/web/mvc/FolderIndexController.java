@@ -133,7 +133,7 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
                 request.setAttribute("folder", folder);
             } else {
                 folder.setFolderId(0);
-                folder.setFolderTitle("");
+                folder.setTitle("");
                 folder.setDescription("");
                 folder.setDefaultview(Config.categoryDefaultViewOnRoot);
                 request.setAttribute("folder", folder);
@@ -160,7 +160,7 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
         }
 
         //Für die Sharer Links
-        request.setAttribute("sharerTitle", URLEncoder.encode(folder.getFolderTitle(),"UTF-8"));
+        request.setAttribute("sharerTitle", URLEncoder.encode(folder.getTitle(),"UTF-8"));
 
         try {
             parentFolderList = folderService.getParentFolderList(id);
@@ -228,7 +228,7 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
         request.setAttribute("showInsertUrl",new Boolean(isShowInsertUrl(request)));
         request.setAttribute("showRemoveUrl",new Boolean(isShowRemoveUrl(request)));
 
-        request.setAttribute("webSiteTitle", folder.getFolderTitle());
+        request.setAttribute("webSiteTitle", folder.getTitle());
 
         putOpenGraphDataAttributes(request);
 
@@ -287,7 +287,7 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
             Folder c = (Folder)request.getAttribute("folder");
             og.put("url",WebHelper.getServerNameUrlPathWithQueryString(request));
             og.put("type","article");
-            og.put("title",c.getFolderTitle());
+            og.put("title",c.getTitle());
             og.put("description",c.getDescription());
             og.put("site_name",Config.webTitle);
             if (c.getPrimaryIvid()>0) {

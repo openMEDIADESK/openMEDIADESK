@@ -101,7 +101,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
                 Iterator categories = categoryList.iterator();
                 while (categories.hasNext()) {
                     Folder cat = (Folder)categories.next();
-                    childrenNames[counter] = cat.getFolderName();
+                    childrenNames[counter] = cat.getName();
                     //System.out.println("childrenNames[counter] (dir) = "+childrenNames[counter]);
                     counter++;
                 }
@@ -247,10 +247,10 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
         //Daten in die neue Kategorie füllen:
             String categoryName = s.substring(s.lastIndexOf("/")+1);
             FolderMultiLang category = new FolderMultiLang();
-            category.setFolderName(categoryName);
-            category.setFolderTitle(categoryName);
-            category.setFolderTitleLng1(categoryName);
-            category.setFolderTitleLng2(categoryName);
+            category.setName(categoryName);
+            category.setTitle(categoryName);
+            category.setTitleLng1(categoryName);
+            category.setTitleLng2(categoryName);
 
         if (lastIndexOf==0) {
             //in der root kategorie anlegen:

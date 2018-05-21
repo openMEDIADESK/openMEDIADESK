@@ -141,7 +141,7 @@ public class RssServlet extends HttpServlet {
                 }
 
                 writePodcastHeader(writer, httpBase,
-                        folder.getFolderTitle(),description,"",logoUrl,true);
+                        folder.getTitle(),description,"",logoUrl,true);
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             } catch (IOServiceException e) {

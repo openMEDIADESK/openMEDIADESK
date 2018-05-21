@@ -34,21 +34,21 @@ public class FolderTreeElement extends Folder {
 
     public FolderTreeElement(Folder folder) {
         this.setFolderId(folder.getFolderId());
-        this.setFolderTitle(folder.getFolderTitle());
-        this.setFolderName(folder.getFolderName());
+        this.setTitle(folder.getTitle());
+        this.setName(folder.getName());
         this.setDescription(folder.getDescription());
         this.setParent(folder.getParent());
-        this.setImageCount(folder.getMediaCount());
-        this.setMediaCountS(folder.getImageCountS());
+        this.setMediaCount(folder.getMediaCount());
+        this.setMediaCountS(folder.getMediaCountS());
         this.setIcon(folder.getIcon());
-        this.setCategoryDate(folder.getCategoryDate());
+        this.setFolderDate(folder.getFolderDate());
         this.setCreateDate(folder.getCreateDate());
         this.setPrimaryIvid(folder.getPrimaryIvid());
         this.setPublicAcl(folder.isPublicAcl());
         this.setProtectedAcl(folder.isProtectedAcl());
     }
 
-    public List getSubCategoryList() {
+    public List getSubFolderList() {
         return subCategoryList;
     }
 

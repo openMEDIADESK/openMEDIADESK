@@ -87,7 +87,7 @@ public class MediaCountCalculator {
             /* Prüfen ob die Cumulative Bildanzahl (Unterkategorien) stimmt, ansonsten in die Update-Liste geben */
 
             /* Derzeit wird IMMER upgedatet, weil es sonst zu fehlern/updateproblemen kommt */
-            //if (folder.getImageCountS()!=folder.getMediaCount()+count) {
+            //if (folder.getMediaCountS()!=folder.getMediaCount()+count) {
                 folder.setMediaCountS(folder.getMediaCount()+count);
                 updateList.add(folder);
             //}

@@ -121,7 +121,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
             FolderTreeElement folderTreeElement = new FolderTreeElement(folder);
             if (folderTreeElement.getParent()==parentId) {
 
-                //cte.setFolderTitle((String)categoryMap.get(new Integer(cte.getFolderId())));
+
                 Iterator subCats = folderList.iterator();
                 int subElements = 0;
                 while (subCats.hasNext()) {
@@ -129,7 +129,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
                     Folder subCat = (Folder)subCats.next();
                     if (subCat.getParent()==folderTreeElement.getFolderId()) {
                         if (subElements<maxSubElements) {
-                            folderTreeElement.getSubCategoryList().add(new FolderTreeElement(subCat));
+                            folderTreeElement.getSubFolderList().add(new FolderTreeElement(subCat));
                         }
                         subElements++;
                     }
@@ -214,9 +214,9 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         while (categories.hasNext()) {
             Folder folder = (Folder)categories.next();
             if (folder.getParent()==parentId) {
-                //System.out.println("Unterkategorie: "+folder.getFolderName() + " ("+folder.getFolderId()+")");
+                //System.out.println("Unterkategorie: "+folder.getName() + " ("+folder.getFolderId()+")");
                 //gehört als Unterkategorie zu dieser Kategorie
-                folder.setFolderName(submarker+" "+ folder.getFolderName());
+                folder.setName(submarker+" "+ folder.getName());
                 folderListSuborder.add(folder);
                 folderListSuborder =
                         getAllFolderListSuborderRecursive(folder.getFolderId(),folderList,folderListSuborder,submarker+submarker);
@@ -270,9 +270,9 @@ public class FolderService extends MultiLanguageService implements IServiceClass
 
         List<FolderMultiLang> parentFolderList = getFolderList(folder.getParent());
         for (FolderMultiLang parentFolder : parentFolderList) {
-            if (parentFolder.getFolderName().equalsIgnoreCase(folder.getFolderName())) {
+            if (parentFolder.getName().equalsIgnoreCase(folder.getName())) {
                 //Kategorie mit diesem Namen existiert bereits
-                throw new DublicateEntry("Duplicate FolderName: "+folder.getFolderName());
+                throw new DublicateEntry("Duplicate FolderName: "+folder.getName());
             }
         }
         //Wenn Fid = leer dann auf NULL setzen, wegen Unique-ID
@@ -514,7 +514,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
             try {
                 //System.out.println("Kategorie speichern: "+folder.getFolderId());
                 //System.out.println("BasicMediaObject-count: "+folder.getMediaCount());
-                //System.out.println("Images-count: "+folder.getImageCountS());
+                //System.out.println("Images-count: "+folder.getMediaCountS());
                 this.save(folder);
             } catch (IOServiceException e) {
                 e.printStackTrace();
@@ -574,7 +574,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
             boolean found = false;
             while (folders.hasNext()) {
                 Folder folder = (Folder)folders.next();
-                if (folder.getFolderName().equalsIgnoreCase(pathToken[a])) {
+                if (folder.getName().equalsIgnoreCase(pathToken[a])) {
                     folderId = folder.getFolderId();
                     found = true;
                     break;

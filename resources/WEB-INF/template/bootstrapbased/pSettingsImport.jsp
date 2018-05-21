@@ -279,7 +279,7 @@
                         <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
                             <option value="0"<c:if test="${status.value==0}"> selected="true"</c:if>>---</option>
                             <c:forEach items="${folderList}" var="folder" varStatus="stat">
-                            <option value="<c:out value="${folder.folderId}"/>"<c:if test="${status.value==folder.folderId}"> selected="true"</c:if>><c:out value="${folder.folderName}"/></option>
+                            <option value="<c:out value="${folder.folderId}"/>"<c:if test="${status.value==folder.folderId}"> selected="true"</c:if>><c:out value="${folder.name}"/></option>
                             </c:forEach>
                         </select>
                     </div>
@@ -351,7 +351,7 @@
                         <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
                             <option value="0"<c:if test="${status.value==0}"> selected="true"</c:if>>---</option>
                             <c:forEach items="${folderList}" var="folder" varStatus="stat">
-                            <option value="<c:out value="${folder.folderId}"/>"<c:if test="${status.value==folder.folderId}"> selected="true"</c:if>><c:out value="${folder.folderName}"/></option>
+                            <option value="<c:out value="${folder.folderId}"/>"<c:if test="${status.value==folder.folderId}"> selected="true"</c:if>><c:out value="${folder.name}"/></option>
                             </c:forEach>
                         </select>
                     </div>

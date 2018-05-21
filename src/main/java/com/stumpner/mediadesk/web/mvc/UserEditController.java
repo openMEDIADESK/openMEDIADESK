@@ -188,7 +188,7 @@ public class UserEditController extends SimpleFormControllerMd {
 
             try {
                 Folder folder = folderService.getFolderById(user.getHomeCategoryId());
-                folder.setFolderName(folder.getFolderName()+".bak."+(new Date().getDay()));
+                folder.setName(folder.getName()+".bak."+(new Date().getDay()));
                 folderService.save(folder);
             } catch (IOServiceException e1) {
                 e.printStackTrace();

@@ -227,9 +227,9 @@ public class FolderRestApi extends RestBaseServlet {
             /*
             Map<String,String> jsonValueMap = new HashMap<String,String>(); //Hier werden die Werte gespeichert!!
             jsonValueMap.put("id",String.valueOf(folder.getFolderId()));
-            jsonValueMap.put("name",folder.getFolderName());
-            jsonValueMap.put("titleLng1",folder.getFolderTitleLng1());
-            jsonValueMap.put("titleLng2",folder.getFolderTitleLng2());
+            jsonValueMap.put("name",folder.getName());
+            jsonValueMap.put("titleLng1",folder.getTitleLng1());
+            jsonValueMap.put("titleLng2",folder.getTitleLng2());
             */
             /*
             if (request.getServletContext().getAttribute("splashPageValueMap")!=null) {
@@ -239,9 +239,9 @@ public class FolderRestApi extends RestBaseServlet {
             JSONObject responseObj = new JSONObject();
 
             responseObj.put("id",String.valueOf(folder.getFolderId()));
-            responseObj.put("name",folder.getFolderName());
-            responseObj.put("titleLng1",folder.getFolderTitleLng1());
-            responseObj.put("titleLng2",folder.getFolderTitleLng2());
+            responseObj.put("name",folder.getName());
+            responseObj.put("titleLng1",folder.getTitleLng1());
+            responseObj.put("titleLng2",folder.getTitleLng2());
                /*
             for (String key : splashPageValueMap.keySet()) {
                 responseObj.put(key,splashPageValueMap.get(key));
@@ -458,11 +458,11 @@ public class FolderRestApi extends RestBaseServlet {
 
                 boolean checkedValue = false;
                 Folder folder = (Folder)folders.next();
-                String categoryTitle = folder.getFolderTitle(); //folder.getFolderTitle().replace('"',' ');
+                String categoryTitle = folder.getTitle();
 
                 out.println("  {");
                 out.println("    \"id\":\""+ folder.getFolderId()+"\",");
-                out.println("    \"name\":\""+StringEscapeUtils.escapeJson(folder.getFolderName())+"\",");
+                out.println("    \"name\":\""+StringEscapeUtils.escapeJson(folder.getName())+"\",");
                 out.println("    \"title\":\""+StringEscapeUtils.escapeJson(categoryTitle)+"\",");
                 out.println("    \"pivid\":\""+ folder.getPrimaryIvid()+"\",");
                 out.println("    \"parent\":\""+ folder.getParent()+"\",");
@@ -544,7 +544,7 @@ public class FolderRestApi extends RestBaseServlet {
 
                 boolean checkedValue = false;
                 Folder folder = (Folder)folders.next();
-                String categoryTitle = folder.getFolderTitle(); // folder.getFolderTitle().replace('"',' ');
+                String categoryTitle = folder.getTitle();
 
                 out.println("  {");
                 out.println("    \"id\":\""+ folder.getFolderId()+"\",");
@@ -557,7 +557,7 @@ public class FolderRestApi extends RestBaseServlet {
                 while (folders2.hasNext()) {
                     Folder cat2 = (Folder)folders2.next();
                     sb = sb.append("{");
-                    sb = sb.append("\"folder\":\""+StringEscapeUtils.escapeJson(cat2.getFolderTitle())+"\", \"id\":\""+cat2.getFolderId()+"\", \"info\":\"nix\"");
+                    sb = sb.append("\"folder\":\""+StringEscapeUtils.escapeJson(cat2.getTitle())+"\", \"id\":\""+cat2.getFolderId()+"\", \"info\":\"nix\"");
                     sb = sb.append("}");
                     if (folders2.hasNext()) {
                         sb = sb.append(", ");

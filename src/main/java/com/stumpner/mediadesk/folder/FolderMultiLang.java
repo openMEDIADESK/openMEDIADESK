@@ -34,8 +34,8 @@ public class FolderMultiLang extends Folder implements IMultiLangObject, AccessO
     private static final int ACL_TYPE_ID = 12;
 
     int usedLanguage = 0;
-    String folderTitleLng1 = "";
-    String folderTitleLng2 = "";
+    String titleLng1 = "";
+    String titleLng2 = "";
     String descriptionLng1 = "";
     String descriptionLng2 = "";
 
@@ -49,12 +49,12 @@ public class FolderMultiLang extends Folder implements IMultiLangObject, AccessO
         return this.usedLanguage;
     }
 
-    public String getFolderTitle() {
+    public String getTitle() {
 
         switch (getUsedLanguage()) {
-            case MultiLanguageService.LNG1: return getFolderTitleLng1();
-            case MultiLanguageService.LNG2: return getFolderTitleLng2();
-            default: return super.getFolderTitle();
+            case MultiLanguageService.LNG1: return getTitleLng1();
+            case MultiLanguageService.LNG2: return getTitleLng2();
+            default: return super.getTitle();
         }
     }
 
@@ -67,20 +67,20 @@ public class FolderMultiLang extends Folder implements IMultiLangObject, AccessO
         }
     }
 
-    public String getFolderTitleLng1() {
-        return folderTitleLng1;
+    public String getTitleLng1() {
+        return titleLng1;
     }
 
-    public void setFolderTitleLng1(String folderTitleLng1) {
-        this.folderTitleLng1 = folderTitleLng1;
+    public void setTitleLng1(String titleLng1) {
+        this.titleLng1 = titleLng1;
     }
 
-    public String getFolderTitleLng2() {
-        return folderTitleLng2;
+    public String getTitleLng2() {
+        return titleLng2;
     }
 
-    public void setFolderTitleLng2(String folderTitleLng2) {
-        this.folderTitleLng2 = folderTitleLng2;
+    public void setTitleLng2(String titleLng2) {
+        this.titleLng2 = titleLng2;
     }
 
     public String getDescriptionLng1() {

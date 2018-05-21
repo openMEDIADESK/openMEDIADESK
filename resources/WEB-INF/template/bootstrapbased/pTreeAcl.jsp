@@ -58,7 +58,7 @@
             </div>
 
             <div class="col-xs-7">
-        <spring:bind path="command.folderList[${stat.index}].folder.folderName">
+        <spring:bind path="command.folderList[${stat.index}].folder.name">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <input type="text" class="form-control input-sm" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" readonly="true">
         </div>

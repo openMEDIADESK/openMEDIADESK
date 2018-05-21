@@ -609,7 +609,7 @@
         <fieldset id="replaceFolder"><legend><spring:message code="imageedit.replacecat"/></legend>
         <c:forEach items="${folderList}" var="folder">
         <label>
-          <input type="checkbox" name="replaceFolder" id="cbxCat<c:out value="${folder.folderId}"/>" value="<c:out value="${folder.folderId}"/>"> <c:out value="${folder.folderName}"/> (<c:out value="${folder.folderTitle}"/>)
+          <input type="checkbox" name="replaceFolder" id="cbxCat<c:out value="${folder.folderId}"/>" value="<c:out value="${folder.folderId}"/>"> <c:out value="${folder.name}"/> (<c:out value="${folder.title}"/>)
         </label>
         </c:forEach>
         </fieldset>

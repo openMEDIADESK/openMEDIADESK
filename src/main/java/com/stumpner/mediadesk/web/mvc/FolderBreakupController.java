@@ -145,7 +145,7 @@ public class FolderBreakupController extends SimpleFormControllerMd {
             httpServletRequest.setAttribute("headline","categorybreakup.headline");
             httpServletRequest.setAttribute("subheadline","categorybreakup.subheadline");
             httpServletRequest.setAttribute("info","categorybreakup.homecat");
-            httpServletRequest.setAttribute("infoArgument", folder.getFolderTitle());
+            httpServletRequest.setAttribute("infoArgument", folder.getTitle());
             if (selectedImageListSize>0) { httpServletRequest.setAttribute("attentionText","categorybreakup.attention"); }
             httpServletRequest.setAttribute("redirectTo","cat?id="+ folder.getFolderId());
 
@@ -160,7 +160,7 @@ public class FolderBreakupController extends SimpleFormControllerMd {
             httpServletRequest.setAttribute("headline","categorybreakup.headline");
             httpServletRequest.setAttribute("subheadline","categorybreakup.subheadline");
             httpServletRequest.setAttribute("info","categorybreakup.text");
-            httpServletRequest.setAttribute("infoArgument", folder.getFolderTitle());
+            httpServletRequest.setAttribute("infoArgument", folder.getTitle());
             if (selectedImageListSize>0) { System.out.println("selectedImageSize>0"); httpServletRequest.setAttribute("attentionText","categorybreakup.attention"); }
             if (getChilds(folder)>0) {
                 httpServletRequest.setAttribute("useCbx",true);

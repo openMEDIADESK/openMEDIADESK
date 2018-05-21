@@ -8,49 +8,49 @@
 
     <select id="getFolderById" parameterClass="int" resultClass="com.stumpner.mediadesk.folder.FolderMultiLang">
         SELECT
-            categoryid      as folderId,
-            cattitle        as folderTitle,
-            catname         as folderName,
+            folderid      as folderId,
+            title        as title,
+            name         as name,
             description     as description,
             descriptionlng1 as descriptionLng1,
             descriptionlng2 as descriptionLng2,
             parent          as parent,
             changeddate     as changedDate,
-            imagecount      as imageCount,
-            imagecounts     as imageCountS,
+            mediacount      as mediaCount,
+            mediacounts     as mediaCountS,
             icon            as icon,
-            cattitlelng1    as folderTitleLng1,
-            cattitlelng2    as folderTitleLng2,
+            titlelng1    as titleLng1,
+            titlelng2    as titleLng2,
             sortby          as sortBy,
             orderby         as orderBy,
             defaultview     as defaultview,
             createdate      as createDate,
             primaryivid     as primaryIvid,
-            categorydate    as categoryDate,
+            folderdate    as folderDate,
             creatoruserid   as creatorUserId,
             fid             as fid,
             public          as publicAcl,
             inheritacl      as inheritAcl,
             protected       as protectedAcl
         FROM folder
-        WHERE categoryid = #value#
+        WHERE folderid = #value#
     </select>
     
     <select id="getFolderByName" parameterClass="java.lang.String" resultClass="com.stumpner.mediadesk.folder.FolderMultiLang">
         SELECT
-            categoryid      as folderId,
-            cattitle        as folderTitle,
-            catname         as folderName,
+            folderid      as folderId,
+            title        as title,
+            name         as name,
             description     as description,
             descriptionlng1 as descriptionLng1,
             descriptionlng2 as descriptionLng2,
             parent          as parent,
             changeddate     as changedDate,
-            imagecount      as imageCount,
-            imagecounts     as imageCountS,
+            mediacount      as mediaCount,
+            mediacounts     as mediaCountS,
             icon            as icon,
-            cattitlelng1    as folderTitleLng1,
-            cattitlelng2    as folderTitleLng2,
+            titlelng1    as titleLng1,
+            titlelng2    as titleLng2,
             descriptionlng1     as descriptionLng1,
             descriptionlng2     as descriptionLng2,
             sortby          as sortBy,
@@ -58,30 +58,30 @@
             defaultview     as defaultview,
             createdate      as createDate,
             primaryivid     as primaryIvid,
-            categorydate    as categoryDate,
+            folderdate    as folderDate,
             creatoruserid   as creatorUserId,
             fid             as fid,
             public          as publicAcl,
             inheritacl      as inheritAcl,
             protected       as protectedAcl
         FROM folder
-        WHERE catname = #value#
+        WHERE name = #value#
     </select>
 
     <resultMap id="folderList" class="com.stumpner.mediadesk.folder.FolderMultiLang">
-        <result property="folderId" column="categoryid"/>
-        <result property="folderTitle" column="cattitle"/>
-        <result property="folderName" column="catname"/>
+        <result property="folderId" column="folderid"/>
+        <result property="title" column="title"/>
+        <result property="name" column="name"/>
         <result property="description" column="description"/>
         <result property="parent" column="parent"/>
         <result property="changedDate" column="changeddate"/>
-        <result property="imageCount" column="imagecount"/>
-        <result property="imageCountS" column="imagecounts"/>
+        <result property="mediaCount" column="mediacount"/>
+        <result property="mediaCountS" column="mediacounts"/>
         <result property="icon" column="icon"/>
         <result property="sortBy" column="sortby"/>
         <result property="orderBy" column="orderby"/>
-        <result property="folderTitleLng1" column="cattitlelng1"/>
-        <result property="folderTitleLng2" column="cattitlelng2"/>
+        <result property="titleLng1" column="titlelng1"/>
+        <result property="titleLng2" column="titlelng2"/>
         <result property="usedLanguage" column="usedLanguage"/>
         <result property="descriptionLng1" column="descriptionlng1"/>
         <result property="descriptionLng2" column="descriptionlng2"/>
@@ -89,7 +89,7 @@
 
         <result property="createDate" column="createdate"/>
         <result property="primaryIvid" column="primaryivid"/>
-        <result property="categoryDate" column="categorydate"/>
+        <result property="folderDate" column="folderdate"/>
         <result property="creatorUserId" column="creatoruserid"/>
         <result property="fid" column="fid"/>
 
@@ -98,26 +98,26 @@
         <result property="protectedAcl" column="protected"/>
     </resultMap>
     <statement id="getFolderList" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.FolderLoaderClass" resultMap="folderList">
-        SELECT  folder.categoryid,
-                cattitle,
-                catname,
+        SELECT  folder.folderid,
+                title,
+                name,
                 description,
                 descriptionlng1,
                 descriptionlng2,
                 parent,
                 changeddate,
-                imagecount,
-                imagecounts,
+                mediacount,
+                mediacounts,
                 icon,
                 sortby,
                 orderby,
                 defaultview,
-                cattitlelng1,
-                cattitlelng2,
+                titlelng1,
+                titlelng2,
                 '$usedLanguage$' as usedLanguage,
                 createdate      as createDate,
                 primaryivid     as primaryIvid,
-                categorydate    as categoryDate,
+                folderdate    as folderDate,
                 creatoruserid   as creatorUserId,
                 fid             as fid,
                 public,
@@ -126,112 +126,112 @@
             FROM folder
          WHERE parent = #id#
         <isEqual compareValue="1" property="sort">
-         ORDER BY catname, cattitle DESC
+         ORDER BY name, title DESC
         </isEqual>
         <isEqual compareValue="2" property="sort">
-         ORDER BY cattitle DESC
+         ORDER BY title DESC
         </isEqual>
         <isEqual compareValue="3" property="sort">
          ORDER BY createdate DESC
         </isEqual>
         <isEqual compareValue="4" property="sort">
-         ORDER BY categorydate DESC
+         ORDER BY folderdate DESC
         </isEqual>
     </statement>
 
     <statement id="getAllCategoryList" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="folderList">
-        SELECT categoryid,
-               cattitle,
-               catname,
+        SELECT folderid,
+               title,
+               name,
                description,
                descriptionlng1,
                descriptionlng2,
                parent,
                changeddate,
-               imagecount,
-               imagecounts,
+               mediacount,
+               mediacounts,
                icon,
                sortby,
                orderby,
                defaultview,
-               cattitlelng1,
-               cattitlelng2
+               titlelng1,
+               titlelng2
                  , '$usedLanguage$' as usedLanguage,
                 createdate      as createDate,
                 primaryivid     as primaryIvid,
-                categorydate    as categoryDate,
+                folderdate    as folderDate,
                 creatoruserid   as creatorUserId,
                 fid             as fid,
                 public,
                 inheritacl,
                 protected
         FROM folder
-        ORDER BY catname ASC
+        ORDER BY name ASC
     </statement>
 
     <statement id="getAllFolderListIc" resultMap="folderList">
-        SELECT  folder.categoryid,
-                cattitle,
-                catname,
+        SELECT  folder.folderid,
+                title,
+                name,
                 description,
                 descriptionlng1,
                 descriptionlng2,
                 parent,
                 changeddate,
-                count(folderholder.ivid) as imagecount,
-                imagecounts,
+                count(folderholder.ivid) as mediacount,
+                mediacounts,
                 icon,
                 sortby,
                 orderby,
                 defaultview,
-                cattitlelng1,
-                cattitlelng2
+                titlelng1,
+                titlelng2
                  , '0' as usedLanguage,
                 createdate      as createDate,
                 primaryivid     as primaryIvid,
-                categorydate    as categoryDate,
+                folderdate    as folderDate,
                 creatoruserid   as creatorUserId,
                 fid             as fid,
                 public,
                 inheritacl,
                 protected
             FROM folderholder
-            RIGHT OUTER JOIN folder ON folderholder.categoryid = folder.categoryid
-            GROUP BY folder.categoryid
-         ORDER BY cattitle DESC
+            RIGHT OUTER JOIN folder ON folderholder.categoryid = folder.folderid
+            GROUP BY folder.folderid
+         ORDER BY title DESC
     </statement>
     
     <statement id="getFolderListFromMediaObject" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="folderList">
-        SELECT  folder.categoryid,
-                cattitle,
-                catname,
+        SELECT  folder.folderid,
+                title,
+                name,
                 description,
                 descriptionlng1,
                 descriptionlng2,
                 parent,
                 changeddate,
-                imagecount,
-                imagecounts,
+                mediacount,
+                mediacounts,
                 icon,
                 sortby,
                 orderby,
                 defaultview,
-                cattitlelng1,
-                cattitlelng2
+                titlelng1,
+                titlelng2
                  , '$usedLanguage$' as usedLanguage,
                 createdate      as createDate,
                 primaryivid     as primaryIvid,
-                categorydate    as categoryDate,
+                folderdate    as folderDate,
                 creatoruserid   as creatorUserId,
                 fid             as fid,
                 public,
                 inheritacl,
                 protected
             FROM folder
-         LEFT OUTER JOIN folderholder ON folder.categoryid = folderholder.categoryid
+         LEFT OUTER JOIN folderholder ON folder.folderid = folderholder.categoryid
          WHERE folderholder.ivid = #id#
-         GROUP BY folder.categoryid
-         ORDER BY catname ASC
+         GROUP BY folder.folderid
+         ORDER BY name ASC
     </statement>
     
     <!-- with mysql 4.1 (subselects) -->
@@ -251,60 +251,60 @@
     <!-- without subselects -->
     <statement id="getFolderSubTree" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.FolderLoaderClass" resultMap="folderList">
         SELECT DISTINCT 
-                folder.categoryid,
-                folder.cattitle,
-                folder.catname,
+                folder.folderid,
+                folder.title,
+                folder.name,
                 folder.description,
                 folder.descriptionlng1,
                 folder.descriptionlng2,
                 folder.parent,
                 folder.changeddate,
-                folder.imagecount,
-                folder.imagecounts,
+                folder.mediacount,
+                folder.mediacounts,
                 folder.icon,
                 folder.sortby,
                 folder.orderby,
                 folder.defaultview,
-                folder.cattitlelng1,
-                folder.cattitlelng2
+                folder.titlelng1,
+                folder.titlelng2
                  , '$usedLanguage$' as usedLanguage,
                 folder.createdate      as createDate,
                 folder.primaryivid     as primaryIvid,
-                folder.categorydate    as categoryDate,
+                folder.folderdate    as folderDate,
                 folder.creatoruserid   as creatorUserId,
                 folder.fid             as fid,
                 folder.public          as public,
                 folder.inheritacl      as inheritacl,
                 folder.protected       as protected
             FROM folder
-         LEFT OUTER JOIN folder as cat ON cat.categoryid = folder.parent
-         WHERE folder.parent = #id# OR cat.parent = #id#
+         LEFT OUTER JOIN folder as p ON p.folderid = folder.parent
+         WHERE folder.parent = #id# OR p.parent = #id#
         <isEqual property="usedLanguage" compareValue="1">                        
             <isEqual compareValue="1" property="sort">
-             ORDER BY folder.catname, folder.cattitlelng1 ASC
+             ORDER BY folder.name, folder.titlelng1 ASC
             </isEqual>
             <isEqual compareValue="2" property="sort">
-             ORDER BY folder.cattitlelng1 ASC
+             ORDER BY folder.titlelng1 ASC
             </isEqual>
             <isEqual compareValue="3" property="sort">
              ORDER BY createdate DESC
             </isEqual>
             <isEqual compareValue="4" property="sort">
-             ORDER BY categorydate DESC
+             ORDER BY folderdate DESC
             </isEqual>
         </isEqual>
         <isEqual property="usedLanguage" compareValue="2">
             <isEqual compareValue="1" property="sort">
-             ORDER BY folder.catname, folder.cattitlelng2 ASC
+             ORDER BY folder.name, folder.titlelng2 ASC
             </isEqual>
             <isEqual compareValue="2" property="sort">
-             ORDER BY folder.cattitlelng2 ASC
+             ORDER BY folder.titlelng2 ASC
             </isEqual>
             <isEqual compareValue="3" property="sort">
              ORDER BY createdate DESC
             </isEqual>
             <isEqual compareValue="4" property="sort">
-             ORDER BY categorydate DESC
+             ORDER BY folderdate DESC
             </isEqual>
         </isEqual>
     </statement>
@@ -313,14 +313,14 @@
         parameterClass="int"
         resultClass="int">
         SELECT
-            MAX(categoryid) as value
+            MAX(folderid) as value
         FROM folder
     </select>
 
     <insert id="addFolder" parameterClass="com.stumpner.mediadesk.folder.FolderMultiLang">
         INSERT INTO
-        folder (cattitle,catname,description,parent,changeddate,imagecount,imagecounts,cattitlelng1,cattitlelng2,descriptionlng1,descriptionlng2,icon,sortby,orderby,defaultview,createdate,primaryivid,categorydate,creatoruserid,fid,public,inheritacl,protected)
-        VALUES (#folderTitle#,#folderName#,#description#,#parent#,#changedDate#,#imageCount#,#imageCountS#,#folderTitleLng1#,#folderTitleLng2#,#descriptionLng1#,#descriptionLng2#,#icon#,#sortBy#,#orderBy#,#defaultview#,#createDate#,#primaryIvid#,#categoryDate#,#creatorUserId#,#fid#,#publicAcl#,#inheritAcl#,#protectedAcl#)
+        folder (title,name,description,parent,changeddate,mediacount,mediacounts,titlelng1,titlelng2,descriptionlng1,descriptionlng2,icon,sortby,orderby,defaultview,createdate,primaryivid,folderdate,creatoruserid,fid,public,inheritacl,protected)
+        VALUES (#title#,#name#,#description#,#parent#,#changedDate#,#mediaCount#,#mediaCountS#,#titleLng1#,#titleLng2#,#descriptionLng1#,#descriptionLng2#,#icon#,#sortBy#,#orderBy#,#defaultview#,#createDate#,#primaryIvid#,#folderDate#,#creatorUserId#,#fid#,#publicAcl#,#inheritAcl#,#protectedAcl#)
     </insert>
 
     <insert id="addMediaToFolder" parameterClass="com.stumpner.mediadesk.folder.FolderHolder">
@@ -346,35 +346,35 @@
 
     <delete id="deleteFolderById" parameterClass="int">
         DELETE FROM folder
-        WHERE categoryid = #folderId#
+        WHERE folderid = #folderId#
     </delete>
 
     <update id="saveFolder" parameterClass="com.stumpner.mediadesk.folder.FolderMultiLang">
         UPDATE folder
-        SET cattitle = #folderTitle#,
-            catname = #folderName#,
+        SET title = #title#,
+            name = #name#,
             parent = #parent#,
             description = #description#,
             descriptionlng1 = #descriptionLng1#,
             descriptionlng2 = #descriptionLng2#,
             changeddate = #changedDate#,
-            imagecount = #imageCount#,
-            imagecounts = #imageCountS#,
+            mediacount = #mediaCount#,
+            mediacounts = #mediaCountS#,
             icon = #icon#,
             sortby = #sortBy#,
             orderby = #orderBy#,
             defaultview = #defaultview#,
-            cattitlelng1 = #folderTitleLng1#,
-            cattitlelng2 = #folderTitleLng2#,
+            titlelng1 = #titleLng1#,
+            titlelng2 = #titleLng2#,
             createdate = #createDate#,
             primaryivid = #primaryIvid#,
-            categorydate = #categoryDate#,
+            folderdate = #folderDate#,
             creatoruserid = #creatorUserId#,
             fid = #fid#,
             public = #publicAcl#,
             protected = #protectedAcl#,
             inheritacl = #inheritAcl#
-        WHERE categoryid = #folderId#
+        WHERE folderid = #folderId#
     </update>
 
     <select id="isMediaInFolder"
@@ -389,7 +389,7 @@
         parameterClass="java.lang.String"
         resultClass="int">
         SELECT
-            categoryid as value
+            folderid as value
         FROM folder
         WHERE fid = #fid#
     </select>

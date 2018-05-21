@@ -25,7 +25,7 @@
 <!-- /breadcrumbs -->
 <!-- ordnertitel und infos -->
 <c:if test="${!empty searchString}">
-<h3><c:out value="${searchString}"/> <c:if test="${!empty searchMessage}"><spring:message code="${searchMessage}"/></c:if><small>&nbsp; ergab <c:out value="${imageCount}"/> Treffer</small></h3>
+<h3><c:out value="${searchString}"/> <c:if test="${!empty searchMessage}"><spring:message code="${searchMessage}"/></c:if><small>&nbsp; ergab <c:out value="${mediaCount}"/> Treffer</small></h3>
 </c:if>
 <!-- /ordnertitel und infos -->
 <!-- mediadesk abstand -->

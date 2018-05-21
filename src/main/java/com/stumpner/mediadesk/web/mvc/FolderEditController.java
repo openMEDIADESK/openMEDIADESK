@@ -379,9 +379,9 @@ public class FolderEditController extends AbstractAutoFillController {
 
         FolderService folderService = new FolderService();
 
-        if (folder.getFolderTitle().equalsIgnoreCase("")) {
+        if (folder.getTitle().equalsIgnoreCase("")) {
             //Ordnertitel auf den Kategorienamen setzen, wenn kein titel eingegeben wurde!
-            folder.setFolderTitle(folder.getFolderName());
+            folder.setTitle(folder.getName());
         }
 
         if (folder.getFolderId()== FolderEditController.FOLDER_NEW) {
@@ -398,35 +398,35 @@ public class FolderEditController extends AbstractAutoFillController {
         FolderMultiLang folder = (FolderMultiLang)o;
 
         //Wenn kein Name angegeben wurde, den Titel LNG1 als Name verwenden
-        if (folder.getFolderName().length()==0 && folder.getFolderTitleLng1().length()>0) {
-            folder.setFolderName(folder.getFolderTitleLng1());
+        if (folder.getName().length()==0 && folder.getTitleLng1().length()>0) {
+            folder.setName(folder.getTitleLng1());
         }
 
-        folder.setFolderTitleLng1(
+        folder.setTitleLng1(
                 doAutoFillField(
-                        folder.getFolderTitleLng1(),
-                        folder.getFolderName(),""
+                        folder.getTitleLng1(),
+                        folder.getName(),""
                 )
         );
-        folder.setFolderTitleLng2(
+        folder.setTitleLng2(
                 doAutoFillField(
-                        folder.getFolderTitleLng2(),
-                        folder.getFolderName(),""
+                        folder.getTitleLng2(),
+                        folder.getName(),""
                 )
         );
     }
 
     void doAutoFill(Object o) {
         FolderMultiLang folder = (FolderMultiLang)o;
-        folder.setFolderTitleLng1(
-                doAutoFillField(folder.getFolderTitleLng1(),
-                        folder.getFolderTitleLng2(),
-                        folder.getFolderName())
+        folder.setTitleLng1(
+                doAutoFillField(folder.getTitleLng1(),
+                        folder.getTitleLng2(),
+                        folder.getName())
         );
-        folder.setFolderTitleLng2(
-                doAutoFillField(folder.getFolderTitleLng2(),
-                        folder.getFolderTitle(),
-                        folder.getFolderName())
+        folder.setTitleLng2(
+                doAutoFillField(folder.getTitleLng2(),
+                        folder.getTitle(),
+                        folder.getName())
         );
         folder.setDescriptionLng1(
                 doAutoFillField(folder.getDescriptionLng1(),

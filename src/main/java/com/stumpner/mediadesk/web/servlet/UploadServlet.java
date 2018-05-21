@@ -388,10 +388,10 @@ public class UploadServlet extends HttpServlet {
                 /*Kategorie existiert noch nicht --> neue erstellen*/
                 category = new FolderMultiLang();
                 category.setParent(0);
-                category.setFolderName(categoryName);
-                category.setFolderTitle(categoryName);
-                category.setFolderTitleLng1(categoryName);
-                category.setFolderTitleLng2(categoryName);
+                category.setName(categoryName);
+                category.setTitle(categoryName);
+                category.setTitleLng1(categoryName);
+                category.setTitleLng2(categoryName);
                 category.setDescription("Autoimport");
                 try {
                     folderService.addFolder(category);

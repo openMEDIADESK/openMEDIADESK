@@ -261,7 +261,7 @@ public class CategoryApi extends ApiBase {
             boolean found = false;
             while (categories.hasNext()) {
                 Folder folder = (Folder)categories.next();
-                if (folder.getFolderName().equalsIgnoreCase(pathToken[a])) {
+                if (folder.getName().equalsIgnoreCase(pathToken[a])) {
                     categoryId = folder.getFolderId();
                     found = true;
                     break;
@@ -298,10 +298,10 @@ public class CategoryApi extends ApiBase {
         if (categoryName.indexOf("/")==-1) {
             //kein Pfad
             FolderMultiLang category = new FolderMultiLang();
-            category.setFolderName(categoryName);
-            category.setFolderTitle(categoryName);
-            category.setFolderTitleLng1(categoryTitle);
-            category.setFolderTitleLng2(categoryTitle);
+            category.setName(categoryName);
+            category.setTitle(categoryName);
+            category.setTitleLng1(categoryTitle);
+            category.setTitleLng2(categoryTitle);
             try {
                 folderService.addFolder(category);
                 success = true;
@@ -322,7 +322,7 @@ public class CategoryApi extends ApiBase {
                 boolean found = false;
                 while (categories.hasNext()) {
                     Folder folder = (Folder)categories.next();
-                    if (folder.getFolderName().equalsIgnoreCase(pathToken[a])) {
+                    if (folder.getName().equalsIgnoreCase(pathToken[a])) {
                         categoryId = folder.getFolderId();
                         found = true;
                         if (a==pathToken.length-1) {
@@ -335,15 +335,15 @@ public class CategoryApi extends ApiBase {
                 if (found == false) {
                     //Folder anlegen:
                     FolderMultiLang category = new FolderMultiLang();
-                    category.setFolderName(pathToken[a]);
-                    category.setFolderTitle(pathToken[a]);
+                    category.setName(pathToken[a]);
+                    category.setTitle(pathToken[a]);
                     if (a==pathToken.length-1) {
                         //Wenn die "letzte" Kategorie in der Pfadangabe
-                        category.setFolderTitleLng1(categoryTitle);
-                        category.setFolderTitleLng2(categoryTitle);
+                        category.setTitleLng1(categoryTitle);
+                        category.setTitleLng2(categoryTitle);
                     } else {
-                        category.setFolderTitleLng1(pathToken[a]);
-                        category.setFolderTitleLng2(pathToken[a]);
+                        category.setTitleLng1(pathToken[a]);
+                        category.setTitleLng2(pathToken[a]);
                     }
                     category.setParent(categoryId);
                     a--; //Nochmals durchlaufen...

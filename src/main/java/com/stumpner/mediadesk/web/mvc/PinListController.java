@@ -52,7 +52,7 @@ public class PinListController extends AbstractPageController {
         Config.putDmsConfigToRequest(httpServletRequest);
         if (this.checkPermission(httpServletRequest)) {
 
-            PinService folderService = new PinService();
+            PinService pinService = new PinService();
 
             if (httpServletRequest.getParameter("func")!=null) {
                 if (httpServletRequest.getParameter("func").equalsIgnoreCase("add")) {
@@ -64,7 +64,7 @@ public class PinListController extends AbstractPageController {
                     pin.setCreatorUserId(this.getUser(httpServletRequest).getUserId());
                     pin.setEmailnotification(this.getUser(httpServletRequest).getEmail());
                     pin.setDefaultview(Folder.VIEW_UNDEFINED);
-                    folderService.add(pin);
+                    pinService.add(pin);
                 }
             }
 
@@ -72,10 +72,10 @@ public class PinListController extends AbstractPageController {
             User loggedInUser = getUser(httpServletRequest);
             if (loggedInUser.getRole()==User.ROLE_ADMIN) {
                 //Admin sieht alle
-                pinList = folderService.getPinpicList();
+                pinList = pinService.getPinpicList();
             } else {
                 //Andere User sehen nur die eigenen Pins
-                pinList = folderService.getPinpicList(loggedInUser);
+                pinList = pinService.getPinpicList(loggedInUser);
             }
 
             httpServletRequest.setAttribute("pinList", pinList);

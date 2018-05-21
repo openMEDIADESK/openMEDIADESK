@@ -51,14 +51,14 @@ public class UploadSelectorController extends AbstractPageController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         FolderService folderService = new FolderService();
-        List<FolderMultiLang> allowedCategoryList = new LinkedList<FolderMultiLang>();
+        List<FolderMultiLang> allowedFolderList = new LinkedList<FolderMultiLang>();
         List<FolderMultiLang> allCategoryList = folderService.getAllFolderList();
         for (FolderMultiLang c : allCategoryList) {
             if (isUserPermittetForCategory(c, request)) {
-                allowedCategoryList.add(c);
+                allowedFolderList.add(c);
             }
         }
-        request.setAttribute("allowedFolderList",allowedCategoryList);
+        request.setAttribute("allowedFolderList",allowedFolderList);
         return super.handleRequestInternal(request, response);    //To change body of overridden methods use File | Settings | File Templates.
     }
 

@@ -231,10 +231,10 @@ public class UserService implements IServiceClass {
             FolderService folderService = new FolderService();
             FolderMultiLang category = new FolderMultiLang();
             category.setParent(Config.homeCategoryId);
-            category.setFolderName(homeCategoryName);
-            category.setFolderTitle(user.getName());
-            category.setFolderTitleLng1(user.getName());
-            category.setFolderTitleLng2(user.getName());
+            category.setName(homeCategoryName);
+            category.setTitle(user.getName());
+            category.setTitleLng1(user.getName());
+            category.setTitleLng2(user.getName());
             folderService.addFolder(category);
 
             try {

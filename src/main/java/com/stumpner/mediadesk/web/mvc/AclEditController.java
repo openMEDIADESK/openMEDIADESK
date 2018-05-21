@@ -171,7 +171,7 @@ public class AclEditController extends SimpleFormControllerMd {
             List<FolderMultiLang> list = folderService.getFolderList(c.getFolderId());
             for (FolderMultiLang ic : list) {
                 if (ic.isInheritAcl()) {
-                    System.out.println("inherit acl to cat: "+ic.getFolderId()+" "+ic.getFolderName());
+                    System.out.println("inherit acl to cat: "+ic.getFolderId()+" "+ic.getName());
                     AclController.setAcl(ic, acl);
                     try {
                         renewFolderPublicProtectedStatus(ic);

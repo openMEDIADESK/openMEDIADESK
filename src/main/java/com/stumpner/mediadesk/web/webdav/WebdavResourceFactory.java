@@ -86,7 +86,7 @@ public class WebdavResourceFactory implements ResourceFactory {
             try {
                 FolderMultiLang category = (FolderMultiLang) folderService.getFolderByPath(path.toString());
                 //Unterkategorie
-                System.out.println("Webdav Resource Request: ["+path+"] = CATEGORY,id="+category.getFolderId()+",name="+category.getFolderName());
+                System.out.println("Webdav Resource Request: ["+path+"] = CATEGORY,id="+category.getFolderId()+",name="+category.getName());
                 return new FolderResource(this,category);
             } catch (ObjectNotFoundException e) {
                 //Medienobjekt in einer Kategorie (Keine Kategorie: - pr�fung auf Medienobjekt in der Kategorie)

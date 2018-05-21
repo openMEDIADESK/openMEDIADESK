@@ -243,8 +243,8 @@ public abstract class AbstractMediaActionController extends AbstractMediaSelectC
             if (fromContainerObject instanceof Folder) {
                 Folder folder = (Folder)fromContainerObject;
                 //if (folder.getFolderId()!=-1) {
-                System.out.println("Original war eine Cat: "+ folder.getFolderId()+" "+ folder.getFolderName());
-                    logger.debug("Original war eine Cat: "+ folder.getFolderId()+" "+ folder.getFolderName());
+                System.out.println("Original war eine Cat: "+ folder.getFolderId()+" "+ folder.getName());
+                    logger.debug("Original war eine Cat: "+ folder.getFolderId()+" "+ folder.getName());
                     FolderService folderService = new FolderService();
                     folderService.deleteMediaFromFolder(folder,image);
                 //} else {

@@ -461,7 +461,7 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
             stmt.addBatch("UPDATE mediaobject set versionname = REPLACE(versionname,'\\\\','_') WHERE versionname LIKE '%\\\\\\\\%'");
             for (int a=1;a<notAllowedChars.length();a++) {
                 stmt.addBatch("UPDATE mediaobject set versionname = REPLACE(versionname,'"+notAllowedChars.charAt(a)+"','_') WHERE versionname LIKE '%"+notAllowedChars.charAt(a)+"%'");
-                stmt.addBatch("UPDATE folder SET catname = REPLACE(catname,'"+notAllowedChars.charAt(a)+"','_') WHERE catname LIKE '%"+notAllowedChars.charAt(a)+"%'");
+                stmt.addBatch("UPDATE folder SET name = REPLACE(name,'"+notAllowedChars.charAt(a)+"','_') WHERE name LIKE '%"+notAllowedChars.charAt(a)+"%'");
             }
             stmt.executeBatch();
             stmt.close();

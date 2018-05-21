@@ -37,21 +37,21 @@ public class FolderEditValidator implements Validator {
     public void validate(Object o, Errors errors) {
 
         FolderMultiLang category = (FolderMultiLang)o;
-        if (!NameValidator.validate(category.getFolderName())) {
+        if (!NameValidator.validate(category.getName())) {
             errors.rejectValue("catName","edit.namenotvalid");
         }
 
         /*
-        if (!NameValidator.validateQuotes(folder.getFolderName())) {
+        if (!NameValidator.validateQuotes(folder.getName())) {
             errors.rejectValue("catName","edit.namenotvalid");
         }
 
-        if (!NameValidator.validateQuotes(folder.getFolderTitleLng1())) {
-            errors.rejectValue("folderTitleLng1","edit.namenotvalid");
+        if (!NameValidator.validateQuotes(folder.getTitleLng1())) {
+            errors.rejectValue("titleLng1","edit.namenotvalid");
         }
 
-        if (!NameValidator.validateQuotes(folder.getFolderTitleLng2())) {
-            errors.rejectValue("folderTitleLng2","edit.namenotvalid");
+        if (!NameValidator.validateQuotes(folder.getTitleLng2())) {
+            errors.rejectValue("titleLng2","edit.namenotvalid");
         } */
     }
 }

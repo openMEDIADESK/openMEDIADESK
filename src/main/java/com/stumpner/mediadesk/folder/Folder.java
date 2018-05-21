@@ -38,8 +38,8 @@ public class Folder implements AccessObject {
     public static final int VIEW_LIST = 2;
 
     private int folderId = -1;
-    private String folderTitle = "";
-    private String folderName = "";
+    private String title = "";
+    private String name = "";
     private String description = "";
     private int parent = 0;
     int sortBy = 0;
@@ -47,14 +47,14 @@ public class Folder implements AccessObject {
     int defaultview = 0;
 
     private Date changedDate = new Date();
-    private int imageCount = 0; //Anzahl der Bilder in diesem Ordner (ohne Unterordner)
-    private int imageCountS = 0; //Anzahl der Bilder in diesem Ordner + Unterordner
+    private int mediaCount = 0; //Anzahl der Bilder in diesem Ordner (ohne Unterordner)
+    private int mediaCountS = 0; //Anzahl der Bilder in diesem Ordner + Unterordner
 
     private String icon = "";
 
     private Date createDate = new Date();
     private int primaryIvid = 0; //Icon/Ordnerbild für diesen Ordner
-    private Date categoryDate = new Date();
+    private Date folderDate = new Date();
     private int creatorUserId = 0;
     private String fid = ""; //Foreign ID in Foreign Systems (Sync)
 
@@ -71,20 +71,20 @@ public class Folder implements AccessObject {
         this.folderId = folderId;
     }
 
-    public String getFolderTitle() {
-        return folderTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setFolderTitle(String folderTitle) {
-        this.folderTitle = folderTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getFolderName() {
-        return folderName;
+    public String getName() {
+        return name;
     }
 
-    public void setFolderName(String folderName) {
-        this.folderName = NameValidator.normalize(folderName);
+    public void setName(String name) {
+        this.name = NameValidator.normalize(name);
     }
 
     public String getDescription() {
@@ -112,19 +112,19 @@ public class Folder implements AccessObject {
     }
 
     public int getMediaCount() {
-        return imageCount;
+        return mediaCount;
     }
 
-    public void setImageCount(int imageCount) {
-        this.imageCount = imageCount;
+    public void setMediaCount(int mediaCount) {
+        this.mediaCount = mediaCount;
     }
 
-    public int getImageCountS() {
-        return imageCountS;
+    public int getMediaCountS() {
+        return mediaCountS;
     }
 
     public void setMediaCountS(int imageCountS) {
-        this.imageCountS = imageCountS;
+        this.mediaCountS = imageCountS;
     }
 
     public int getAclObjectSerialId() {
@@ -183,12 +183,12 @@ public class Folder implements AccessObject {
         this.primaryIvid = primaryIvid;
     }
 
-    public Date getCategoryDate() {
-        return categoryDate;
+    public Date getFolderDate() {
+        return folderDate;
     }
 
-    public void setCategoryDate(Date categoryDate) {
-        this.categoryDate = categoryDate;
+    public void setFolderDate(Date folderDate) {
+        this.folderDate = folderDate;
     }
 
     public int getCreatorUserId() {
