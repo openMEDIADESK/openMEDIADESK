@@ -24,6 +24,7 @@ import com.stumpner.mediadesk.usermanagement.User;
  * User: stumpner
  * Date: 19.03.2008
  * Time: 10:36:36
+ * @deprecated use {@link com.stumpner.mediadesk.web.api.rest.FolderRestApi}
  */
 public class ApiTest extends ApiBase {
 

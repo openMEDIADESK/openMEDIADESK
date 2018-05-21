@@ -33,6 +33,7 @@ import java.util.Iterator;
  * User: stumpner
  * Date: 17.01.2011
  * Time: 15:37:19
+ * @deprecated use {@link com.stumpner.mediadesk.web.api.rest.FolderRestApi}
  */
 public class MediaObjectApi extends ApiBase {
 

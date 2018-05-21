@@ -27,6 +27,7 @@ import java.util.HashMap;
  * User: stumpner
  * Date: 19.03.2008
  * Time: 11:30:18
+ * @deprecated use {@link com.stumpner.mediadesk.web.api.rest.FolderRestApi}
  */
 public class ApiBase implements ApiClass {
 

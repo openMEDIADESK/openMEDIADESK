@@ -40,6 +40,7 @@ import java.util.Iterator;
  * Servlet, welches die API-Aufrufe entgegennimmt, abarbeitet und Daten zur�ckliefert
  * Date: 19.03.2008
  * Time: 10:30:01
+ * @deprecated use {@link com.stumpner.mediadesk.web.api.rest.FolderRestApi}
  */
 public class ApiServlet extends HttpServlet {
 

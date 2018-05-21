@@ -68,21 +68,21 @@ public class FolderContent extends HttpServlet {
             URI = URI.substring(0,URI.toUpperCase().indexOf(";JSESSIONID"));
         }
         String[] uriArray = URI.split("/");
-        int categoryId = 0;
+        int folderId = 0;
         try {
-            categoryId = Integer.parseInt(uriArray[uriArray.length - 1]);
-            String json = getJsonOutput(categoryId, request);
+            folderId = Integer.parseInt(uriArray[uriArray.length - 1]);
+            String json = getJsonOutput(folderId, request);
             String responseString = getJsonCallback(json,request);
             response.getWriter().write(responseString);
 
         } catch (ObjectNotFoundException e) {
-            response.sendError(404,"Folder not found: " + categoryId + " - " + e.getMessage());
+            response.sendError(404,"Folder not found: " + folderId + " - " + e.getMessage());
         } catch (IOServiceException e) {
             throw new ServletException("IOServiceException e: " + e.getMessage());
         } catch (AclNotFoundException e) {
             throw new ServletException("AclNotFoundException e: " + e.getMessage());
         } catch (NumberFormatException e) {
-            response.sendError(400,"Folder-ID is not a number: " + categoryId + " - " + e.getMessage());
+            response.sendError(400,"Folder-ID is not a number: " + folderId + " - " + e.getMessage());
         }
 
     }
@@ -97,12 +97,12 @@ public class FolderContent extends HttpServlet {
 
     }
 
-    private String getJsonOutput(int categoryId, HttpServletRequest request) throws ObjectNotFoundException, IOServiceException, AclNotFoundException {
+    private String getJsonOutput(int folderId, HttpServletRequest request) throws ObjectNotFoundException, IOServiceException, AclNotFoundException {
 
         StringBuffer jsonOutput = new StringBuffer("[");
 
         FolderService folderService = new FolderService();
-            Folder folder = folderService.getFolderById(categoryId);
+            Folder folder = folderService.getFolderById(folderId);
 
             AclControllerContext aclCtx = AclContextFactory.getAclContext(request);
             if (aclCtx.checkPermission(new AclPermission("read"), folder)) {
@@ -111,7 +111,7 @@ public class FolderContent extends HttpServlet {
                 MediaService mediaService = new MediaService();
                 mediaService.setUsedLanguage(lngResolver.resolveLng(request));
                 SimpleLoaderClass loader = new SimpleLoaderClass();
-                loader.setId(categoryId);
+                loader.setId(folderId);
                 List<MediaObjectMultiLang> mediaObjectList = mediaService.getFolderMediaObjects(loader);
 
                 Iterator<MediaObjectMultiLang> mediaIt = mediaObjectList.iterator();
