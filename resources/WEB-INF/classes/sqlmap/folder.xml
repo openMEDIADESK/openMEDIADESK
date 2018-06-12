@@ -196,7 +196,7 @@
                 inheritacl,
                 protected
             FROM folderholder
-            RIGHT OUTER JOIN folder ON folderholder.categoryid = folder.folderid
+            RIGHT OUTER JOIN folder ON folderholder.folderid = folder.folderid
             GROUP BY folder.folderid
          ORDER BY title DESC
     </statement>
@@ -228,7 +228,7 @@
                 inheritacl,
                 protected
             FROM folder
-         LEFT OUTER JOIN folderholder ON folder.folderid = folderholder.categoryid
+         LEFT OUTER JOIN folderholder ON folder.folderid = folderholder.folderid
          WHERE folderholder.ivid = #id#
          GROUP BY folder.folderid
          ORDER BY name ASC
@@ -325,18 +325,18 @@
 
     <insert id="addMediaToFolder" parameterClass="com.stumpner.mediadesk.folder.FolderHolder">
         INSERT INTO
-        folderholder (categoryid,ivid)
+        folderholder (folderid,ivid)
         VALUES (#folderId#,#ivid#)
     </insert>
 
     <delete id="deleteMediaFromFolder" parameterClass="com.stumpner.mediadesk.folder.FolderHolder">
         DELETE FROM folderholder
-        WHERE categoryid = #folderId# AND ivid = #ivid#
+        WHERE folderid = #folderId# AND ivid = #ivid#
     </delete>
 
     <delete id="deleteAllMediaFromFolder" parameterClass="int">
         DELETE FROM folderholder
-        WHERE categoryid = #folderId#
+        WHERE folderid = #folderId#
     </delete>
 
     <delete id="deleteMediaFromAllFolders" parameterClass="int">
@@ -382,7 +382,7 @@
         resultClass="int">
         SELECT
             COUNT(*) as value
-        FROM folderholder WHERE categoryid = #objectId# AND ivid = #ivid#
+        FROM folderholder WHERE folderid = #objectId# AND ivid = #ivid#
     </select>
 
     <select id="getFolderIdByFid"

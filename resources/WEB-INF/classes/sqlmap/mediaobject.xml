@@ -182,7 +182,7 @@
                  , '$usedLanguage$' as usedLanguage
         FROM folderholder
         INNER JOIN mediaobject ON folderholder.ivid = mediaobject.ivid
-        WHERE categoryid = #id#
+        WHERE folderid = #id#
         <isEqual compareValue="1" property="sortBy">
             ORDER BY photographdate
         </isEqual>
@@ -368,9 +368,9 @@
 
     <update id="aclUpdate">
         REPLACE INTO aclmedia
-          SELECT mediaobject.ivid, categoryid as objectid, objecttype, principalid, principaltype, permission FROM mediaobject
+          SELECT mediaobject.ivid, folderid as objectid, objecttype, principalid, principaltype, permission FROM mediaobject
             INNER JOIN folderholder ON mediaobject.ivid = folderholder.ivid
-            INNER JOIN acldata ON acldata.objectid = folderholder.categoryid AND objecttype = 10
+            INNER JOIN acldata ON acldata.objectid = folderholder.folderid AND objecttype = 10
     </update>
 
     <update id="normalizeNames">

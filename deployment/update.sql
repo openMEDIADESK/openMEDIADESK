@@ -24,5 +24,5 @@ CHANGE COLUMN `imagecount` `mediacount` INT(11) NOT NULL DEFAULT '0' ,
 CHANGE COLUMN `cattitlelng1` `titlelng1` VARCHAR(100) NOT NULL ,
 CHANGE COLUMN `cattitlelng2` `titlelng2` VARCHAR(100) NOT NULL ,
 CHANGE COLUMN `categorydate` `folderdate` DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' ;
-ALTER TABLE `folder`
-CHANGE COLUMN `imagecounts` `mediacounts` INT(11) NOT NULL DEFAULT '0' ;
+ALTER TABLE `folder` CHANGE COLUMN `imagecounts` `mediacounts` INT(11) NOT NULL DEFAULT '0' ;
+ALTER TABLE `folderholder` CHANGE COLUMN `categoryid` `folderid` INT(10) UNSIGNED NOT NULL DEFAULT '0' ;
