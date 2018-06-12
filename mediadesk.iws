@@ -415,8 +415,27 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="errorpage.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/css/errorpage.css">
+      <file leaf-file-name="binary_1.jpg" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/WEB-INF/filetype/binary_1.jpg">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cssmin.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/META-INF/cssmin.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urlrewrite.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/WEB-INF/urlrewrite.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -425,8 +444,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mediadesk.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/css/mediadesk.css">
+      <file leaf-file-name="wmh.gif" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/WEB-INF/wmh.gif">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="wmv.gif" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/WEB-INF/wmv.gif">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="robots.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/robots.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -435,57 +468,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mediaDESK-Mockup.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/img/mediaDESK-Mockup.png">
+      <file leaf-file-name="mstile-150x150.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/mstile-150x150.png">
           <provider selected="true" editor-type-id="images">
             <state />
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="statcounter.gif" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/img/statcounter.gif">
-          <provider selected="true" editor-type-id="images">
-            <state />
+      <file leaf-file-name="Config.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/Config.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="115" column="38" lean-forward="true" selection-start-line="115" selection-start-column="38" selection-end-line="115" selection-end-column="38" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="loading.gif" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/img/loading.gif">
-          <provider selected="true" editor-type-id="images">
-            <state />
+      <file leaf-file-name="index.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/index.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-331">
+              <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="logo225x22.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/img/logo225x22.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="keine-Berechtigung.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/img/icon/pletzer/allgemein/keine-Berechtigung.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fb.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/img/icon/fb.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="feed-icon16x16.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/img/icon/feed-icon16x16.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="loading.gif" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/img/icon/loading.gif">
+      <file leaf-file-name="binary_2.jpg" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/WEB-INF/filetype/binary_2.jpg">
           <provider selected="true" editor-type-id="images">
             <state />
           </provider>
@@ -619,11 +630,11 @@
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/folder/Folder.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/folder/FolderMultiLang.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/MediaService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/Config.java" />
         <option value="$PROJECT_DIR$/deployment/update.sql" />
         <option value="$PROJECT_DIR$/deployment/create.sql" />
         <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/mediaobject.xml" />
         <option value="$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/folder.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/Config.java" />
       </list>
     </option>
   </component>
@@ -975,13 +986,6 @@
               <item name="Root" type="cbb8eebc:String" user="Root" />
               <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
               <item name="resources" type="cbb8eebc:String" user="resources" />
-              <item name="img" type="cbb8eebc:String" user="img" />
-              <item name="icon" type="cbb8eebc:String" user="icon" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
-              <item name="resources" type="cbb8eebc:String" user="resources" />
               <item name="WEB-INF" type="cbb8eebc:String" user="WEB-INF" />
             </path>
             <path>
@@ -989,7 +993,7 @@
               <item name="openMEDIADESK-git" type="cbb8eebc:String" user="openMEDIADESK-git" />
               <item name="resources" type="cbb8eebc:String" user="resources" />
               <item name="WEB-INF" type="cbb8eebc:String" user="WEB-INF" />
-              <item name="template/bootstrapbased" type="cbb8eebc:String" user="template/bootstrapbased" />
+              <item name="classes" type="cbb8eebc:String" user="classes" />
             </path>
             <path>
               <item name="Root" type="cbb8eebc:String" user="Root" />
@@ -1748,12 +1752,12 @@
       <workItem from="1525716743252" duration="5011000" />
       <workItem from="1526928828975" duration="4232000" />
       <workItem from="1528740962192" duration="69000" />
-      <workItem from="1528829639304" duration="1157000" />
+      <workItem from="1528829639304" duration="1978000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="102201000" />
+    <option name="totallyTimeSpent" value="103022000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1777,6 +1781,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.48897412" sideWeight="0.6332623" order="8" side_tool="true" content_ui="tabs" />
@@ -1799,7 +1804,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32694152" sideWeight="0.4978678" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="20" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21055438" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21055438" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.48897412" sideWeight="0.36673775" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -2044,70 +2049,6 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/create.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5598">
-          <caret line="11" column="36" lean-forward="false" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/sqlmap/search.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="130" column="18" lean-forward="false" selection-start-line="130" selection-start-column="18" selection-end-line="130" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/BulkModificationController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="64" column="22" lean-forward="false" selection-start-line="64" selection-start-column="22" selection-end-line="64" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/api/rest/FolderRestApi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="546" column="57" lean-forward="false" selection-start-line="546" selection-start-column="57" selection-end-line="546" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pUploadSelector.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="45" column="62" lean-forward="false" selection-start-line="45" selection-start-column="62" selection-end-line="45" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pSettingsApplication.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="209" column="164" lean-forward="false" selection-start-line="209" selection-start-column="164" selection-end-line="209" selection-end-column="164" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pMediaDetailEdit.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="611" column="202" lean-forward="false" selection-start-line="611" selection-start-column="202" selection-end-line="611" selection-end-column="202" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pTreeAcl.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="60" column="68" lean-forward="false" selection-start-line="60" selection-start-column="68" selection-end-line="60" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pFolderEdit.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="60" column="31" lean-forward="false" selection-start-line="60" selection-start-column="31" selection-end-line="60" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/folder/FolderMultiLang.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-125">
@@ -2172,14 +2113,6 @@
           <folding>
             <element signature="e#0#33#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/Config.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="123" column="46" lean-forward="false" selection-start-line="123" selection-start-column="46" selection-end-line="123" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2386,21 +2319,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/img/mediaDESK-Mockup.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/img/statcounter.gif">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/img/logo225x22.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/img/icon/pletzer/allgemein/keine-Berechtigung.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -2421,9 +2339,91 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/img/logo225x22.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/img/mediaDESK-Mockup.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/img/statcounter.gif">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/img/loading.gif">
       <provider selected="true" editor-type-id="images">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/filetype/binary_2.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/filetype/binary_1.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/classes/META-INF/cssmin.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/urlrewrite.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/wmh.gif">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/wmv.gif">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/robots.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/mstile-150x150.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-331">
+          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/Config.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="115" column="38" lean-forward="true" selection-start-line="115" selection-start-column="38" selection-end-line="115" selection-end-column="38" />
+          <folding />
+        </state>
       </provider>
     </entry>
   </component>
