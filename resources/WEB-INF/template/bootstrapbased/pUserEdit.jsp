@@ -268,18 +268,18 @@
         </div>
         </c:if>
 
-        <c:if test="${showHomeCategoryCreator}">
+        <c:if test="${showHomeFolderCreator}">
             
             <div class="checkbox">
                 <label>
-                  <input type="checkbox" name="createHomeCat" value="1"<c:if test="${command.homeFolderId!=-1}"> disabled="true"</c:if><c:if test="${homeCategoryChecked}"> checked="true"</c:if>> Mandanten-Kategorie erstellen <a href="https://wiki.openmediadesk.net/en/Mandant" target="_blank">[?]</a>
+                  <input type="checkbox" name="createHomeCat" value="1"<c:if test="${command.homeFolderId!=-1}"> disabled="true"</c:if><c:if test="${homeFolderChecked}"> checked="true"</c:if>> Mandanten-Kategorie erstellen <a href="https://wiki.openmediadesk.net/en/Mandant" target="_blank">[?]</a>
                 </label>
             </div>
 
             <c:if test="${command.homeFolderId!=-1}">
             <div class="checkbox">
                 <label>
-                  <input type="checkbox" name="deleteHomeCat" value="1"> Mandanten-Kategorie zurücksetzen <a href="https://wiki.openmediadesk.net/en/Mandant" target="_blank">[?]</a>
+                  <input type="checkbox" name="deleteHomeCat" value="1"> Mandanten-Ordner zurücksetzen <a href="https://wiki.openmediadesk.net/en/Mandant" target="_blank">[?]</a>
                 </label>
             </div>
             </c:if>

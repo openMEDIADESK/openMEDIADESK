@@ -224,10 +224,9 @@ public class ApplicationSettingsController extends SimpleFormControllerMd {
         FolderService folderService = new FolderService();
         folderService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
         List rootCategoryList = folderService.getFolderSubTree(0,0);
-        httpServletRequest.setAttribute("rootCategoryList",rootCategoryList);
+        httpServletRequest.setAttribute("rootFolderList",rootCategoryList);
 
-        this.setContentTemplateFile("settings_programm.jsp",httpServletRequest);
-        return super.showForm(httpServletRequest, httpServletResponse, e);    //To change body of overridden methods use File | Settings | File Templates.
+        return super.showForm(httpServletRequest, httpServletResponse, e);
     }
 
     protected ModelAndView onSubmit(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, BindException e) throws Exception {

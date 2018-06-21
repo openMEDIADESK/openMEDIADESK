@@ -109,12 +109,12 @@ public class UserEditController extends SimpleFormControllerMd {
 
         if (Config.homeFolderId !=-1) {
             //Mandanten sind aktiviert
-                httpServletRequest.setAttribute("showHomeCategoryCreator",true);
+                httpServletRequest.setAttribute("showHomeFolderCreator",true);
                 if (user.getUserId()==USERID_NEW) {
-                    httpServletRequest.setAttribute("homeCategoryChecked",true);
+                    httpServletRequest.setAttribute("homeFolderChecked",true);
                 }
         } else {
-            httpServletRequest.setAttribute("showHomeCategoryCreator",false);
+            httpServletRequest.setAttribute("showHomeFolderCreator",false);
         }
 
         //F�r Mandanten und Admins verschiedene Bereiche ein/ausblenden
@@ -125,7 +125,7 @@ public class UserEditController extends SimpleFormControllerMd {
 
             httpServletRequest.setAttribute("showRole",false);
             httpServletRequest.setAttribute("showSecurityGroup",false);
-            httpServletRequest.setAttribute("showHomeCategoryCreator",false);
+            httpServletRequest.setAttribute("showHomeFolderCreator",false);
         }
 
         return super.referenceData(httpServletRequest, o, errors);    //To change body of overridden methods use File | Settings | File Templates.

@@ -184,7 +184,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name=<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="set.application.category.latestonroot"/>
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="set.application.category.latestonroot"/>
                       </label>
                     </div>
                 </div>
@@ -206,7 +206,7 @@
                     <label for="input<c:out value="${status.expression}"/>">Mandanten/Benutzer ROOT-Kategorie</label>
                             <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
                                 <option value="-1"<c:if test="${status.value==-1}"> selected</c:if>>nicht verwenden</option>
-                                <c:forEach items="${rootCategoryList}" var="cat">
+                                <c:forEach items="${rootFolderList}" var="cat">
                                     <option value="<c:out value="${cat.folderId}"/>"<c:if test="${status.value==cat.folderId}"> selected</c:if>><c:out value="${cat.title}"/></option>
                                 </c:forEach>
                             </select>
