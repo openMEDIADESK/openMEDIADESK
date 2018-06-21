@@ -48,15 +48,8 @@ public class ApplicationSettings {
     boolean useCaptchaPin = false;
     int pinCodeKeyGen = 1;
 
-    /* Bild Menü einstellungen */
-
-    boolean copyImages = true; // true = Bilder werden beim einfügen kopiert, false = Bilder werden beim einfügen verschoben (originale werden gelöscht)
-    boolean showImageMenuMarkAll = false; // alle Bilder markieren
-    boolean showImageMenuUnmarkAll = false; // alle abmarkieren
     boolean folderLatestOnRoot = true; // true = Die letzten (neusten) Bilder werden in der Hauptkategorie angezeigt (root)
-    int imageSelectMode = 1;
 
-    int downloadImageFilenameInt = 0;
     String downloadImageFilename = "";
 
     // Anzeige-Einstellungen BasicMediaObject Ivid Popup
@@ -538,60 +531,6 @@ public class ApplicationSettings {
         this.passmailUser = passmailUser;
     }
 
-    public boolean isCopyImages() {
-        return copyImages;
-    }
-
-    public void setCopyImages(boolean copyImages) {
-        this.copyImages = copyImages;
-    }
-
-    public boolean isShowImageMenuMarkAll() {
-        return showImageMenuMarkAll;
-    }
-
-    public void setShowImageMenuMarkAll(boolean showImageMenuMarkAll) {
-        this.showImageMenuMarkAll = showImageMenuMarkAll;
-    }
-
-    public int getImageSelectMode() {
-        return imageSelectMode;
-    }
-
-    public void setImageSelectMode(int imageSelectMode) {
-        this.imageSelectMode = imageSelectMode;
-    }
-
-    public int getDownloadImageFilenameInt() {
-
-        if (downloadImageFilename.equalsIgnoreCase("imageNumber")) {
-            return 0;
-        }
-        if (downloadImageFilename.equalsIgnoreCase("versionTitle")) {
-            return 1;
-        }
-        if (downloadImageFilename.equalsIgnoreCase("versionName")) {
-            return 2;
-        }
-        return 0;
-    }
-
-    public void setDownloadImageFilenameInt(int downloadImageFilenameInt) {
-
-        switch (downloadImageFilenameInt) {
-            case 0: downloadImageFilename = "imageNumber";
-                break;
-            case 1: downloadImageFilename = "versionTitle";
-                break;
-            case 2: downloadImageFilename = "versionName";
-                break;
-            default:
-                downloadImageFilename = "";
-        }
-
-
-    }
-
     public String getDownloadImageFilename() {
         return downloadImageFilename;
     }
@@ -726,14 +665,6 @@ public class ApplicationSettings {
 
     public void setOrderByFolder(int orderByFolder) {
         this.orderByFolder = orderByFolder;
-    }
-
-    public boolean isShowImageMenuUnmarkAll() {
-        return showImageMenuUnmarkAll;
-    }
-
-    public void setShowImageMenuUnmarkAll(boolean showImageMenuUnmarkAll) {
-        this.showImageMenuUnmarkAll = showImageMenuUnmarkAll;
     }
 
     public int getDefaultCredits() {

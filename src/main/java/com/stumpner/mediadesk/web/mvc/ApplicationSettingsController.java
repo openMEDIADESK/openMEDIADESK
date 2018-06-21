@@ -66,9 +66,6 @@ public class ApplicationSettingsController extends SimpleFormControllerMd {
         settings.setInformDownloadAdmin(Config.informDownloadAdmin);
         settings.setDefaultCredits(Config.defaultCredits);
 
-        settings.setCopyImages(Config.copyImages);
-        settings.setShowImageMenuMarkAll(Config.showImageMenuMarkAll);
-        settings.setShowImageMenuUnmarkAll(Config.showImageMenuUnmarkAll);
         settings.setFolderLatestOnRoot(Config.folderLatestOnRoot);
 
         settings.setDownloadImageFilename(Config.downloadImageFilename);
@@ -260,10 +257,6 @@ public class ApplicationSettingsController extends SimpleFormControllerMd {
         Config.informDownloadAdmin = settings.isInformDownloadAdmin();
         Config.defaultCredits = settings.getDefaultCredits();
 
-        Config.copyImages = settings.isCopyImages();
-        Config.showImageMenuMarkAll = settings.isShowImageMenuMarkAll();
-        Config.showImageMenuUnmarkAll = settings.isShowImageMenuUnmarkAll();
-
         Config.folderLatestOnRoot = settings.isFolderLatestOnRoot();
 
         Config.downloadImageFilename = settings.getDownloadImageFilename();
@@ -428,11 +421,6 @@ public class ApplicationSettingsController extends SimpleFormControllerMd {
     protected void onBind(HttpServletRequest httpServletRequest, Object object) throws Exception {
 
         ApplicationSettings as = (ApplicationSettings)object;
-        if (httpServletRequest.getParameter("showImageMenuMarkAll")==null) {
-            as.setShowImageMenuMarkAll(false);
-        } else {
-            as.setShowImageMenuMarkAll(true);
-        }
 
         if (httpServletRequest.getParameter("folderLatestOnRoot")==null) {
             as.setFolderLatestOnRoot(false);

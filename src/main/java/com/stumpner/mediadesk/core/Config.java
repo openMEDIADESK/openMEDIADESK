@@ -58,18 +58,20 @@ import javax.servlet.ServletContext;
  */
 public class Config {
 
-    //Hauptsettings (vorm Compilieren)
+    //Programm Version Values
+
+    public static String versionNumbner = "2018n20180621";//- a1...n,b1...n,rc1...n,rtm,sr1...n";
+    public static String versionDate = "2018-06-21";
+    public static String SERIAL_UID = "2018062100";
+
+    //Config Values
 
     public static boolean isConfigured = false;
     public static boolean reset = false;
 
+    //Wording: image or file|media
     public static final int WORDING_IMAGE = 1;
     public static final int WORDING_MEDIA = 2;
-    /**
-     * Als was die DMS-Datenbank verwendet wird
-     * 1 = Bilddatenbank
-     * 2 = Datei-Exchange (Datei-Datenbank)
-     */
     public static int wording = WORDING_MEDIA;
 
     public static String iniFilename = "";
@@ -104,12 +106,6 @@ public class Config {
     public static boolean useCaptchaPin = false;
     public static boolean useCaptchaRegister = true;
     public static boolean useCaptchaSend = true;
-
-    // Programm Settings
-                                                   //sr6
-    public static String versionNumbner = "2018n20180612";//- a1...n,b1...n,rc1...n,rtm,sr1...n";
-    public static String versionDate = "2018-06-12";
-    public static String SERIAL_UID = "2018052100";
 
     // --- Programm: Folder
 
@@ -206,12 +202,6 @@ public class Config {
 
     public static String[] langFieldsImageVersion = { "versionTitle","versionSubTitle", "info" };
     public static String[] langCodesAvailable = { "de", "en" };
-
-    // Menu Config (BasicMediaObject Menu)
-
-    public static boolean copyImages = true;
-    public static boolean showImageMenuMarkAll = true;
-    public static boolean showImageMenuUnmarkAll = true;
 
     public static boolean folderLatestOnRoot = false;
 
@@ -694,12 +684,6 @@ public class Config {
         Config.importNote = loadPropertyFromDB("importNote",Config.importNote);
         Config.importRestrictions = loadPropertyFromDB("importRestrictions",Config.importRestrictions);
 
-        Config.copyImages = (
-        loadPropertyFromDB("copyImages", new Boolean(Config.copyImages).toString()).equalsIgnoreCase("true")) ? true:false;
-        Config.showImageMenuMarkAll = (
-        loadPropertyFromDB("showImageMenuMarkAll", new Boolean(Config.showImageMenuMarkAll).toString()).equalsIgnoreCase("true")) ? true:false;
-        Config.showImageMenuUnmarkAll = (
-        loadPropertyFromDB("showImageMenuUnmarkAll", new Boolean(Config.showImageMenuUnmarkAll).toString()).equalsIgnoreCase("true")) ? true:false;
         Config.folderLatestOnRoot = (
         loadPropertyFromDB("folderLatestOnRoot", new Boolean(Config.folderLatestOnRoot).toString()).equalsIgnoreCase("true")) ? true:false;
 
@@ -1175,9 +1159,6 @@ public class Config {
         Config.importNote = loadPropertyFromDB("importNote",Config.importNote);
         Config.importRestrictions = loadPropertyFromDB("importRestrictions",Config.importRestrictions);
 
-        conf = alterProperty(conf,"copyImages",new Boolean(Config.copyImages).toString());
-        conf = alterProperty(conf,"showImageMenuMarkAll",new Boolean(Config.showImageMenuMarkAll).toString());
-        conf = alterProperty(conf,"showImageMenuUnmarkAll",new Boolean(Config.showImageMenuUnmarkAll).toString());
         conf = alterProperty(conf,"folderLatestOnRoot",new Boolean(Config.folderLatestOnRoot).toString());
 
         conf = alterProperty(conf,"importDate",Config.importDate);
