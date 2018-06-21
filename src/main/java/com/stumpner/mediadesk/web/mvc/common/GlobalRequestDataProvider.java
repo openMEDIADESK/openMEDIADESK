@@ -169,9 +169,6 @@ public class GlobalRequestDataProvider {
         configMap.put("footerCopyright", Config.footerCopyright);
         configMap.put("footerCorpSite", Config.footerCorpSite);
 
-        //DataView Config
-        request.setAttribute("dataView",Config.dataView);
-
         request.setAttribute("config",configMap);
 
         //Lic

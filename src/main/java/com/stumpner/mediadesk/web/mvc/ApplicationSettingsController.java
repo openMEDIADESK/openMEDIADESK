@@ -56,11 +56,8 @@ public class ApplicationSettingsController extends SimpleFormControllerMd {
 
         ApplicationSettings settings = new ApplicationSettings();
         settings.setStartPage(Config.redirectStartPage);
-        settings.setShowLinkCategory(Config.showLinkCategory);
-        settings.setShowLinkFolder(Config.showLinkFolder);
-        settings.setShowCategoryTree(Config.showCategoryTree);
+
         settings.setCreditSystemEnabled(Config.creditSystemEnabled);
-        settings.setFolderOrder(Config.folderOrder);
 
         settings.setActivateNewUsers(Config.activateNewUsers);
         settings.setInformOfNewUsers(Config.informOfNewUsers);
@@ -72,9 +69,7 @@ public class ApplicationSettingsController extends SimpleFormControllerMd {
         settings.setCopyImages(Config.copyImages);
         settings.setShowImageMenuMarkAll(Config.showImageMenuMarkAll);
         settings.setShowImageMenuUnmarkAll(Config.showImageMenuUnmarkAll);
-        settings.setCategoryLatestOnRoot(Config.categoryLatestOnRoot);
-
-        settings.setImageSelectMode(Config.imageSelectMode);
+        settings.setFolderLatestOnRoot(Config.folderLatestOnRoot);
 
         settings.setDownloadImageFilename(Config.downloadImageFilename);
 
@@ -100,12 +95,9 @@ public class ApplicationSettingsController extends SimpleFormControllerMd {
         settings.setQuickDownload(Config.quickDownload);
 
         settings.setSearchAnd(Config.searchAnd);
-        settings.setSortByLatest(Config.sortByLatest);
 
         settings.setSortByFolder(Config.sortByFolder);
         settings.setOrderByFolder(Config.orderByFolder);
-        settings.setSortByCategory(Config.sortByCategory);
-        settings.setOrderByCategory(Config.orderByCategory);
 
         settings.setEditCopyTitle(Config.editCopyTitle);
         settings.setEditCopyTitleLng1(Config.editCopyTitleLng1);
@@ -165,19 +157,19 @@ public class ApplicationSettingsController extends SimpleFormControllerMd {
         settings.setUseCaptchaPin(Config.useCaptchaPin);
         settings.setPinCodeKeyGen(Config.pinCodeKeyGen);
         settings.setRobotsAllow(Config.robotsAllow);
-        settings.setCategorySort(Config.categorySort);
+        settings.setFolderSort(Config.folderSort);
 
-        settings.setMediaHandling(Config.mediaHandling);
+        settings.setWording(Config.wording);
 
-        settings.setHomeCategoryId(Config.homeCategoryId);
-        settings.setHomeCategoryAsRoot(Config.homeCategoryAsRoot);
-        settings.setHomeCategoryAutocreate(Config.homeCategoryAutocreate);
+        settings.setHomeFolderId(Config.homeFolderId);
+        settings.setHomeFolderAsRoot(Config.homeFolderAsRoot);
+        settings.setHomeFolderAutocreate(Config.homeFolderAutocreate);
 
         settings.setItemCountPerPage(Config.itemCountPerPage);
 
         settings.setForbiddenDomains(Config.forbiddenDomains);
 
-        settings.setCategoryDefaultViewOnRoot(Config.categoryDefaultViewOnRoot);
+        settings.setFolderDefaultViewOnRoot(Config.folderDefaultViewOnRoot);
 
         settings.setUsersCanSendAttachments(Config.usersCanSendAttachments);
 
@@ -207,10 +199,6 @@ public class ApplicationSettingsController extends SimpleFormControllerMd {
         settings.setResetSecurityGroupWhenUserIsDisabled(Config.resetSecurityGroupWhenUserIsDisabled);
 
         settings.setOnlyLoggedinUsers(Config.onlyLoggedinUsers);
-
-        settings.setShowSubCategoryInListView(Config.showSubCategoryInListView);
-
-        settings.setDataView(Config.dataView);
 
         settings.setConfigParam(Config.configParam);
 
@@ -254,7 +242,7 @@ public class ApplicationSettingsController extends SimpleFormControllerMd {
 
         ApplicationSettings settings = (ApplicationSettings)o;
         Config.redirectStartPage = settings.getStartPage();
-        Config.mediaHandling = settings.getMediaHandling();
+        Config.wording = settings.getWording();
 
         this.getServletContext().setAttribute("home",Config.redirectStartPage);
         this.getServletContext().setAttribute("redirectStartPage",Config.redirectStartPage);
@@ -263,9 +251,7 @@ public class ApplicationSettingsController extends SimpleFormControllerMd {
             this.getServletContext().setAttribute("home",Config.upstreamingStartpageUrl);
         }
 
-        Config.showCategoryTree = settings.isShowCategoryTree();
         Config.creditSystemEnabled = settings.isCreditSystemEnabled();
-        Config.folderOrder = settings.getFolderOrder();
 
         Config.activateNewUsers = settings.isActivateNewUsers();
         Config.informOfNewUsers = settings.isInformOfNewUsers();
@@ -278,8 +264,7 @@ public class ApplicationSettingsController extends SimpleFormControllerMd {
         Config.showImageMenuMarkAll = settings.isShowImageMenuMarkAll();
         Config.showImageMenuUnmarkAll = settings.isShowImageMenuUnmarkAll();
 
-        Config.categoryLatestOnRoot = settings.isCategoryLatestOnRoot();
-        Config.imageSelectMode = settings.getImageSelectMode();
+        Config.folderLatestOnRoot = settings.isFolderLatestOnRoot();
 
         Config.downloadImageFilename = settings.getDownloadImageFilename();
         Config.quickDownload = settings.isQuickDownload();
@@ -305,11 +290,8 @@ public class ApplicationSettingsController extends SimpleFormControllerMd {
         Config.inlinePreview = settings.isInlinePreview();
 
         Config.searchAnd = settings.isSearchAnd();
-        Config.sortByLatest = settings.getSortByLatest();
         Config.sortByFolder = settings.getSortByFolder();
         Config.orderByFolder = settings.getOrderByFolder();
-        Config.sortByCategory = settings.getSortByCategory();
-        Config.orderByCategory = settings.getOrderByCategory();
 
         Config.editCopyTitle = settings.isEditCopyTitle();
         Config.editCopyTitleLng1 = settings.isEditCopyTitleLng1();
@@ -365,22 +347,22 @@ public class ApplicationSettingsController extends SimpleFormControllerMd {
         Config.defaultRole = settings.getDefaultRole();
         Config.showSendImage = settings.isShowSendImage();
 
-        Config.homeCategoryId = settings.getHomeCategoryId();
-        Config.homeCategoryAsRoot = settings.isHomeCategoryAsRoot();
-        Config.homeCategoryAutocreate = settings.isHomeCategoryAutocreate();
+        Config.homeFolderId = settings.getHomeFolderId();
+        Config.homeFolderAsRoot = settings.isHomeFolderAsRoot();
+        Config.homeFolderAutocreate = settings.isHomeFolderAutocreate();
         
         Config.useCaptchaSend = settings.isUseCaptchaSend();
         Config.useCaptchaRegister = settings.isUseCaptchaRegister();
         Config.useCaptchaPin = settings.isUseCaptchaPin();
         Config.pinCodeKeyGen = settings.getPinCodeKeyGen();
         Config.robotsAllow = settings.isRobotsAllow();
-        Config.categorySort = settings.getCategorySort();
+        Config.folderSort = settings.getFolderSort();
 
         Config.itemCountPerPage = settings.getItemCountPerPage();
 
         Config.forbiddenDomains = settings.getForbiddenDomains();
 
-        Config.categoryDefaultViewOnRoot = settings.getCategoryDefaultViewOnRoot();
+        Config.folderDefaultViewOnRoot = settings.getFolderDefaultViewOnRoot();
 
         Config.usersCanSendAttachments = settings.isUsersCanSendAttachments();
 
@@ -423,10 +405,8 @@ public class ApplicationSettingsController extends SimpleFormControllerMd {
         Config.advancedSearchEnabled = settings.isAdvancedSearchEnabled();
         Config.resetSecurityGroupWhenUserIsDisabled = settings.isResetSecurityGroupWhenUserIsDisabled();
 
-        Config.onlyLoggedinUsers = settings.isOnlyLoggedinUsers();        
-        Config.showSubCategoryInListView = settings.isShowSubCategoryInListView();
+        Config.onlyLoggedinUsers = settings.isOnlyLoggedinUsers();
 
-        Config.dataView = settings.isDataView();
         Config.configParam = settings.getConfigParam();
 
         Config.paymillKeyPublic = settings.getPaymillKeyPublic();
@@ -454,10 +434,10 @@ public class ApplicationSettingsController extends SimpleFormControllerMd {
             as.setShowImageMenuMarkAll(true);
         }
 
-        if (httpServletRequest.getParameter("categoryLatestOnRoot")==null) {
-            as.setCategoryLatestOnRoot(false);
+        if (httpServletRequest.getParameter("folderLatestOnRoot")==null) {
+            as.setFolderLatestOnRoot(false);
         } else {
-            as.setCategoryLatestOnRoot(true);
+            as.setFolderLatestOnRoot(true);
         }
 
         if (httpServletRequest.getParameter("editCopyTitle")==null) {
@@ -606,13 +586,6 @@ public class ApplicationSettingsController extends SimpleFormControllerMd {
         } else {
             as.setEditCopyLicValid(true);
         }
-
-        if (httpServletRequest.getParameter("showCategoryTree")==null) {
-            as.setShowCategoryTree(false);
-        } else {
-            as.setShowCategoryTree(true);
-        }
-
 
         super.onBind(httpServletRequest, object);    //To change body of overridden methods use File | Settings | File Templates.
     }

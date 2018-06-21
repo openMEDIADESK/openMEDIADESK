@@ -289,7 +289,7 @@ public class ImageImport {
             }
         }
 
-        if (Config.mediaHandling == Config.MEDIAHANDLING_ALLMEDIA) {
+        if (Config.wording == Config.WORDING_MEDIA) {
             //Name und Titel aus Filename verwenden, wenn leer
             if (imageVersion.getVersionName().length()==0) { imageVersion.setVersionName(file.getName()); }
             if (imageVersion.getVersionTitle().length()==0) { imageVersion.setVersionTitle(file.getName()); }

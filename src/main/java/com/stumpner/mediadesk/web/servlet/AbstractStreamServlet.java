@@ -166,8 +166,8 @@ public abstract class AbstractStreamServlet extends HttpServlet {
 
                             SimpleLoaderClass loader = new SimpleLoaderClass();
                             loader.setId(id);
-                            loader.setOrderBy(Config.orderByCategory);
-                            loader.setSortBy(Config.sortByCategory);
+                            loader.setOrderBy(Config.orderByFolder);
+                            loader.setSortBy(Config.sortByFolder);
                             List imageList = imageService.getFolderMediaObjects(loader);
                             if (imageList.size()>0) {
                                 //Pr�fen ob explizit ein Name in der Kategorie angegeben wurde, oder

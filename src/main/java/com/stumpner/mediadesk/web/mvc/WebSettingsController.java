@@ -56,7 +56,6 @@ public class WebSettingsController extends SimpleFormControllerMd {
         settings.setCorporateSiteName(Config.footerCorpSite);
         settings.setCorporateSiteLink(Config.footerCorpLink);
         settings.setInstanceLogoURL(Config.instanceLogo);
-        settings.setStaticUrlPrefix(Config.staticContentUrlPrefix);
         if (Config.instanceLogo.equalsIgnoreCase("logo.gif")) {
             settings.setShowLogoUrl(false);
         }
@@ -78,7 +77,6 @@ public class WebSettingsController extends SimpleFormControllerMd {
         Config.footerCorpSite = settings.getCorporateSiteName();
         Config.footerCorpLink = settings.getCorporateSiteLink();
         Config.instanceLogo = settings.getInstanceLogoURL();
-        Config.staticContentUrlPrefix = settings.getStaticUrlPrefix();
         Config.saveConfiguration();
 
         if (httpServletRequest.getParameter("favicon")!=null) {

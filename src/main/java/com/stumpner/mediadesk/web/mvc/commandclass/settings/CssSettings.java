@@ -28,19 +28,9 @@ package com.stumpner.mediadesk.web.mvc.commandclass.settings;
  */
 public class CssSettings {
 
-    String css = "";
     String cssAdd = "";
-    String cssTheme = "";
     String cssColorPrimaryHex = "";
     String cssColorAHref = "";
-
-    public String getCss() {
-        return css;
-    }
-
-    public void setCss(String css) {
-        this.css = css;
-    }
 
     public String getCssAdd() {
         return cssAdd;
@@ -48,14 +38,6 @@ public class CssSettings {
 
     public void setCssAdd(String cssAdd) {
         this.cssAdd = cssAdd;
-    }
-
-    public String getCssTheme() {
-        return cssTheme;
-    }
-
-    public void setCssTheme(String cssTheme) {
-        this.cssTheme = cssTheme;
     }
 
     public String getCssColorPrimaryHex() {

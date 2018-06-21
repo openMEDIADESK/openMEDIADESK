@@ -55,7 +55,7 @@
             <div role="tabpanel" class="tab-pane active" id="home">
                 <!-- Allgemein Tab content -->
 
-                <spring:bind path="command.mediaHandling">
+                <spring:bind path="command.wording">
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
                     <label for="input<c:out value="${status.expression}"/>"><spring:message code="set.application.mediahandling"/></label>
                         <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
@@ -142,7 +142,7 @@
             <div role="tabpanel" class="tab-pane" id="folder">
                 <!-- Ordner Tab content -->
                 
-                <spring:bind path="command.categorySort">
+                <spring:bind path="command.folderSort">
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
                     <label for="input<c:out value="${status.expression}"/>"><spring:message code="set.application.category.sortby"/></label>
                             <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
@@ -155,7 +155,7 @@
                 </spring:bind>
 
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-                        <spring:bind path="command.sortByCategory">
+                        <spring:bind path="command.sortByFolder">
                     <div class="col-sm-6">
                     <label for="input<c:out value="${status.expression}"/>"><spring:message code="set.application.sort.category"/></label>
                             <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
@@ -168,7 +168,7 @@
                             </select>
                     </div>
                         </spring:bind>
-                        <spring:bind path="command.orderByCategory">
+                        <spring:bind path="command.orderByFolder">
                     <div class="col-sm-6">
                     <label for="input<c:out value="${status.expression}"/>">&nbsp;</label>
                             <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
@@ -179,7 +179,7 @@
                         </spring:bind>
                     </div>
 
-                <spring:bind path="command.categoryLatestOnRoot">
+                <spring:bind path="command.folderLatestOnRoot">
                 <div class="form-group">
                     <label>&nbsp;</label>
                     <div class="checkbox">
@@ -190,7 +190,7 @@
                 </div>
                 </spring:bind>
 
-                <spring:bind path="command.categoryDefaultViewOnRoot">
+                <spring:bind path="command.folderDefaultViewOnRoot">
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
                     <label for="input<c:out value="${status.expression}"/>"><spring:message code="set.application.category.defaultviewroot"/></label>
                             <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
@@ -201,7 +201,7 @@
                     </div>
                 </spring:bind>
 
-                <spring:bind path="command.homeCategoryId">
+                <spring:bind path="command.homeFolderId">
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
                     <label for="input<c:out value="${status.expression}"/>">Mandanten/Benutzer ROOT-Kategorie</label>
                             <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
@@ -213,7 +213,7 @@
                     </div>
                 </spring:bind>
 
-                <spring:bind path="command.homeCategoryAutocreate">
+                <spring:bind path="command.homeFolderAutocreate">
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
                     <label for="input<c:out value="${status.expression}"/>">Mandant/Benutzerkategorie automatisch erstellen</label>
                             <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
@@ -223,7 +223,7 @@
                     </div>
                 </spring:bind>
 
-                <spring:bind path="command.homeCategoryAsRoot">
+                <spring:bind path="command.homeFolderAsRoot">
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
                     <label for="input<c:out value="${status.expression}"/>">Nur Mandant/Benutzerkategorie anzeigen</label>
                             <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">

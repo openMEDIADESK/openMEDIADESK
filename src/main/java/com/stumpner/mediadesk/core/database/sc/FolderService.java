@@ -104,7 +104,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         List treeList = new ArrayList();
 
         FolderLoaderClass loaderClass = new FolderLoaderClass();
-        loaderClass.setSort(Config.categorySort);
+        loaderClass.setSort(Config.folderSort);
         loaderClass.setId(parentId);
         loaderClass.setUsedLanguage(getUsedLanguage());
 
@@ -164,7 +164,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         List folderList = new ArrayList();
         FolderLoaderClass loaderClass = new FolderLoaderClass();
-        loaderClass.setSort(Config.categorySort);
+        loaderClass.setSort(Config.folderSort);
         loaderClass.setId(parentFolderId);
         loaderClass.setUsedLanguage(getUsedLanguage());
 

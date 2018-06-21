@@ -107,7 +107,7 @@ public class UserEditController extends SimpleFormControllerMd {
         UserService userService = new UserService();
         httpServletRequest.setAttribute("securityGroupList",userService.getRealSecurityGroupList());
 
-        if (Config.homeCategoryId!=-1) {
+        if (Config.homeFolderId !=-1) {
             //Mandanten sind aktiviert
                 httpServletRequest.setAttribute("showHomeCategoryCreator",true);
                 if (user.getUserId()==USERID_NEW) {

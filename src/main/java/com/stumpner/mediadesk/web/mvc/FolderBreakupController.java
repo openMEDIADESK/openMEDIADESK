@@ -130,7 +130,7 @@ public class FolderBreakupController extends SimpleFormControllerMd {
                 isHomeCategory = true;
             }
         }
-        if (Config.homeCategoryId== folder.getFolderId()) {
+        if (Config.homeFolderId == folder.getFolderId()) {
             isHomeCategory=true;
         }
         int selectedImageListSize = MediaObjectService.getSelectedImageList(httpServletRequest.getSession()).size();

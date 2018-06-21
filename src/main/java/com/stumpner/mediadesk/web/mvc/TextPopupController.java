@@ -68,10 +68,6 @@ public class TextPopupController extends AbstractPageController {
 
     private boolean toRedirectUrl(String text, HttpServletRequest request) {
 
-        if (Config.staticContentUrlPrefix.trim().length()>0) {
-            return true;
-        }
-
         if (text.startsWith("contact") && CustomTextService.getCustomBool(text,request)) {
             return true;
         }
@@ -81,29 +77,8 @@ public class TextPopupController extends AbstractPageController {
 
     private String getRedirectUrl(String code, Locale locale) {
 
-        if (code.equalsIgnoreCase("tac")) {
-            return Config.staticContentUrlPrefix+""+locale.getLanguage().toUpperCase()+"_termsconditions.html";
-        }
-        if (code.equalsIgnoreCase("privacy")) {
-            return Config.staticContentUrlPrefix+""+locale.getLanguage().toUpperCase()+"_privacy.html";
-        }
-        if (code.equalsIgnoreCase("contact") && (Config.staticContentUrlPrefix.trim().length()!=0)) {
-            return Config.staticContentUrlPrefix+""+locale.getLanguage().toUpperCase()+"_contact.html";
-        }
         if (code.equalsIgnoreCase("contact") && Config.useContactForm) {
             return "../contact";
-        }
-        if (code.equalsIgnoreCase("imprint")) {
-            return Config.staticContentUrlPrefix+""+locale.getLanguage().toUpperCase()+"_imprint.html";
-        }
-        if (code.equalsIgnoreCase("faq")) {
-            return Config.staticContentUrlPrefix+""+locale.getLanguage().toUpperCase()+"_faq.html";
-        }
-        if (code.equalsIgnoreCase("help")) {
-            return Config.staticContentUrlPrefix+""+locale.getLanguage().toUpperCase()+"_help.html";
-        }
-        if (code.equalsIgnoreCase("helpsearch")) {
-            return Config.staticContentUrlPrefix+""+locale.getLanguage().toUpperCase()+"_helpsearch.html";
         }
 
         return "";

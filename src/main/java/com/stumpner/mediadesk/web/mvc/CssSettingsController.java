@@ -52,8 +52,6 @@ public class CssSettingsController extends SimpleFormControllerMd {
     protected Object formBackingObject(HttpServletRequest httpServletRequest) throws Exception {
 
         CssSettings cs = new CssSettings();
-        cs.setCss(Config.css);
-        cs.setCssAdd(Config.cssAdd);
         cs.setCssColorPrimaryHex(Config.cssColorPrimaryHex);
         cs.setCssColorAHref(Config.cssColorAHref);
         return cs;
@@ -70,8 +68,6 @@ public class CssSettingsController extends SimpleFormControllerMd {
 
         boolean deployTemplate = false;
         CssSettings cs = (CssSettings)o;
-        Config.css = cs.getCss();
-        Config.cssTheme = cs.getCssTheme();
         Config.cssAdd = cs.getCssAdd();
         if (!Config.cssColorPrimaryHex.equalsIgnoreCase(cs.getCssColorPrimaryHex())) {
             deployTemplate = true;

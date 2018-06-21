@@ -201,8 +201,8 @@ public class RegisterController extends SimpleFormControllerMd {
                 user.setUserName(user.getEmail());
             }
             userService.add(user);
-            if (Config.homeCategoryId!=-1) {
-                if (Config.homeCategoryAutocreate) {
+            if (Config.homeFolderId !=-1) {
+                if (Config.homeFolderAutocreate) {
                     userService.createHomeCategory(user);
                 }
             }

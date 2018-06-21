@@ -135,7 +135,7 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
                 folder.setFolderId(0);
                 folder.setTitle("");
                 folder.setDescription("");
-                folder.setDefaultview(Config.categoryDefaultViewOnRoot);
+                folder.setDefaultview(Config.folderDefaultViewOnRoot);
                 request.setAttribute("folder", folder);
             }
 
@@ -175,7 +175,7 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
         //todo performance: nicht machen wenn nicht aktiviert in config (kein kategoriebaum)
         List folderListTree = folderService.getFolderSubTree(id,4);
 
-        if (Config.categoryLatestOnRoot && id==0) {
+        if (Config.folderLatestOnRoot && id==0) {
             showSorter = false;
         }
 
@@ -236,7 +236,7 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
         if (getUser(request).getRole()>=User.ROLE_EDITOR) {
 
             int catId = getFolderId(request);
-            if (catId==0 && Config.categoryLatestOnRoot) {
+            if (catId==0 && Config.folderLatestOnRoot) {
                 //In der Root Kategorie wenn die aktuellsten Objekte angezeigt werden sollen, kein Upload zeigen
                 request.setAttribute("uploadEnabled",new Boolean(false)); //Wird in der neuen GUI verwendet
             } else {
@@ -343,7 +343,7 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
             if (httpServletRequest.getParameter("id")!=null)
                 id = Integer.parseInt(httpServletRequest.getParameter("id"));
         
-        if (Config.homeCategoryId!=-1) {
+        if (Config.homeFolderId !=-1) {
             User user = getUser(httpServletRequest);
             if (id==0 && user.getHomeCategoryId()!=-1) {
                 id = getUser(httpServletRequest).getHomeCategoryId();
@@ -395,7 +395,7 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
         } else {
             //Wenn es die Root-Ordner ist, anhand den einstellungen prüfen ob
             //die Ordnerbilder gezeigt werden oder die Neuesten
-            if (Config.categoryLatestOnRoot) {
+            if (Config.folderLatestOnRoot) {
                 return false;
             } else {
                 return true;
@@ -407,7 +407,7 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
     protected int getDefaultSort(HttpServletRequest request) {
         Folder folder = (Folder)getContainerObject(request);
         if (folder.getSortBy()==0) {
-            return Config.sortByCategory;
+            return Config.sortByFolder;
         } else {
             return folder.getSortBy();
         }
@@ -417,7 +417,7 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
 
         Folder folder = (Folder)getContainerObject(request);
         if (folder.getOrderBy()==0) {
-            return Config.orderByCategory;
+            return Config.orderByFolder;
         } else {
             return folder.getOrderBy();
         }

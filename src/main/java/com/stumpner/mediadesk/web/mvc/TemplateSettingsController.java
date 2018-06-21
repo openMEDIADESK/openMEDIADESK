@@ -72,12 +72,12 @@ public class TemplateSettingsController extends SimpleFormControllerMd {
 
         boolean canChangeToNewDesign = false;
 
-        if (Config.customTemplate.equalsIgnoreCase("default") && Config.homeCategoryId==-1) {
+        if (Config.customTemplate.equalsIgnoreCase("default") && Config.homeFolderId ==-1) {
             canChangeToNewDesign = true;
         }
 
         httpServletRequest.setAttribute("newDesignCheckTemplate", Config.customTemplate.equalsIgnoreCase("default"));
-        httpServletRequest.setAttribute("newDesignCheckMandant", Config.homeCategoryId==-1);
+        httpServletRequest.setAttribute("newDesignCheckMandant", Config.homeFolderId ==-1);
 
         httpServletRequest.setAttribute("canChangeToNewDesign",canChangeToNewDesign);
 

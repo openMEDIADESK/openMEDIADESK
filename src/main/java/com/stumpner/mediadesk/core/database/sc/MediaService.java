@@ -124,48 +124,6 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
 
     }
 
-    public List getLastMediaObjects(int count) {
-
-        SqlMapClient smc =AppSqlMap.getSqlMapInstance();
-        List imageList = null;
-
-        LastMediaLoaderClass loaderClass = new LastMediaLoaderClass();
-        loaderClass.setSortBy(Config.sortByLatest);
-        loaderClass.setCount(count);
-        loaderClass.setUsedLanguage(getUsedLanguage());
-
-        try {
-            imageList = smc.queryForList("getLastMediaObjects",loaderClass);
-        } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-        return imageList;
-
-    }
-
-    public List getLastMediaObjectsAcl(int count, User user) {
-
-        SqlMapClient smc =AppSqlMap.getSqlMapInstance();
-        List imageList = null;
-
-        LastMediaLoaderClass loaderClass = new LastMediaLoaderClass();
-        loaderClass.setSortBy(Config.sortByLatest);
-        loaderClass.setCount(count);
-        loaderClass.setUsedLanguage(getUsedLanguage());
-        loaderClass.setGroupPrincipal(user.getSecurityGroup());
-        loaderClass.setUserPrincipal(user.getUserId());
-
-        try {
-            imageList = smc.queryForList("getLastMediaObjects",loaderClass);
-        } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-        return imageList;
-
-    }
-
     public void saveMediaObject(BasicMediaObject media) throws IOServiceException {
 
         SqlMapClient smc = AppSqlMap.getSqlMapInstance();

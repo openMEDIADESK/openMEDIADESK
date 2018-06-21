@@ -63,12 +63,12 @@ public class AclFolderService extends FolderService {
         List<Folder> folderSubTree = super.getFolderSubTree(parentId, maxSubElements);
 
         //Wenn Home-Kategorien aktiviert sind, die Home-Kategorie unten dran hängen (nur bei root!)
-        if (Config.homeCategoryId!=-1) {
+        if (Config.homeFolderId !=-1) {
             if (parentId==0) {
                 User user = ((AclUserContext)aclCtx).getUser();
                 //früher User user = getUser();
                 if (user.getHomeCategoryId()!=-1) {
-                    if (Config.homeCategoryAsRoot) {
+                    if (Config.homeFolderAsRoot) {
                         //Home-Kategorie wird gleich als "Root/Hauptkategorie" angezeigt, andere Kategorien werden nicht angezeigner
                         folderSubTree = super.getFolderSubTree(user.getHomeCategoryId(),maxSubElements);
                     } else {
@@ -112,7 +112,7 @@ public class AclFolderService extends FolderService {
      */
     public List getParentFolderList(int id) throws ObjectNotFoundException, IOServiceException {
 
-        if (Config.homeCategoryId!=-1 && getUser().getHomeCategoryId()!=-1) {
+        if (Config.homeFolderId !=-1 && getUser().getHomeCategoryId()!=-1) {
 
             List list = super.getParentFolderList(id);
             List mangledList = new LinkedList();
@@ -127,7 +127,7 @@ public class AclFolderService extends FolderService {
                 }
                 if (folder.getFolderId()==getUser().getHomeCategoryId()) {
                     homeFoundInParent = true;
-                    if (!Config.homeCategoryAsRoot) {
+                    if (!Config.homeFolderAsRoot) {
                         mangledList.add(folder);
                     }
                 }

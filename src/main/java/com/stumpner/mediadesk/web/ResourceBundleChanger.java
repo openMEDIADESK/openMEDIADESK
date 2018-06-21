@@ -50,7 +50,7 @@ public class ResourceBundleChanger extends ResourceBundleMessageSource {
      */
     public static void changeResourceBundles() throws Exception {
 
-        if (Config.mediaHandling==Config.MEDIAHANDLING_IMAGEONLY) {
+        if (Config.wording ==Config.WORDING_IMAGE) {
             copyBundlesFromTo(
                     Config.webroot.getAbsolutePath()+
                     RB_IMAGE_ARCHIV,

@@ -156,15 +156,15 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
 
         
         //Home bzw Mandanten-Kategorie pr�fen: OB NUR HOME_DIR angezeigt werden sol
-        if (Config.homeCategoryId!=-1) {
+        if (Config.homeFolderId !=-1) {
             if (folder.getFolderId()==0) {
                 //Aktuelle Kategorie = ROOT
                 if (user.getHomeCategoryId()!=-1) {
                     //Benutzer hat eine Home-Kategorie
-                    if (Config.homeCategoryAsRoot) {
-                        //Soll als Root angezeigt werden, daher nur Config.homeCategoryId anzeigen
+                    if (Config.homeFolderAsRoot) {
+                        //Soll als Root angezeigt werden, daher nur Config.homeFolderId anzeigen
                         try {
-                            FolderMultiLang category = (FolderMultiLang)categoryService.getFolderById(Config.homeCategoryId);
+                            FolderMultiLang category = (FolderMultiLang)categoryService.getFolderById(Config.homeFolderId);
                             list.add(new FolderResource(resourceFactory, category));
                             return list;
                         } catch (ObjectNotFoundException e) {
@@ -175,11 +175,11 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
                     }
                 }
             }
-            if (folder.getFolderId()==Config.homeCategoryId) {
+            if (folder.getFolderId()==Config.homeFolderId) {
                 //Aktuelle Kategorie = Home-Categorie Container, nur die Home-Kategorie des aktuellen Users anzeigen
                 if (user.getHomeCategoryId()!=-1) {
-                    if (Config.homeCategoryAsRoot) {
-                        //Soll als Root angezeigt werden, daher nur Config.homeCategoryId anzeigen
+                    if (Config.homeFolderAsRoot) {
+                        //Soll als Root angezeigt werden, daher nur Config.homeFolderId anzeigen
                         try {
                             List<Folder> folderList = categoryService.getFolderSubTree(folder.getFolderId(),0);
                             for (Folder catListElem : folderList) {

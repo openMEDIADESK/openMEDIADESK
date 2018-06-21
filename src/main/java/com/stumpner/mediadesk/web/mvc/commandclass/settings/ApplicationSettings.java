@@ -32,12 +32,8 @@ public class ApplicationSettings {
 
 
     String startPage = "/index/";
-    boolean showLinkCategory = false;
-    boolean showLinkFolder = false;
-    boolean showCategoryTree = false;
     boolean creditSystemEnabled = false;
 
-    int folderOrder = 0;
     boolean activateNewUsers = false; //Neue User nach der registrierung automatisch freischalten.
     boolean informOfNewUsers = false; //Administrator per Email über neue User informieren.
     boolean passmailCopyAdmin = false; //Passwort-Mail Kopie auch an den Administrator senden.
@@ -57,7 +53,7 @@ public class ApplicationSettings {
     boolean copyImages = true; // true = Bilder werden beim einfügen kopiert, false = Bilder werden beim einfügen verschoben (originale werden gelöscht)
     boolean showImageMenuMarkAll = false; // alle Bilder markieren
     boolean showImageMenuUnmarkAll = false; // alle abmarkieren
-    boolean categoryLatestOnRoot = true; // true = Die letzten (neusten) Bilder werden in der Hauptkategorie angezeigt (root)
+    boolean folderLatestOnRoot = true; // true = Die letzten (neusten) Bilder werden in der Hauptkategorie angezeigt (root)
     int imageSelectMode = 1;
 
     int downloadImageFilenameInt = 0;
@@ -88,11 +84,8 @@ public class ApplicationSettings {
     boolean showSendImage = true;
     boolean searchAnd = false; // Ob die Suche UND oder ODER verknüpft ist
 
-    int sortByLatest = 0;
     int sortByFolder = 0;
     int orderByFolder = 0;
-    int sortByCategory = 0;
-    int orderByCategory = 0;
 
     //Edit-Copy Fields
 
@@ -150,21 +143,21 @@ public class ApplicationSettings {
     boolean complexPasswords = false;
 
     boolean robotsAllow = true;
-    int categorySort = 1;
+    int folderSort = 1;
 
-    //Home-Kategorie (Kategorie pro User) Funktionen
-    int homeCategoryId = -1;
-    boolean homeCategoryAsRoot = false;
+    //Home-Folder (Folder per User) Function
+    int homeFolderId = -1;
+    boolean homeFolderAsRoot = false;
 
-    boolean homeCategoryAutocreate = true;
+    boolean homeFolderAutocreate = true;
 
-    int mediaHandling = Config.MEDIAHANDLING_IMAGEONLY;
+    int wording = Config.WORDING_IMAGE;
 
     int itemCountPerPage = 12;
 
     String forbiddenDomains = "";
 
-    int categoryDefaultViewOnRoot = 0;
+    int folderDefaultViewOnRoot = 0;
 
     boolean usersCanSendAttachments = false;
 
@@ -195,9 +188,6 @@ public class ApplicationSettings {
     public boolean resetSecurityGroupWhenUserIsDisabled = false;
 
     public boolean onlyLoggedinUsers = false;
-    public boolean showSubCategoryInListView = true;
-
-    public boolean dataView = false;
 
     public String configParam = "";
 
@@ -214,12 +204,12 @@ public class ApplicationSettings {
         this.webdavEnabled = webdavEnabled;
     }
 
-    public int getMediaHandling() {
-        return mediaHandling;
+    public int getWording() {
+        return wording;
     }
 
-    public void setMediaHandling(int mediaHandling) {
-        this.mediaHandling = mediaHandling;
+    public void setWording(int wording) {
+        this.wording = wording;
     }
 
     public boolean isEditCopySiteLng1() {
@@ -455,19 +445,19 @@ public class ApplicationSettings {
         this.upstreamingStartpageUrl = upstreamingStartpageUrl;
     }
 
-    public boolean isCategoryLatestOnRoot() {
-        return categoryLatestOnRoot;
+    public boolean isFolderLatestOnRoot() {
+        return folderLatestOnRoot;
     }
 
-    public void setCategoryLatestOnRoot(boolean categoryLatestOnRoot) {
-        this.categoryLatestOnRoot = categoryLatestOnRoot;
+    public void setFolderLatestOnRoot(boolean folderLatestOnRoot) {
+        this.folderLatestOnRoot = folderLatestOnRoot;
     }
 
     public int getStartPageInt() {
 
         if (this.startPage.equalsIgnoreCase("/index/"))
             return 0;
-        if (this.startPage.equalsIgnoreCase("/index/cat"))
+        if (this.startPage.equalsIgnoreCase("/index/c"))
             return 1;
         if (this.startPage.equalsIgnoreCase("/index/advancedsearch"))
             return 2;
@@ -485,7 +475,7 @@ public class ApplicationSettings {
 
         switch(startInt) {
             case 0: startPage = "/index/"; break;
-            case 1: startPage = "/index/cat"; break;
+            case 1: startPage = "/index/c"; break;
             case 2: startPage = "/index/advancedsearch"; break;
             case 3: startPage = "/login"; break;
             case 4: startPage = "/index/last"; break;
@@ -500,36 +490,12 @@ public class ApplicationSettings {
         this.startPage = startPage;
     }
 
-    public boolean isShowLinkCategory() {
-        return showLinkCategory;
-    }
-
-    public void setShowLinkCategory(boolean showLinkCategory) {
-        this.showLinkCategory = showLinkCategory;
-    }
-
-    public boolean isShowLinkFolder() {
-        return showLinkFolder;
-    }
-
-    public void setShowLinkFolder(boolean showLinkFolder) {
-        this.showLinkFolder = showLinkFolder;
-    }
-
     public boolean isCreditSystemEnabled() {
         return creditSystemEnabled;
     }
 
     public void setCreditSystemEnabled(boolean creditSystemEnabled) {
         this.creditSystemEnabled = creditSystemEnabled;
-    }
-
-    public int getFolderOrder() {
-        return folderOrder;
-    }
-
-    public void setFolderOrder(int folderOrder) {
-        this.folderOrder = folderOrder;
     }
 
     public boolean isActivateNewUsers() {
@@ -746,14 +712,6 @@ public class ApplicationSettings {
         this.quickDownload = quickDownload;
     }
 
-    public int getSortByLatest() {
-        return sortByLatest;
-    }
-
-    public void setSortByLatest(int sortByLatest) {
-        this.sortByLatest = sortByLatest;
-    }
-
     public int getSortByFolder() {
         return sortByFolder;
     }
@@ -768,22 +726,6 @@ public class ApplicationSettings {
 
     public void setOrderByFolder(int orderByFolder) {
         this.orderByFolder = orderByFolder;
-    }
-
-    public int getSortByCategory() {
-        return sortByCategory;
-    }
-
-    public void setSortByCategory(int sortByCategory) {
-        this.sortByCategory = sortByCategory;
-    }
-
-    public int getOrderByCategory() {
-        return orderByCategory;
-    }
-
-    public void setOrderByCategory(int orderByCategory) {
-        this.orderByCategory = orderByCategory;
     }
 
     public boolean isShowImageMenuUnmarkAll() {
@@ -908,14 +850,6 @@ public class ApplicationSettings {
         this.inlinePreview = inlinePreview;
     }
 
-    public boolean isShowCategoryTree() {
-        return showCategoryTree;
-    }
-
-    public void setShowCategoryTree(boolean showCategoryTree) {
-        this.showCategoryTree = showCategoryTree;
-    }
-
     public int getDefaultSecurityGroup() {
         return defaultSecurityGroup;
     }
@@ -956,36 +890,36 @@ public class ApplicationSettings {
         this.robotsAllow = robotsAllow;
     }
 
-    public int getCategorySort() {
-        return categorySort;
+    public int getFolderSort() {
+        return folderSort;
     }
 
-    public void setCategorySort(int categorySort) {
-        this.categorySort = categorySort;
+    public void setFolderSort(int folderSort) {
+        this.folderSort = folderSort;
     }
 
-    public int getHomeCategoryId() {
-        return homeCategoryId;
+    public int getHomeFolderId() {
+        return homeFolderId;
     }
 
-    public void setHomeCategoryId(int homeCategoryId) {
-        this.homeCategoryId = homeCategoryId;
+    public void setHomeFolderId(int homeFolderId) {
+        this.homeFolderId = homeFolderId;
     }
 
-    public boolean isHomeCategoryAsRoot() {
-        return homeCategoryAsRoot;
+    public boolean isHomeFolderAsRoot() {
+        return homeFolderAsRoot;
     }
 
-    public void setHomeCategoryAsRoot(boolean homeCategoryAsRoot) {
-        this.homeCategoryAsRoot = homeCategoryAsRoot;
+    public void setHomeFolderAsRoot(boolean homeFolderAsRoot) {
+        this.homeFolderAsRoot = homeFolderAsRoot;
     }
 
-    public boolean isHomeCategoryAutocreate() {
-        return homeCategoryAutocreate;
+    public boolean isHomeFolderAutocreate() {
+        return homeFolderAutocreate;
     }
 
-    public void setHomeCategoryAutocreate(boolean homeCategoryAutocreate) {
-        this.homeCategoryAutocreate = homeCategoryAutocreate;
+    public void setHomeFolderAutocreate(boolean homeFolderAutocreate) {
+        this.homeFolderAutocreate = homeFolderAutocreate;
     }
 
     public int getItemCountPerPage() {
@@ -1020,12 +954,12 @@ public class ApplicationSettings {
         this.forbiddenDomains = forbiddenDomains;
     }
 
-    public int getCategoryDefaultViewOnRoot() {
-        return categoryDefaultViewOnRoot;
+    public int getFolderDefaultViewOnRoot() {
+        return folderDefaultViewOnRoot;
     }
 
-    public void setCategoryDefaultViewOnRoot(int categoryDefaultViewOnRoot) {
-        this.categoryDefaultViewOnRoot = categoryDefaultViewOnRoot;
+    public void setFolderDefaultViewOnRoot(int folderDefaultViewOnRoot) {
+        this.folderDefaultViewOnRoot = folderDefaultViewOnRoot;
     }
 
     public boolean isUsersCanSendAttachments() {
@@ -1181,28 +1115,12 @@ public class ApplicationSettings {
         this.onlyLoggedinUsers = onlyLoggedinUsers;
     }
 
-    public boolean isShowSubCategoryInListView() {
-        return showSubCategoryInListView;
-    }
-
-    public void setShowSubCategoryInListView(boolean showSubCategoryInListView) {
-        this.showSubCategoryInListView = showSubCategoryInListView;
-    }
-
     public int getDefaultRole() {
         return defaultRole;
     }
 
     public void setDefaultRole(int defaultRole) {
         this.defaultRole = defaultRole;
-    }
-
-    public boolean isDataView() {
-        return dataView;
-    }
-
-    public void setDataView(boolean dataView) {
-        this.dataView = dataView;
     }
 
     public String getConfigParam() {

@@ -33,7 +33,6 @@ public class WebSettings {
     String corporateSiteName = "";
     String corporateSiteLink = "";
     String instanceLogoURL = "";
-    String staticUrlPrefix = "";
     boolean showLogoUrl = true;
 
     public String getTitle() {
@@ -74,14 +73,6 @@ public class WebSettings {
 
     public void setInstanceLogoURL(String instanceLogoURL) {
         this.instanceLogoURL = instanceLogoURL;
-    }
-
-    public String getStaticUrlPrefix() {
-        return staticUrlPrefix;
-    }
-
-    public void setStaticUrlPrefix(String staticUrlPrefix) {
-        this.staticUrlPrefix = staticUrlPrefix;
     }
 
     public boolean isShowLogoUrl() {

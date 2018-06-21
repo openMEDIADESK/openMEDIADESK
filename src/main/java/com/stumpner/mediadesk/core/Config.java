@@ -63,14 +63,14 @@ public class Config {
     public static boolean isConfigured = false;
     public static boolean reset = false;
 
-    public static final int MEDIAHANDLING_IMAGEONLY = 1;
-    public static final int MEDIAHANDLING_ALLMEDIA = 2;
+    public static final int WORDING_IMAGE = 1;
+    public static final int WORDING_MEDIA = 2;
     /**
      * Als was die DMS-Datenbank verwendet wird
      * 1 = Bilddatenbank
      * 2 = Datei-Exchange (Datei-Datenbank)
      */
-    public static int mediaHandling = MEDIAHANDLING_ALLMEDIA;
+    public static int wording = WORDING_MEDIA;
 
     public static String iniFilename = "";
 
@@ -114,10 +114,6 @@ public class Config {
     // --- Programm: Folder
 
     public static int folderOrder = 0;
-    public static final int FOLDERORDER_CREATEDATE = 0;
-    public static final int FOLDERORDER_FOLDERDATE = 1;
-
-    //
 
     public static boolean activateNewUsers = false;
     public static boolean informOfNewUsers = true;
@@ -145,13 +141,10 @@ public class Config {
     public static String watermarkHorizontal = "/var/watermark.gif";
     public static int watermarkIntensity = 25;
 
-    public static String imageStorePath = "/var/is"; //todo: make configurable
+    public static String imageStorePath = "/var/is";
 
     // HTML configurations
 
-    /**
-     * @deprecated Wurde abgelöst von {@link Config#customTemplate}
-     */
     public static String templatePath = "/current/";
 
     public static String redirectStartPage = "/index/cat"; //redirect to startpage...
@@ -163,15 +156,8 @@ public class Config {
     public static String footerCorpSite = "www.openMEDIADESK.org";
     public static String footerCorpLink = "http://www.openmediadesk.org";
 
-    public static String staticContentUrlPrefix = "";
     public static String instanceLogo = "/logo.gif";
 
-    public static boolean showLinkCategory = false; //Link zum Kategorie Index anzeigen
-    public static boolean showLinkFolder = false; //Link zum Folder Index anzeigen
-    public static boolean showCategoryTree = true;
-
-    public static String css = ""; //CSS Style Sheet (klassen-anweisungen): steht hier nichts drin, wird style.conf verwendet
-    public static String cssTheme = "maddox.css"; //Vorgegebene Css Styles
     public static String cssAdd = ""; //CSS Code der zusätzlich eingefügt werden soll
 
     // License Information
@@ -227,12 +213,7 @@ public class Config {
     public static boolean showImageMenuMarkAll = true;
     public static boolean showImageMenuUnmarkAll = true;
 
-    public static boolean categoryLatestOnRoot = false;
-
-    public final static int SELECT_MODE_IMAGE = 1;
-    public final static int SELECT_MODE_JAVASCRIPT = 2;
-    public final static int SELECT_MODE_AJAX = 3;
-    public static int imageSelectMode = SELECT_MODE_AJAX;
+    public static boolean folderLatestOnRoot = false;
 
     // Userdefined File Encoding
 
@@ -273,11 +254,8 @@ public class Config {
 
     public static boolean searchAnd = false; //wenn true: die Such-Keywords werden UND verknüpft +
 
-    public static int sortByLatest = SimpleLoaderClass.SORT_CREATEDATE; // Importdatum
     public static int sortByFolder = SimpleLoaderClass.SORT_CREATEDATE;
     public static int orderByFolder = SimpleLoaderClass.ORDER_DESC;
-    public static int sortByCategory = SimpleLoaderClass.SORT_CREATEDATE;
-    public static int orderByCategory = SimpleLoaderClass.ORDER_DESC;
 
     /**
      * Gravity:
@@ -323,7 +301,6 @@ public class Config {
 
     // Language
 
-    public static boolean langUseDefault = false;
     public static boolean langAutoFill = true;
 
     //Edit-Copy Fields
@@ -364,6 +341,7 @@ public class Config {
 
     public static boolean editCopyPrice = false;
     public static boolean editCopyLicValid = false;
+
     //Kontakt-Popup mit Mailformular
 
     public static boolean useContactForm = true;
@@ -373,11 +351,10 @@ public class Config {
 
     //download - setting
 
-    public static boolean useShoppingCart = mediaHandling == MEDIAHANDLING_IMAGEONLY ? true : false;
-    public static boolean useLightbox = mediaHandling == MEDIAHANDLING_IMAGEONLY ? true : false;
+    public static boolean useShoppingCart = wording == WORDING_IMAGE ? true : false;
+    public static boolean useLightbox = wording == WORDING_IMAGE ? true : false;
 
     public static ImportFactory importFactory = null;
-    public static String importFactoryClass = "";
 
     public static boolean useDownloadResolutions = false; //Verschiedene Download auflösungen verwenden
     public static boolean downloadResOrig = true;
@@ -389,14 +366,12 @@ public class Config {
 
     public static boolean complexPasswords = true; //Kompexe Passwörter verwenden
     public static boolean robotsAllow = true; //Robots.txt Suchroboter erlauben
-    //@deprecated: categorySort
-    public static boolean categorySortByName = false; //@deprecated: Folder Sort By Name
-    public static int categorySort = 1; //Folder Sort: 1 = Name, 2 = Titel, 3 = createDate, 4 = categoryDate
+    public static int folderSort = 1; //Folder Sort: 1 = Name, 2 = Titel, 3 = createDate, 4 = eventDate
     public static File webroot = null;
 
-    public static int homeCategoryId = -1; //CategoryId in denen sich die "Home-Verzeichnisse/Kategorien" der User befinden, bei -1 wird die homecategory funktion nicht verwendet
-    public static boolean homeCategoryAsRoot = false; //Das Home-Vereichnis wird als Wurzelverzeichnis angezeigt, andere Verzeichnisse werden nicht angezeigt
-    public static boolean homeCategoryAutocreate = false; //Ob das Home-Verzeichnis/Benutzerkategorie automatisch (beim erstellen eines Benutzers) erzeugt wird
+    public static int homeFolderId = -1; //FolderId in denen sich die "Home-Verzeichnisse/Home-Folder" der User befinden, bei -1 wird die homefolder funktion nicht verwendet
+    public static boolean homeFolderAsRoot = false; //Das Home-Vereichnis wird als Wurzelverzeichnis angezeigt, andere Verzeichnisse werden nicht angezeigt
+    public static boolean homeFolderAutocreate = false; //Ob das Home-Verzeichnis/Home-Folder automatisch (beim erstellen eines Benutzers) erzeugt wird
 
     public static boolean autoimportFtp = false; //Ob die Dateien am FTP-Server automatisch imortiert werden sollen
     public static int autoImportFtpCat = 0;
@@ -435,7 +410,7 @@ public class Config {
     public static String customTemplate = "bootstrap";
     public static String forbiddenDomains = "";
 
-    public static int categoryDefaultViewOnRoot = 0;
+    public static int folderDefaultViewOnRoot = 0;
 
     public static boolean usersCanSendAttachments = false;
 
@@ -474,10 +449,6 @@ public class Config {
 
     public static boolean useAutoLogin = false;
     public static boolean onlyLoggedinUsers = false; //Nur eingeloggte Benutzer dürfen mediaDESK verwenden
-    public static boolean showSubCategoryInListView = true; //todo:
-    public static boolean showSubCategoryInListViewOnlyWhenEmpty = true; //Unterkategorien im Listview nur anzeigen wenn keine anderen Mediendateien existieren//todo:
-
-    public static boolean dataView = false; //Neue dataView Ansicht (2014)
 
     public static String configParam = "";
 
@@ -558,15 +529,10 @@ public class Config {
         mailserver = iniFile.getProperty("mailserver","mail.stumpner.net");
         mailsender = iniFile.getProperty("mailsender","robot@mediaDESK.net");
 
-        //staticContentUrlPrefix = iniFile.getProperty("staticContentUrlPrefix","http://www.suside.net/help/");
         licMaxImages = Integer.parseInt(iniFile.getProperty("licMaxImages",String.valueOf(Integer.MAX_VALUE)));
         licMaxMb = Integer.parseInt(iniFile.getProperty("licMaxMb","0"));
 
         imageStorePath = iniFile.getProperty("imageStorePath","/var/is");
-
-        /** Deprecated: since mediaDESK 3.3, daher standardwerte **/
-        showLinkCategory = false; //iniFile.getProperty("showLinkCategory",String.valueOf(showLinkCategory)).equalsIgnoreCase("true") ? true : false;
-        showLinkFolder = false; //iniFile.getProperty("showLinkFolder",String.valueOf(showLinkFolder)).equalsIgnoreCase("true") ? true : false;
 
         creditSystemEnabled = iniFile.getProperty("creditSystemEnabled","false").equalsIgnoreCase("true") ? true : false;
 
@@ -600,43 +566,15 @@ public class Config {
             templateArchivePath.mkdirs();
         }
 
-    /*public static int downloadResX[] = { 800, 1024, 1280 };
-    public static int downloadResY[] = { 600, 768,  1024 };*/
-
-        /*
-        //Import-FactoryClass (wie importiert werden soll)
-        importFactoryClass = iniFile.getProperty("importFactoryClass","");
-
-
-        //Dynamisch instanzieren: (noch nicht)
-        try {
-            Class cls = Class.forName(importFactoryClass);
-            importFactory = (ImportFactory)cls.newInstance();
-            Logger logger  = Logger.getLogger(Config.class);
-            logger.info("ImportFactoryClass = "+importFactory.getClass().getName());
-        } catch (ClassNotFoundException e) {
-            System.err.println("ImportFactoryClass ["+importFactoryClass+"] not found, using default: DmsImportFactory");
-            importFactory = new DmsImportFactory();
-        } catch (IllegalAccessException e) {
-            System.err.println("ImportFactoryClass ["+importFactoryClass+"] not accessable, using default: DmsImportFactory");
-            importFactory = new DmsImportFactory();
-        } catch (InstantiationException e) {
-            System.err.println("ImportFactoryClass ["+importFactoryClass+"] not instantiable, using default: DmsImportFactory");
-            importFactory = new DmsImportFactory();
-        }
-        */
-
         try {
             ResourceBundleChanger.changeResourceBundles();
         } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-        //if (Config.mediaHandling == Config.MEDIAHANDLING_ALLMEDIA) {
-            importFactory = new MediaImportFactory();
-        //} else {
-        //    importFactory = new ImageImportFactory();
-        //}
-        if (Config.mediaHandling == Config.MEDIAHANDLING_ALLMEDIA) {
+
+        importFactory = new MediaImportFactory();
+
+        if (Config.wording == Config.WORDING_MEDIA) {
             //Filelist verwenden
             ThumbnailModuleController.setDefaultViewMode(ThumbnailModuleController.USE_FILELIST);
         } else {
@@ -715,22 +653,12 @@ public class Config {
         Config.footerCorpLink = loadPropertyFromDB("footerCorpLink",Config.footerCorpLink);
         Config.footerCorpSite = loadPropertyFromDB("footerCorpSite",Config.footerCorpSite);
         Config.instanceLogo = loadPropertyFromDB("instanceLogo",Config.instanceLogo);
-        //Config.staticContentUrlPrefix = loadPropertyFromDB("staticContentUrlPrefix",Config.staticContentUrlPrefix);
         Config.webKeywords = loadPropertyFromDB("webKeywords",Config.webKeywords);
         Config.webDescription = loadPropertyFromDB("webDescription",Config.webDescription);
         Config.redirectStartPage = loadPropertyFromDB("redirectStartPage",Config.redirectStartPage);
 
-        /** Deprecated: since mediaDESK 3.3
-        Config.showLinkCategory = (loadPropertyFromDB("showLinkCategory",new Boolean(Config.showLinkCategory).toString()).equalsIgnoreCase("true")) ? true:false;
-        Config.showLinkFolder = (
-                loadPropertyFromDB("showLinkFolder",new Boolean(Config.showLinkFolder).toString()).equalsIgnoreCase("true")) ? true:false;
-         */
         Config.creditSystemEnabled = (
                 loadPropertyFromDB("creditSystemEnabled", new Boolean(Config.creditSystemEnabled).toString()).equalsIgnoreCase("true")) ? true:false;
-
-        Config.css = loadPropertyFromDB("css",Config.css);
-        Config.cssTheme = loadPropertyFromDB("cssTheme",Config.cssTheme);
-        //Config.templatePath = loadPropertyFromDB("templatePath",Config.templatePath);
 
         Config.folderOrder = Integer.parseInt(loadPropertyFromDB("folderOrder",new Integer(Config.folderOrder).toString()));
 
@@ -772,9 +700,8 @@ public class Config {
         loadPropertyFromDB("showImageMenuMarkAll", new Boolean(Config.showImageMenuMarkAll).toString()).equalsIgnoreCase("true")) ? true:false;
         Config.showImageMenuUnmarkAll = (
         loadPropertyFromDB("showImageMenuUnmarkAll", new Boolean(Config.showImageMenuUnmarkAll).toString()).equalsIgnoreCase("true")) ? true:false;
-        Config.categoryLatestOnRoot = (
-        loadPropertyFromDB("categoryLatestOnRoot", new Boolean(Config.categoryLatestOnRoot).toString()).equalsIgnoreCase("true")) ? true:false;
-        Config.imageSelectMode = Integer.parseInt(loadPropertyFromDB("imageSelectMode",Integer.toString(Config.imageSelectMode)));
+        Config.folderLatestOnRoot = (
+        loadPropertyFromDB("folderLatestOnRoot", new Boolean(Config.folderLatestOnRoot).toString()).equalsIgnoreCase("true")) ? true:false;
 
         Config.importDate = loadPropertyFromDB("importDate",Config.importDate);
         Config.importImageNumberSerially = (
@@ -825,12 +752,8 @@ public class Config {
         Config.searchAnd = (
             loadPropertyFromDB("searchAnd", new Boolean(Config.searchAnd).toString()).equalsIgnoreCase("true")) ? true:false;
 
-        Config.sortByLatest = Integer.parseInt(loadPropertyFromDB("sortByLatest",Integer.toString(Config.sortByLatest)));
-
         Config.sortByFolder = Integer.parseInt(loadPropertyFromDB("sortByFolder",Integer.toString(Config.sortByFolder)));
         Config.orderByFolder = Integer.parseInt(loadPropertyFromDB("orderByFolder",Integer.toString(Config.orderByFolder)));
-        Config.sortByCategory = Integer.parseInt(loadPropertyFromDB("sortByCategory",Integer.toString(Config.sortByCategory)));
-        Config.orderByCategory = Integer.parseInt(loadPropertyFromDB("orderByCategory",Integer.toString(Config.orderByCategory)));
 
         Config.gravity = Integer.parseInt(loadPropertyFromDB("gravity",Integer.toString(Config.gravity)));
 
@@ -957,9 +880,6 @@ public class Config {
         Config.complexPasswords = (
                 loadPropertyFromDB("complexPasswords", new Boolean(Config.complexPasswords).toString()).equalsIgnoreCase("true")) ? true:false;
 
-        Config.showCategoryTree = (
-                loadPropertyFromDB("showCategoryTree", new Boolean(Config.showCategoryTree).toString()).equalsIgnoreCase("true")) ? true:false;
-
         Config.defaultSecurityGroup = Integer.parseInt(
                 loadPropertyFromDB("defaultSecurityGroup",new Integer(Config.defaultSecurityGroup).toString())
         );
@@ -976,39 +896,30 @@ public class Config {
         Config.robotsAllow = (
                 loadPropertyFromDB("robotsAllow", new Boolean(Config.robotsAllow).toString()).equalsIgnoreCase("true")) ? true:false;
 
-        Config.categorySortByName = (
-                loadPropertyFromDB("categorySortByName", new Boolean(Config.categorySortByName).toString()).equalsIgnoreCase("true")) ? true:false;
+        Config.folderSort = Integer.parseInt(
+                loadPropertyFromDB("folderSort", new Integer(Config.folderSort).toString()));
 
-        Config.categorySort = Integer.parseInt(
-                loadPropertyFromDB("categorySort", Config.categorySortByName ? "1" : "2")); 
-
-        Config.mediaHandling = Integer.parseInt(loadPropertyFromDB("mediaHandling",Integer.toString(Config.mediaHandling)));
+        Config.wording = Integer.parseInt(loadPropertyFromDB("wording",Integer.toString(Config.wording)));
         try {
             ResourceBundleChanger.changeResourceBundles();
         } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-        /*
-        if (Config.mediaHandling == Config.MEDIAHANDLING_ALLMEDIA) {
-            importFactory = new MediaImportFactory();
-        } else {
-            importFactory = new ImageImportFactory();
-        }
-        */
-        if (Config.mediaHandling == Config.MEDIAHANDLING_ALLMEDIA) {
+
+        if (Config.wording == Config.WORDING_MEDIA) {
             //Filelist verwenden
             ThumbnailModuleController.setDefaultViewMode(ThumbnailModuleController.USE_FILELIST);
         } else {
             ThumbnailModuleController.setDefaultViewMode(ThumbnailModuleController.USE_THUMBNAIL);
         }
 
-        Config.homeCategoryId = Integer.parseInt(
-                loadPropertyFromDB("homeCategoryId",new Integer(Config.homeCategoryId).toString()));
-        Config.homeCategoryAsRoot = (
-                loadPropertyFromDB("homeCategoryAsRoot", new Boolean(Config.homeCategoryAsRoot).toString()).equalsIgnoreCase("true")) ? true:false;
+        Config.homeFolderId = Integer.parseInt(
+                loadPropertyFromDB("homeFolderId",new Integer(Config.homeFolderId).toString()));
+        Config.homeFolderAsRoot = (
+                loadPropertyFromDB("homeFolderAsRoot", new Boolean(Config.homeFolderAsRoot).toString()).equalsIgnoreCase("true")) ? true:false;
 
-        Config.homeCategoryAutocreate = (
-                loadPropertyFromDB("homeCategoryAutocreate", new Boolean(Config.homeCategoryAutocreate).toString()).equalsIgnoreCase("true")) ? true:false;
+        Config.homeFolderAutocreate = (
+                loadPropertyFromDB("homeFolderAutocreate", new Boolean(Config.homeFolderAutocreate).toString()).equalsIgnoreCase("true")) ? true:false;
 
         Config.autoimportFtp = (
                 loadPropertyFromDB("autoimportFtp", new Boolean(Config.autoimportFtp).toString()).equalsIgnoreCase("true")) ? true: false;
@@ -1053,8 +964,8 @@ public class Config {
         //forbiddenDomains
         Config.forbiddenDomains = loadPropertyFromDB("forbiddenDomains","");
 
-        Config.categoryDefaultViewOnRoot = Integer.parseInt(
-                loadPropertyFromDB("categoryDefaultViewOnRoot", new Integer(Config.categoryDefaultViewOnRoot).toString())
+        Config.folderDefaultViewOnRoot = Integer.parseInt(
+                loadPropertyFromDB("folderDefaultViewOnRoot", new Integer(Config.folderDefaultViewOnRoot).toString())
         );
 
         Config.usersCanSendAttachments = (
@@ -1111,12 +1022,6 @@ public class Config {
 
         Config.onlyLoggedinUsers = (
                 loadPropertyFromDB("onlyLoggedinUsers", new Boolean(Config.onlyLoggedinUsers).toString()).equalsIgnoreCase("true")) ? true:false;
-
-        Config.showSubCategoryInListView = (
-                loadPropertyFromDB("showSubCategoryInListView", new Boolean(Config.showSubCategoryInListView).toString()).equalsIgnoreCase("true")) ? true:false;
-
-        Config.dataView = (
-                loadPropertyFromDB("dataView", new Boolean(Config.dataView).toString()).equalsIgnoreCase("true")) ? true: false;
 
         Config.configParam = loadPropertyFromDB("configParam","");
 
@@ -1229,24 +1134,13 @@ public class Config {
         conf = alterProperty(conf,"footerCorpLink",Config.footerCorpLink);
         conf = alterProperty(conf,"footerCorpSite",Config.footerCorpSite);
         conf = alterProperty(conf,"instanceLogo",Config.instanceLogo);
-        //conf = alterProperty(conf,"staticContentUrlPrefix",Config.staticContentUrlPrefix);
 
         conf = alterProperty(conf,"webKeywords",Config.webKeywords);
         conf = alterProperty(conf,"webDescription",Config.webDescription);
 
         conf = alterProperty(conf,"redirectStartPage",Config.redirectStartPage);
 
-        /** Deprecated: since 3.3
-        conf = alterProperty(conf,"showLinkCategory",new Boolean(Config.showLinkCategory).toString());
-        conf = alterProperty(conf,"showLinkFolder",new Boolean(Config.showLinkFolder).toString());
-         */
-
         conf = alterProperty(conf,"creditSystemEnabled",new Boolean(Config.creditSystemEnabled).toString());
-
-        conf = alterProperty(conf,"css",Config.css);
-        //conf = alterProperty(conf,"templatePath",Config.templatePath);
-
-        conf = alterProperty(conf,"cssTheme",Config.cssTheme);
 
         conf = alterProperty(conf,"folderOrder",new Integer(Config.folderOrder).toString());
 
@@ -1284,8 +1178,7 @@ public class Config {
         conf = alterProperty(conf,"copyImages",new Boolean(Config.copyImages).toString());
         conf = alterProperty(conf,"showImageMenuMarkAll",new Boolean(Config.showImageMenuMarkAll).toString());
         conf = alterProperty(conf,"showImageMenuUnmarkAll",new Boolean(Config.showImageMenuUnmarkAll).toString());
-        conf = alterProperty(conf,"categoryLatestOnRoot",new Boolean(Config.categoryLatestOnRoot).toString());
-        conf = alterProperty(conf,"imageSelectMode",new Integer(Config.imageSelectMode).toString());
+        conf = alterProperty(conf,"folderLatestOnRoot",new Boolean(Config.folderLatestOnRoot).toString());
 
         conf = alterProperty(conf,"importDate",Config.importDate);
         conf = alterProperty(conf,"importImageNumberSerially",new Boolean(Config.importImageNumberSerially).toString());
@@ -1317,12 +1210,9 @@ public class Config {
         conf = alterProperty(conf,"quickDownload",new Boolean(Config.quickDownload).toString());
 
         conf = alterProperty(conf,"searchAnd",new Boolean(Config.searchAnd).toString());
-        conf = alterProperty(conf,"sortByLatest",Integer.toString(Config.sortByLatest));
 
         conf = alterProperty(conf,"sortByFolder",Integer.toString(Config.sortByFolder));
         conf = alterProperty(conf,"orderByFolder",Integer.toString(Config.orderByFolder));
-        conf = alterProperty(conf,"sortByCategory",Integer.toString(Config.sortByCategory));
-        conf = alterProperty(conf,"orderByCategory",Integer.toString(Config.orderByCategory));
 
         conf = alterProperty(conf,"gravity",Integer.toString(Config.gravity));
 
@@ -1408,7 +1298,6 @@ public class Config {
         conf = alterProperty(conf,"podcastEnabled", new Boolean(Config.podcastEnabled).toString());
         conf = alterProperty(conf,"complexPasswords", new Boolean(Config.complexPasswords).toString());
 
-        conf = alterProperty(conf,"showCategoryTree", new Boolean(Config.showCategoryTree).toString());
         conf = alterProperty(conf,"defaultSecurityGroup", String.valueOf(Config.defaultSecurityGroup));
         conf = alterProperty(conf,"defaultRole", String.valueOf(Config.defaultRole));
 
@@ -1428,33 +1317,26 @@ public class Config {
         conf = alterProperty(conf,"useCaptchaRegister", new Boolean(Config.useCaptchaRegister).toString());
         conf = alterProperty(conf,"useCaptchaPin", new Boolean(Config.useCaptchaPin).toString());
         conf = alterProperty(conf,"robotsAllow", new Boolean(Config.robotsAllow).toString());
-        conf = alterProperty(conf,"categorySortByName", new Boolean(Config.categorySortByName).toString());
-        conf = alterProperty(conf,"categorySort", new Integer(Config.categorySort).toString());
-        conf = alterProperty(conf,"mediaHandling", new Integer(Config.mediaHandling).toString());
+        conf = alterProperty(conf,"folderSort", new Integer(Config.folderSort).toString());
+        conf = alterProperty(conf,"wording", new Integer(Config.wording).toString());
 
         try {
             ResourceBundleChanger.changeResourceBundles();
         } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-        /*
-        if (Config.mediaHandling == Config.MEDIAHANDLING_ALLMEDIA) {
-            Config.importFactory = new MediaImportFactory();
-        } else {
-            Config.importFactory = new ImageImportFactory();
-        }
-        */
-        if (Config.mediaHandling == Config.MEDIAHANDLING_ALLMEDIA) {
+
+        if (Config.wording == Config.WORDING_MEDIA) {
             //Filelist verwenden
             ThumbnailModuleController.setDefaultViewMode(ThumbnailModuleController.USE_FILELIST);
         } else {
             ThumbnailModuleController.setDefaultViewMode(ThumbnailModuleController.USE_THUMBNAIL);
         }
 
-        conf = alterProperty(conf,"homeCategoryId", String.valueOf(Config.homeCategoryId));
-        conf = alterProperty(conf,"homeCategoryAsRoot", new Boolean(Config.homeCategoryAsRoot).toString());
+        conf = alterProperty(conf,"homeFolderId", String.valueOf(Config.homeFolderId));
+        conf = alterProperty(conf,"homeFolderAsRoot", new Boolean(Config.homeFolderAsRoot).toString());
 
-        conf = alterProperty(conf,"homeCategoryAutocreate", new Boolean(Config.homeCategoryAutocreate).toString());
+        conf = alterProperty(conf,"homeFolderAutocreate", new Boolean(Config.homeFolderAutocreate).toString());
         conf = alterProperty(conf,"autoimportFtp", new Boolean(Config.autoimportFtp).toString());
 
         conf = alterProperty(conf,"emailImportEnabled", new Boolean(Config.emailImportEnabled).toString());
@@ -1489,7 +1371,7 @@ public class Config {
 
         conf = alterProperty(conf,"forbiddenDomains", Config.forbiddenDomains);
 
-        conf = alterProperty(conf,"categoryDefaultViewOnRoot", new Integer(Config.categoryDefaultViewOnRoot).toString());
+        conf = alterProperty(conf,"folderDefaultViewOnRoot", new Integer(Config.folderDefaultViewOnRoot).toString());
 
         conf = alterProperty(conf,"usersCanSendAttachments", new Boolean(Config.usersCanSendAttachments).toString());
 
@@ -1524,12 +1406,9 @@ public class Config {
         conf = alterProperty(conf,"resetSecurityGroupWhenUserIsDisabled", new Boolean(Config.resetSecurityGroupWhenUserIsDisabled).toString());
 
         conf = alterProperty(conf,"onlyLoggedinUsers", new Boolean(Config.onlyLoggedinUsers).toString());
-        conf = alterProperty(conf,"showSubCategoryInListView", new Boolean(Config.showSubCategoryInListView).toString());
 
         conf = alterProperty(conf,"autoImportEmailCat", new Integer(Config.autoImportEmailCat).toString());
         conf = alterProperty(conf,"autoImportFtpCat", new Integer(Config.autoImportFtpCat).toString());
-
-        conf = alterProperty(conf,"dataView", new Boolean(Config.dataView).toString());
 
         conf = alterProperty(conf,"configParam", Config.configParam);
 
@@ -1610,7 +1489,7 @@ public class Config {
 
     public static void putDmsConfigToRequest(HttpServletRequest request) {
 
-        if (Config.mediaHandling == Config.MEDIAHANDLING_ALLMEDIA) {
+        if (Config.wording == Config.WORDING_MEDIA) {
             request.setAttribute("isFiledb",true);
             request.setAttribute("isImagedb",false);
         } else {

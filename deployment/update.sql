@@ -26,3 +26,14 @@ CHANGE COLUMN `cattitlelng2` `titlelng2` VARCHAR(100) NOT NULL ,
 CHANGE COLUMN `categorydate` `folderdate` DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' ;
 ALTER TABLE `folder` CHANGE COLUMN `imagecounts` `mediacounts` INT(11) NOT NULL DEFAULT '0' ;
 ALTER TABLE `folderholder` CHANGE COLUMN `categoryid` `folderid` INT(10) UNSIGNED NOT NULL DEFAULT '0' ;
+UPDATE appconfig SET appkey = 'folderLatestOnRoot' WHERE appkey = 'categoryLatestOnRoot';
+DELETE appconfig WHERE appkey = 'sortByFolder';
+UPDATE appconfig SET appkey = 'sortByFolder' WHERE appkey = 'sortByCategory';
+DELETE appconfig WHERE appkey = 'orderByFolder';
+UPDATE appconfig SET appkey = 'orderByFolder' WHERE appkey = 'orderByCategory';
+UPDATE appconfig SET appkey = 'wording' WHERE appkey = 'mediaHandling';
+UPDATE appconfig SET appkey = 'folderSort' WHERE appkey = 'categorySort';
+UPDATE appconfig SET appkey = 'homeFolderId' WHERE appkey = 'homeCategoryId';
+UPDATE appconfig SET appkey = 'homeFolderAsRoot' WHERE appkey = 'homeCategoryAsRoot';
+UPDATE appconfig SET appkey = 'homeFolderAutocreate' WHERE appkey = 'homeCategoryAutocreate';
+UPDATE appconfig SET appkey = 'folderDefaultViewOnRoot' WHERE appkey = 'categoryDefaultViewOnRoot';
