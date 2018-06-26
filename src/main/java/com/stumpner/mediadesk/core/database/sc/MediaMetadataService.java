@@ -60,25 +60,23 @@ public class MediaMetadataService {
 
     }
 
-    public MediaDetailEditCommand getImageVersionMetadata(int ivid) {
+    public MediaDetailEditCommand getMediaObjectMetadata(int ivid) {
 
-        MediaService imageService = new MediaService();
+        MediaService mediaService = new MediaService();
         MediaDetailEditCommand mediaDetailEditCommand = new MediaDetailEditCommand();
         MediaMetadataService mediaMetadataService = new MediaMetadataService();
 
-        MediaObject imageVersion = imageService.getMediaObjectById(ivid);
-        if (imageVersion!=null) {
-            mediaDetailEditCommand.setImageVersion(imageVersion);
+        MediaObject mediaObject = mediaService.getMediaObjectById(ivid);
+        if (mediaObject!=null) {
+            mediaDetailEditCommand.setMediaObject(mediaObject);
             mediaDetailEditCommand.setMetadata(mediaMetadataService.getMetadata(ivid));
 
-
-
             //Ersteller-User laden:
-            if (mediaDetailEditCommand.getImageVersion().getCreatorUserId()!=-1) {
+            if (mediaDetailEditCommand.getMediaObject().getCreatorUserId()!=-1) {
                 UserService userService = new UserService();
                 try {
                     mediaDetailEditCommand.setCreator(
-                        (User)userService.getById(mediaDetailEditCommand.getImageVersion().getCreatorUserId())
+                        (User)userService.getById(mediaDetailEditCommand.getMediaObject().getCreatorUserId())
                     );
                 } catch(ObjectNotFoundException e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -88,7 +86,7 @@ public class MediaMetadataService {
             }
 
             //Bei Text-Files Content Laden
-            if (imageVersion.getMayorMime().equalsIgnoreCase("text")) {
+            if (mediaObject.getMayorMime().equalsIgnoreCase("text")) {
 
                 String filename = Config.imageStorePath+ File.separator+ivid+"_0";
                 try {

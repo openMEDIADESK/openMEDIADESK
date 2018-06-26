@@ -147,14 +147,14 @@ public class FolderApi extends ApiBase {
     private String getObjectsFromFolder(String[] parameter) {
 
         StringBuffer returnString = new StringBuffer();
-        MediaService imageService = new MediaService();
+        MediaService mediaService = new MediaService();
         SimpleLoaderClass loaderClass = new SimpleLoaderClass();
         loaderClass.setId(Integer.parseInt(parameter[0]));
-        List imageList = imageService.getFolderMediaObjects(loaderClass);
-        Iterator images = imageList.iterator();
-        while (images.hasNext()) {
-            MediaObject imageVersion = (MediaObject)images.next();
-            returnString.append(imageVersion.getIvid()+";");
+        List mediaList = mediaService.getFolderMediaObjects(loaderClass);
+        Iterator mos = mediaList.iterator();
+        while (mos.hasNext()) {
+            MediaObject mediaObject = (MediaObject)mos.next();
+            returnString.append(mediaObject.getIvid()+";");
         }
 
         return returnString.toString();

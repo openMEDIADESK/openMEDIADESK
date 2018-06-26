@@ -69,7 +69,7 @@ public class BulkModificationController extends SimpleFormControllerMd {
         } else {
 
             BulkModification object = new BulkModification();
-            object.setImageCount(BulkModificationService.getImageVersionList().size());
+            object.setImageCount(BulkModificationService.getMediaObjectList().size());
             object.setImageProcessed(BulkModificationService.getProcessed());
             object.setRedrawWatermark(BulkModificationService.isProcessWatermark());
             object.setReimportMetadata(BulkModificationService.isProcessMetadata());
@@ -81,19 +81,17 @@ public class BulkModificationController extends SimpleFormControllerMd {
 
     protected ModelAndView showForm(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, BindException bindException) throws Exception {
 
-        this.setContentTemplateFile("admin_bulkmodification.jsp",httpServletRequest);
-
         if (!BulkModificationService.inProgress()) {
-            return super.showForm(httpServletRequest, httpServletResponse, bindException);    //To change body of overridden methods use File | Settings | File Templates.
+            return super.showForm(httpServletRequest, httpServletResponse, bindException);
         } else {
-            return super.showForm(httpServletRequest, httpServletResponse, bindException);    //To change body of overridden methods use File | Settings | File Templates.    
+            return super.showForm(httpServletRequest, httpServletResponse, bindException);
         }
     }
 
     protected ModelAndView onSubmit(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object, BindException bindException) throws Exception {
 
         BulkModification bulk = (BulkModification)object;
-        List imageVersionList = this.getImageList(httpServletRequest);
+        List mediaObjectList = this.getImageList(httpServletRequest);
 
         if (httpServletRequest.getParameter("docancel")==null) {
 
@@ -108,7 +106,7 @@ public class BulkModificationController extends SimpleFormControllerMd {
             }
 
             if (bulk.isReimportMetadata() || bulk.isRedrawWatermark()) {
-                BulkModificationService.startModification(imageVersionList);
+                BulkModificationService.startModification(mediaObjectList);
             }
 
             bulk.setInProgress(true);

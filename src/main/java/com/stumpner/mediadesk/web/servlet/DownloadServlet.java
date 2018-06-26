@@ -244,16 +244,16 @@ public class DownloadServlet extends HttpServlet {
 
         //User user = (User)httpServletRequest.getSession().getAttribute("user");
 
-        List downloadImageList = this.getImageList(httpServletRequest);
+        List downloadMediaList = this.getImageList(httpServletRequest);
         //System.out.println("Download-Images: "+downloadImageList.size());
-        if (downloadImageList.size()==0 && getDownloadType(httpServletRequest)==DownloadServlet.DOWNLOAD_TYPE_PINPIC) {
+        if (downloadMediaList.size()==0 && getDownloadType(httpServletRequest)==DownloadServlet.DOWNLOAD_TYPE_PINPIC) {
             LocaleResolver localeResolver = new LocaleResolver();
             Locale locale = localeResolver.resolveLocale(httpServletRequest);
             httpServletResponse.sendRedirect(httpServletResponse.encodeRedirectURL("/"+locale.getLanguage()+"/pinview?error=noimages"));
             return;
         }
 
-        if (downloadImageList.size()==0) {
+        if (downloadMediaList.size()==0) {
             System.out.println("Fehler in DownloadServlet:242 Download-BasicMediaObject-Size=0");
             //TODO: Eingebaut um den Fehler tracken zu können
 
@@ -272,39 +272,39 @@ public class DownloadServlet extends HttpServlet {
             }
         }
 
-        String downloadFiles[] = new String[downloadImageList.size()];
-        String zipNames[] = new String[downloadImageList.size()];
+        String downloadFiles[] = new String[downloadMediaList.size()];
+        String zipNames[] = new String[downloadMediaList.size()];
 
         HashMap doubleChecker = new HashMap();
 
         Logger logger = Logger.getLogger(DownloadServlet.class);
 
-        if (this.canDownload(httpServletRequest,downloadImageList)) {
+        if (this.canDownload(httpServletRequest,downloadMediaList)) {
 
-            Iterator downloadImages = downloadImageList.iterator();
+            Iterator downloadMos = downloadMediaList.iterator();
             int i = 0;
-            while (downloadImages.hasNext()) {
+            while (downloadMos.hasNext()) {
                 String filenameInZip = "";
-                MediaObject imageVersion = (MediaObject)downloadImages.next();
+                MediaObject mediaObject = (MediaObject)downloadMos.next();
 
                 //Unterscheidung zw. Original oder Special Resolution
-                String imageFile = Config.imageStorePath+"/"+imageVersion.getIvid()+"_0";
+                String imageFile = Config.imageStorePath+"/"+mediaObject.getIvid()+"_0";
 
                 //Prüfen ob die Bilddatenbank mit Format-Selector (benutzerdefinierte Auflösungen) arbeitet:
                 if (isSpecialDownloadResolution(httpServletRequest)) {
 
-                    imageFile = handleSpecialDownloadResolution(imageVersion,httpServletRequest);
+                    imageFile = handleSpecialDownloadResolution(mediaObject,httpServletRequest);
                 }
 
-                filenameInZip = imageVersion.getMediaNumber(); // <- ist "standard"
+                filenameInZip = mediaObject.getMediaNumber(); // <- ist "standard"
                 if (Config.downloadImageFilename.equalsIgnoreCase("imageNumber")) {
-                    filenameInZip = imageVersion.getMediaNumber();
+                    filenameInZip = mediaObject.getMediaNumber();
                 }
                 if (Config.downloadImageFilename.equalsIgnoreCase("versionTitle")) {
-                    filenameInZip = imageVersion.getVersionTitle();
+                    filenameInZip = mediaObject.getVersionTitle();
                 }
                 if (Config.downloadImageFilename.equalsIgnoreCase("versionName")) {
-                    filenameInZip = imageVersion.getVersionName();
+                    filenameInZip = mediaObject.getVersionName();
                 }
                 // auf leeren Filenamen prÃ¼fen
                 if (filenameInZip.length()==0) {
@@ -327,9 +327,9 @@ public class DownloadServlet extends HttpServlet {
                 zipNames[i] = (count.intValue()>1) ? filenameInZip+(count.intValue()-1) : filenameInZip;
 
                 //File-Extention in den Dateinamen dazunehmen:
-                if (imageVersion.getExtention().length()>0) {
-                    if (!zipNames[i].endsWith(imageVersion.getExtention())) {
-                        zipNames[i] = zipNames[i]+"."+imageVersion.getExtention();
+                if (mediaObject.getExtention().length()>0) {
+                    if (!zipNames[i].endsWith(mediaObject.getExtention())) {
+                        zipNames[i] = zipNames[i]+"."+mediaObject.getExtention();
                     }
                 } else {
                     zipNames[i] = zipNames[i]+".JPG";
@@ -340,10 +340,10 @@ public class DownloadServlet extends HttpServlet {
             }
 
             if (Config.informDownloadAdmin) {
-                this.informDownload(httpServletRequest,downloadImageList);
+                this.informDownload(httpServletRequest,downloadMediaList);
             }
 
-            this.trackDownload(httpServletRequest,downloadImageList);
+            this.trackDownload(httpServletRequest,downloadMediaList);
 
             System.out.println("Zip-Download");
             //Zip-Datei generieren
@@ -403,7 +403,7 @@ public class DownloadServlet extends HttpServlet {
             //zipTmpFile.delete();
 
 
-            final List downloadImageListFinal = downloadImageList;
+            final List downloadImageListFinal = downloadMediaList;
             final long uniqueIdFinal = uniqueId;
 
             //Wenn eine Spezial-Auflösung zum Download angeboten wurde, müssen die Temp-Files gelöscht werden
@@ -418,14 +418,14 @@ public class DownloadServlet extends HttpServlet {
                     }, 60*1000);
             }
 
-            this.cleanUpDownload(httpServletRequest,downloadImageList);
+            this.cleanUpDownload(httpServletRequest,downloadMediaList);
 
             if (Config.useShoppingCart) {
                 //Wenn der ShoppingCart benutzt wurde das Objekt entfernen
                 User user = WebHelper.getUser(httpServletRequest);
                 if (user.getRole()>= User.ROLE_USER) {
                     ShoppingCartService scs = new ShoppingCartService();
-                    scs.removeImagesToShoppingCart(downloadImageList, user.getUserId());
+                    scs.removeImagesToShoppingCart(downloadMediaList, user.getUserId());
                 }
             }
         }
@@ -435,20 +435,20 @@ public class DownloadServlet extends HttpServlet {
 
     }
 
-    private String handleSpecialDownloadResolution(MediaObject imageVersion, HttpServletRequest httpServletRequest) {
+    private String handleSpecialDownloadResolution(MediaObject mediaObject, HttpServletRequest httpServletRequest) {
 
                 long uniqueId = (Long)httpServletRequest.getAttribute("uniqueId");
 
                 //Unterscheidung zw. Original oder Special Resolution
-                String imageFile = Config.imageStorePath+"/"+imageVersion.getIvid()+"_0";
-                String origImageFile = imageFile;
+                String mediaFile = Config.imageStorePath+"/"+mediaObject.getIvid()+"_0";
+                String origImageFile = mediaFile;
 
                     FormatSelector formatSelector = getFormatSelector(httpServletRequest);
-                    if (!formatSelector.isOriginalFormat(imageVersion)) {
+                    if (!formatSelector.isOriginalFormat(mediaObject)) {
                         //Bildanfrage ist nicht gleich Orginalgröße, daher das neue Format berechenen und das
                         //Bild erzeugen
                         //Bild-Auflösung berechnen und imageFile-Name zurückgeben in imageFile
-                        imageFile = Config.imageStorePath+"/"+imageVersion.getIvid()+"_res"+uniqueId;
+                        mediaFile = Config.imageStorePath+"/"+mediaObject.getIvid()+"_res"+uniqueId;
                         ImageMagickUtil imageUtil = new ImageMagickUtil(false);
                         //System.out.println("Bild spezialauflösung berechnen: "+imageFile);
 
@@ -457,27 +457,27 @@ public class DownloadServlet extends HttpServlet {
                         // 1 - vertical
                         // 2 - horizontal
                         int orientation = 0;
-                        if (imageVersion.getHeight()>imageVersion.getWidth()) {
+                        if (mediaObject.getHeight()>mediaObject.getWidth()) {
                             //vertical
                             orientation = 1;
                         }
-                        if (imageVersion.getWidth()>imageVersion.getHeight()) {
+                        if (mediaObject.getWidth()>mediaObject.getHeight()) {
                             orientation = 2;
                         }
 
                         //images verkleinern vertical
                         if (orientation == 1 || orientation == 0) {
-                            imageUtil.resizeImageVertical(origImageFile,imageFile,
-                                    (int)getFormat(httpServletRequest,imageVersion).getHeight());
+                            imageUtil.resizeImageVertical(origImageFile,mediaFile,
+                                    (int)getFormat(httpServletRequest,mediaObject).getHeight());
                         }
                         //images verkleinern horizontal
                         if (orientation == 2) {
-                            imageUtil.resizeImageHorizontal(origImageFile,imageFile,
-                                    (int)getFormat(httpServletRequest,imageVersion).getWidth());
+                            imageUtil.resizeImageHorizontal(origImageFile,mediaFile,
+                                    (int)getFormat(httpServletRequest,mediaObject).getWidth());
                         }
                     }
 
-        return imageFile;
+        return mediaFile;
 
     }
 
@@ -504,42 +504,42 @@ public class DownloadServlet extends HttpServlet {
     /**
      * @deprecated Bitte {@link DownloadServlet#getFormatSelector(javax.servlet.http.HttpServletRequest)}  und die Funktion {@link com.stumpner.mediadesk.web.mvc.commandclass.FormatSelector#getFormat(MediaObject)} benutzen
      * @param request
-     * @param imageVersion
+     * @param mediaObject
      * @return
      */
-    private Rectangle getFormat(HttpServletRequest request, MediaObject imageVersion) {
+    private Rectangle getFormat(HttpServletRequest request, MediaObject mediaObject) {
 
         FormatSelector formatSelector = (FormatSelector)request.getSession().getAttribute("formatSelector");
-        return formatSelector.getFormat(imageVersion);
+        return formatSelector.getFormat(mediaObject);
     }
 
-    private void informDownload(HttpServletRequest request,List imageList) {
+    private void informDownload(HttpServletRequest request,List mediaObjectList) {
 
-        int i = imageList.size();
+        int i = mediaObjectList.size();
         String mailbody = "";
 
-        String imageListString = "";
+        String mediaListString = "";
         DownloadLoggerService dlls = new DownloadLoggerService();
         MediaService ivs = new MediaService();
         LngResolver lngResolver = new LngResolver();
         ivs.setUsedLanguage(lngResolver.resolveLng(request));
-        Iterator images = imageList.iterator();
-        while (images.hasNext()) {
-            MediaObject imageVersion = (MediaObject)images.next();
+        Iterator mos = mediaObjectList.iterator();
+        while (mos.hasNext()) {
+            MediaObject mediaObject = (MediaObject)mos.next();
             //todo: "verschÃ¶nern"
             //Hier muss jedes Bild nochmal neu aus der Datenbank geladen werden:
             //MediaObject originalImage = ivs.getMediaObjectById(imageVersion.getIvid());
-            imageListString = imageListString + imageVersion.getMediaNumber();
+            mediaListString = mediaListString + mediaObject.getMediaNumber();
 
             //System.out.println("ImageTitle: "+imageVersion.getVersionTitle());
-            if (imageVersion.getVersionTitle().length()>0) {
+            if (mediaObject.getVersionTitle().length()>0) {
                 //System.out.println("ImageTitle: "+imageVersion.getVersionTitle());
-                imageListString = imageListString +" - Titel: "+imageVersion.getVersionTitle();
+                mediaListString = mediaListString +" - Titel: "+mediaObject.getVersionTitle();
             }
 
             if (isSpecialDownloadResolution(request)) {
-                Rectangle rect = getFormat(request,imageVersion);
-                imageListString = imageListString + " Format: "+((int)rect.getWidth())+"x"+((int)rect.getHeight());
+                Rectangle rect = getFormat(request,mediaObject);
+                mediaListString = mediaListString + " Format: "+((int)rect.getWidth())+"x"+((int)rect.getHeight());
             }
         }
 
@@ -557,7 +557,7 @@ public class DownloadServlet extends HttpServlet {
                 if (Config.userEmailAsUsername) {
                     username = user.getEmail();
                 }
-                Object[] parameters = { Config.webTitle , username , i , Config.httpBase , imageListString , new Date() };
+                Object[] parameters = { Config.webTitle , username , i , Config.httpBase , mediaListString , new Date() };
                 mailbody = mf.format(parameters);
                 MailWrapper.sendAsync(Config.mailserver,Config.mailsender,Config.mailReceiverAdminEmail,Config.mailDownloadInfoMailSubject,mailbody);
                 break;
@@ -574,7 +574,7 @@ public class DownloadServlet extends HttpServlet {
                     //todo: PinId
                     try {
                         Pin pin = (Pin)pinService.getById(pinId);
-                        Object[] param = { pin.getPin() , pin.getPinName() , imageListString, new Date() };
+                        Object[] param = { pin.getPin() , pin.getPinName() , mediaListString, new Date() };
                         mailbody = mf.format(param);
 
                         if (pin.getEmailnotification().length()>0) {
@@ -636,12 +636,12 @@ public class DownloadServlet extends HttpServlet {
                 //PrÃ¼fen ob alle Bilder des Pins oder nur ausgewÃ¤hlte angezeigt werden sollen:
                 if (request.getParameter("ivid")!=null) {
                     //Einzelnes Bild soll heruntergeladen werden
-                    List pinImageList = pinService.getPinpicImages(pinId);
-                    Iterator pinImages = pinImageList.iterator();
-                    while (pinImages.hasNext()) {
-                        MediaObject imageVersion = (MediaObject)pinImages.next();
-                        if (imageVersion.getIvid()==Integer.parseInt(request.getParameter("ivid"))) {
-                            downloadImageList.add(imageVersion);
+                    List pinMediaObjectList = pinService.getPinpicImages(pinId);
+                    Iterator pinMediaObjects = pinMediaObjectList.iterator();
+                    while (pinMediaObjects.hasNext()) {
+                        MediaObject mediaObject = (MediaObject)pinMediaObjects.next();
+                        if (mediaObject.getIvid()==Integer.parseInt(request.getParameter("ivid"))) {
+                            downloadImageList.add(mediaObject);
                         }
                     }
 
@@ -753,9 +753,9 @@ public class DownloadServlet extends HttpServlet {
     /**
      * BasicMediaObject Download mitloggen bzw in die statistik aufnehmen
      * @param request
-     * @param imageList
+     * @param mediaObjectList
      */
-    private void trackDownload(HttpServletRequest request, List imageList) {
+    private void trackDownload(HttpServletRequest request, List mediaObjectList) {
 
 
         switch (this.getDownloadType(request)) {
@@ -764,27 +764,27 @@ public class DownloadServlet extends HttpServlet {
 
                 User suser = WebHelper.getUser(request);
                 DownloadLoggerService sdlls = new DownloadLoggerService();
-                Iterator simages = imageList.iterator();
+                Iterator mos = mediaObjectList.iterator();
                 BigDecimal preis = BigDecimal.valueOf(0);
-                while (simages.hasNext()) {
-                    MediaObjectMultiLang imageVersion = (MediaObjectMultiLang)simages.next();
-                    preis = Config.currency.isEmpty() ? BigDecimal.valueOf(1) : imageVersion.getPrice();
-                    Rectangle rect = new Rectangle(imageVersion.getWidth(),imageVersion.getHeight());
+                while (mos.hasNext()) {
+                    MediaObjectMultiLang mediaObject = (MediaObjectMultiLang)mos.next();
+                    preis = Config.currency.isEmpty() ? BigDecimal.valueOf(1) : mediaObject.getPrice();
+                    Rectangle rect = new Rectangle(mediaObject.getWidth(),mediaObject.getHeight());
                     if (isSpecialDownloadResolution(request)) {
-                        rect = getFormat(request,imageVersion);
+                        rect = getFormat(request,mediaObject);
                     }
 
                     String payTransactionId = "";
                     if (Config.useShoppingCart) {
                         ShoppingCartService scs = new ShoppingCartService();
-                        CartObject ivco = scs.getCartObject(suser.getUserId(), imageVersion.getIvid());
+                        CartObject ivco = scs.getCartObject(suser.getUserId(), mediaObject.getIvid());
 
                         if (ivco!=null) {
                             payTransactionId = ivco.getPayTransactionId();
                         }
                     }
 
-                    sdlls.log(suser.getUserId(),imageVersion.getIvid(), rect,
+                    sdlls.log(suser.getUserId(),mediaObject.getIvid(), rect,
                             SimpleDownloadLogger.DTYPE_DOWNLOAD, request,0,0,payTransactionId);
                 }
 
@@ -808,30 +808,30 @@ public class DownloadServlet extends HttpServlet {
             case DownloadServlet.DOWNLOAD_TYPE_IMAGES:
 
                 User user = WebHelper.getUser(request);
-                int i = imageList.size();
+                int i = mediaObjectList.size();
 
                 DownloadLoggerService dlls = new DownloadLoggerService();
-                Iterator images = imageList.iterator();
+                Iterator downloadMos = mediaObjectList.iterator();
                 BigDecimal preis2 = BigDecimal.valueOf(0);
 
-                while (images.hasNext()) {
-                    MediaObjectMultiLang imageVersion = (MediaObjectMultiLang)images.next();
-                    preis2 = preis2.add(Config.currency.isEmpty() ? BigDecimal.valueOf(1) : imageVersion.getPrice());
-                    Rectangle rect = new Rectangle(imageVersion.getWidth(),imageVersion.getHeight());
+                while (downloadMos.hasNext()) {
+                    MediaObjectMultiLang mediaObject = (MediaObjectMultiLang)downloadMos.next();
+                    preis2 = preis2.add(Config.currency.isEmpty() ? BigDecimal.valueOf(1) : mediaObject.getPrice());
+                    Rectangle rect = new Rectangle(mediaObject.getWidth(),mediaObject.getHeight());
                     if (isSpecialDownloadResolution(request)) {
-                        rect = getFormat(request,imageVersion);
+                        rect = getFormat(request,mediaObject);
                     }
 
                     /**
                     dlls.log(user.getUserId(),imageVersion.getIvid(), rect,
                             SimpleDownloadLogger.DTYPE_DOWNLOAD, request,0);**/
                     ShoppingCartService scs = new ShoppingCartService();
-                    CartObject ivco = scs.getCartObject(user.getUserId(), imageVersion.getIvid());
+                    CartObject ivco = scs.getCartObject(user.getUserId(), mediaObject.getIvid());
                     String payTransactionId = "";
                     if (ivco!=null) {
                         payTransactionId = ivco.getPayTransactionId();
                     }
-                    dlls.log(user.getUserId(),imageVersion.getIvid(), rect,
+                    dlls.log(user.getUserId(),mediaObject.getIvid(), rect,
                             SimpleDownloadLogger.DTYPE_DOWNLOAD, request,0,0,payTransactionId);
                 }
 
@@ -868,7 +868,7 @@ public class DownloadServlet extends HttpServlet {
                     }
 
                     DownloadLoggerService dlls2 = new DownloadLoggerService();
-                    Iterator images2 = imageList.iterator();
+                    Iterator images2 = mediaObjectList.iterator();
                     while (images2.hasNext()) {
                         MediaObject mediaObject = (MediaObject)images2.next();
                         dlls2.log(0,mediaObject.getIvid(), null,
@@ -909,14 +909,14 @@ public class DownloadServlet extends HttpServlet {
         request.getSession().removeAttribute("formatSelector");
     }
 
-    private void cleanUpTempFiles(List downloadImageList, long uniqueId) {
+    private void cleanUpTempFiles(List downloadMediaObjectList, long uniqueId) {
 
                 //Verkleinerte Files wieder entfernen:
         //todo: muss umgebaut werden dass beim erstellen des Res-Files bereits eine liste erstellt wird mit dateien die gelöscht werden müssen
-                Iterator images = downloadImageList.iterator();
-                while (images.hasNext()) {
-                    MediaObject imageVersion = (MediaObject)images.next();
-                    String imageFile = Config.imageStorePath+File.separator+imageVersion.getIvid()+"_res"+uniqueId;
+                Iterator mos = downloadMediaObjectList.iterator();
+                while (mos.hasNext()) {
+                    MediaObject mediaObject = (MediaObject)mos.next();
+                    String imageFile = Config.imageStorePath+File.separator+mediaObject.getIvid()+"_res"+uniqueId;
                     //System.out.println("Temporäre Datei löschen: "+imageFile);
                     File file = new File(imageFile);
                     if (file.delete()) {

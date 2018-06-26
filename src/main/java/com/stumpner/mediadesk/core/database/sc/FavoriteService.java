@@ -96,12 +96,12 @@ public class FavoriteService extends MultiLanguageService {
         }
     }
 
-    public void removeMediaListFromFav(List imageList, int userId) {
+    public void removeMediaListFromFav(List mediaObjectList, int userId) {
 
-        Iterator images = imageList.iterator();
-        while (images.hasNext()) {
-            MediaObject imageVersion = (MediaObject)images.next();
-            this.removeMediaFromFav(imageVersion.getIvid(),userId);
+        Iterator mos = mediaObjectList.iterator();
+        while (mos.hasNext()) {
+            MediaObject mediaObject = (MediaObject)mos.next();
+            this.removeMediaFromFav(mediaObject.getIvid(),userId);
         }
     }
 

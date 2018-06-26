@@ -126,8 +126,8 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
 
     public long getResourceLength(ITransaction iTransaction, String s) {
         //System.out.println("getResourceLength");
-        MediaObject imageVersion = getMediaObject(s);
-        File file = getFile(imageVersion);
+        MediaObject mediaObject = getMediaObject(s);
+        File file = getFile(mediaObject);
         return file.length();
         //return 0;  //To change body of implemented methods use File | Settings | File Templates.
     }
@@ -481,10 +481,10 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
         return foundMediaObject;
     }
 
-    private File getFile(MediaObject imageVersion) {
+    private File getFile(MediaObject mediaObject) {
 
-        logger.debug("webdav: getFile("+imageVersion.getIvid()+");");
-            String filename = Config.imageStorePath+"/"+imageVersion.getIvid()+"_0";
+        logger.debug("webdav: getFile("+mediaObject.getIvid()+");");
+            String filename = Config.imageStorePath+"/"+mediaObject.getIvid()+"_0";
         logger.debug("file: "+filename);
             File file = new File(filename);
 

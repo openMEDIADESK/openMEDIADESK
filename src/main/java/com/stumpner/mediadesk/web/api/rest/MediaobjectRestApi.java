@@ -82,7 +82,7 @@ public class MediaobjectRestApi extends RestBaseServlet {
         if (mode.equalsIgnoreCase("editmode")) {
 
             MediaDetailEditCommand ivmeta = (MediaDetailEditCommand)request.getSession().getAttribute(MediaDetailEditController.class.getName()+".FORM.command");
-            MediaObjectMultiLang sessionMo = (MediaObjectMultiLang)ivmeta.getImageVersion();
+            MediaObjectMultiLang sessionMo = (MediaObjectMultiLang)ivmeta.getMediaObject();
 
             writeData(response, request, sessionMo);
         }

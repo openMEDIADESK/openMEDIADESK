@@ -127,10 +127,10 @@ public class PinWizardController extends SimpleFormControllerMd {
     private void addImagesToPin(List selectedImageList, int pinId) {
 
         PinService pinService = new PinService();
-            Iterator selectedImages = selectedImageList.iterator();
-            while (selectedImages.hasNext()) {
-                MediaObject imageVersion = (MediaObject)selectedImages.next();
-                pinService.addMediaToPin(imageVersion.getIvid(),pinId);
+            Iterator selectedMediaObjects = selectedImageList.iterator();
+            while (selectedMediaObjects.hasNext()) {
+                MediaObject mediaObject = (MediaObject)selectedMediaObjects.next();
+                pinService.addMediaToPin(mediaObject.getIvid(),pinId);
             }
 
     }

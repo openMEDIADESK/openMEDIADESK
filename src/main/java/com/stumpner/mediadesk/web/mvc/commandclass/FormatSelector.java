@@ -50,13 +50,13 @@ public class FormatSelector {
 
     boolean allFormatsDenied = false;
 
-    public Rectangle getFormat(MediaObject imageVersion) {
+    public Rectangle getFormat(MediaObject mediaObject) {
 
-        int imageIndex = downloadList.indexOf(imageVersion);
+        int imageIndex = downloadList.indexOf(mediaObject);
         int formatIndex = Integer.parseInt((String)selectedFormat.get(imageIndex));
         if (formatIndex==-1) {
             //Original-Auflösung
-            return new Rectangle(imageVersion.getWidth(),imageVersion.getHeight());
+            return new Rectangle(mediaObject.getWidth(),mediaObject.getHeight());
         } else {
             return (Rectangle)availableFormatList.get(formatIndex);
         }
@@ -64,14 +64,14 @@ public class FormatSelector {
 
     /**
      * Gibt zurück ob die MediaObject im Original-Format angefordert (ausgewählt) wurde
-     * @param imageVersion
+     * @param mediaObject
      * @return
      */
-    public boolean isOriginalFormat(MediaObject imageVersion) {
+    public boolean isOriginalFormat(MediaObject mediaObject) {
 
-        Rectangle rect = getFormat(imageVersion);
-        if (rect.getWidth()==imageVersion.getWidth() &&
-                rect.getHeight()==imageVersion.getHeight()) {
+        Rectangle rect = getFormat(mediaObject);
+        if (rect.getWidth()==mediaObject.getWidth() &&
+                rect.getHeight()==mediaObject.getHeight()) {
             return true;
         } else {
             return false;

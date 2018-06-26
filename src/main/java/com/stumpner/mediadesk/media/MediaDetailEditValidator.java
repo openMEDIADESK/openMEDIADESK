@@ -39,10 +39,10 @@ public class MediaDetailEditValidator implements Validator {
     public void validate(Object o, Errors errors) {
 
         MediaDetailEditCommand media = (MediaDetailEditCommand)o;
-        MediaObjectMultiLang mediaObject = (MediaObjectMultiLang)media.getImageVersion();
+        MediaObjectMultiLang mediaObject = (MediaObjectMultiLang)media.getMediaObject();
         System.out.println("gePrice (validate)= "+mediaObject.getPrice());
-        if (!NameValidator.validate(media.getImageVersion().getVersionName())) {
-            errors.rejectValue("imageVersion.versionName","edit.namenotvalid");
+        if (!NameValidator.validate(media.getMediaObject().getVersionName())) {
+            errors.rejectValue("mediaObject.versionName","edit.namenotvalid");
         }
     }
 }

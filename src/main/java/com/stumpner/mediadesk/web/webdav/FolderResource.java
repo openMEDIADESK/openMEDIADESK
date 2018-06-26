@@ -375,41 +375,41 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
     private MediaObjectMultiLang createEmptyMediaObject(String newName) {
 
         Logger logger = Logger.getLogger(FolderResource.class);
-        MediaObjectMultiLang imageVersion = new MediaObjectMultiLang();
+        MediaObjectMultiLang mediaObject = new MediaObjectMultiLang();
 
         //Daten der Datei setzen
-        imageVersion.setHeight(0);
-        imageVersion.setWidth(0);
-        imageVersion.setDpi(0);
-        imageVersion.setCreateDate(new Date());
-        imageVersion.setCreatorUserId(user.getUserId()); //todo: userid
-        imageVersion.setKb(0);
+        mediaObject.setHeight(0);
+        mediaObject.setWidth(0);
+        mediaObject.setDpi(0);
+        mediaObject.setCreateDate(new Date());
+        mediaObject.setCreatorUserId(user.getUserId()); //todo: userid
+        mediaObject.setKb(0);
 
         //MimeType + FileType:
         //todo: auslagern in den ImportHandler (eventuell in eine Superklasse!?)
-        imageVersion.setMimeType(AbstractImportFactory.getMimeTypeFromExt(newName));
-        imageVersion.setExtention(AbstractImportFactory.getFileExtention(newName));
+        mediaObject.setMimeType(AbstractImportFactory.getMimeTypeFromExt(newName));
+        mediaObject.setExtention(AbstractImportFactory.getFileExtention(newName));
 
         //Dateiname als Titel:
-        imageVersion.setVersionName(newName);
-        imageVersion.setVersionTitle(newName);
+        mediaObject.setVersionName(newName);
+        mediaObject.setVersionTitle(newName);
 
         //File-Objekt in der Datenbank erstellen
         MediaService imageService = new MediaService();
         try {
             logger.debug("Datei in der Datenbank anlegen...");
-            imageVersion = (MediaObjectMultiLang)imageService.addMedia(imageVersion);
+            mediaObject = (MediaObjectMultiLang)imageService.addMedia(mediaObject);
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
         try {
-            imageService.saveMediaObject(imageVersion);
+            imageService.saveMediaObject(mediaObject);
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
-        return imageVersion;
+        return mediaObject;
 
     }
 

@@ -378,13 +378,13 @@ public class FolderService extends MultiLanguageService implements IServiceClass
     }
 
 
-    public void addMediaToFolder(int folderId, MediaObject imageVersion) {
+    public void addMediaToFolder(int folderId, MediaObject mediaObject) {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
 
         FolderHolder folderHolder = new FolderHolder();
         folderHolder.setFolderId(folderId);
-        folderHolder.setIvid(imageVersion.getIvid());
+        folderHolder.setIvid(mediaObject.getIvid());
 
         try {
             Folder folder = this.getFolderById(folderId);
@@ -420,9 +420,9 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         DatabaseService.setTriggerStage1(true);
     }
 
-    public void deleteMediaFromFolder(Folder folder, MediaObject imageVersion) {
+    public void deleteMediaFromFolder(Folder folder, MediaObject mediaObject) {
 
-        this.deleteMediaFromFolder(folder.getFolderId(),imageVersion.getIvid());
+        this.deleteMediaFromFolder(folder.getFolderId(),mediaObject.getIvid());
     }
 
     public void deleteMediaFromFolder(int folderId, int ivid) {

@@ -92,22 +92,22 @@ public class SendController extends SimpleFormControllerMd {
             throw new Http404Exception(e);
         }
         
-        MediaService imageService = new MediaService();
+        MediaService mediaService = new MediaService();
         LngResolver lngResolver = new LngResolver();
-        imageService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-        MediaObject image = imageService.getMediaObjectById(ivid);
-        if (image==null) { throw new Http404Exception("ivid="+ivid+" not found"); }
+        mediaService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
+        MediaObject mediaObject = mediaService.getMediaObjectById(ivid);
+        if (mediaObject==null) { throw new Http404Exception("ivid="+ivid+" not found"); }
 
 
         StringBuffer sb = new StringBuffer();
         sb.append("Guten Tag,\n\nFolgender Link wurde Ihnen gesendet:\n");
 
-        sb.append("http://"+httpServletRequest.getServerName()+"/"+httpServletRequest.getAttribute("lng")+"/ppreview?id="+image.getIvid());
+        sb.append("http://"+httpServletRequest.getServerName()+"/"+httpServletRequest.getAttribute("lng")+"/ppreview?id="+mediaObject.getIvid());
         sb.append("\n\nKlicken Sie auf den Link um die Website anzuzeigen.");
 
         SendCommand sendCommand = new SendCommand();
-        sendCommand.setImageVersion(image);
-        sendCommand.setSubject("Bild: "+image.getVersionTitle());
+        sendCommand.setMediaObject(mediaObject);
+        sendCommand.setSubject("Bild: "+mediaObject.getVersionTitle());
         sendCommand.setMailtext(sb.toString());
 
         int minRoleToSendAttach = User.ROLE_MASTEREDITOR;
@@ -183,14 +183,14 @@ public class SendController extends SimpleFormControllerMd {
             sendFile.setTo(sendCommand.getRecipient());
             sendFile.setSubject(sendCommand.getSubject());
             sendFile.setText(sendCommand.getMailtext());
-            sendFile.setAttachname(sendCommand.getImageVersion().getWebFilename());
+            sendFile.setAttachname(sendCommand.getMediaObject().getWebFilename());
             int imageSize = 0; //Original
-            String imageFile = Config.imageStorePath+"/"+sendCommand.getImageVersion().getIvid()+"_"+imageSize;
+            String imageFile = Config.imageStorePath+"/"+sendCommand.getMediaObject().getIvid()+"_"+imageSize;
             sendFile.setFilename(imageFile);
             //sendFile.send();
 
             MailWrapper.sendAsync(Config.mailserver, Config.mailsender, sendCommand.getRecipient(), sendCommand.getSubject(), sendCommand.getMailtext(), 
-                    imageFile, sendCommand.getImageVersion().getWebFilename());
+                    imageFile, sendCommand.getMediaObject().getWebFilename());
         } else {
             MailWrapper.sendAsync(
                     Config.mailserver,Config.mailsender,sendCommand.getRecipient(),

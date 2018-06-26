@@ -53,7 +53,7 @@ public class ImageImport {
         int returnValue = IMPORT_OK;
 
         Logger logger = Logger.getLogger(ImageImport.class);
-        MediaObjectMultiLang imageVersion = new MediaObjectMultiLang();
+        MediaObjectMultiLang mediaObject = new MediaObjectMultiLang();
 
         //Neu seit 2.6: Bild vor dem bearbeiten/verkleinern auf JPEG konvertieren.
         String jpegFilename = fileName+".jpg";
@@ -72,72 +72,72 @@ public class ImageImport {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
-        imageVersion.setHeight(imageUtil.getImageHeight(jpegFilename));
-        imageVersion.setWidth(imageUtil.getImageWidth(jpegFilename));
-        imageVersion.setDpi(imageUtil.getImageDpi(jpegFilename));
-        imageVersion.setCreateDate(new Date());
-        imageVersion.setCreatorUserId(userId);
+        mediaObject.setHeight(imageUtil.getImageHeight(jpegFilename));
+        mediaObject.setWidth(imageUtil.getImageWidth(jpegFilename));
+        mediaObject.setDpi(imageUtil.getImageDpi(jpegFilename));
+        mediaObject.setCreateDate(new Date());
+        mediaObject.setCreatorUserId(userId);
         File file = new File(fileName);
-        imageVersion.setKb((int)(file.length()/1000));
+        mediaObject.setKb((int)(file.length()/1000));
 
         //MimeType + FileType:
         //todo: auslagern in den ImportHandler (eventuell in eine Superklasse!?)
-        imageVersion.setMimeType(AbstractImportFactory.getMimeType(file));
+        mediaObject.setMimeType(AbstractImportFactory.getMimeType(file));
         //System.out.println("Extention in ImageImport: "+AbstractImportFactory.getFileExtention(file));
-        imageVersion.setExtention(AbstractImportFactory.getFileExtention(file));
+        mediaObject.setExtention(AbstractImportFactory.getFileExtention(file));
 
         //Größe Checken (mit erlaubnis in Config)
-        if (imageVersion.getKb()>Config.maxImageSize) {
-            logger.error("Maximal BasicMediaObject Size reached"+imageVersion.getKb());
-            throw new SizeExceedException(imageVersion.getKb(),Config.maxImageSize);
+        if (mediaObject.getKb()>Config.maxImageSize) {
+            logger.error("Maximal BasicMediaObject Size reached"+mediaObject.getKb());
+            throw new SizeExceedException(mediaObject.getKb(),Config.maxImageSize);
         }
 
         //image in db erstellen
         MediaService imageService = new MediaService();
         try {
             logger.debug("Bild in der Datenbank anlegen...");
-            imageService.addMedia(imageVersion);
+            imageService.addMedia(mediaObject);
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
         if (Config.importImageNumberSerially) {
             logger.debug("Primary-Key als Bildnummer setzen...");
-            imageVersion.setMediaNumber(Integer.toString(imageVersion.getIvid()));
+            mediaObject.setMediaNumber(Integer.toString(mediaObject.getIvid()));
         }
 
-        logger.info("Added Media-Objekt to mediaDESK: "+imageVersion.getIvid()+" Number: "+imageVersion.getMediaNumber());
+        logger.info("Added Media-Objekt to mediaDESK: "+mediaObject.getIvid()+" Number: "+mediaObject.getMediaNumber());
 
         //orientation:
         // 0 - square
         // 1 - vertical
         // 2 - horizontal
         int orientation = 0;
-        if (imageVersion.getHeight()>imageVersion.getWidth()) {
+        if (mediaObject.getHeight()>mediaObject.getWidth()) {
             //vertical
             orientation = 1;
         }
-        if (imageVersion.getWidth()>imageVersion.getHeight()) {
+        if (mediaObject.getWidth()>mediaObject.getHeight()) {
             orientation = 2;
         }
 
         //images verkleinern vertical
         if (orientation == 1 || orientation == 0) {
             imageUtil.resizeImageVertical(
-                    fileName,Config.imageStorePath+File.separator+imageVersion.getIvid()+"_1",Config.imagesizeThumbnail);
+                    fileName,Config.imageStorePath+File.separator+mediaObject.getIvid()+"_1",Config.imagesizeThumbnail);
             imageUtil.resizeImageVertical(
-                    fileName,Config.imageStorePath+File.separator+imageVersion.getIvid()+"_2",Config.imagesizePreview);
-            imageUtil.overlayWatermark(Config.imageStorePath+File.separator+imageVersion.getIvid()+"_2",Config.watermarkVertical);
+                    fileName,Config.imageStorePath+File.separator+mediaObject.getIvid()+"_2",Config.imagesizePreview);
+            imageUtil.overlayWatermark(Config.imageStorePath+File.separator+mediaObject.getIvid()+"_2",Config.watermarkVertical);
         }
 
 
         //images verkleinern horizontal
         if (orientation == 2) {
             imageUtil.resizeImageHorizontal(
-                    fileName,Config.imageStorePath+File.separator+imageVersion.getIvid()+"_1",Config.imagesizeThumbnail);
+                    fileName,Config.imageStorePath+File.separator+mediaObject.getIvid()+"_1",Config.imagesizeThumbnail);
             imageUtil.resizeImageHorizontal(
-                    fileName,Config.imageStorePath+File.separator+imageVersion.getIvid()+"_2",Config.imagesizePreview);
-            imageUtil.overlayWatermark(Config.imageStorePath+File.separator+imageVersion.getIvid()+"_2",Config.watermarkHorizontal);
+                    fileName,Config.imageStorePath+File.separator+mediaObject.getIvid()+"_2",Config.imagesizePreview);
+            imageUtil.overlayWatermark(Config.imageStorePath+File.separator+mediaObject.getIvid()+"_2",Config.watermarkHorizontal);
         }
 
         //das konvertierte Jpeg-File löschen
@@ -146,7 +146,7 @@ public class ImageImport {
 
         //original image ablegen:
         try {
-            copyFile(new File(fileName),new File(Config.imageStorePath+File.separator+imageVersion.getIvid()+"_0"));
+            copyFile(new File(fileName),new File(Config.imageStorePath+File.separator+mediaObject.getIvid()+"_0"));
         } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -155,7 +155,7 @@ public class ImageImport {
 
         //import to database
 
-        importedIvid = imageVersion.getIvid();
+        importedIvid = mediaObject.getIvid();
 
         //import metadata
 
@@ -166,7 +166,7 @@ public class ImageImport {
         //Dateiname im Import-Filesytem als Meta-Data
         Metadata md = new Metadata();
         md.setExifTag(false);
-        md.setIvid(imageVersion.getIvid());
+        md.setIvid(mediaObject.getIvid());
         md.setMetaKey("Filename");
         md.setMetaValue(file.getName());
         metadataList.add(md);
@@ -174,59 +174,59 @@ public class ImageImport {
         Iterator metadatas = metadataList.iterator();
         while (metadatas.hasNext()) {
             Metadata metadata = (Metadata)metadatas.next();
-            metadata.setIvid(imageVersion.getIvid());
+            metadata.setIvid(mediaObject.getIvid());
             metadata.setLang("");
             mediaMetadataService.addMetadata(metadata);
 
             logger.debug("Meta-Key: "+metadata.getMetaKey()+" | Meta-Value: "+metadata.getMetaValue()+ " | ");
 
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importName)) {
-                imageVersion.setVersionName(metadata.getMetaValue());
+                mediaObject.setVersionName(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importTitle)) {
-                imageVersion.setVersionTitle(metadata.getMetaValue());
-                imageVersion.setVersionTitleLng1(metadata.getMetaValue());
-                imageVersion.setVersionTitleLng2(metadata.getMetaValue());
+                mediaObject.setVersionTitle(metadata.getMetaValue());
+                mediaObject.setVersionTitleLng1(metadata.getMetaValue());
+                mediaObject.setVersionTitleLng2(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importSubtitle)) {
-                imageVersion.setVersionSubTitle(metadata.getMetaValue());
-                imageVersion.setVersionSubTitleLng1(metadata.getMetaValue());
-                imageVersion.setVersionSubTitleLng2(metadata.getMetaValue());
+                mediaObject.setVersionSubTitle(metadata.getMetaValue());
+                mediaObject.setVersionSubTitleLng1(metadata.getMetaValue());
+                mediaObject.setVersionSubTitleLng2(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importKeywords)) {
-                imageVersion.setKeywords(metadata.getMetaValue());
+                mediaObject.setKeywords(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importNote)) {
-                imageVersion.setNote(metadata.getMetaValue());
-                imageVersion.setNoteLng1(metadata.getMetaValue());
-                imageVersion.setNoteLng2(metadata.getMetaValue());
+                mediaObject.setNote(metadata.getMetaValue());
+                mediaObject.setNoteLng1(metadata.getMetaValue());
+                mediaObject.setNoteLng2(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importRestrictions)) {
-                imageVersion.setRestrictions(metadata.getMetaValue());
-                imageVersion.setRestrictionsLng1(metadata.getMetaValue());
-                imageVersion.setRestrictionsLng2(metadata.getMetaValue());
+                mediaObject.setRestrictions(metadata.getMetaValue());
+                mediaObject.setRestrictionsLng1(metadata.getMetaValue());
+                mediaObject.setRestrictionsLng2(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importNumber)) {
-                imageVersion.setMediaNumber(metadata.getMetaValue());
+                mediaObject.setMediaNumber(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importByline)) {
-                imageVersion.setByline(metadata.getMetaValue());
+                mediaObject.setByline(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importPhotographerAlias)) {
-                imageVersion.setPhotographerAlias(metadata.getMetaValue());
+                mediaObject.setPhotographerAlias(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importSite)) {
-                imageVersion.setSite(metadata.getMetaValue());
-                imageVersion.setSiteLng1(metadata.getMetaValue());
-                imageVersion.setSiteLng2(metadata.getMetaValue());
+                mediaObject.setSite(metadata.getMetaValue());
+                mediaObject.setSiteLng1(metadata.getMetaValue());
+                mediaObject.setSiteLng2(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importPeople)) {
-                imageVersion.setPeople(metadata.getMetaValue());
+                mediaObject.setPeople(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importInfo)) {
-                imageVersion.setInfo(metadata.getMetaValue());
-                imageVersion.setInfoLng1(metadata.getMetaValue());
-                imageVersion.setInfoLng2(metadata.getMetaValue());
+                mediaObject.setInfo(metadata.getMetaValue());
+                mediaObject.setInfoLng1(metadata.getMetaValue());
+                mediaObject.setInfoLng2(metadata.getMetaValue());
             }
 
 
@@ -285,20 +285,20 @@ public class ImageImport {
                 }
 
 
-                imageVersion.setPhotographDate(date);
+                mediaObject.setPhotographDate(date);
             }
         }
 
         if (Config.wording == Config.WORDING_MEDIA) {
             //Name und Titel aus Filename verwenden, wenn leer
-            if (imageVersion.getVersionName().length()==0) { imageVersion.setVersionName(file.getName()); }
-            if (imageVersion.getVersionTitle().length()==0) { imageVersion.setVersionTitle(file.getName()); }
-            if (imageVersion.getVersionTitleLng1().length()==0) {imageVersion.setVersionTitleLng1(file.getName()); }
-            if (imageVersion.getVersionTitleLng2().length()==0) {imageVersion.setVersionTitleLng2(file.getName()); }
+            if (mediaObject.getVersionName().length()==0) { mediaObject.setVersionName(file.getName()); }
+            if (mediaObject.getVersionTitle().length()==0) { mediaObject.setVersionTitle(file.getName()); }
+            if (mediaObject.getVersionTitleLng1().length()==0) {mediaObject.setVersionTitleLng1(file.getName()); }
+            if (mediaObject.getVersionTitleLng2().length()==0) {mediaObject.setVersionTitleLng2(file.getName()); }
         }
 
         try {
-            imageService.saveMediaObject(imageVersion);
+            imageService.saveMediaObject(mediaObject);
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

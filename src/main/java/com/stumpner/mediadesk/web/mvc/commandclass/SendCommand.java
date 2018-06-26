@@ -35,7 +35,7 @@ public class SendCommand {
     private String mailtext = "";
     private boolean asAttachment = false;
     private boolean onlyAsLink = false;
-    private MediaObject imageVersion = null;
+    private MediaObject mediaObject = null;
 
     public String getRecipient() {
         return recipient;
@@ -69,12 +69,12 @@ public class SendCommand {
         this.asAttachment = asAttachment;
     }
 
-    public MediaObject getImageVersion() {
-        return imageVersion;
+    public MediaObject getMediaObject() {
+        return mediaObject;
     }
 
-    public void setImageVersion(MediaObject imageVersion) {
-        this.imageVersion = imageVersion;
+    public void setMediaObject(MediaObject mediaObject) {
+        this.mediaObject = mediaObject;
     }
 
     public boolean isOnlyAsLink() {

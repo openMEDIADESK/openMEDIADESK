@@ -49,22 +49,22 @@ public class MediaObjectService {
 
         HttpSession session = request.getSession();
 
-        List imageList = new LinkedList();
-        deselectMedia(ivid,request); //image l�schen, falls es ja schon dabei ist...
+        List mediaList = new LinkedList();
+        deselectMedia(ivid,request); //medienobjekt löschen, falls es ja schon dabei ist...
         if (session.getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES)!=null) {
-            imageList = (List)session.getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES);
-            logger.debug("selectMedia: imageList="+imageList);
+            mediaList = (List)session.getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES);
+            logger.debug("selectMedia: mediaList="+mediaList);
         } else {
-            logger.debug("selectMedia: no imageList found");
+            logger.debug("selectMedia: no mediaList found");
         }
 
-        //Bild in die Liste einf�gen:
-        MediaService imageService = new MediaService();
+        //Medienobjekt in die Liste einfügen:
+        MediaService mediaService = new MediaService();
         LngResolver lngResolver = new LngResolver();
-        imageService.setUsedLanguage(lngResolver.resolveLng(request));
+        mediaService.setUsedLanguage(lngResolver.resolveLng(request));
         logger.debug("selectMedia: Loading MediaObject to select: "+ivid);
-        MediaObject imageVersion = imageService.getMediaObjectById(ivid);
-        if (imageVersion!=null) { imageList.add(imageVersion); }
+        MediaObject mediaObject = mediaService.getMediaObjectById(ivid);
+        if (mediaObject!=null) { mediaList.add(mediaObject); }
         else { logger.debug("selectMedia: BasicMediaObject ["+ivid+"] not loaded, does not exist"); return false; }
 
         //Herkunftsobjekt speichern:
@@ -78,7 +78,7 @@ public class MediaObjectService {
                 try {
                     FolderService folderService = new FolderService();
                     Folder folder = folderService.getFolderById(folderId);
-                    fromMap.put(imageVersion, folder);
+                    fromMap.put(mediaObject, folder);
                     logger.debug("selectMedia: Herkunfts-Containterobject: "+ folder.getFolderId()+" saved");
                 } catch (ObjectNotFoundException e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -91,7 +91,7 @@ public class MediaObjectService {
         }
 
         session.setAttribute(Resources.SESSIONVAR_SELECTED_IMAGES_FROM,fromMap);
-        session.setAttribute(Resources.SESSIONVAR_SELECTED_IMAGES,imageList);
+        session.setAttribute(Resources.SESSIONVAR_SELECTED_IMAGES,mediaList);
 
         return true;
     }

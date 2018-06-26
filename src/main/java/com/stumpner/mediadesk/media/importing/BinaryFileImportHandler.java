@@ -48,31 +48,31 @@ public class BinaryFileImportHandler implements MediaImportHandler {
     public int processImport(File file, int userId) throws SizeExceedException, FileRejectException {
 
         Logger logger = Logger.getLogger(BinaryFileImportHandler.class);
-        MediaObjectMultiLang imageVersion = new MediaObjectMultiLang();
+        MediaObjectMultiLang mediaObject = new MediaObjectMultiLang();
 
         //Daten der Datei setzen
-        imageVersion.setHeight(0);
-        imageVersion.setWidth(0);
-        imageVersion.setDpi(0);
-        imageVersion.setCreateDate(new Date());
-        imageVersion.setCreatorUserId(userId);
-        imageVersion.setKb((int)(file.length()/1000));
+        mediaObject.setHeight(0);
+        mediaObject.setWidth(0);
+        mediaObject.setDpi(0);
+        mediaObject.setCreateDate(new Date());
+        mediaObject.setCreatorUserId(userId);
+        mediaObject.setKb((int)(file.length()/1000));
 
         //MimeType + FileType:
         //todo: auslagern in den ImportHandler (eventuell in eine Superklasse!?)
-        imageVersion.setMimeType(AbstractImportFactory.getMimeType(file));
-        imageVersion.setExtention(AbstractImportFactory.getFileExtention(file));
+        mediaObject.setMimeType(AbstractImportFactory.getMimeType(file));
+        mediaObject.setExtention(AbstractImportFactory.getFileExtention(file));
 
         //Dateiname als Titel:
-        imageVersion.setVersionName(file.getName());
-        imageVersion.setVersionTitle(file.getName());
-        imageVersion.setVersionTitleLng1(file.getName());
-        imageVersion.setVersionTitleLng2(file.getName());
+        mediaObject.setVersionName(file.getName());
+        mediaObject.setVersionTitle(file.getName());
+        mediaObject.setVersionTitleLng1(file.getName());
+        mediaObject.setVersionTitleLng2(file.getName());
 
         //Größe Checken (mit erlaubnis in Config)
-        if (imageVersion.getKb()> Config.maxImageSize) {
-            logger.error("Maximal File Size reached: "+imageVersion.getKb()+" ["+Config.maxImageSize+"]");
-            throw new SizeExceedException(imageVersion.getKb(),Config.maxImageSize);
+        if (mediaObject.getKb()> Config.maxImageSize) {
+            logger.error("Maximal File Size reached: "+mediaObject.getKb()+" ["+Config.maxImageSize+"]");
+            throw new SizeExceedException(mediaObject.getKb(),Config.maxImageSize);
         }
 
         //ImportPluginHandlerChain abarbeiten:
@@ -82,21 +82,21 @@ public class BinaryFileImportHandler implements MediaImportHandler {
         MediaService imageService = new MediaService();
         try {
             logger.debug("Datei in der Datenbank anlegen...");
-            imageService.addMedia(imageVersion);
+            imageService.addMedia(mediaObject);
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
         if (Config.importImageNumberSerially) {
             logger.debug("Primary-Key als Bildnummer setzen...");
-            imageVersion.setMediaNumber(Integer.toString(imageVersion.getIvid()));
+            mediaObject.setMediaNumber(Integer.toString(mediaObject.getIvid()));
         }
 
-        logger.info("Added Media-Object to mediaDESK: "+imageVersion.getIvid()+" Number: "+imageVersion.getMediaNumber());
+        logger.info("Added Media-Object to mediaDESK: "+mediaObject.getIvid()+" Number: "+mediaObject.getMediaNumber());
 
         //original image ablegen:
         try {
-            FileUtil.copyFile(file,new File(Config.imageStorePath+File.separator+imageVersion.getIvid()+"_0"));
+            FileUtil.copyFile(file,new File(Config.imageStorePath+File.separator+mediaObject.getIvid()+"_0"));
             //Icon für Thumbnailansicht und Preview aus den /WEB-INF/filetype/... kopieren
             //todo: womöglich wird das garnicht benötigt, wenn die anzeige über mime-types gelöst wird
 //            copyFile(new File(icon+"_1.jpg"),new File(Config.imageStorePath+File.separator+imageVersion.getIvid()+"_1"));
@@ -106,11 +106,11 @@ public class BinaryFileImportHandler implements MediaImportHandler {
         }
 
 
-        int importedIvid = imageVersion.getIvid();
+        int importedIvid = mediaObject.getIvid();
 
         try {
-            imageService.saveMediaObject(imageVersion);
-            ImportPluginHandlerChain.getInstance().process(imageVersion);
+            imageService.saveMediaObject(mediaObject);
+            ImportPluginHandlerChain.getInstance().process(mediaObject);
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

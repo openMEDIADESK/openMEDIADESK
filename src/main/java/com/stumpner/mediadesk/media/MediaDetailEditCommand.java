@@ -35,7 +35,7 @@ import java.util.*;
 public class MediaDetailEditCommand {
 
     List metadata = new LinkedList();
-    MediaObject imageVersion = new MediaObject();
+    MediaObject mediaObject = new MediaObject();
     User creator = new User();
     String[] copyfield;
     ApplicationSettings applicationSettings = new ApplicationSettings();
@@ -127,7 +127,7 @@ public class MediaDetailEditCommand {
 
         if (exist==false) {
             Metadata metadataItem = new Metadata();
-            metadataItem.setIvid(this.getImageVersion().getIvid());
+            metadataItem.setIvid(this.getMediaObject().getIvid());
             metadataItem.setMetaKey(fieldName);
             metadataItem.setMetaValue(value);
             metadataItem.setLang(lang);
@@ -140,21 +140,21 @@ public class MediaDetailEditCommand {
         this.metadata = metadata;
     }
 
-    public MediaObject getImageVersion() {
-        return imageVersion;
+    public MediaObject getMediaObject() {
+        return mediaObject;
     }
 
-    public void setImageVersion(MediaObject imageVersion) {
-        this.imageVersion = imageVersion;
+    public void setMediaObject(MediaObject mediaObject) {
+        this.mediaObject = mediaObject;
     }
 
     //some helper functions for the controller
     public void setPhotographDate(Date date) {
-        imageVersion.setPhotographDate(date);
+        mediaObject.setPhotographDate(date);
     }
 
     public Date getPhotographDate() {
-        return imageVersion.getPhotographDate();
+        return mediaObject.getPhotographDate();
     }
 
     public String[] getCopyfield() {

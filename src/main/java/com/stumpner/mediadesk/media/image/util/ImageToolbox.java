@@ -38,15 +38,15 @@ import org.apache.log4j.Logger;
  */
 public class ImageToolbox {
 
-    public void generateThumbnail(MediaObject imageVersion) {
+    public void generateThumbnail(MediaObject mediaObject) {
 
         IImageUtil imageUtil = new ImageMagickUtil(true);
         Logger logger = Logger.getLogger(ImageToolbox.class);
         /**
          * Dateiname des "Original-Files"
          */
-        String fileName = Config.imageStorePath+File.separator+imageVersion.getIvid()+"_0";
-        String fileNameJpg = Config.imageStorePath+File.separator+imageVersion.getIvid()+"_0.jpg";
+        String fileName = Config.imageStorePath+File.separator+mediaObject.getIvid()+"_0";
+        String fileNameJpg = Config.imageStorePath+File.separator+mediaObject.getIvid()+"_0.jpg";
         imageUtil.convertToJpeg(fileName, fileNameJpg);
 
         //orientation:
@@ -54,20 +54,20 @@ public class ImageToolbox {
         // 1 - vertical
         // 2 - horizontal
         int orientation = 0;
-        if (imageVersion.getHeight()>imageVersion.getWidth()) {
+        if (mediaObject.getHeight()>mediaObject.getWidth()) {
             //vertical
             orientation = 1;
         }
-        if (imageVersion.getWidth()>imageVersion.getHeight()) {
+        if (mediaObject.getWidth()>mediaObject.getHeight()) {
             orientation = 2;
         }
 
         //bereits existierende Thumbnails löschen:
-        File previewFile = new File(Config.imageStorePath+File.separator+imageVersion.getIvid()+"_2");
+        File previewFile = new File(Config.imageStorePath+File.separator+mediaObject.getIvid()+"_2");
         if (previewFile.exists()) {
             previewFile.delete();
         }
-        File thumbnailFile = new File(Config.imageStorePath+File.separator+imageVersion.getIvid()+"_1");
+        File thumbnailFile = new File(Config.imageStorePath+File.separator+mediaObject.getIvid()+"_1");
         if (thumbnailFile.exists()) {
             thumbnailFile.delete();
         }
@@ -75,21 +75,21 @@ public class ImageToolbox {
         //images verkleinern vertical
         if (orientation == 1 || orientation == 0) {
             imageUtil.resizeImageVertical(
-                    fileNameJpg,Config.imageStorePath+File.separator+imageVersion.getIvid()+"_2",Config.imagesizePreview);
-            imageUtil.overlayWatermark(Config.imageStorePath+File.separator+imageVersion.getIvid()+"_2",Config.watermarkVertical);
+                    fileNameJpg,Config.imageStorePath+File.separator+mediaObject.getIvid()+"_2",Config.imagesizePreview);
+            imageUtil.overlayWatermark(Config.imageStorePath+File.separator+mediaObject.getIvid()+"_2",Config.watermarkVertical);
 
             imageUtil.resizeImageVertical(
-                    fileNameJpg,Config.imageStorePath+File.separator+imageVersion.getIvid()+"_1",Config.imagesizeThumbnail);
+                    fileNameJpg,Config.imageStorePath+File.separator+mediaObject.getIvid()+"_1",Config.imagesizeThumbnail);
         }
 
         //images verkleinern horizontal
         if (orientation == 2) {
             imageUtil.resizeImageHorizontal(
-                    fileNameJpg,Config.imageStorePath+File.separator+imageVersion.getIvid()+"_2",Config.imagesizePreview);
-            imageUtil.overlayWatermark(Config.imageStorePath+File.separator+imageVersion.getIvid()+"_2",Config.watermarkHorizontal);
+                    fileNameJpg,Config.imageStorePath+File.separator+mediaObject.getIvid()+"_2",Config.imagesizePreview);
+            imageUtil.overlayWatermark(Config.imageStorePath+File.separator+mediaObject.getIvid()+"_2",Config.watermarkHorizontal);
 
             imageUtil.resizeImageHorizontal(
-                    fileNameJpg,Config.imageStorePath+File.separator+imageVersion.getIvid()+"_1",Config.imagesizeThumbnail);
+                    fileNameJpg,Config.imageStorePath+File.separator+mediaObject.getIvid()+"_1",Config.imagesizeThumbnail);
         }
 
         //JPG Konvertierte File löschen

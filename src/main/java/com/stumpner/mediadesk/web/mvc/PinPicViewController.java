@@ -133,11 +133,11 @@ public class PinPicViewController extends AbstractThumbnailViewController {
 
         //PaginatedList imageList = lightboxService.getMediaObjectListPaginated(user.getUserId(),12);
         pinService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-        PaginatedList imageList = pinService.getPinpicImagesPaginated(pinId, Config.itemCountPerPage);
+        PaginatedList mediaObjectList = pinService.getPinpicImagesPaginated(pinId, Config.itemCountPerPage);
 
         int numberOfPages = 1;
-        while (imageList.nextPage()) {
-            imageList.gotoPage(numberOfPages);
+        while (mediaObjectList.nextPage()) {
+            mediaObjectList.gotoPage(numberOfPages);
             numberOfPages++;
         }
 
@@ -152,39 +152,39 @@ public class PinPicViewController extends AbstractThumbnailViewController {
                 }
             }
         }
-        imageList.gotoPage(viewPage);
+        mediaObjectList.gotoPage(viewPage);
 
-        List imageListLine = new LinkedList();
-        List imageListLines = new LinkedList();
+        List mediaObjectListLine = new LinkedList();
+        List mediaObjectListLines = new LinkedList();
 
-        Iterator images = imageList.iterator();
+        Iterator mos = mediaObjectList.iterator();
         for (int a=0;a<4;a++) {
             //jeweils 4 lines
-            imageListLine = new LinkedList();
+            mediaObjectListLine = new LinkedList();
             int foldersInLine = 0;
             for (int b=0;b<3;b++) {
                 //jeweils 3 folder in einer line
-                if (images.hasNext()) {
-                    MediaObject imageVersion = (MediaObject)images.next();
-                    imageListLine.add(imageVersion);
+                if (mos.hasNext()) {
+                    MediaObject mediaObject = (MediaObject)mos.next();
+                    mediaObjectListLine.add(mediaObject);
                     foldersInLine++;
                 } else {
-                    imageListLine.add(new MediaObject());
+                    mediaObjectListLine.add(new MediaObject());
                 }
             }
             if (foldersInLine>0)
-                imageListLines.add(new LinkedList(imageListLine));
+                mediaObjectListLines.add(new LinkedList(mediaObjectListLine));
         }
 
         httpServletRequest.setAttribute("folder",folder);
-        httpServletRequest.setAttribute("imageListLines",imageListLines);
-        httpServletRequest.setAttribute("imageList",imageList);
+        httpServletRequest.setAttribute("imageListLines",mediaObjectListLines);
+        httpServletRequest.setAttribute("imageList",mediaObjectList);
 
-        httpServletRequest.setAttribute("pageSize",Integer.toString(imageList.size()));
-        httpServletRequest.setAttribute("pageIndex",Integer.toString(imageList.getPageIndex()+1));
+        httpServletRequest.setAttribute("pageSize",Integer.toString(mediaObjectList.size()));
+        httpServletRequest.setAttribute("pageIndex",Integer.toString(mediaObjectList.getPageIndex()+1));
 
-        String nextPage = (!imageList.isLastPage()) ? Integer.toString(viewPage+1+1) :"0";
-        String prevPage = (!imageList.isFirstPage()) ? Integer.toString(viewPage-1+1) :"0";
+        String nextPage = (!mediaObjectList.isLastPage()) ? Integer.toString(viewPage+1+1) :"0";
+        String prevPage = (!mediaObjectList.isFirstPage()) ? Integer.toString(viewPage-1+1) :"0";
         httpServletRequest.setAttribute("nextPage",nextPage);
         httpServletRequest.setAttribute("prevPage",prevPage);
 

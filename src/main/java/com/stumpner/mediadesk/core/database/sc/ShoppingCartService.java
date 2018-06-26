@@ -198,21 +198,21 @@ public class ShoppingCartService extends MultiLanguageService {
         }
     }
 
-    public void removeImagesToShoppingCart(List imageList, int userId) {
+    public void removeImagesToShoppingCart(List mediaList, int userId) {
 
-        Iterator images = imageList.iterator();
-        while (images.hasNext()) {
-            MediaObject imageVersion = (MediaObject)images.next();
-            this.removeImageToShoppingCart(imageVersion.getIvid(),userId);
+        Iterator mos = mediaList.iterator();
+        while (mos.hasNext()) {
+            MediaObject mediaObject = (MediaObject)mos.next();
+            this.removeImageToShoppingCart(mediaObject.getIvid(),userId);
         }
     }
 
-    public void addImagesToShoppingCart(List imageList, int userId) {
+    public void addImagesToShoppingCart(List mediaList, int userId) {
 
-        Iterator images = imageList.iterator();
-        while (images.hasNext()) {
-            MediaObject imageVersion = (MediaObject)images.next();
-            this.addImageToShoppingCart(imageVersion.getIvid(),userId);
+        Iterator mos = mediaList.iterator();
+        while (mos.hasNext()) {
+            MediaObject mediaObject = (MediaObject)mos.next();
+            this.addImageToShoppingCart(mediaObject.getIvid(),userId);
         }
     }
 

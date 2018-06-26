@@ -195,17 +195,17 @@ public class RssServlet extends HttpServlet {
         
     }
 
-    private String getPodcastFilename(MediaObject imageVersion) {
+    private String getPodcastFilename(MediaObject mediaObject) {
 
-        if (imageVersion.getVersionName().length()>0) {
+        if (mediaObject.getVersionName().length()>0) {
             String ext = "";
-            if (!imageVersion.getVersionName().toUpperCase().endsWith("."+imageVersion.getExtention().toUpperCase())) { ext = "."+imageVersion.getExtention(); }
-            return imageVersion.getVersionName()+ext;
+            if (!mediaObject.getVersionName().toUpperCase().endsWith("."+mediaObject.getExtention().toUpperCase())) { ext = "."+mediaObject.getExtention(); }
+            return mediaObject.getVersionName()+ext;
         }
-        if (imageVersion.getVersionTitle().length()>0) {
+        if (mediaObject.getVersionTitle().length()>0) {
             String ext = "";
-            if (!imageVersion.getVersionTitle().toUpperCase().endsWith("."+imageVersion.getExtention().toUpperCase())) { ext = "."+imageVersion.getExtention(); }
-            return imageVersion.getVersionTitle()+ext; 
+            if (!mediaObject.getVersionTitle().toUpperCase().endsWith("."+mediaObject.getExtention().toUpperCase())) { ext = "."+mediaObject.getExtention(); }
+            return mediaObject.getVersionTitle()+ext;
         }
         return "file";
     }

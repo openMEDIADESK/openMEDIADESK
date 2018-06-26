@@ -248,7 +248,7 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
             shoppingCartService.deleteImageFromAllShoppingCart(mediaObject.getIvid());
 
             //Medien-Objekt aus MediaObject-Tabelle löschen inkl. Metadaten:
-            logger.debug("deleteMediaObject: delete object from imageversion-db-table");
+            logger.debug("deleteMediaObject: delete object from mediaobject-db-table");
             smc.delete("deleteAllMetadataFromIvid", new Integer(mediaObject.getIvid()));
             logger.debug("deleteMediaObject: delete metadata for ivid");
             smc.delete("deleteMediaObject",new Integer(mediaObject.getIvid()));

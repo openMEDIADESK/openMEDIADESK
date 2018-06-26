@@ -46,7 +46,7 @@ import org.apache.log4j.Logger;
 public class BulkModificationService {
 
     static int processed = 0;
-    static List imageVersionList = null;
+    static List mediaObjectList = null;
     static List imageErrorList = null; //Liste mit Bildfehlern...
     static Timer timer = null;
     static boolean processWatermark = false;
@@ -55,7 +55,7 @@ public class BulkModificationService {
     static String informEmail = ""; //Emailadresse die über den Status der Massenänderunge informiert wird
 
     public static boolean inProgress() {
-        if (imageVersionList!=null) {
+        if (mediaObjectList !=null) {
             return true;
         } else {
             return false;
@@ -78,8 +78,8 @@ public class BulkModificationService {
         return processMetadata;
     }
 
-    public static List getImageVersionList() {
-        return imageVersionList;
+    public static List getMediaObjectList() {
+        return mediaObjectList;
     }
 
     public static int getProcessed() {
@@ -94,7 +94,7 @@ public class BulkModificationService {
 
         Logger logger = Logger.getLogger(BulkModificationService.class);
         setProcessed(0);
-        imageVersionList = imageVersionListLocal;
+        mediaObjectList = imageVersionListLocal;
         imageErrorList = new ArrayList();
 
         //inform-Email
@@ -126,9 +126,9 @@ public class BulkModificationService {
 
                 } catch (Exception e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                    MediaObject imageVersion = (MediaObject)imageVersionList.get(getProcessed());
+                    MediaObject imageVersion = (MediaObject) mediaObjectList.get(getProcessed());
                     if (errorRetryCounter<3) {
-                        logger.error("BuldModification: Error on processing ["+getProcessed()+"/"+imageVersionList.size()+"] ivid="+imageVersion.getIvid()+" ["+e.getMessage()+"]");
+                        logger.error("BuldModification: Error on processing ["+getProcessed()+"/"+ mediaObjectList.size()+"] ivid="+imageVersion.getIvid()+" ["+e.getMessage()+"]");
                         errorRetryCounter++;
                     } else {
                         imageErrorList.add(imageVersion);
@@ -140,10 +140,10 @@ public class BulkModificationService {
                     }
                 }
 
-                if (processed==imageVersionList.size()) {
+                if (processed== mediaObjectList.size()) {
                     this.cancel();
                     logger.debug("BulkModification: redrawWatermark abgeschlossen.");
-                    imageVersionList = null;
+                    mediaObjectList = null;
                     //Meldung über abgeschlossen per Email versenden:
                             String mailbody = "Massenaenderung in der mediaDESK-Instanz ["+Config.instanceName+"] wurde abgeschlossen, "+processed+" Dateien bearbeitet.";
                             MailWrapper.sendAsync(Config.mailserver,Config.mailsender,informEmail,"[Massen-Aenderung BEENDET] - "+Config.webTitle,mailbody);
@@ -162,7 +162,7 @@ public class BulkModificationService {
 
         if (timer!=null) {
             timer.cancel();
-            imageVersionList = null;
+            mediaObjectList = null;
             //Meldung über abgeschlossen per Email versenden:
                     String mailbody = "Massenaenderung durch Benutzer beendet, "+processed+" Dateien bearbeitet, "+imageErrorList.size()+" Bilder mit Fehler.";
                     MailWrapper.sendAsync(Config.mailserver,Config.mailsender,informEmail,"[Massen-Aenderung ABGEBROCHEN] - "+Config.webTitle,mailbody);
@@ -178,10 +178,10 @@ public class BulkModificationService {
 
         ImageToolbox it = new ImageToolbox();
         Logger logger = Logger.getLogger(BulkModificationService.class);
-        MediaObject imageVersion = (MediaObject)imageVersionList.get(processed);
-        if (imageVersion.getMayorMime().equalsIgnoreCase("image")) {
-            logger.debug("BulkModification: ["+(processed+1)+"/"+imageVersionList.size()+"] redrawWatermark ImageIVID="+imageVersion.getIvid());
-            it.generateThumbnail(imageVersion);
+        MediaObject mediaObject = (MediaObject) mediaObjectList.get(processed);
+        if (mediaObject.getMayorMime().equalsIgnoreCase("image")) {
+            logger.debug("BulkModification: ["+(processed+1)+"/"+ mediaObjectList.size()+"] redrawWatermark ImageIVID="+mediaObject.getIvid());
+            it.generateThumbnail(mediaObject);
         }
 
     }
@@ -189,12 +189,12 @@ public class BulkModificationService {
     private static synchronized void processMetadata() throws MetadataReadException, IOServiceException {
 
         ImageMagickUtil imageUtil = new ImageMagickUtil(true);
-        MediaObject imageVersion = (MediaObject)imageVersionList.get(processed);
+        MediaObject mediaObject = (MediaObject) mediaObjectList.get(processed);
 
-        String fileName = Config.imageStorePath+ File.separator+imageVersion.getIvid()+"_0";
+        String fileName = Config.imageStorePath+ File.separator+mediaObject.getIvid()+"_0";
 
         Logger logger = Logger.getLogger(BulkModificationService.class);
-        logger.debug("BulkModification: ["+(processed+1)+"/"+imageVersionList.size()+"] reimportMetadata ImageIVID="+imageVersion.getIvid());
+        logger.debug("BulkModification: ["+(processed+1)+"/"+ mediaObjectList.size()+"] reimportMetadata ImageIVID="+mediaObject.getIvid());
 
         MediaMetadataService mediaMetadataService = new MediaMetadataService();
         //data auslesen (exif, iptc, bulk)
@@ -205,7 +205,7 @@ public class BulkModificationService {
         Iterator metadatas = metadataList.iterator();
         while (metadatas.hasNext()) {
             Metadata metadata = (Metadata)metadatas.next();
-            metadata.setIvid(imageVersion.getIvid());
+            metadata.setIvid(mediaObject.getIvid());
             metadata.setLang("");
             //Metadaten nicht speichern (wird ja nur ausgelesen)
             // mediaMetadataService.addMetadata(metadata);
@@ -213,40 +213,40 @@ public class BulkModificationService {
             //logger.debug("Meta-Key: "+metadata.getMetaKey()+" | Meta-Value: "+metadata.getMetaValue()+ " | ");
 
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importName)) {
-                imageVersion.setVersionName(metadata.getMetaValue());
+                mediaObject.setVersionName(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importTitle)) {
-                imageVersion.setVersionTitle(metadata.getMetaValue());
+                mediaObject.setVersionTitle(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importSubtitle)) {
-                imageVersion.setVersionSubTitle(metadata.getMetaValue());
+                mediaObject.setVersionSubTitle(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importKeywords)) {
-                imageVersion.setKeywords(metadata.getMetaValue());
+                mediaObject.setKeywords(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importNote)) {
-                imageVersion.setNote(metadata.getMetaValue());
+                mediaObject.setNote(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importRestrictions)) {
-                imageVersion.setRestrictions(metadata.getMetaValue());
+                mediaObject.setRestrictions(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importNumber)) {
-                imageVersion.setMediaNumber(metadata.getMetaValue());
+                mediaObject.setMediaNumber(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importByline)) {
-                imageVersion.setByline(metadata.getMetaValue());
+                mediaObject.setByline(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importPhotographerAlias)) {
-                imageVersion.setPhotographerAlias(metadata.getMetaValue());
+                mediaObject.setPhotographerAlias(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importSite)) {
-                imageVersion.setSite(metadata.getMetaValue());
+                mediaObject.setSite(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importPeople)) {
-                imageVersion.setPeople(metadata.getMetaValue());
+                mediaObject.setPeople(metadata.getMetaValue());
             }
             if (metadata.getMetaKey().equalsIgnoreCase(Config.importInfo)) {
-                imageVersion.setInfo(metadata.getMetaValue());
+                mediaObject.setInfo(metadata.getMetaValue());
             }
 
 
@@ -305,13 +305,13 @@ public class BulkModificationService {
                 }
 
 
-                imageVersion.setPhotographDate(date);
+                mediaObject.setPhotographDate(date);
             }
         }
 
-        MediaService imageVersionService = new MediaService();
+        MediaService mediaService = new MediaService();
 
-        imageVersionService.saveMediaObject(imageVersion);
+        mediaService.saveMediaObject(mediaObject);
     }
 
 }

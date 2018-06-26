@@ -71,12 +71,12 @@ public class StreamServlet extends AbstractStreamServlet {
         }
     }
 
-    protected int getSleepInMsAfter1024bytes(MediaObject imageVersion) {
+    protected int getSleepInMsAfter1024bytes(MediaObject mediaObject) {
 
         boolean enabled = false;
         if (enabled) {
-            if (imageVersion.getBitrate()>0) {
-                BigDecimal bitrate = new BigDecimal(imageVersion.getBitrate());
+            if (mediaObject.getBitrate()>0) {
+                BigDecimal bitrate = new BigDecimal(mediaObject.getBitrate());
                 BigDecimal byterate = bitrate.divide(BigDecimal.valueOf(8), BigDecimal.ROUND_UP);
                 BigDecimal sleepInMs = BigDecimal.valueOf(1000).divide(byterate, BigDecimal.ROUND_DOWN);
                 BigDecimal sleepInMsSafety = sleepInMs.divide(BigDecimal.valueOf(2), BigDecimal.ROUND_DOWN); //Das ganze halbieren damit bei der h�lfte das video/audio schon fertig geladen ist
@@ -93,18 +93,18 @@ public class StreamServlet extends AbstractStreamServlet {
         } else { return 0; }
     }
 
-    protected void trackStreamEnd(HttpServletRequest request, MediaObject imageVersion, int downloadType, int bytes) {
-        trackStream(request, imageVersion, SimpleDownloadLogger.DTYPE_STREAM_END, bytes);
+    protected void trackStreamEnd(HttpServletRequest request, MediaObject mediaObject, int downloadType, int bytes) {
+        trackStream(request, mediaObject, SimpleDownloadLogger.DTYPE_STREAM_END, bytes);
     }
 
-    protected String getStreamSourceFilename(MediaObject imageVersion) {
+    protected String getStreamSourceFilename(MediaObject mediaObject) {
 
-        if (imageVersion.getMayorMime().toUpperCase().equalsIgnoreCase("VIDEO")) {
+        if (mediaObject.getMayorMime().toUpperCase().equalsIgnoreCase("VIDEO")) {
             //System.out.println("videostream");
 
-            File origFile = new File(Config.imageStorePath+"/"+imageVersion.getIvid()+"_0");
+            File origFile = new File(Config.imageStorePath+"/"+ mediaObject.getIvid()+"_0");
 
-            File mpeg4File = new File(Config.imageStorePath+"/"+imageVersion.getIvid()+"_4");
+            File mpeg4File = new File(Config.imageStorePath+"/"+ mediaObject.getIvid()+"_4");
             //File mpeg2File = new File(Config.imageStorePath+"/"+imageVersion.getIvid()+"_5");
 
             if (mpeg4File.exists()) { System.out.println("Streaming Small-File mp4"); return mpeg4File.toString(); }
@@ -114,7 +114,7 @@ public class StreamServlet extends AbstractStreamServlet {
 
         } else {
 
-            return super.getStreamSourceFilename(imageVersion);
+            return super.getStreamSourceFilename(mediaObject);
 
         }
     }

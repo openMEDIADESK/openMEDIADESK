@@ -54,7 +54,7 @@ public class ImageServlet extends HttpServlet {
         */
 
         StringTokenizer token = new StringTokenizer(httpServletRequest.getRequestURI(),"/");
-        int imageVersionId = -1;
+        int ivid = -1;
         int imageSize = -1;
 
         int i=0;
@@ -64,14 +64,14 @@ public class ImageServlet extends HttpServlet {
                 String tok = token.nextToken();
                 switch (i) {
                     case 1: break;
-                    case 2: imageVersionId = Integer.parseInt(tok);
+                    case 2: ivid = Integer.parseInt(tok);
                     case 3: imageSize = Integer.parseInt(tok);
                 }
             }
 
             //Zugriff auf Originalbild verweigern
             if (imageSize == 0) { imageSize = 1; httpServletResponse.sendError(403,"Forbidden: Zugriff auf Originalbild verweigert"); }
-            String imageFile = Config.imageStorePath+"/"+imageVersionId+"_"+imageSize;
+            String imageFile = Config.imageStorePath+"/"+ivid+"_"+imageSize;
 
             //Bild anzeigen
             try {
@@ -103,7 +103,7 @@ public class ImageServlet extends HttpServlet {
 
     }
 
-    private int getImageVersionId(String requestUri) {
+    private int getIvid(String requestUri) {
 
         StringTokenizer token = new StringTokenizer(requestUri,"/");
         return 1;

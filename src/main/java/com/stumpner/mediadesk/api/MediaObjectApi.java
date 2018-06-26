@@ -110,14 +110,14 @@ public class MediaObjectApi extends ApiBase {
 
         StringBuffer sb = new StringBuffer();
         int ivid = Integer.parseInt(parameter[0]);
-        MediaService imageService = new MediaService();
-        MediaObjectMultiLang imageVersion = (MediaObjectMultiLang)imageService.getMediaObjectById(ivid);
-        sb.append("createdate="+imageVersion.getCreateDate().getTime()+";");
-        sb.append("versionname="+imageVersion.getVersionName()+";");
-        sb.append("versiontitlelng1="+imageVersion.getVersionTitleLng1()+";");
-        sb.append("versiontitlelng2="+imageVersion.getVersionTitleLng2()+";");
-        sb.append("notelng1="+imageVersion.getNoteLng1()+";");
-        sb.append("notelng2="+imageVersion.getNoteLng2()+";");
+        MediaService mediaService = new MediaService();
+        MediaObjectMultiLang mediaObject = (MediaObjectMultiLang)mediaService.getMediaObjectById(ivid);
+        sb.append("createdate="+mediaObject.getCreateDate().getTime()+";");
+        sb.append("versionname="+mediaObject.getVersionName()+";");
+        sb.append("versiontitlelng1="+mediaObject.getVersionTitleLng1()+";");
+        sb.append("versiontitlelng2="+mediaObject.getVersionTitleLng2()+";");
+        sb.append("notelng1="+mediaObject.getNoteLng1()+";");
+        sb.append("notelng2="+mediaObject.getNoteLng2()+";");
         return sb.toString();
     }
 
@@ -126,30 +126,30 @@ public class MediaObjectApi extends ApiBase {
         int ivid = Integer.parseInt(parameter[0]);
         String key = parameter[1];
         String value = parameter[2];
-        MediaService imageService = new MediaService();
-        MediaObjectMultiLang imageVersion = (MediaObjectMultiLang)imageService.getMediaObjectById(ivid);
+        MediaService mediaService = new MediaService();
+        MediaObjectMultiLang mediaObject = (MediaObjectMultiLang)mediaService.getMediaObjectById(ivid);
 
         if (key.equalsIgnoreCase("versionname")) {
-            imageVersion.setVersionName(value);
+            mediaObject.setVersionName(value);
         }
         if (key.equalsIgnoreCase("versiontitlelng1")) {
-            imageVersion.setVersionTitleLng1(value);
+            mediaObject.setVersionTitleLng1(value);
         }
         if (key.equalsIgnoreCase("versiontitlelng2")) {
-            imageVersion.setVersionTitleLng2(value);
+            mediaObject.setVersionTitleLng2(value);
         }
         if (key.equalsIgnoreCase("notelng1")) {
-            imageVersion.setNoteLng1(value);
+            mediaObject.setNoteLng1(value);
         }
         if (key.equalsIgnoreCase("notelng2")) {
-            imageVersion.setNoteLng2(value);
+            mediaObject.setNoteLng2(value);
         }
         if (key.equalsIgnoreCase("fid")) {
-            imageVersion.setFid(value);
+            mediaObject.setFid(value);
         }
 
         try {
-            imageService.saveMediaObject(imageVersion);
+            mediaService.saveMediaObject(mediaObject);
             return "OK";
         } catch (IOServiceException e) {
             return "ERROR";

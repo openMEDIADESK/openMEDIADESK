@@ -59,7 +59,7 @@ public class SplashPageImageServlet extends HttpServlet {
         */
 
         StringTokenizer token = new StringTokenizer(httpServletRequest.getRequestURI(),"/");
-        int imageVersionId = -1;
+        int ivid = -1;
         int imageSize = -1;
 
         int i=0;
@@ -69,7 +69,7 @@ public class SplashPageImageServlet extends HttpServlet {
                 String tok = token.nextToken();
                 switch (i) {
                     case 1: break;
-                    case 2: imageVersionId = Integer.parseInt(tok);
+                    case 2: ivid = Integer.parseInt(tok);
                     case 3: imageSize = Integer.parseInt(tok);
                 }
             }
@@ -86,7 +86,7 @@ public class SplashPageImageServlet extends HttpServlet {
                     int splashPageIvId = Integer.parseInt(value);
                     System.out.println("IVID f�r Splashpage: "+splashPageIvId);
 
-                    if (imageVersionId == splashPageIvId) {
+                    if (ivid == splashPageIvId) {
                         ividFound = true;
                         System.out.println("ivid gefunden!!!");
                     }
@@ -98,7 +98,7 @@ public class SplashPageImageServlet extends HttpServlet {
             //Wenn die IVID nicht in einem Feld vorkommt, Zugriff sperren
             if (!ividFound) { System.out.println("Zugriff verweigert"); httpServletResponse.sendError(403,"Forbidden: Zugriff auf Originalbild verweigert (Splashpage)"); return;  }
             //if (imageSize == 0) { imageSize = 1; httpServletResponse.sendError(403,"Forbidden: Zugriff auf Originalbild verweigert"); }
-            String imageFile = Config.imageStorePath+"/"+imageVersionId+"_"+imageSize;
+            String imageFile = Config.imageStorePath+"/"+ivid+"_"+imageSize;
 
             //Bild anzeigen
             try {

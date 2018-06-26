@@ -60,9 +60,9 @@ public class Config {
 
     //Programm Version Values
 
-    public static String versionNumbner = "2018n20180621";//- a1...n,b1...n,rc1...n,rtm,sr1...n";
-    public static String versionDate = "2018-06-21";
-    public static String SERIAL_UID = "2018062100";
+    public static String versionNumbner = "2018n20180626";//- a1...n,b1...n,rc1...n,rtm,sr1...n";
+    public static String versionDate = "2018-06-26";
+    public static String SERIAL_UID = "2018062600";
 
     //Config Values
 

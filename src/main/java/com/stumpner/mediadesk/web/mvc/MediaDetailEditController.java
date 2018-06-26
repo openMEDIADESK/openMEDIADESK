@@ -96,7 +96,7 @@ public class MediaDetailEditController extends AbstractAutoFillController {
         LngResolver lngResolver = new LngResolver();
         FolderService folderService = new FolderService();
         folderService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-        int ivid = ((MediaDetailEditCommand)e.getTarget()).getImageVersion().getIvid();
+        int ivid = ((MediaDetailEditCommand)e.getTarget()).getMediaObject().getIvid();
         model.put("folderList", folderService.getFolderListFromMediaObject(ivid));
 
         /**
@@ -128,14 +128,14 @@ public class MediaDetailEditController extends AbstractAutoFillController {
         httpServletRequest.setAttribute("langAutoFill",new Boolean(Config.langAutoFill));
         //httpServletRequest.setAttribute("config", new Config());
 
-        if (mediaDetailEditCommand.getImageVersion().getMayorMime().equalsIgnoreCase("video") ||
-            mediaDetailEditCommand.getImageVersion().getMayorMime().equalsIgnoreCase("audio")) {
-            String videoStreamUrl = "/stream/object/"+ mediaDetailEditCommand.getImageVersion().getIvid()+"."+ mediaDetailEditCommand.getImageVersion().getExtention();
+        if (mediaDetailEditCommand.getMediaObject().getMayorMime().equalsIgnoreCase("video") ||
+            mediaDetailEditCommand.getMediaObject().getMayorMime().equalsIgnoreCase("audio")) {
+            String videoStreamUrl = "/stream/object/"+ mediaDetailEditCommand.getMediaObject().getIvid()+"."+ mediaDetailEditCommand.getMediaObject().getExtention();
             httpServletRequest.setAttribute("streamUrl",videoStreamUrl);
-            if (mediaDetailEditCommand.getImageVersion().getMayorMime().equalsIgnoreCase("video")) {
+            if (mediaDetailEditCommand.getMediaObject().getMayorMime().equalsIgnoreCase("video")) {
                 httpServletRequest.setAttribute("hasVideo",true);
             }
-            if (mediaDetailEditCommand.getImageVersion().getMayorMime().equalsIgnoreCase("audio")) {
+            if (mediaDetailEditCommand.getMediaObject().getMayorMime().equalsIgnoreCase("audio")) {
                 httpServletRequest.setAttribute("hasAudio",true);
             }
         }
@@ -205,7 +205,7 @@ public class MediaDetailEditController extends AbstractAutoFillController {
             }
             MediaMetadataService mediaMetadataService = new MediaMetadataService();
 
-        MediaDetailEditCommand ivmd = mediaMetadataService.getImageVersionMetadata(ivid);
+        MediaDetailEditCommand ivmd = mediaMetadataService.getMediaObjectMetadata(ivid);
         ApplicationSettings settings = ivmd.getApplicationSettings();
 
         settings.setEditCopyTitle(Config.editCopyTitle);
@@ -282,21 +282,21 @@ public class MediaDetailEditController extends AbstractAutoFillController {
 
     void doNameAsTitle(Object o) {
         MediaDetailEditCommand mediaDetailEditCommand = (MediaDetailEditCommand)o;
-        MediaObjectMultiLang imageVersion = (MediaObjectMultiLang) mediaDetailEditCommand.getImageVersion();
-        imageVersion.setVersionTitleLng1(
-                doAutoFillField(imageVersion.getVersionTitleLng1(),
-                        imageVersion.getVersionName(),"")
+        MediaObjectMultiLang mediaObject = (MediaObjectMultiLang) mediaDetailEditCommand.getMediaObject();
+        mediaObject.setVersionTitleLng1(
+                doAutoFillField(mediaObject.getVersionTitleLng1(),
+                        mediaObject.getVersionName(),"")
         );
-        imageVersion.setVersionTitleLng2(
-                doAutoFillField(imageVersion.getVersionTitleLng2(),
-                        imageVersion.getVersionName(),"")
+        mediaObject.setVersionTitleLng2(
+                doAutoFillField(mediaObject.getVersionTitleLng2(),
+                        mediaObject.getVersionName(),"")
         );
     }
 
     protected void doAutoFill(Object o) {
 
         MediaDetailEditCommand ivmd = (MediaDetailEditCommand)o;
-        MediaObjectMultiLang ivml = (MediaObjectMultiLang)ivmd.getImageVersion();
+        MediaObjectMultiLang ivml = (MediaObjectMultiLang)ivmd.getMediaObject();
 
         ivml.setVersionTitleLng1(
                 doAutoFillField(
@@ -378,7 +378,7 @@ public class MediaDetailEditController extends AbstractAutoFillController {
         }
 
         MediaDetailEditCommand mediaDetailEditCommand = (MediaDetailEditCommand) o;
-        MediaObjectMultiLang media = (MediaObjectMultiLang) mediaDetailEditCommand.getImageVersion();
+        MediaObjectMultiLang media = (MediaObjectMultiLang) mediaDetailEditCommand.getMediaObject();
         System.out.println("versionTitleLng1="+media.getVersionTitleLng1());
         System.out.println("versionTitleLng2="+media.getVersionTitleLng1());
 
@@ -398,7 +398,7 @@ public class MediaDetailEditController extends AbstractAutoFillController {
             this.copyMetadataOfMediaObjects(mediaDetailEditCommand,imageList);
         }
 
-        this.saveMedia((MediaObjectMultiLang) mediaDetailEditCommand.getImageVersion());
+        this.saveMedia((MediaObjectMultiLang) mediaDetailEditCommand.getMediaObject());
 
         //Bei Text-Files Content Laden
         if (media.getMayorMime().equalsIgnoreCase("text")) {
@@ -416,10 +416,10 @@ public class MediaDetailEditController extends AbstractAutoFillController {
     private void saveFileContent(MediaDetailEditCommand mediaDetailEditCommand) {
 
         //Bei Text-Files Content Laden
-        MediaObject imageVersion = mediaDetailEditCommand.getImageVersion();
-        if (imageVersion.getMayorMime().equalsIgnoreCase("text")) {
+        MediaObject mediaObject = mediaDetailEditCommand.getMediaObject();
+        if (mediaObject.getMayorMime().equalsIgnoreCase("text")) {
 
-            String filename = Config.imageStorePath+ File.separator+imageVersion.getIvid()+"_0";
+            String filename = Config.imageStorePath+ File.separator+mediaObject.getIvid()+"_0";
             try {
                 FileUtils.writeStringToFile(new File(filename), mediaDetailEditCommand.getContent());
             } catch (IOException e) {
@@ -428,18 +428,18 @@ public class MediaDetailEditController extends AbstractAutoFillController {
         }
     }
 
-    private void copyMetadataOfMediaObjects(MediaDetailEditCommand mediaDetailEditCommand, List imageList) {
+    private void copyMetadataOfMediaObjects(MediaDetailEditCommand mediaDetailEditCommand, List mediaList) {
 
-        MediaObject imageVersion = mediaDetailEditCommand.getImageVersion();
-        if (imageList==null) { logger.warn("copyMetadataOfMediaObjects: imageList == null"); }
-        Iterator images = imageList.iterator();
+        MediaObject mediaObject = mediaDetailEditCommand.getMediaObject();
+        if (mediaList==null) { logger.warn("copyMetadataOfMediaObjects: imageList == null"); }
+        Iterator mos = mediaList.iterator();
 
-        while(images.hasNext()) {
-            MediaObject imageTo = (MediaObject)images.next();
-            logger.debug("copy image-data to "+imageTo.getIvid());
-            this.copyIvid((MediaObjectMultiLang)imageVersion,(MediaObjectMultiLang)imageTo,
+        while(mos.hasNext()) {
+            MediaObject mediaObjectTo = (MediaObject)mos.next();
+            logger.debug("copy image-data to "+mediaObjectTo.getIvid());
+            this.copyIvid((MediaObjectMultiLang)mediaObject,(MediaObjectMultiLang)mediaObjectTo,
                     mediaDetailEditCommand.getCopyfield());
-            this.saveMedia((MediaObjectMultiLang)imageTo);
+            this.saveMedia((MediaObjectMultiLang)mediaObjectTo);
         }
     }
 

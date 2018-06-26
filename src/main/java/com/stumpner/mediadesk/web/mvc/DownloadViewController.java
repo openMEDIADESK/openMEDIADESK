@@ -179,9 +179,9 @@ public class DownloadViewController extends AbstractPageController {
                         //Wenn nur eine einzige Datei ausgewählt ist, Download sofort (ohne Download-Seite) starten
                         // ausnahme parameter nosdl ist angegeben, zb. bei redirect nach login!
                         if (downloadList.size()==1 && deniedList.size()==0 && httpServletRequest.getParameter("nosdl")==null && httpServletRequest.getSession().getAttribute("formatSelector")==null) {
-                            MediaObject imageVersion = (MediaObject)downloadList.get(0);
+                            MediaObject mediaObject = (MediaObject)downloadList.get(0);
                             httpServletResponse.sendRedirect(
-                                httpServletResponse.encodeRedirectURL("/download/?sdl=true&ivid="+imageVersion.getIvid())
+                                httpServletResponse.encodeRedirectURL("/download/?sdl=true&ivid="+mediaObject.getIvid())
                             );
                             return null;
                         } else {
@@ -259,8 +259,8 @@ public class DownloadViewController extends AbstractPageController {
                             boolean isInPin = false;
                             Iterator pinFiles = pinpicImages.iterator();
                             while (pinFiles.hasNext()) {
-                                MediaObject imageVersionPin = (MediaObject)pinFiles.next();
-                                if (imageVersionPin.getIvid()==ivid) {
+                                MediaObject mediaObject = (MediaObject)pinFiles.next();
+                                if (mediaObject.getIvid()==ivid) {
                                     isInPin = true;
                                 }
                             }

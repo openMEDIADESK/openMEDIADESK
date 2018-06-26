@@ -81,9 +81,9 @@ public abstract class AbstractStreamServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        MediaObject imageVersion = resolveMediaobjectInRequest(request, response);
-        if (imageVersion!=null) {
-            download(imageVersion,request,response);
+        MediaObject mediaObject = resolveMediaobjectInRequest(request, response);
+        if (mediaObject!=null) {
+            download(mediaObject,request,response);
         } else {
             if (!response.isCommitted()) {
                 response.sendError(404,"Could not resolve Mediaobject in Request");
@@ -95,9 +95,9 @@ public abstract class AbstractStreamServlet extends HttpServlet {
 
     protected void doHead(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        MediaObject imageVersion = resolveMediaobjectInRequest(request, response);
-        if (imageVersion!=null) {
-            sendResponseHeader(response,imageVersion,true,null);
+        MediaObject mediaObject = resolveMediaobjectInRequest(request, response);
+        if (mediaObject!=null) {
+            sendResponseHeader(response,mediaObject,true,null);
         } else {
             if (!response.isCommitted()) {
                 response.sendError(404,"Could not resolve Mediaobject in Request");
@@ -150,9 +150,9 @@ public abstract class AbstractStreamServlet extends HttpServlet {
                     writer.print("Token2: "+urlTokens[2]);
                     writer.print("Token3: "+urlTokens[3]);
                     */
-                    MediaService imageService = new MediaService();
+                    MediaService mediaService = new MediaService();
                     LngResolver lngResolver = new LngResolver();
-                    imageService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
+                    mediaService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
 
                     if (type.equalsIgnoreCase("folder")) {
 
@@ -168,7 +168,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
                             loader.setId(id);
                             loader.setOrderBy(Config.orderByFolder);
                             loader.setSortBy(Config.sortByFolder);
-                            List imageList = imageService.getFolderMediaObjects(loader);
+                            List imageList = mediaService.getFolderMediaObjects(loader);
                             if (imageList.size()>0) {
                                 //Pr�fen ob explizit ein Name in der Kategorie angegeben wurde, oder
                                 //das aktuellste File geladen werden soll (kein name angegeben)
@@ -199,16 +199,16 @@ public abstract class AbstractStreamServlet extends HttpServlet {
                         //Die URL kann entweder /podcast/object/#id#
                         //oder /podcast/object/#id#.#extention# sein
 
-                        MediaObject imageVersion = imageService.getMediaObjectById(id);
+                        MediaObject mediaObject = mediaService.getMediaObjectById(id);
 
-                        if (imageVersion!=null) {
+                        if (mediaObject!=null) {
                             //check Permission
-                            List downloadImages = new LinkedList();
-                            downloadImages.add(imageVersion);
-                            List permittedImages = AclUtil.getPermittedMediaObjects(aclContext, downloadImages, "view");
-                            if (permittedImages.size()>0) {
+                            List downloadMediaObjectList = new LinkedList();
+                            downloadMediaObjectList.add(mediaObject);
+                            List permittedMediaObjects = AclUtil.getPermittedMediaObjects(aclContext, downloadMediaObjectList, "view");
+                            if (permittedMediaObjects.size()>0) {
                                 //download(imageVersion,httpServletRequest,httpServletResponse);
-                                return imageVersion;
+                                return mediaObject;
                             } else {
                                 httpServletResponse.sendError(403,"No Visitor Access (ACL) for objectId="+id);
                                 return null;
@@ -250,12 +250,12 @@ public abstract class AbstractStreamServlet extends HttpServlet {
         return null;
     }
 
-    private void download(MediaObject imageVersion, HttpServletRequest request, HttpServletResponse response) {
+    private void download(MediaObject mediaObject, HttpServletRequest request, HttpServletResponse response) {
 
-        String filename = getStreamSourceFilename(imageVersion);
+        String filename = getStreamSourceFilename(mediaObject);
 
-        List<DownloadRange> downloadRange = getDownloadRange(request, imageVersion);
-        sendResponseHeader(response, imageVersion, true, downloadRange);
+        List<DownloadRange> downloadRange = getDownloadRange(request, mediaObject);
+        sendResponseHeader(response, mediaObject, true, downloadRange);
         int sentBytes = 0;
 
         OutputStream outputStream = null;
@@ -267,10 +267,10 @@ public abstract class AbstractStreamServlet extends HttpServlet {
             inputStream = new RandomAccessFile(filename, "r");
             //System.out.println("inputStream ge�ffnet: "+filename);
 
-            trackStreamStart(request, imageVersion, getDownloadType());
+            trackStreamStart(request, mediaObject, getDownloadType());
 
             long startBytes = 0;
-            long lengthBytes = getSourceFile(imageVersion).length();
+            long lengthBytes = getSourceFile(mediaObject).length();
 
             //Download-Range: "nach vor spulen"
             if (downloadRange!=null) {
@@ -283,7 +283,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
                 }
             }
 
-            sentBytes = writeStream(imageVersion, inputStream, outputStream, startBytes, lengthBytes);
+            sentBytes = writeStream(mediaObject, inputStream, outputStream, startBytes, lengthBytes);
 
         } catch (IOException e) {
             System.err.println("AbstractStreamServlet IOException: "+e.getMessage());
@@ -308,7 +308,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
             */
         }
 
-        trackStreamEnd(request, imageVersion, getDownloadType(),sentBytes);
+        trackStreamEnd(request, mediaObject, getDownloadType(),sentBytes);
 
     }
 
@@ -319,7 +319,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
      * @param startBytes
      * @param lengthBytes
      */
-    private int writeStream(MediaObject imageVersion, RandomAccessFile input, OutputStream output, long startBytes, long lengthBytes) throws IOException {
+    private int writeStream(MediaObject mediaObject, RandomAccessFile input, OutputStream output, long startBytes, long lengthBytes) throws IOException {
 
         byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
         int read;
@@ -494,34 +494,34 @@ public abstract class AbstractStreamServlet extends HttpServlet {
 
     }
 
-    protected String getStreamSourceFilename(MediaObject imageVersion) {
+    protected String getStreamSourceFilename(MediaObject mediaObject) {
 
-        return Config.imageStorePath+"/"+imageVersion.getIvid()+"_0";
+        return Config.imageStorePath+"/"+mediaObject.getIvid()+"_0";
 
     }
 
-    protected void trackStreamStart(HttpServletRequest request, MediaObject imageVersion, int downloadType) {
+    protected void trackStreamStart(HttpServletRequest request, MediaObject mediaObject, int downloadType) {
 
             //Tracking
-            trackStream(request, imageVersion, downloadType, 0);
+            trackStream(request, mediaObject, downloadType, 0);
 
     }
 
-    protected void trackStreamEnd(HttpServletRequest request, MediaObject imageVersion, int downloadType, int bytes) {
+    protected void trackStreamEnd(HttpServletRequest request, MediaObject mediaObject, int downloadType, int bytes) {
 
         //Stream End is by default not tracked
     }
 
-    protected void trackStream(HttpServletRequest request, MediaObject imageVersion, int downloadType, int bytes) {
+    protected void trackStream(HttpServletRequest request, MediaObject mediaObject, int downloadType, int bytes) {
 
             //Tracking
             DownloadLoggerService dlls2 = new DownloadLoggerService();
-            dlls2.log(WebHelper.getUser(request).getUserId(),imageVersion.getIvid(), null,
+            dlls2.log(WebHelper.getUser(request).getUserId(),mediaObject.getIvid(), null,
                     downloadType, request, bytes);
 
     }
 
-    protected int getSleepInMsAfter1024bytes(MediaObject imageVersion) {
+    protected int getSleepInMsAfter1024bytes(MediaObject mediaObject) {
         return 0;
     }
 
