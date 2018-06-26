@@ -62,16 +62,16 @@ public class TreeAclController extends SimpleFormControllerMd {
         FolderService folderService = new AclFolderService(request);
         LngResolver lngResolver = new LngResolver();
         folderService.setUsedLanguage(lngResolver.resolveLng(request));
-        List<FolderMultiLang> categoryTree = folderService.getAllFolderList();
+        List<FolderMultiLang> folderTree = folderService.getAllFolderList();
 
-        List<TreeAclCommand.TreeAclCommandEntity> selectableCategoryList = getSelectableCategoryList(request.getParameter("type"), categoryTree, request);
-        TreeAclCommand categorySelection = new TreeAclCommand();
-        categorySelection.setFolderList(selectableCategoryList);
+        List<TreeAclCommand.TreeAclCommandEntity> selectableFolderList = getSelectableFolderList(request.getParameter("type"), folderTree, request);
+        TreeAclCommand folderSelection = new TreeAclCommand();
+        folderSelection.setFolderList(selectableFolderList);
 
-        categorySelection.setType(request.getParameter("type"));
-        categorySelection.setId(Integer.parseInt(request.getParameter("id")));
+        folderSelection.setType(request.getParameter("type"));
+        folderSelection.setId(Integer.parseInt(request.getParameter("id")));
 
-        return categorySelection;
+        return folderSelection;
     }
 
     protected boolean isUserPermitted(HttpServletRequest request) {
@@ -89,11 +89,11 @@ public class TreeAclController extends SimpleFormControllerMd {
 
     protected Map referenceData(HttpServletRequest request, Object o, Errors errors) throws Exception {
 
-        TreeAclCommand categorySelection = (TreeAclCommand)o;
+        TreeAclCommand folderSelection = (TreeAclCommand)o;
 
-        if (categorySelection.getType().equalsIgnoreCase("ACL")) {
+        if (folderSelection.getType().equalsIgnoreCase("ACL")) {
             UserService us = new UserService();
-            SecurityGroup group = us.getSecurityGroupById(categorySelection.getId());
+            SecurityGroup group = us.getSecurityGroupById(folderSelection.getId());
             String right = "Download";
             if (group.getId()==0) { right = "Zeige"; }
             request.setAttribute("targetname",group.getName());
@@ -112,46 +112,43 @@ public class TreeAclController extends SimpleFormControllerMd {
     }
 
     /**
-     * Diese Methode muss je nach typ die Selectable CategoryList zur�ckgeben
+     * Diese Methode muss je nach typ die Selectable FolderList zur�ckgeben
      * @param typeParameter
      * @return
      */
-    private List<TreeAclCommand.TreeAclCommandEntity> getSelectableCategoryList(String typeParameter, List<FolderMultiLang> categoryTree, HttpServletRequest request) {
+    private List<TreeAclCommand.TreeAclCommandEntity> getSelectableFolderList(String typeParameter, List<FolderMultiLang> folderTree, HttpServletRequest request) {
 
-        List<TreeAclCommand.TreeAclCommandEntity> selectableCategoryList = new ArrayList<TreeAclCommand.TreeAclCommandEntity>();
+        List<TreeAclCommand.TreeAclCommandEntity> selectableFolderList = new ArrayList<TreeAclCommand.TreeAclCommandEntity>();
 
         Stack<Integer> parentStack = new Stack<Integer>();
         parentStack.push(0);
 
         int lastParent = 0;
-        int lastCategory = 0;
+        int lastFolder = 0;
         int stufe = 0;
 
         if (typeParameter.equalsIgnoreCase("ACL")) {
-            for (FolderMultiLang category : categoryTree) {
+            for (FolderMultiLang folder : folderTree) {
 
-                if (lastParent!=category.getParent()) {
+                if (lastParent!=folder.getParent()) {
 
-                    if (lastCategory==category.getParent()) {
+                    if (lastFolder==folder.getParent()) {
                         stufe = stufe+1;
                     } else {
                         stufe = stufe-1;
                     }
-                    lastParent = category.getParent();
+                    lastParent = folder.getParent();
                 }
 
-                lastCategory = category.getFolderId();
+                lastFolder = folder.getFolderId();
 
-                TreeAclCommand.TreeAclCommandEntity selCat = new TreeAclCommand.TreeAclCommandEntity();
-                selCat.setFolder(category);
-                selCat.setStufe(stufe);
+                TreeAclCommand.TreeAclCommandEntity selFolder = new TreeAclCommand.TreeAclCommandEntity();
+                selFolder.setFolder(folder);
+                selFolder.setStufe(stufe);
 
-                Acl acl = AclController.getAcl(category);
+                Acl acl = AclController.getAcl(folder);
                 UserService userService = new UserService();
                 SecurityGroup securityGroup = userService.getSecurityGroupById(Integer.parseInt(request.getParameter("id")));
-
-                //AclPermission permission = new AclPermission(AclPermission.READ);
-                //if (securityGroup.getId()==0) { permission = new AclPermission("view"); }
 
                 String permissionString = ""; //nichts
 
@@ -165,31 +162,31 @@ public class TreeAclController extends SimpleFormControllerMd {
                     permissionString = "write";
                 }
 
-                selCat.setPermissionString(permissionString);
+                selFolder.setPermissionString(permissionString);
 
-                selectableCategoryList.add(selCat);
+                selectableFolderList.add(selFolder);
             }
         }
 
-        return selectableCategoryList;
+        return selectableFolderList;
     }
 
     protected ModelAndView onSubmit(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, BindException e) throws Exception {
 
         FolderService folderService = new FolderService();
         MediaService mediaService = new MediaService();
-        TreeAclCommand categorySelection = (TreeAclCommand)o;
-        for (TreeAclCommand.TreeAclCommandEntity category : categorySelection.getFolderList()) {
+        TreeAclCommand folderSelection = (TreeAclCommand)o;
+        for (TreeAclCommand.TreeAclCommandEntity folder : folderSelection.getFolderList()) {
             /**
              * ACL bearbeiten
              */
 
-            if (categorySelection.getType().equalsIgnoreCase("ACL")) {
-                Acl acl = AclController.getAcl(category.getFolder());
+            if (folderSelection.getType().equalsIgnoreCase("ACL")) {
+                Acl acl = AclController.getAcl(folder.getFolder());
                 UserService userService = new UserService();
-                SecurityGroup securityGroup = userService.getSecurityGroupById(categorySelection.getId());
+                SecurityGroup securityGroup = userService.getSecurityGroupById(folderSelection.getId());
 
-                if (category.getPermissionString().isEmpty()) {
+                if (folder.getPermissionString().isEmpty()) {
                     //Jede Berechtigung wegnehmen:
                     acl.removePermission(securityGroup, new AclPermission("view"));
                     acl.removePermission(securityGroup, new AclPermission(AclPermission.READ));
@@ -197,7 +194,7 @@ public class TreeAclController extends SimpleFormControllerMd {
                 } else {
                     //Berechtigung pr�fen/setzen
 
-                    if (category.getPermissionString().equalsIgnoreCase("view")) {
+                    if (folder.getPermissionString().equalsIgnoreCase("view")) {
                         //Nur View
                         acl.removePermission(securityGroup, new AclPermission("view"));
                         acl.removePermission(securityGroup, new AclPermission(AclPermission.READ));
@@ -205,7 +202,7 @@ public class TreeAclController extends SimpleFormControllerMd {
 
                         acl.addPermission(securityGroup, new AclPermission("view"));
                     }
-                    if (category.getPermissionString().equalsIgnoreCase("read")) {
+                    if (folder.getPermissionString().equalsIgnoreCase("read")) {
                         //View + Read
                         acl.removePermission(securityGroup, new AclPermission("view"));
                         acl.removePermission(securityGroup, new AclPermission(AclPermission.READ));
@@ -214,7 +211,7 @@ public class TreeAclController extends SimpleFormControllerMd {
                         acl.addPermission(securityGroup, new AclPermission("view"));
                         acl.addPermission(securityGroup, new AclPermission(AclPermission.READ));
                     }
-                    if (category.getPermissionString().equalsIgnoreCase("write")) {
+                    if (folder.getPermissionString().equalsIgnoreCase("write")) {
                         //View + Read + Write
                         acl.removePermission(securityGroup, new AclPermission("view"));
                         acl.removePermission(securityGroup, new AclPermission(AclPermission.READ));
@@ -226,12 +223,12 @@ public class TreeAclController extends SimpleFormControllerMd {
                     }
                 }
 
-                AclController.setAcl(category.getFolder(),acl);
+                AclController.setAcl(folder.getFolder(),acl);
             }
         }
 
         //Redirecten
-        if (categorySelection.getType().equalsIgnoreCase("ACL")) {
+        if (folderSelection.getType().equalsIgnoreCase("ACL")) {
             httpServletResponse.sendRedirect(httpServletResponse.encodeRedirectURL("usermanager?tab=group"));
         }
         return null;

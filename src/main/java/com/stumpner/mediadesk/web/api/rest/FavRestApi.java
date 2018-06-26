@@ -84,7 +84,7 @@ public class FavRestApi extends RestBaseServlet {
             System.out.println("deleteselected - wird nicht mehr verwendet");
             //ausgew�hlte von den favoriten l�schen
                                /*
-            List<MediaObject> list = MediaObjectService.getSelectedImageList(request.getSession());
+            List<MediaObject> list = MediaObjectService.getSelectedMediaObjectList(request.getSession());
             System.out.println("list");
             for (MediaObject mo : list) {
                 System.out.println("for");
@@ -120,7 +120,7 @@ public class FavRestApi extends RestBaseServlet {
                 //ausgew�hlte l�schen
 
                 FavoriteService shoppingCartService = new FavoriteService();
-                List<MediaObject> list = MediaObjectService.getSelectedImageList(request.getSession());
+                List<MediaObject> list = MediaObjectService.getSelectedMediaObjectList(request.getSession());
                 System.out.println("list");
                 for (MediaObject mo : list) {
                     System.out.println("for");

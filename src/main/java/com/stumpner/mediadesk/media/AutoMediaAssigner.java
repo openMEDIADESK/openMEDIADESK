@@ -62,19 +62,19 @@ public class AutoMediaAssigner {
     public void assign(Object autoImportObject,int ivid) {
 
         if (autoImportObject!=null) {
-            if (isAutoImportCategory(autoImportObject)) {
+            if (isAutoImportFolder(autoImportObject)) {
                 FolderService folderService = new FolderService();
                 Folder folder = (Folder)autoImportObject;
                 try {
                     folderService.addMediaToFolder(folder.getFolderId(),ivid);
                 } catch (DublicateEntry dublicateEntry) {
-                    dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    dublicateEntry.printStackTrace();
                 }
             }
             if (isAutoImportPin(autoImportObject)) {
                 PinService pinService = new PinService();
                 Pin pin = (Pin)autoImportObject;
-                pinService.addImageToPinpic(ivid, pin.getPinId());
+                pinService.addMediaToPin(ivid, pin.getPinId());
 
                 //Informieren, wenn aktiviert
                 if (pin.getEmailnotification().length()>0) {
@@ -134,7 +134,7 @@ public class AutoMediaAssigner {
         }
     }
 
-    public boolean isAutoImportCategory(Object o) {
+    public boolean isAutoImportFolder(Object o) {
 
         if (o instanceof Folder) {
             return true;
@@ -173,7 +173,7 @@ public class AutoMediaAssigner {
 
     public String getRedirectOfAutoImport(Object autoImportObject) throws IOException {
 
-            if (isAutoImportCategory(autoImportObject)) {
+            if (isAutoImportFolder(autoImportObject)) {
                 Folder folder = (Folder)autoImportObject;
                 return "c?id="+ folder.getFolderId();
             }

@@ -139,7 +139,7 @@
         </isEqual>
     </statement>
 
-    <statement id="getAllCategoryList" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="folderList">
+    <statement id="getAllFolderList" parameterClass="com.stumpner.mediadesk.core.database.sc.loader.SimpleLoaderClass" resultMap="folderList">
         SELECT folderid,
                title,
                name,

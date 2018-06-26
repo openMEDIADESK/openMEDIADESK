@@ -40,7 +40,7 @@ public class MediaObjectApi extends ApiBase {
     private final int GETMEDIAOBJECTINFO = 1;
     private final int SETMEDIAOBJECTINFO = 2;
     private final int DELETEMEDIAOBJECT  = 3;
-    private final int GETMEDIAOBJECTCATEGORIES  = 4;
+    private final int GETMEDIAOBJECTFOLDERS = 4;
 
     private final int GETMEDIAOBJECTIDBYFID = 5;
 
@@ -49,17 +49,9 @@ public class MediaObjectApi extends ApiBase {
         registerMethod("getMediaObjectInfo", GETMEDIAOBJECTINFO);
         registerMethod("setMediaObjectInfo", SETMEDIAOBJECTINFO);
         registerMethod("deleteMediaObject",  DELETEMEDIAOBJECT);
-        registerMethod("getMediaObjectCategories",  GETMEDIAOBJECTCATEGORIES);
-
+        registerMethod("getMediaObjectCategories", GETMEDIAOBJECTFOLDERS);
+        registerMethod("getMediaObjectFolders", GETMEDIAOBJECTFOLDERS);
         registerMethod("getMediaObjectIdByFid",  GETMEDIAOBJECTIDBYFID);
-
-        //--
-        //registerMethod("categoryCreate", CATEGORYCREATE);
-        //registerMethod("categoryDelete", CATEGORYDELETE);
-        //registerMethod("categoryChangeDate", CATEGORYCHANGEDATE);
-        //registerMethod("removeObjectsFromCategory", REMOVEOBJECTSFROMCATEGORY);
-        //registerMethod("addObjectToCategory", ADDOBJECTTOCATEGORY);
-        //registerMethod("getObjectsFromCategory", GETOBJECTSFROMCATEGORY);
 
     }
 
@@ -72,8 +64,8 @@ public class MediaObjectApi extends ApiBase {
                 return setMediaObjectInfo(parameter);
             case DELETEMEDIAOBJECT:
                 return deleteMediaObject(parameter);
-            case GETMEDIAOBJECTCATEGORIES:
-                return getMediaObjectCategories(parameter);
+            case GETMEDIAOBJECTFOLDERS:
+                return getMediaObjectFolders(parameter);
             case GETMEDIAOBJECTIDBYFID:
                 return getMediaObjectIdByFid(parameter);
         }
@@ -98,14 +90,13 @@ public class MediaObjectApi extends ApiBase {
         }
     }
 
-    private String getMediaObjectCategories(String[] parameter) {
+    private String getMediaObjectFolders(String[] parameter) {
 
         StringBuffer sb = new StringBuffer();
         int ivid = Integer.parseInt(parameter[0]);
-        MediaService imageService = new MediaService();
         FolderService folderService = new FolderService();
-        List categoryList = folderService.getFolderListFromImageVersion(ivid);
-        Iterator categories = categoryList.iterator();
+        List folderList = folderService.getFolderListFromMediaObject(ivid);
+        Iterator categories = folderList.iterator();
         while (categories.hasNext()) {
             Folder folder = (Folder)categories.next();
             sb.append(folder.getFolderId()+";");

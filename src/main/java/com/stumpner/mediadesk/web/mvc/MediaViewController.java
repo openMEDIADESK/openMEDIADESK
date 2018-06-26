@@ -43,11 +43,9 @@ public class MediaViewController extends AbstractMediaPreviewController {
 
         Object thumbnailListObject = httpServletRequest.getSession().getAttribute("thumbnailListObject");
         if (thumbnailListObject instanceof Folder) {
-            //System.out.println("Kategorie-BasicMediaObject");
         }
 
         httpServletRequest.setAttribute("popup",false);
-        //parentCategoryList = categoryService.getParentFolderList(id);
 
         return super.handleRequestInternal(httpServletRequest, httpServletResponse);    //To change body of overridden methods use File | Settings | File Templates.
     }

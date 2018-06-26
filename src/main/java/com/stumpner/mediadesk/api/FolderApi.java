@@ -38,55 +38,54 @@ import java.util.Iterator;
  * Time: 11:54:40
  * @deprecated use {@link com.stumpner.mediadesk.web.api.rest.FolderRestApi}
  */
-public class CategoryApi extends ApiBase {
+public class FolderApi extends ApiBase {
 
-    private final int CATEGORYEXIST = 1;
-    private final int CATEGORYCREATE = 2;
-    private final int CATEGORYDELETE = 3;
-    private final int CATEGORYCHANGEDATE = 4;
-    private final int REMOVEOBJECTSFROMCATEGORY = 5;
-    private final int ADDOBJECTTOCATEGORY = 6;
-    private final int GETOBJECTSFROMCATEGORY = 7;
+    private final int FOLDEREXIST = 1;
+    private final int FOLDERCREATE = 2;
+    private final int FOLDERDELETE = 3;
+    private final int FOLDERCHANGEDATE = 4;
+    private final int REMOVEOBJECTSFROMFOLDER = 5;
+    private final int ADDOBJECTTOFOLDER = 6;
+    private final int GETOBJECTSFROMFOLDER = 7;
 
-    private final int DELETEMEDIAOBJECTFROMCATEGORY = 8;
-    private final int GETCATEGORYIDBYFID = 9;
+    private final int DELETEMEDIAOBJECTFROMFOLDER = 8;
+    private final int GETFOLDERIDBYFID = 9;
 
-    public CategoryApi() {
+    public FolderApi() {
 
-        registerMethod("categoryExist", CATEGORYEXIST);
-        registerMethod("categoryCreate", CATEGORYCREATE);
-        registerMethod("categoryDelete", CATEGORYDELETE);
-        registerMethod("categoryChangeDate", CATEGORYCHANGEDATE);
-        registerMethod("removeObjectsFromCategory", REMOVEOBJECTSFROMCATEGORY);
-        registerMethod("addObjectToCategory", ADDOBJECTTOCATEGORY);
-        registerMethod("getObjectsFromCategory", GETOBJECTSFROMCATEGORY);
-
-        registerMethod("deleteMediaObjectFromCategory",  DELETEMEDIAOBJECTFROMCATEGORY);
-        registerMethod("getCategoryIdByFid", GETCATEGORYIDBYFID);
+        registerMethod("categoryExist", FOLDEREXIST);
+        registerMethod("categoryCreate", FOLDERCREATE);
+        registerMethod("categoryDelete", FOLDERDELETE);
+        registerMethod("categoryChangeDate", FOLDERCHANGEDATE);
+        registerMethod("removeObjectsFromCategory", REMOVEOBJECTSFROMFOLDER);
+        registerMethod("addObjectToCategory", ADDOBJECTTOFOLDER);
+        registerMethod("getObjectsFromCategory", GETOBJECTSFROMFOLDER);
+        registerMethod("deleteMediaObjectFromCategory", DELETEMEDIAOBJECTFROMFOLDER);
+        registerMethod("getCategoryIdByFid", GETFOLDERIDBYFID);
 
     }
 
     public String call(User user, String method, String[] parameter) {
 
         switch (getMethodId(method)) {
-            case CATEGORYEXIST:
-                return existsCategory(parameter);
-            case CATEGORYCREATE:
-                return categoryCreate(parameter);
-            case CATEGORYDELETE:
-                return categoryDelete(parameter);
-            case CATEGORYCHANGEDATE:
-                return categoryChangeDate(parameter);
-            case REMOVEOBJECTSFROMCATEGORY:
-                return removeObjectsFromCategory(parameter);
-            case ADDOBJECTTOCATEGORY:
-                return addObjectToCategory(parameter);
-            case GETOBJECTSFROMCATEGORY:
-                return getObjectsFromCategory(parameter);
-            case DELETEMEDIAOBJECTFROMCATEGORY:
-                return deleteMediaObjectFromCategory(parameter);
-            case GETCATEGORYIDBYFID:
-                return getCategoryIdByFid(parameter);
+            case FOLDEREXIST:
+                return existsFolder(parameter);
+            case FOLDERCREATE:
+                return folderCreate(parameter);
+            case FOLDERDELETE:
+                return folderDelete(parameter);
+            case FOLDERCHANGEDATE:
+                return folderChangeDate(parameter);
+            case REMOVEOBJECTSFROMFOLDER:
+                return removeObjectsFromFolder(parameter);
+            case ADDOBJECTTOFOLDER:
+                return addObjectToFolder(parameter);
+            case GETOBJECTSFROMFOLDER:
+                return getObjectsFromFolder(parameter);
+            case DELETEMEDIAOBJECTFROMFOLDER:
+                return deleteMediaObjectFromFolder(parameter);
+            case GETFOLDERIDBYFID:
+                return getFolderIdByFid(parameter);
         }
 
         return "no value.";
@@ -97,7 +96,7 @@ public class CategoryApi extends ApiBase {
      * @param parameter
      * @return
      */
-    private String getCategoryIdByFid(String[] parameter) {
+    private String getFolderIdByFid(String[] parameter) {
         String fid = parameter[0];
         FolderService catService = new FolderService();
         try {
@@ -109,12 +108,12 @@ public class CategoryApi extends ApiBase {
         }
     }
 
-    private String deleteMediaObjectFromCategory(String[] parameter) {
-        int categoryId = Integer.parseInt(parameter[0]);
+    private String deleteMediaObjectFromFolder(String[] parameter) {
+        int folderId = Integer.parseInt(parameter[0]);
         int ivid = Integer.parseInt(parameter[1]);
         
         FolderService folderService = new FolderService();
-        folderService.deleteMediaFromFolder(categoryId,ivid);
+        folderService.deleteMediaFromFolder(folderId,ivid);
         return "OK";
     }
 
@@ -123,13 +122,13 @@ public class CategoryApi extends ApiBase {
      * @param parameter
      * @return
      */
-    private String addObjectToCategory(String[] parameter) {
+    private String addObjectToFolder(String[] parameter) {
         int ivid = Integer.parseInt(parameter[0]);
-        int categoryId = Integer.parseInt(parameter[1]);
+        int folderId = Integer.parseInt(parameter[1]);
 
         FolderService folderService = new FolderService();
         try {
-            folderService.addMediaToFolder(categoryId,ivid);
+            folderService.addMediaToFolder(folderId,ivid);
             return "OK";
         } catch (DublicateEntry dublicateEntry) {
             dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -145,7 +144,7 @@ public class CategoryApi extends ApiBase {
      * @param parameter
      * @return
      */
-    private String getObjectsFromCategory(String[] parameter) {
+    private String getObjectsFromFolder(String[] parameter) {
 
         StringBuffer returnString = new StringBuffer();
         MediaService imageService = new MediaService();
@@ -167,17 +166,17 @@ public class CategoryApi extends ApiBase {
      * @param parameter
      * @return
      */
-    private String removeObjectsFromCategory(String[] parameter) {
+    private String removeObjectsFromFolder(String[] parameter) {
 
         try {
             FolderService folderService = new FolderService();
             MediaService imageService = new MediaService();
             SimpleLoaderClass loaderClass = new SimpleLoaderClass();
             loaderClass.setId(Integer.parseInt(parameter[0]));
-            List categoryImages = imageService.getFolderMediaObjects(loaderClass);
+            List folderMediaObjects = imageService.getFolderMediaObjects(loaderClass);
             Folder folder = folderService.getFolderById(loaderClass.getId());
 
-            folderService.deleteMediaFromFolder(folder,categoryImages);
+            folderService.deleteMediaFromFolder(folder,folderMediaObjects);
 
             return "OK";
         } catch (ObjectNotFoundException e) {
@@ -190,11 +189,11 @@ public class CategoryApi extends ApiBase {
 
     }
 
-    private String categoryChangeDate(String[] parameter) {
+    private String folderChangeDate(String[] parameter) {
 
 
         try {
-            Folder folder = getCategoryByPath(parameter[0]);
+            Folder folder = getFolderByPath(parameter[0]);
             return String.valueOf(folder.getChangedDate().getTime());
 
         } catch (ObjectNotFoundException e) {
@@ -204,35 +203,35 @@ public class CategoryApi extends ApiBase {
     }
 
     /**
-     * Der Kategoriename kann der Name einer Kategorie sein oder ein Pfad
-     * category1/subcategory/
+     * Der Ordnername kann der Name eines Ordners sein oder ein Pfad
+     * folder1/subfolder/
      * Achtung: fangt die Pfadangabe mit einem / an, wird dieses weggeschnitten!
      * @param parameter
      * @return
      */
-    private String existsCategory(String[] parameter) {
+    private String existsFolder(String[] parameter) {
 
-        String categoryName = parameter[0];
+        String path = parameter[0];
 
-        if (categoryName.indexOf("/")==-1) {
-            return existsCategoryName(categoryName);
+        if (path.indexOf("/")==-1) {
+            return existsFolderName(path);
         } else {
-            if (categoryName.startsWith("/")) {
+            if (path.startsWith("/")) {
                 //Vorausgehendes / wegschneiden
-                categoryName = categoryName.substring(1);
+                path = path.substring(1);
             }
-            return existsCategoryPath(categoryName);
+            return existsFolderPath(path);
         }
 
     }
 
-    private String existsCategoryName(String categoryName) {
+    private String existsFolderName(String name) {
 
         boolean exist = false;
         FolderService folderService = new FolderService();
         Folder folder = new Folder();
         try {
-            folder = folderService.getFolderByName(categoryName);
+            folder = folderService.getFolderByName(name);
             exist = true;
         } catch (ObjectNotFoundException e) {
             exist = false;
@@ -248,21 +247,21 @@ public class CategoryApi extends ApiBase {
 
     }
 
-    private String existsCategoryPath(String categoryPath) {
+    private String existsFolderPath(String path) {
 
         FolderService folderService = new FolderService();
-        String[] pathToken = categoryPath.split("/");
-        int categoryId = 0;
+        String[] pathToken = path.split("/");
+        int folderId = 0;
 
         for (int a=0;a<pathToken.length;a++) {
 
-            List categoryList = folderService.getFolderList(categoryId);
-            Iterator categories = categoryList.iterator();
+            List folderList = folderService.getFolderList(folderId);
+            Iterator folders = folderList.iterator();
             boolean found = false;
-            while (categories.hasNext()) {
-                Folder folder = (Folder)categories.next();
+            while (folders.hasNext()) {
+                Folder folder = (Folder)folders.next();
                 if (folder.getName().equalsIgnoreCase(pathToken[a])) {
-                    categoryId = folder.getFolderId();
+                    folderId = folder.getFolderId();
                     found = true;
                     break;
                 }
@@ -274,36 +273,36 @@ public class CategoryApi extends ApiBase {
 
         }
 
-        return "true;id="+categoryId;
+        return "true;id="+folderId;
 
     }
 
-    private Folder getCategoryByPath(String categoryPath) throws ObjectNotFoundException {
+    private Folder getFolderByPath(String path) throws ObjectNotFoundException {
 
         FolderService folderService = new FolderService();
-        return folderService.getFolderByPath(categoryPath);
+        return folderService.getFolderByPath(path);
 
     }
 
-    private String categoryCreate(String[] parameter) {
+    private String folderCreate(String[] parameter) {
 
-        String categoryName = parameter[0];
-        String categoryTitle = parameter[0];
+        String folderName = parameter[0];
+        String folderTitle = parameter[0];
         if (parameter.length==2) {
-            categoryTitle = parameter[1];
+            folderTitle = parameter[1];
         }
         FolderService folderService = new FolderService();
         boolean success = false;
-        //Pr�fen ob eine Pfadangabe oder Folder-Path enthalten
-        if (categoryName.indexOf("/")==-1) {
+        //Prüfen ob eine Pfadangabe oder Folder-Path enthalten
+        if (folderName.indexOf("/")==-1) {
             //kein Pfad
-            FolderMultiLang category = new FolderMultiLang();
-            category.setName(categoryName);
-            category.setTitle(categoryName);
-            category.setTitleLng1(categoryTitle);
-            category.setTitleLng2(categoryTitle);
+            FolderMultiLang folder = new FolderMultiLang();
+            folder.setName(folderName);
+            folder.setTitle(folderName);
+            folder.setTitleLng1(folderTitle);
+            folder.setTitleLng2(folderTitle);
             try {
-                folderService.addFolder(category);
+                folderService.addFolder(folder);
                 success = true;
             } catch (IOServiceException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -312,18 +311,18 @@ public class CategoryApi extends ApiBase {
         } else {
             //Pfad
 
-            String[] pathToken = categoryName.split("/");
-            int categoryId = 0;
+            String[] pathToken = folderName.split("/");
+            int folderId = 0;
 
             for (int a=0;a<pathToken.length;a++) {
 
-                List categoryList = folderService.getFolderList(categoryId);
-                Iterator categories = categoryList.iterator();
+                List folderList = folderService.getFolderList(folderId);
+                Iterator folders = folderList.iterator();
                 boolean found = false;
-                while (categories.hasNext()) {
-                    Folder folder = (Folder)categories.next();
+                while (folders.hasNext()) {
+                    Folder folder = (Folder)folders.next();
                     if (folder.getName().equalsIgnoreCase(pathToken[a])) {
-                        categoryId = folder.getFolderId();
+                        folderId = folder.getFolderId();
                         found = true;
                         if (a==pathToken.length-1) {
                             success = true;
@@ -334,21 +333,21 @@ public class CategoryApi extends ApiBase {
 
                 if (found == false) {
                     //Folder anlegen:
-                    FolderMultiLang category = new FolderMultiLang();
-                    category.setName(pathToken[a]);
-                    category.setTitle(pathToken[a]);
+                    FolderMultiLang folder = new FolderMultiLang();
+                    folder.setName(pathToken[a]);
+                    folder.setTitle(pathToken[a]);
                     if (a==pathToken.length-1) {
                         //Wenn die "letzte" Kategorie in der Pfadangabe
-                        category.setTitleLng1(categoryTitle);
-                        category.setTitleLng2(categoryTitle);
+                        folder.setTitleLng1(folderTitle);
+                        folder.setTitleLng2(folderTitle);
                     } else {
-                        category.setTitleLng1(pathToken[a]);
-                        category.setTitleLng2(pathToken[a]);
+                        folder.setTitleLng1(pathToken[a]);
+                        folder.setTitleLng2(pathToken[a]);
                     }
-                    category.setParent(categoryId);
+                    folder.setParent(folderId);
                     a--; //Nochmals durchlaufen...
                     try {
-                        folderService.addFolder(category);
+                        folderService.addFolder(folder);
                         success = true;
                     } catch (IOServiceException e) {
                         e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -367,17 +366,16 @@ public class CategoryApi extends ApiBase {
         }
     }
 
-    private String categoryDelete(String[] parameter) {
+    private String folderDelete(String[] parameter) {
 
         FolderService folderService = new FolderService();
-        MediaService imageService = new MediaService();
-        String categoryName = parameter[0];
-        if (categoryName.indexOf("/")==-1) {
+        String folderName = parameter[0];
+        if (folderName.indexOf("/")==-1) {
             //Kategorieangabe
             Folder folder = null;
             try {
-                folder = folderService.getFolderByName(categoryName);
-                deleteCategory(folder.getFolderId());
+                folder = folderService.getFolderByName(folderName);
+                deleteFolder(folder.getFolderId());
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             } catch (IOServiceException e) {
@@ -385,12 +383,12 @@ public class CategoryApi extends ApiBase {
             }
         } else {
             //Kategorie-Pfadangabe
-            String response = existsCategoryPath(categoryName);
+            String response = existsFolderPath(folderName);
             if (!response.startsWith("ERROR")) {
                 String[] responseToken = response.split(";");
                 String[] idToken = responseToken[1].split("=");
                 int id = Integer.parseInt(idToken[1]);
-                deleteCategory(id);
+                deleteFolder(id);
             } else {
                 return "ERROR";
             }
@@ -399,23 +397,23 @@ public class CategoryApi extends ApiBase {
         return "not implemented yet";
     }
 
-    private void deleteCategory(int categoryId) {
+    private void deleteFolder(int id) {
 
         FolderService folderService = new FolderService();
-        MediaService imageService = new MediaService();
+        MediaService mediaService = new MediaService();
                 try {
-                    Folder folder = folderService.getFolderById(categoryId);
+                    Folder folder = folderService.getFolderById(id);
                     SimpleLoaderClass loaderClass = new SimpleLoaderClass();
-                    loaderClass.setId(categoryId);
-                    List imageList = imageService.getFolderMediaObjects(loaderClass);
-                    Iterator images = imageList.iterator();
-                    while (images.hasNext()) {
-                        MediaObject image = (MediaObject)images.next();
-                        List categoryList = folderService.getFolderListFromImageVersion(image.getIvid());
-                        if (categoryList.size()==1) {
-                            imageService.deleteMediaObject(image);
+                    loaderClass.setId(id);
+                    List mediaObjectList = mediaService.getFolderMediaObjects(loaderClass);
+                    Iterator mediaObjects = mediaObjectList.iterator();
+                    while (mediaObjects.hasNext()) {
+                        MediaObject mo = (MediaObject)mediaObjects.next();
+                        List folderList = folderService.getFolderListFromMediaObject(mo.getIvid());
+                        if (folderList.size()==1) {
+                            mediaService.deleteMediaObject(mo);
                         }
-                        folderService.deleteMediaFromFolder(folder,image);
+                        folderService.deleteMediaFromFolder(folder,mo);
                     }
                     folderService.deleteById(folder.getFolderId());
                 } catch (ObjectNotFoundException e) {

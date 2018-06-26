@@ -216,7 +216,7 @@ public class UserEditController extends SimpleFormControllerMd {
         //check createhomedir
         if (httpServletRequest.getParameter("createHomeCat")!=null) {
             UserService userService = new UserService();
-            userService.createHomeCategory(user);
+            userService.createHomeFolder(user);
         }
 
         httpServletRequest.setAttribute("redirectTo","usermanager");

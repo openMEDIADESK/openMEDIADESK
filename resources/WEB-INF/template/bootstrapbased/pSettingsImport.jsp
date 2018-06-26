@@ -345,7 +345,7 @@
                 </div>
                 </spring:bind>
 
-                <spring:bind path="command.autoImportEmailCat">
+                <spring:bind path="command.autoImportEmailFolder">
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
                     <label for="input<c:out value="${status.expression}"/>">Dateien im Postfach automatisch importieren in Ordner</label>
                         <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">

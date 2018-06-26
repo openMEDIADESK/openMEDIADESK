@@ -186,17 +186,16 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         loaderClass.setUsedLanguage(getUsedLanguage());
 
         try {
-            folderList = smc.queryForList("getAllCategoryList",loaderClass);
-            //folderList = smc.queryForPaginatedList("getFolderList",new Integer(numberOfResults),12);
+            folderList = smc.queryForList("getAllFolderList",loaderClass);
         } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
         return folderList;
 
     }
 
     /**
-     * Returns the full CategoryList in Sub-Folder-Order
+     * Returns the full FolderList in Sub-Folder-Order
      * @return
      */
     public List getAllFolderListSuborder() {
@@ -226,7 +225,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         return folderListSuborder;
     }
 
-    public List getFolderListFromImageVersion(int ivid) {
+    public List getFolderListFromMediaObject(int ivid) {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         List folderList = new ArrayList();
@@ -236,9 +235,8 @@ public class FolderService extends MultiLanguageService implements IServiceClass
 
         try {
             folderList = smc.queryForList("getFolderListFromMediaObject", loaderClass);
-            //categoryList = smc.queryForPaginatedList("getFolderList",new Integer(numberOfResults),12);
         } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
         return folderList;
 
@@ -255,13 +253,13 @@ public class FolderService extends MultiLanguageService implements IServiceClass
         try {
             smc.update("saveFolder",folder);
         } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
         DatabaseService.setTriggerStage1(true);
     }
 
     public void add(Object object) throws IOServiceException {
-        //To change body of implemented methods use File | Settings | File Templates.
+
     }
 
     public synchronized void addFolder(Folder folder) throws IOServiceException {
@@ -400,7 +398,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
 
 
         try {
-            smc.insert("addImageToCategory", folderHolder);
+            smc.insert("addMediaToFolder", folderHolder);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -611,7 +609,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
     }
 
     /**
-     * gibt true oder false zurück ob der angegebene User diese Kategorie verändern darf (homecategory)
+     * gibt true oder false zurück ob der angegebene User diesen Ordner verändern darf (homecategory)
      * @param user
      * @param folderId
      * @return
@@ -619,14 +617,14 @@ public class FolderService extends MultiLanguageService implements IServiceClass
     public boolean isCanModifyFolder(User user, int folderId) {
 
         try {
-            int homeCategoryId = user.getHomeCategoryId();
-            if (homeCategoryId!=0) {
+            int homeFolderId = user.getHomeCategoryId();
+            if (homeFolderId!=0) {
                 int id = folderId;
                 List folderList = this.getParentFolderList(id);
                 Iterator folders = folderList.iterator();
                 while (folders.hasNext()) {
                     Folder folder = (Folder)folders.next();
-                    if (folder.getFolderId()==homeCategoryId) {
+                    if (folder.getFolderId()==homeFolderId) {
                         return true;
                     }
                 }

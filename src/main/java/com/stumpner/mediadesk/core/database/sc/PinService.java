@@ -226,7 +226,7 @@ public class PinService extends MultiLanguageService {
         //Zuerst die Medienobjekte des Pins löschen        
         List<MediaObjectMultiLang> pinImageList = this.getPinpicImages(id);
         for (MediaObjectMultiLang image : pinImageList) {
-            this.deleteImageFromPinpic(image.getIvid(),id);
+            this.deleteMediaFromPin(image.getIvid(),id);
         }
 
         SqlMapClient smc = AppSqlMap.getSqlMapInstance();
@@ -293,7 +293,7 @@ public class PinService extends MultiLanguageService {
         return imageList;
     }
 
-    public void addImageToPinpic(int ivid, int pinpicId) {
+    public void addMediaToPin(int ivid, int pinpicId) {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         PinHolder pinHolder = new PinHolder();
@@ -307,7 +307,7 @@ public class PinService extends MultiLanguageService {
         }
     }
 
-    public void deleteImageFromPinpic(int ivid, int pinpicId) {
+    public void deleteMediaFromPin(int ivid, int pinpicId) {
 
         SqlMapClient smc =AppSqlMap.getSqlMapInstance();
         PinHolder pinHolder = new PinHolder();
@@ -321,7 +321,7 @@ public class PinService extends MultiLanguageService {
         }
     }
 
-    public List getPinpicList() {
+    public List getPinList() {
 
         SqlMapClient smc = AppSqlMap.getSqlMapInstance();
         List pinpicList = new LinkedList();
@@ -341,9 +341,9 @@ public class PinService extends MultiLanguageService {
      * @param user
      * @return
      */
-    public List getPinpicList(User user) {
+    public List getPinList(User user) {
 
-        List<Pin> pinList = this.getPinpicList();
+        List<Pin> pinList = this.getPinList();
             List filteredPinList = new LinkedList();
             for (Pin pin : pinList) {
                 if (pin.getCreatorUserId()==user.getUserId()) {

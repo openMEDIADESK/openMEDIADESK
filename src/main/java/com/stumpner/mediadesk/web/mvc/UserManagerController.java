@@ -98,7 +98,7 @@ public class UserManagerController extends AbstractPageController {
         }
         if (httpServletRequest.getParameter("editacl")!=null) {
             int groupId = Integer.parseInt(httpServletRequest.getParameter("editacl"));
-            httpServletResponse.sendRedirect(httpServletResponse.encodeRedirectURL("categoryselector?type=acl&redirectTo=usermanager&id="+groupId));
+            httpServletResponse.sendRedirect(httpServletResponse.encodeRedirectURL("folderselector?type=acl&redirectTo=usermanager&id="+groupId));
             return null;
         }
 

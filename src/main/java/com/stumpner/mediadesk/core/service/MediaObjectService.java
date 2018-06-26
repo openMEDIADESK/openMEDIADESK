@@ -105,7 +105,7 @@ public class MediaObjectService {
 
         if (ivid != null) {
 
-            imageList = getSelectedImageList(session);
+            imageList = getSelectedMediaObjectList(session);
 
             Iterator images = imageList.iterator();
             while(images.hasNext()) {
@@ -139,7 +139,7 @@ public class MediaObjectService {
      * @param session
      * @return Liste von <MediaObject> Bildern die ausgew�hlt sind.
      */
-    public static List getSelectedImageList(HttpSession session) {
+    public static List getSelectedMediaObjectList(HttpSession session) {
 
         List imageList = new ArrayList();
         if (session.getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES)!=null) {
@@ -151,7 +151,7 @@ public class MediaObjectService {
 
     public static boolean isSelected(MediaObjectMultiLang mediaObject, HttpServletRequest request) {
 
-        List<MediaObject> imageList = getSelectedImageList(request.getSession());
+        List<MediaObject> imageList = getSelectedMediaObjectList(request.getSession());
         for (MediaObject mediaObjectInList : imageList) {
             if (mediaObjectInList.getIvid()==mediaObject.getIvid()) {
                 return true;

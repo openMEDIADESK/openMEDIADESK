@@ -118,10 +118,10 @@ public class MaintenanceService {
 
     }
 
-    private void setResetAcl(int categoryId, FolderService folderService, List securityGroupList) throws IOServiceException, AclNotFoundException {
-        List<FolderMultiLang> categoryList = folderService.getFolderList(categoryId);
-        for (FolderMultiLang cat : categoryList) {
-            Acl acl = AclController.getAcl(cat);
+    private void setResetAcl(int folderId, FolderService folderService, List securityGroupList) throws IOServiceException, AclNotFoundException {
+        List<FolderMultiLang> folderList = folderService.getFolderList(folderId);
+        for (FolderMultiLang f : folderList) {
+            Acl acl = AclController.getAcl(f);
 
             Iterator securityGroups = securityGroupList.iterator();
             while (securityGroups.hasNext()) {
@@ -132,7 +132,7 @@ public class MaintenanceService {
 
                 try {
                     acl.addPermission(sg,new AclPermission("view"));
-                    if (sg.getId()>0) { //Bei allen nicht �ffentlich lesen + schreiben (zeigen + download)
+                    if (sg.getId()>0) { //Bei allen nicht öffentlich lesen + schreiben (zeigen + download)
                         acl.addPermission(sg,new AclPermission(AclPermission.READ));
                         acl.addPermission(sg,new AclPermission("write"));
                     }
@@ -141,13 +141,13 @@ public class MaintenanceService {
                 }
             }
 
-            this.resetAclState = "In Arbeit: Ordner ACL "+cat.getFolderId()+" wird zur�ckgesetzt...";
+            this.resetAclState = "In Arbeit: Ordner ACL "+f.getFolderId()+" wird zurückgesetzt...";
 
-            System.out.println("In Arbeit: Ordner ACL "+cat.getFolderId()+" wird zur�ckgesetzt...");
+            System.out.println("In Arbeit: Ordner ACL "+f.getFolderId()+" wird zurückgesetzt...");
 
-            AclController.setAcl(cat, acl);
-            AclEditController.renewFolderPublicProtectedStatus(cat);
-            setResetAcl(cat.getFolderId(), folderService, securityGroupList);
+            AclController.setAcl(f, acl);
+            AclEditController.renewFolderPublicProtectedStatus(f);
+            setResetAcl(f.getFolderId(), folderService, securityGroupList);
         }
 
     }

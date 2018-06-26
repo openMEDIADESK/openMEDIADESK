@@ -59,9 +59,9 @@ import org.apache.commons.lang3.StringEscapeUtils;
  *
  * /api/rest/stat/interval/chart/{interval:1|2|..}/{downloadtype:1|}
  *
- * /api/rest/stat/<categoryid>/removeselected
- * /api/rest/stat/<categoryid>/deleteselected
- * /api/rest/stat/<categoryid>/insertselected
+ * /api/rest/stat/<folderid>/removeselected
+ * /api/rest/stat/<folderid>/deleteselected
+ * /api/rest/stat/<folderid>/insertselected
  */
 public class StatisticRestApi extends RestBaseServlet {
 

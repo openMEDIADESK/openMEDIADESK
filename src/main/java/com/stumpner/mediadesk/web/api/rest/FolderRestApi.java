@@ -67,7 +67,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  * Verschiebt
  *   1   2    3          4           5    6      7    8
- * /api/rest/folder/<folderid>/move/{ivid}/from/{categoryid}
+ * /api/rest/folder/<folderid>/move/{ivid}/from/{folderid}
  * /api/rest/folder/<folderid>/copy/{ivid}
  *
  * POST:
@@ -117,28 +117,20 @@ public class FolderRestApi extends RestBaseServlet {
             if (type.equalsIgnoreCase("properties") || type.equalsIgnoreCase("editmode")) {
                 boolean editmode = false;
                 if (type.equalsIgnoreCase("editmode")) { editmode = true; }
-                jsonCategoryProperties(request, response, editmode);
+                jsonFolderProperties(request, response, editmode);
             }
 
             if (type.equalsIgnoreCase("medialist")) {
                 //Liste der Medienobjekte
-                jsonCategoryMedialist(request, response);
+                jsonFolderMedialist(request, response);
             }
             if (type.equalsIgnoreCase("child")) {
-                jsonCategoryChilds(request, response);
+                jsonFolderChilds(request, response);
             }
             if (type.equalsIgnoreCase("child2")) {
-                jsonCategoryChilds2(request, response);
+                jsonFolderChilds2(request, response);
             }
 
-            /*
-            if (type.equalsIgnoreCase("removeselected")) {
-                removeSelected(request, response);
-            }
-
-            if (type.equalsIgnoreCase("deleteselected")) {
-                deleteSelected(request, response);
-            } */
             if (type.equalsIgnoreCase("insertselected")) {
                 insertSelected(request, response);
             }
@@ -168,7 +160,7 @@ public class FolderRestApi extends RestBaseServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html");
 
-        System.out.println("doPost: categoryRestApi");
+        System.out.println("doPost: folderRestApi");
 
         if (request.getParameterNames().hasMoreElements()) {
             String jsonString = request.getParameterNames().nextElement();
@@ -195,11 +187,11 @@ public class FolderRestApi extends RestBaseServlet {
     }
 
     /**
-     * Daten (Einstellungen/Settings) der Kategorie/des Ordners per Json raus scheiben
+     * Daten (Einstellungen/Settings) des Ordners per Json raus scheiben
      * @param request
      * @param response
      */
-    private void jsonCategoryProperties(HttpServletRequest request, HttpServletResponse response, boolean editmode) throws IOException {
+    private void jsonFolderProperties(HttpServletRequest request, HttpServletResponse response, boolean editmode) throws IOException {
 
         int folderId = getUriSectionInt(4, request);
 
@@ -321,12 +313,12 @@ public class FolderRestApi extends RestBaseServlet {
     private void setFolderImage(HttpServletRequest request, HttpServletResponse response) {
 
         System.out.println("set Folder BasicMediaObject");
-        List<MediaObject> list = MediaObjectService.getSelectedImageList(request.getSession());
-        int categoryId = getUriSectionInt(4, request);
+        List<MediaObject> list = MediaObjectService.getSelectedMediaObjectList(request.getSession());
+        int folderId = getUriSectionInt(4, request);
 
         FolderService folderService = new FolderService();
         try {
-            Folder c = folderService.getFolderById(categoryId);
+            Folder c = folderService.getFolderById(folderId);
             if (list.size()>0) {
                 MediaObject mo = list.get(0);
                 c.setPrimaryIvid(mo.getIvid());
@@ -347,13 +339,13 @@ public class FolderRestApi extends RestBaseServlet {
 
         if (user.getRole()>=User.ROLE_EDITOR) {
 
-            List<MediaObject> selectedList = MediaObjectService.getSelectedImageList(request.getSession());
+            List<MediaObject> selectedList = MediaObjectService.getSelectedMediaObjectList(request.getSession());
 
-            int categoryId = getUriSectionInt(4, request);
+            int folderId = getUriSectionInt(4, request);
 
             FolderService folderService = new FolderService();
             for (MediaObject mo : selectedList) {
-                folderService.deleteMediaFromFolder(categoryId,mo.getIvid());
+                folderService.deleteMediaFromFolder(folderId,mo.getIvid());
             }
 
             MediaObjectService.deselectMedia(null, request);
@@ -373,7 +365,7 @@ public class FolderRestApi extends RestBaseServlet {
 
         if (user.getRole()>=User.ROLE_MASTEREDITOR) {
 
-            List<MediaObject> selectedList = MediaObjectService.getSelectedImageList(request.getSession());
+            List<MediaObject> selectedList = MediaObjectService.getSelectedMediaObjectList(request.getSession());
 
             MediaService imageService = new MediaService();
             try {
@@ -396,17 +388,17 @@ public class FolderRestApi extends RestBaseServlet {
     private void insertSelected(HttpServletRequest request, HttpServletResponse response) {
 
 
-        List<MediaObject> selectedList = MediaObjectService.getSelectedImageList(request.getSession());
+        List<MediaObject> selectedList = MediaObjectService.getSelectedMediaObjectList(request.getSession());
 
-        int categoryId = getUriSectionInt(4, request);
+        int folderId = getUriSectionInt(4, request);
 
-        System.out.println("insert:"+categoryId);
+        System.out.println("insert:"+folderId);
 
         FolderService folderService = new FolderService();
         for (MediaObject mo : selectedList) {
             try {
                 System.out.println("insert media:"+mo.getIvid());
-                folderService.addMediaToFolder(categoryId, mo.getIvid());
+                folderService.addMediaToFolder(folderId, mo.getIvid());
             } catch (DublicateEntry dublicateEntry) {
                 dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
@@ -415,13 +407,13 @@ public class FolderRestApi extends RestBaseServlet {
         MediaObjectService.deselectMedia(null, request);
     }
 
-    private void jsonCategoryChilds(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void jsonFolderChilds(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        AclFolderService categoryService = new AclFolderService(request);
+        AclFolderService folderService = new AclFolderService(request);
         LngResolver lngResolver = new LngResolver();
-        categoryService.setUsedLanguage(lngResolver.resolveLng(request));
+        folderService.setUsedLanguage(lngResolver.resolveLng(request));
 
-        int categoryId = getUriSectionInt(4, request);
+        int folderId = getUriSectionInt(4, request);
         User user = WebHelper.getUser(request);
 
         boolean showCustomFolderIcons = false;
@@ -430,44 +422,25 @@ public class FolderRestApi extends RestBaseServlet {
         }
 
         try {
-        List folderList = null;
-        //if (user.getUserId()==-1) { //Gast - Public
-            //if (application.getAttribute("publicCategoryListTime"+node)==null) {
-            //    folderList = categoryService.getFolderSubTree(categoryId,0);
-            //    application.setAttribute("publicCategoryList"+node, folderList);
-            //    application.setAttribute("publicCategoryListTime"+node, System.currentTimeMillis());
-                // System.out.println("jsonCategory.jsp: fill cache"+node);
-            //} else {
-                //System.out.println("jsonCategory.jsp: using cache "+node);
-            //    folderList = (List)application.getAttribute("publicCategoryList"+node);
-            //    long lastUpdate = (Long)application.getAttribute("publicCategoryListTime"+node);
-            //    if (System.currentTimeMillis()-lastUpdate > 10000) { //Millisekunden zum cachen
-            //        application.removeAttribute("publicCategoryListTime"+node);
-            //    }
-            //}
-        //} else {
-            folderList = categoryService.getFolderSubTree(categoryId,0);
-            //folderList = folderList.subList(0,5);
+            List folderList = null;
+            folderList = folderService.getFolderSubTree(folderId,0);
             Iterator folders = folderList.iterator();
 
             PrintWriter out = response.getWriter();
-            //out.println("{\"records\": [");
             out.println("[");
 
             while (folders.hasNext()) {
 
-                boolean checkedValue = false;
                 Folder folder = (Folder)folders.next();
-                String categoryTitle = folder.getTitle();
+                String folderTitle = folder.getTitle();
 
                 out.println("  {");
                 out.println("    \"id\":\""+ folder.getFolderId()+"\",");
                 out.println("    \"name\":\""+StringEscapeUtils.escapeJson(folder.getName())+"\",");
-                out.println("    \"title\":\""+StringEscapeUtils.escapeJson(categoryTitle)+"\",");
+                out.println("    \"title\":\""+StringEscapeUtils.escapeJson(folderTitle)+"\",");
                 out.println("    \"pivid\":\""+ folder.getPrimaryIvid()+"\",");
                 out.println("    \"parent\":\""+ folder.getParent()+"\",");
-                //out.println("    \"items\":[{\"folder\":\"a\", \"id\":\"1\", \"info\":\"nix\"}],");
-                out.println("    \"text\":\""+StringEscapeUtils.escapeJson(categoryTitle)+"\"");
+                out.println("    \"text\":\""+StringEscapeUtils.escapeJson(folderTitle)+"\"");
 
                 /*
             id: '2',
@@ -489,7 +462,7 @@ public class FolderRestApi extends RestBaseServlet {
 
         //}
         } catch (ObjectNotFoundException e) {
-            response.sendError(400, "Folder id "+categoryId+" not found");
+            response.sendError(400, "Folder id "+folderId+" not found");
         } catch (IOServiceException e) {
             response.sendError(500, "IOServiceException: "+e.getMessage());
         }
@@ -501,13 +474,13 @@ public class FolderRestApi extends RestBaseServlet {
      * @param response
      * @throws IOException
      */
-    private void jsonCategoryChilds2(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void jsonFolderChilds2(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        AclFolderService categoryService = new AclFolderService(request);
+        AclFolderService folderService = new AclFolderService(request);
         LngResolver lngResolver = new LngResolver();
-        categoryService.setUsedLanguage(lngResolver.resolveLng(request));
+        folderService.setUsedLanguage(lngResolver.resolveLng(request));
 
-        int categoryId = getUriSectionInt(4, request);
+        int folderId = getUriSectionInt(4, request);
         User user = WebHelper.getUser(request);
 
         boolean showCustomFolderIcons = false;
@@ -516,41 +489,23 @@ public class FolderRestApi extends RestBaseServlet {
         }
 
         try {
-        List folderList = null;
-        //if (user.getUserId()==-1) { //Gast - Public
-            //if (application.getAttribute("publicCategoryListTime"+node)==null) {
-                //folderList = categoryService.getFolderSubTree(categoryId,0);
-            //    application.setAttribute("publicCategoryList"+node, folderList);
-            //    application.setAttribute("publicCategoryListTime"+node, System.currentTimeMillis());
-                // System.out.println("jsonCategory.jsp: fill cache"+node);
-            //} else {
-                //System.out.println("jsonCategory.jsp: using cache "+node);
-            //    folderList = (List)application.getAttribute("publicCategoryList"+node);
-            //    long lastUpdate = (Long)application.getAttribute("publicCategoryListTime"+node);
-            //    if (System.currentTimeMillis()-lastUpdate > 10000) { //Millisekunden zum cachen
-            //        application.removeAttribute("publicCategoryListTime"+node);
-            //    }
-            //}
-        //} else {
-            folderList = categoryService.getFolderSubTree(categoryId,0);
-            //folderList = folderList.subList(0,5);
+            List folderList = null;
+            folderList = folderService.getFolderSubTree(folderId,0);
             Iterator folders = folderList.iterator();
 
             PrintWriter out = response.getWriter();
-            //out.println("{\"records\": [");
             out.println("[");
 
             while (folders.hasNext()) {
 
-                boolean checkedValue = false;
                 Folder folder = (Folder)folders.next();
-                String categoryTitle = folder.getTitle();
+                String folderTitle = folder.getTitle();
 
                 out.println("  {");
                 out.println("    \"id\":\""+ folder.getFolderId()+"\",");
-                out.println("    \"title\":\""+StringEscapeUtils.escapeJson(categoryTitle)+"\",");
+                out.println("    \"title\":\""+StringEscapeUtils.escapeJson(folderTitle)+"\",");
 
-                List folderList2 = categoryService.getFolderSubTree(folder.getFolderId(),0);
+                List folderList2 = folderService.getFolderSubTree(folder.getFolderId(),0);
                 StringBuffer sb = new StringBuffer();
 
                 Iterator folders2 = folderList2.iterator();
@@ -566,7 +521,7 @@ public class FolderRestApi extends RestBaseServlet {
 
 
                 out.println("    \"items\":["+sb.toString()+"],");
-                out.println("    \"text\":\""+StringEscapeUtils.escapeJson(categoryTitle)+"\"");
+                out.println("    \"text\":\""+StringEscapeUtils.escapeJson(folderTitle)+"\"");
 
 
                 if (folders.hasNext()) {
@@ -580,13 +535,13 @@ public class FolderRestApi extends RestBaseServlet {
 
         //}
         } catch (ObjectNotFoundException e) {
-            response.sendError(400, "Folder id "+categoryId+" not found");
+            response.sendError(400, "Folder id "+folderId+" not found");
         } catch (IOServiceException e) {
             response.sendError(500, "IOServiceException: "+e.getMessage());
         }
     }
 
-    private void jsonCategoryMedialist(HttpServletRequest request, HttpServletResponse response) {
+    private void jsonFolderMedialist(HttpServletRequest request, HttpServletResponse response) {
 
         LngResolver lngResolver = new LngResolver();
         MediaService mediaService = new MediaService();
@@ -600,14 +555,14 @@ public class FolderRestApi extends RestBaseServlet {
             if (request.getParameter("sortBy")!=null) { loaderClass.setSortBy(Integer.parseInt(request.getParameter("sortBy"))); }
             if (request.getParameter("orderBy")!=null) { loaderClass.setOrderBy(Integer.parseInt(request.getParameter("orderBy"))); }
         } catch (NumberFormatException e) {
-            System.out.println("NumberFormatException bei sortBy oder orderBy Parameter in jsonCategoryMedialist");
+            System.out.println("NumberFormatException bei sortBy oder orderBy Parameter in jsonFolderMedialist");
             e.printStackTrace();
         }
         List<MediaObjectMultiLang> mediaList = mediaService.getFolderMediaObjects(loaderClass);
 
         /** Ordner-Liste für den Thumbnail-View **/
-        AclFolderService categoryService = new AclFolderService(request);
-        categoryService.setUsedLanguage(lngResolver.resolveLng(request));
+        AclFolderService folderService = new AclFolderService(request);
+        folderService.setUsedLanguage(lngResolver.resolveLng(request));
 
         try {
             PrintWriter out = response.getWriter();
@@ -678,8 +633,7 @@ public class FolderRestApi extends RestBaseServlet {
 
                 out.println("  \"downloadlink\" : \"download?download=ivid&ivid="+mo.getIvid()+"\",");
 
-                //Daten f�r Sitzung (Ausgew�hlt)
-//                out.println(true ? "" : "");
+                //Daten für Sitzung (Ausgewählt)
                 out.println("  \"fav\" : "+ (inFav ? "true" : "false") +"," );
                 out.println("  \"cart\" : "+ (inCart ? "true" : "false") +"," );
                 out.println("  \"selected\" : "+ (MediaObjectService.isSelected(mo, request) ? "true" : "false") );

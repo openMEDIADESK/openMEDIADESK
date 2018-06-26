@@ -31,13 +31,10 @@ import java.util.List;
  */
 public class ImportFtpCommand {
 
-    public final static int AUTOIMPORT_INBOX = 1;
-    public final static int AUTOIMPORT_FOLDER = 2;
-    public final static int AUTOIMPORT_CATEGORY = 3;
     String[] importFiles = new String[0];
     boolean autoImportEnabled = false;
     int autoImportFtpCat = 0;
-    List categoryList = new LinkedList();
+    List folderList = new LinkedList();
 
     List fileList = new LinkedList();
 
@@ -65,12 +62,12 @@ public class ImportFtpCommand {
         this.autoImportEnabled = autoImportEnabled;
     }
 
-    public List getCategoryList() {
-        return categoryList;
+    public List getFolderList() {
+        return folderList;
     }
 
-    public void setFolderList(List categoryList) {
-        this.categoryList = categoryList;
+    public void setFolderList(List folderList) {
+        this.folderList = folderList;
     }
 
     public int getAutoImportFtpCat() {

@@ -222,36 +222,36 @@ public class UserService implements IServiceClass {
         this.save(user);
     }
 
-    public void createHomeCategory(User user) throws IOServiceException {
+    public void createHomeFolder(User user) throws IOServiceException {
 
         if (user.getHomeCategoryId()==-1) {
 
-            String homeCategoryName = user.getName()+user.getUserId();
+            String folderName = user.getName()+user.getUserId();
 
             FolderService folderService = new FolderService();
-            FolderMultiLang category = new FolderMultiLang();
-            category.setParent(Config.homeFolderId);
-            category.setName(homeCategoryName);
-            category.setTitle(user.getName());
-            category.setTitleLng1(user.getName());
-            category.setTitleLng2(user.getName());
-            folderService.addFolder(category);
+            FolderMultiLang folder = new FolderMultiLang();
+            folder.setParent(Config.homeFolderId);
+            folder.setName(folderName);
+            folder.setTitle(user.getName());
+            folder.setTitleLng1(user.getName());
+            folder.setTitleLng2(user.getName());
+            folderService.addFolder(folder);
 
             try {
-                category = (FolderMultiLang) folderService.getFolderByName(homeCategoryName);
-                user.setHomeCategoryId(category.getFolderId());
+                folder = (FolderMultiLang) folderService.getFolderByName(folderName);
+                user.setHomeCategoryId(folder.getFolderId());
             } catch (ObjectNotFoundException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
             }
 
-            //User-Berechtigung für die Kategorie setzen
-            // standardmässig werden beim kategorie anlegen schon die Berechtigungen vom übergordneten übernommen:
-            Acl acl = AclController.getAcl(category);
+            //User-Berechtigung für den Folder setzen
+            // standardmässig werden beim Folder anlegen schon die Berechtigungen vom übergordneten übernommen:
+            Acl acl = AclController.getAcl(folder);
             try {
                 acl.addPermission(user,new AclPermission("read"));
-                AclController.setAcl(category,acl);
+                AclController.setAcl(folder,acl);
             } catch (PermissionAlreadyExistException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
             }
 
             this.save(user);

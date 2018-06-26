@@ -34,7 +34,7 @@ public class FolderSelection {
     private String type = "";
     private int id = 0;
 
-    private List<SelectableFolder> categoryList = new LinkedList<SelectableFolder>();
+    private List<SelectableFolder> folderList = new LinkedList<SelectableFolder>();
 
     public String getType() {
         return type;
@@ -52,11 +52,11 @@ public class FolderSelection {
         this.id = id;
     }
 
-    public List<SelectableFolder> getCategoryList() {
-        return categoryList;
+    public List<SelectableFolder> getFolderList() {
+        return folderList;
     }
 
-    public void setCategoryList(List<SelectableFolder> categoryList) {
-        this.categoryList = categoryList;
+    public void setFolderList(List<SelectableFolder> folderList) {
+        this.folderList = folderList;
     }
 }

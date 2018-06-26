@@ -221,41 +221,41 @@ public class CronService {
     static void deleteOldPins() {
 
         //alte PINS löschen
-        MediaService imageService = new MediaService();
+        MediaService mediaService = new MediaService();
         PinService pinService = new PinService();
         FolderService folderService = new FolderService();
-        Iterator pinPics = pinService.getPinpicList().iterator();
-        while (pinPics.hasNext()) {
-            Pin pin = (Pin)pinPics.next();
+        Iterator pins = pinService.getPinList().iterator();
+        while (pins.hasNext()) {
+            Pin pin = (Pin)pins.next();
             System.out.println("Checking for Pin Auto-Delete for: "+pin.getPin());
             if (pin.isAutoDelete()) {
                 //System.out.println("+ AutoDelete is enabled");
                 if (pin.getUsed()>=pin.getMaxUse() || (pin.getEndDate().before(new Date()))) {
                     //Bilder des Pins laden:
-                    Iterator images = pinService.getPinpicImages(pin.getPinId()).iterator();
-                    while (images.hasNext()) {
-                        MediaObject imageVersion = (MediaObject)images.next();
-                        List categoryList = folderService.getFolderListFromImageVersion(imageVersion.getIvid());
-                                //todo: auch prüfen ob das bild in einem anderen pinpic vorkommt
-                        if (categoryList.size()==0) {
-                            //System.out.println("Bild ist in keiner Kategorie und keinem Folder, löschen:");
-                            //kommt in keiner Kategorie und keinem Folder vor, kann gelöscht werden
-                            pinService.deleteImageFromPinpic(imageVersion.getIvid(),pin.getPinId());
+                    Iterator mos = pinService.getPinpicImages(pin.getPinId()).iterator();
+                    while (mos.hasNext()) {
+                        MediaObject mo = (MediaObject)mos.next();
+                        List folderList = folderService.getFolderListFromMediaObject(mo.getIvid());
+                                //todo: auch prüfen ob das medienobject in einem anderen pin vorkommt
+                        if (folderList.size()==0) {
+
+                            //kommt in keinem Folder vor, kann gelöscht werden
+                            pinService.deleteMediaFromPin(mo.getIvid(),pin.getPinId());
                             try {
-                                imageService.deleteMediaObject(imageVersion);
+                                mediaService.deleteMediaObject(mo);
                             } catch (IOServiceException e) {
-                                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                                e.printStackTrace();
                             }
                         } else {
-                            //System.out.println("Bild kommt in einer Kategorie oder Folder vor");
+                            //Medienobject kommt in einem Folder vor");
                         }
                     }
 
-                    //Pin löschen (immer löschen, in kategorie od. ordner verwendete bilder verbeleiben in der db, aber pin wird gelöscht
+                    //Pin löschen (immer löschen, in ordner verwendete medienobjekte verbeleiben in der db, aber pin wird gelöscht
                     try {
                         pinService.deleteById(pin.getPinId());
                     } catch (IOServiceException e) {
-                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        e.printStackTrace();
                     }
 
                 }

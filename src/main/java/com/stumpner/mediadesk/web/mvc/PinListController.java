@@ -72,10 +72,10 @@ public class PinListController extends AbstractPageController {
             User loggedInUser = getUser(httpServletRequest);
             if (loggedInUser.getRole()==User.ROLE_ADMIN) {
                 //Admin sieht alle
-                pinList = pinService.getPinpicList();
+                pinList = pinService.getPinList();
             } else {
                 //Andere User sehen nur die eigenen Pins
-                pinList = pinService.getPinpicList(loggedInUser);
+                pinList = pinService.getPinList(loggedInUser);
             }
 
             httpServletRequest.setAttribute("pinList", pinList);

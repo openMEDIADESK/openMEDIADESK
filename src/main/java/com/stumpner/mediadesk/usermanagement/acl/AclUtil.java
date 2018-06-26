@@ -53,42 +53,42 @@ public class AclUtil {
      * @param downloadList
      * @return
      */
-    public static List getPermittedImages(AclControllerContext aclContext,List downloadList) {
-        return getPermittedImages(aclContext, downloadList, AclPermission.READ);
+    public static List getPermittedMediaObjects(AclControllerContext aclContext, List downloadList) {
+        return getPermittedMediaObjects(aclContext, downloadList, AclPermission.READ);
     }
 
-    public static List getPermittedImages(AclControllerContext aclContext,List downloadList, String permission) {
+    public static List getPermittedMediaObjects(AclControllerContext aclContext, List downloadList, String permission) {
 
         if (AclController.isEnabled()) {
-            List permittedImages = new LinkedList();
+            List permittedMediaObjects = new LinkedList();
             FolderService folderService = new FolderService();
-            Iterator downloadListImages = downloadList.iterator();
-            while (downloadListImages.hasNext()) {
+            Iterator downloadMediaObjects = downloadList.iterator();
+            while (downloadMediaObjects.hasNext()) {
                 boolean permitted = false;
-                MediaObjectMultiLang imageVersion = (MediaObjectMultiLang)downloadListImages.next();
+                MediaObjectMultiLang mediaObject = (MediaObjectMultiLang)downloadMediaObjects.next();
 
                 //Ordner prüfen
-                List categoryList = folderService.getFolderListFromImageVersion(imageVersion.getIvid());
-                Iterator categories = categoryList.iterator();
+                List folderList = folderService.getFolderListFromMediaObject(mediaObject.getIvid());
+                Iterator folders = folderList.iterator();
                 //todo: Zugriffverhalten wenn in keinem Ordner!? (z.b. neueste Bilder)
-                while (categories.hasNext()) {
-                    Folder folder = (Folder)categories.next();
+                while (folders.hasNext()) {
+                    Folder folder = (Folder)folders.next();
                     try {
                         if (aclContext.checkPermission(new AclPermission(permission), folder)) {
                             permitted = true;
                         }
                     } catch (AclNotFoundException e) {
-                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        e.printStackTrace();
                     }
                 }
 
                 if (permitted) {
-                    //Zugriff auf dieses Bild durch eine Kategorie oder Folder gegeben
-                    permittedImages.add(imageVersion);
+                    //Zugriff auf dieses Medienobject durch Folder gegeben
+                    permittedMediaObjects.add(mediaObject);
                 }
             }
 
-            return permittedImages;
+            return permittedMediaObjects;
         } else {
             return downloadList;
         }

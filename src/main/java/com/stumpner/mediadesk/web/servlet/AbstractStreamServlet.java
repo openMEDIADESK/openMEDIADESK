@@ -192,7 +192,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
                             }
                         } else {
                             //keine Berechtigung
-                            httpServletResponse.sendError(403,"No Visitor Access (ACL) for CategoryId="+id);
+                            httpServletResponse.sendError(403,"No Visitor Access (ACL) for FolderId="+id);
                             return null;
                         }
                     } else if (type.equalsIgnoreCase("object")) {
@@ -205,7 +205,7 @@ public abstract class AbstractStreamServlet extends HttpServlet {
                             //check Permission
                             List downloadImages = new LinkedList();
                             downloadImages.add(imageVersion);
-                            List permittedImages = AclUtil.getPermittedImages(aclContext, downloadImages, "view");
+                            List permittedImages = AclUtil.getPermittedMediaObjects(aclContext, downloadImages, "view");
                             if (permittedImages.size()>0) {
                                 //download(imageVersion,httpServletRequest,httpServletResponse);
                                 return imageVersion;

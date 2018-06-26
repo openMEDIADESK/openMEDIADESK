@@ -71,7 +71,7 @@ public class MaintenanceSettingsController extends SimpleFormControllerMd {
         }
 
         if (!set.getCatviewauto().equalsIgnoreCase("")) {
-            setCategoryViewToAuto();
+            setFolderViewToAuto();
         }
 
         //Für Message OK
@@ -89,18 +89,18 @@ public class MaintenanceSettingsController extends SimpleFormControllerMd {
         return super.onSubmit(request, httpServletResponse, o, e);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    private void setCategoryViewToAuto() throws IOServiceException {
+    private void setFolderViewToAuto() throws IOServiceException {
         FolderService folderService = new FolderService();
-        //Rekursiv alle Kategorien durchgehen:
-        setCategoryViewToAuto(0, folderService);
+        //Rekursiv alle Ordner durchgehen:
+        setFolderViewToAuto(0, folderService);
     }
 
-    private void setCategoryViewToAuto(int categoryId, FolderService cs) throws IOServiceException {
-        List<FolderMultiLang> categoryList = cs.getFolderList(categoryId);
-        for (FolderMultiLang cat : categoryList) {
-            cat.setDefaultview(Folder.VIEW_UNDEFINED);
-            cs.save(cat);
-            setCategoryViewToAuto(cat.getFolderId(),cs);
+    private void setFolderViewToAuto(int folderId, FolderService cs) throws IOServiceException {
+        List<FolderMultiLang> folderList = cs.getFolderList(folderId);
+        for (FolderMultiLang f : folderList) {
+            f.setDefaultview(Folder.VIEW_UNDEFINED);
+            cs.save(f);
+            setFolderViewToAuto(f.getFolderId(),cs);
         }
     }
 

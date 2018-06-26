@@ -57,9 +57,8 @@ public class ImportSettings {
     String emailImportLastError = "";
 
     List folderList = new LinkedList();
-    List categoryList = new LinkedList();
 
-    int autoImportEmailCat = 0;
+    int autoImportEmailFolder = 0;
 
     boolean autoImportFtp = false;
     String ftpHost = "";
@@ -71,19 +70,6 @@ public class ImportSettings {
     public int imagesizePreview = 590;
 
     public ImportSettings() {
-
-        /*
-                    <option value="Job Name"<c:if test="${status.value=='Job Name'}"> selected</c:if>><spring:message code="set.import.headers.jobname"/></option>
-                    <option value="Object Name"<c:if test="${status.value=='Object Name'}"> selected</c:if>><spring:message code="set.import.headers.objectname"/></option>
-                    <option value="Copyright Notice"<c:if test="${status.value=='Copyright Notice'}"> selected</c:if>><spring:message code="set.import.headers.copyrightnotice"/></option>
-                    <option value="By-line"<c:if test="${status.value=='By-line'}"> selected</c:if>><spring:message code="set.import.headers.byline"/></option>
-                    <option value="By-line Title"<c:if test="${status.value=='By-line Title'}"> selected</c:if>><spring:message code="set.import.headers.bylinetitle"/></option>
-                    <option value="Writer/Editor"<c:if test="${status.value=='Writer/Editor'}"> selected</c:if>><spring:message code="set.import.headers.writer"/></option>
-                    <option value="Caption/Abstract"<c:if test="${status.value=='Caption/Abstract'}"> selected</c:if>><spring:message code="set.import.headers.caption"/></option>
-
-        */
-
-
     }
 
     public String getImportName() {
@@ -246,10 +232,6 @@ public class ImportSettings {
         this.emailImportPasswordAgain = emailImportPasswordAgain;
     }
 
-    public String getEmailImportLastError() {
-        return emailImportLastError;
-    }
-
     public void setEmailImportLastError(String emailImportLastError) {
         this.emailImportLastError = emailImportLastError;
     }
@@ -260,14 +242,6 @@ public class ImportSettings {
 
     public void setFolderList(List folderList) {
         this.folderList = folderList;
-    }
-
-    public List getCategoryList() {
-        return categoryList;
-    }
-
-    public void setCategoryList(List categoryList) {
-        this.categoryList = categoryList;
     }
 
     public String getFtpHost() {
@@ -294,12 +268,12 @@ public class ImportSettings {
         this.ftpPassword = ftpPassword;
     }
 
-    public int getAutoImportEmailCat() {
-        return autoImportEmailCat;
+    public int getAutoImportEmailFolder() {
+        return autoImportEmailFolder;
     }
 
-    public void setAutoImportEmailCat(int autoImportEmailCat) {
-        this.autoImportEmailCat = autoImportEmailCat;
+    public void setAutoImportEmailFolder(int autoImportEmailFolder) {
+        this.autoImportEmailFolder = autoImportEmailFolder;
     }
 
     public int getAutoImportFtpCat() {

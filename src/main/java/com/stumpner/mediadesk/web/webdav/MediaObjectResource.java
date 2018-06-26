@@ -178,10 +178,10 @@ public class MediaObjectResource implements FileResource {
 
         if (user.getRole()>=User.ROLE_EDITOR) { //Erst ab Rolle Editor darf jemand Objekte umbenennen/verschieben
 
-            int moveToCategoryId = Integer.parseInt(collectionResource.getUniqueId());
+            int moveToFolderId = Integer.parseInt(collectionResource.getUniqueId());
             MediaService mediaService = new MediaService();
             FolderService folderService = new FolderService();
-            if (linkedFolder.getFolderId()==moveToCategoryId) {
+            if (linkedFolder.getFolderId()==moveToFolderId) {
                 //Umbenennen
                 if (media.getVersionTitle().equalsIgnoreCase(media.getVersionName())) {
                     media.setVersionTitle(s);
@@ -202,7 +202,7 @@ public class MediaObjectResource implements FileResource {
             } else {
                 //Verschieben
                 try {
-                    folderService.addMediaToFolder(moveToCategoryId,media.getIvid());
+                    folderService.addMediaToFolder(moveToFolderId,media.getIvid());
                     folderService.deleteMediaFromFolder(linkedFolder,media);
                 } catch (DublicateEntry dublicateEntry) {
                     dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

@@ -67,10 +67,10 @@ public class PinWizardController extends SimpleFormControllerMd {
 
         if (loggedInUser.getRole()==User.ROLE_ADMIN) {
             //Admin sieht alle
-            pinWizard.setPinList( pinService.getPinpicList() );
+            pinWizard.setPinList( pinService.getPinList() );
         } else {
             //Andere User sehen nur die eigenen Pins
-            pinWizard.setPinList( pinService.getPinpicList(loggedInUser) );
+            pinWizard.setPinList( pinService.getPinList(loggedInUser) );
         }
         pinWizard.setImageList(((List)httpServletRequest.getSession().getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES)));
         return pinWizard;
@@ -130,7 +130,7 @@ public class PinWizardController extends SimpleFormControllerMd {
             Iterator selectedImages = selectedImageList.iterator();
             while (selectedImages.hasNext()) {
                 MediaObject imageVersion = (MediaObject)selectedImages.next();
-                pinService.addImageToPinpic(imageVersion.getIvid(),pinId);
+                pinService.addMediaToPin(imageVersion.getIvid(),pinId);
             }
 
     }

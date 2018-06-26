@@ -52,17 +52,17 @@ public class UploadSelectorController extends AbstractPageController {
 
         FolderService folderService = new FolderService();
         List<FolderMultiLang> allowedFolderList = new LinkedList<FolderMultiLang>();
-        List<FolderMultiLang> allCategoryList = folderService.getAllFolderList();
-        for (FolderMultiLang c : allCategoryList) {
-            if (isUserPermittetForCategory(c, request)) {
-                allowedFolderList.add(c);
+        List<FolderMultiLang> allFolderList = folderService.getAllFolderList();
+        for (FolderMultiLang f : allFolderList) {
+            if (isUserPermittetForFolder(f, request)) {
+                allowedFolderList.add(f);
             }
         }
         request.setAttribute("allowedFolderList",allowedFolderList);
         return super.handleRequestInternal(request, response);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
-    private boolean isUserPermittetForCategory(FolderMultiLang c, HttpServletRequest request) {
+    private boolean isUserPermittetForFolder(FolderMultiLang c, HttpServletRequest request) {
 
         try {
             AclControllerContext aclCtx = AclContextFactory.getAclContext(request);

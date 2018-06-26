@@ -134,11 +134,7 @@ public class StatusServlet extends HttpServlet {
 
         }
 
-        /*
-        if (request.getParameter("renewpublicprotectedstatus")!=null) {
-            WebContextListener.renewCategoryPublicProtectedStatusRekursiv(0);
-            w.write("Public Protected Status renewed for all folders\n");
-        } */
+
 
         List userList = new ArrayList();
         DownloadLoggerService dlls = new DownloadLoggerService();

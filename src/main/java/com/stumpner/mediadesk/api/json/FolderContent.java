@@ -42,9 +42,9 @@ import net.stumpner.security.acl.AclPermission;
  *********************************************************/
 /**
  * Abgreifen der Files in einem Ordner via JSON:
- * http://localhost:8080/api/json/categorycontent/<categoryId>
+ * http://localhost:8080/api/json/categorycontent/<folderId>
  * oder mit jsessionid
- * http://localhost:8080/api/json/categorycontent/<categoryId>;jsessionid=<sessionid>
+ * http://localhost:8080/api/json/categorycontent/<folderId>;jsessionid=<sessionid>
  * Berücksichtigt wird, ob der eingeloggte Benutzer auch Zugriff auf diese Files hat.
  * Mit dem Paramter ?callback=function wird das JSON-Array mit einer Callback-Funktion aufgerufen
  *   callbackFunction(...json...)

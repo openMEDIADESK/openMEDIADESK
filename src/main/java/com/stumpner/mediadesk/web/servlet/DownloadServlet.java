@@ -950,7 +950,7 @@ public class DownloadServlet extends HttpServlet {
 
     public static List getPermittedImages(HttpServletRequest request, AclControllerContext aclContext, List selectedToDownloadList) {
 
-        List permittedImages = AclUtil.getPermittedImages(aclContext, selectedToDownloadList);
+        List permittedImages = AclUtil.getPermittedMediaObjects(aclContext, selectedToDownloadList);
         //PrÃ¼fen ob PIN
         if (request.getSession().getAttribute("pinid")!=null) {
             int pinId = ((Integer)request.getSession().getAttribute("pinid"));

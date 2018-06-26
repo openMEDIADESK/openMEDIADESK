@@ -34,19 +34,19 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 
 /**
  * Created by IntelliJ IDEA.
- * SelectMedia-Servlet um ein medienobjekt auszuw�hlen
- * /api/rest/selectMedia/{true|false}/{mediaId}/{categoryId}
+ * SelectMedia-Servlet um ein medienobjekt auszuwählen
+ * /api/rest/selectMedia/{true|false}/{mediaId}/{folderId}
  * /api/rest/selectMedia/true/5523/7
  *
  *   1   2    3            4   5   6
  *
  * Beispiel:
- * /api/rest/selectMedia/false/ l�scht bzw. leert die ausgew�hlten Medienobjekte
+ * /api/rest/selectMedia/false/ löscht bzw. leert die ausgewählten Medienobjekte
  *
  * Parameter:
- * 1 = true|false ob aus oder abgew�hlt wird,
- * 2 = ID des Medienobjekts das ab/angew�hlt wird
- * 3 = (Optional) Kategorie-ID von der aus ausgew�hlt wird (wichtig f�r verschieben)
+ * 1 = true|false ob aus oder abgewählt wird,
+ * 2 = ID des Medienobjekts das ab/angewählt wird
+ * 3 = (Optional) Kategorie-ID von der aus ausgewählt wird (wichtig für verschieben)
  */
 public class SelectMedia extends RestBaseServlet {
 
@@ -72,7 +72,7 @@ public class SelectMedia extends RestBaseServlet {
                 Integer folderId = getUriSectionInt(6, request);
                 if (mediaId==null) {
                     //Kein medienobjekt angegeben - dann alle abw�hlen
-                    List<MediaObject> selectedMediaList = MediaObjectService.getSelectedImageList(request.getSession());
+                    List<MediaObject> selectedMediaList = MediaObjectService.getSelectedMediaObjectList(request.getSession());
 
                     MediaObjectService.deselectMedia(null, request);
 
@@ -94,18 +94,18 @@ public class SelectMedia extends RestBaseServlet {
             }
         } else {
             try {
-                response.sendError(404, "Syntax Error in API-Call: /api/rest/selectMedia/{true|false}/{mediaId}/{categoryId}");
+                response.sendError(404, "Syntax Error in API-Call: /api/rest/selectMedia/{true|false}/{mediaId}/{folderId}");
             } catch (IOException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
             }
-            //throw new ServletException("Fehler bei selectMedia");
+
         }
 
     }
 
     private void jsonSelectedMediaList(HttpServletRequest request, HttpServletResponse response) {
 
-        List<MediaObject> selectedMediaList = MediaObjectService.getSelectedImageList(request.getSession());
+        List<MediaObject> selectedMediaList = MediaObjectService.getSelectedMediaObjectList(request.getSession());
         try {
             PrintWriter out = response.getWriter();
             out.print("[");

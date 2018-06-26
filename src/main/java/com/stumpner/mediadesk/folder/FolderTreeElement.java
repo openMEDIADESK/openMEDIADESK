@@ -30,7 +30,7 @@ import java.util.ArrayList;
  */
 public class FolderTreeElement extends Folder {
 
-    List subCategoryList = new ArrayList();
+    List subFolderList = new ArrayList();
 
     public FolderTreeElement(Folder folder) {
         this.setFolderId(folder.getFolderId());
@@ -49,11 +49,11 @@ public class FolderTreeElement extends Folder {
     }
 
     public List getSubFolderList() {
-        return subCategoryList;
+        return subFolderList;
     }
 
-    public void setSubCategoryList(List subCategoryList) {
-        this.subCategoryList = subCategoryList;
+    public void setSubFolderList(List subFolderList) {
+        this.subFolderList = subFolderList;
     }
 
 }

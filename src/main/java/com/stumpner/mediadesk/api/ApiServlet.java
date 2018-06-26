@@ -47,7 +47,7 @@ public class ApiServlet extends HttpServlet {
     public ApiServlet() {
 
         registerApiClass(new ApiTest());
-        registerApiClass(new CategoryApi());
+        registerApiClass(new FolderApi());
         registerApiClass(new MediaObjectApi());
 
     }

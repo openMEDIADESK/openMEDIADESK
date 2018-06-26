@@ -84,12 +84,8 @@ public class SearchresultRestApi extends RestBaseServlet {
 
             if (type.equalsIgnoreCase("medialist")) {
                 //Liste der Medienobjekte
-                jsonCategoryMedialist(request, response);
+                jsonFolderMedialist(request, response);
             }
-            /*
-            if (type.equalsIgnoreCase("deleteselected")) {
-                deleteSelected(request, response);
-            } */
         }
 
     }
@@ -100,13 +96,13 @@ public class SearchresultRestApi extends RestBaseServlet {
 
         if (user.getRole()>=User.ROLE_MASTEREDITOR) {
 
-            List<MediaObject> selectedList = MediaObjectService.getSelectedImageList(request.getSession());
+            List<MediaObject> selectedList = MediaObjectService.getSelectedMediaObjectList(request.getSession());
 
             MediaService imageService = new MediaService();
             try {
                 imageService.deleteMediaObjects(selectedList);
             } catch (IOServiceException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
             }
 
             MediaObjectService.deselectMedia(null, request);
@@ -115,12 +111,12 @@ public class SearchresultRestApi extends RestBaseServlet {
             try {
                 response.sendError(403, "Keine Berechtigung");
             } catch (IOException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
             }
         }
     }
 
-    private void jsonCategoryMedialist(HttpServletRequest request, HttpServletResponse response) {
+    private void jsonFolderMedialist(HttpServletRequest request, HttpServletResponse response) {
 
         try {
             SearchResult searchResult = getSearchResultFromSession(0,Integer.MAX_VALUE, request);

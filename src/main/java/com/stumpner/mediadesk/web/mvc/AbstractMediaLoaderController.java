@@ -4,10 +4,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
-
-import com.stumpner.mediadesk.web.mvc.exceptions.LoadThumbnailException;
-import com.stumpner.mediadesk.web.mvc.common.MediaMenu;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)

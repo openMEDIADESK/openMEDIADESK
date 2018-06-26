@@ -203,7 +203,7 @@ public class RegisterController extends SimpleFormControllerMd {
             userService.add(user);
             if (Config.homeFolderId !=-1) {
                 if (Config.homeFolderAutocreate) {
-                    userService.createHomeCategory(user);
+                    userService.createHomeFolder(user);
                 }
             }
         } catch (DublicateEntry exception) {

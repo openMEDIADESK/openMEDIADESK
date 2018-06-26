@@ -107,7 +107,7 @@ public class UserDeleteController extends SimpleFormControllerMd {
 
         User user = (User)o;
         if (httpServletRequest.getParameter("yes")!=null) { //Prüfen ob bei der Abfrage auf JA geklickt wurde
-            //Benutzerkategorie löschen
+            //Benutzerfolder löschen
             if (httpServletRequest.getParameter("cbx")!=null) {
                 FolderService folderService = new FolderService();
                 folderService.deleteById(user.getHomeCategoryId());
@@ -115,10 +115,8 @@ public class UserDeleteController extends SimpleFormControllerMd {
             this.deleteUser(user);
         }
 
-        this.setContentTemplateFile("/message.jsp",httpServletRequest);
         httpServletResponse.sendRedirect(httpServletResponse.encodeRedirectURL("usermanager"));
         return null;
-        //return super.onSubmit(httpServletRequest, httpServletResponse, o, e);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     private void deleteUser(User user) {

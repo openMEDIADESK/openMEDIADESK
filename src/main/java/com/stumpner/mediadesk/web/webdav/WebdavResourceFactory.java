@@ -77,20 +77,20 @@ public class WebdavResourceFactory implements ResourceFactory {
         //System.out.println("path= "+path.toString()+" pathname: "+path.getName());
         if( path.isRoot() ) {
             //Root
-            System.out.println("Webdav Resource Request: ["+path+"] = ROOT-CATEGORY");
+            System.out.println("Webdav Resource Request: ["+path+"] = ROOT-FOLDER");
             return new FolderResource(this,"");
         } else {
             // Nicht Root
             //System.out.println("path not root");
             FolderService folderService = new FolderService();
             try {
-                FolderMultiLang category = (FolderMultiLang) folderService.getFolderByPath(path.toString());
-                //Unterkategorie
-                System.out.println("Webdav Resource Request: ["+path+"] = CATEGORY,id="+category.getFolderId()+",name="+category.getName());
-                return new FolderResource(this,category);
+                FolderMultiLang folder = (FolderMultiLang) folderService.getFolderByPath(path.toString());
+                //Unterordner
+                System.out.println("Webdav Resource Request: ["+path+"] = FOLDER,id="+folder.getFolderId()+",name="+folder.getName());
+                return new FolderResource(this,folder);
             } catch (ObjectNotFoundException e) {
-                //Medienobjekt in einer Kategorie (Keine Kategorie: - pr�fung auf Medienobjekt in der Kategorie)
-                //System.out.println("   Gesucht wird wom�glich ein Medienobjekt... "+ path.getParent().toString());
+                //Medienobjekt in einem Folder (Kein Folder: - prüfung auf Medienobjekt im Folder)
+                //System.out.println("   Gesucht wird womöglich ein Medienobjekt... "+ path.getParent().toString());
                 //finden des medienobjects
                 try {
 
@@ -106,10 +106,10 @@ public class WebdavResourceFactory implements ResourceFactory {
                     MediaService imageService = new MediaService();
                     SimpleLoaderClass loader = new SimpleLoaderClass();
                     loader.setId(folder.getFolderId());
-                    List categoryMediaList = imageService.getFolderMediaObjects(loader);
+                    List folderMediaList = imageService.getFolderMediaObjects(loader);
 
-                    for (Object aCategoryMedia : categoryMediaList) {
-                        MediaObjectMultiLang media = (MediaObjectMultiLang)aCategoryMedia;
+                    for (Object aFolderMedia : folderMediaList) {
+                        MediaObjectMultiLang media = (MediaObjectMultiLang)aFolderMedia;
                         //System.out.println("    suche gerade in: "+media.getVersionName()+" -> "+path.getName());
                         if (media.getVersionName().equalsIgnoreCase(path.getName())) {
                             System.out.println("Webdav Resource Request: ["+path+"] ist MediaObjekt: "+media.getVersionName());

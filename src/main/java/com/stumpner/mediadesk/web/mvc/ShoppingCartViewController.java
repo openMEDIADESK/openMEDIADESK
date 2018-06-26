@@ -184,7 +184,7 @@ public class ShoppingCartViewController extends AbstractThumbnailAjaxController 
 
         if (httpServletRequest.getParameter("download")!=null) {
             if (httpServletRequest.getParameter("download").equalsIgnoreCase("selectedMedia")) {
-                List<MediaObject> selectedMediaList = MediaObjectService.getSelectedImageList(httpServletRequest.getSession());
+                List<MediaObject> selectedMediaList = MediaObjectService.getSelectedMediaObjectList(httpServletRequest.getSession());
                 for (MediaObject m : selectedMediaList) {
                     shoppingCartService.addImageToShoppingCart(m.getIvid(), getUser(httpServletRequest).getUserId());
                 }

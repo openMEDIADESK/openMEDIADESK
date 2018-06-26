@@ -57,7 +57,7 @@ public class RemoteLogin extends HttpServlet {
                     if (request.getParameter("autologin")!=null) {
                         if (request.getParameter("autologin").equalsIgnoreCase("true")) {
                             /**
-                             * Sessionvariable setzen, damit beim nächsten CategoryIndex-Request das Autologin-Cookie geprüft oder ggf nochmals gesetzt wird
+                             * Sessionvariable setzen, damit beim nächsten FolderIndex-Request das Autologin-Cookie geprüft oder ggf nochmals gesetzt wird
                              */
                             request.getSession().setAttribute("autologin","true");
                             request.getSession().setAttribute("username",request.getParameter("username"));

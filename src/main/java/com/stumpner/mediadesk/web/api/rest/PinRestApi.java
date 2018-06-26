@@ -113,25 +113,14 @@ public class PinRestApi extends RestBaseServlet {
     private void jsonMedialist(HttpServletRequest request, HttpServletResponse response) {
 
         LngResolver lngResolver = new LngResolver();
-        MediaService imageService = new MediaService();
-        //imageService.setUsedLanguage(lngResolver.resolveLng(request));
         PinService pinService = new PinService();
         pinService.setUsedLanguage(lngResolver.resolveLng(request));
 
 
         //Loader-Class: definieren was geladen werden soll
         int pinId = getUriSectionInt(4, request);
-        /*
-        SimpleLoaderClass loaderClass = new SimpleLoaderClass();
-        loaderClass.setId(categoryId);
-        if (request.getParameter("sortBy")!=null) { loaderClass.setSortBy(Integer.parseInt(request.getParameter("sortBy"))); }
-        if (request.getParameter("orderBy")!=null) { loaderClass.setOrderBy(Integer.parseInt(request.getParameter("orderBy"))); }
-        */
-        List<MediaObjectMultiLang> imageList = pinService.getPinpicImages(pinId);
 
-        /** Kategorie-Liste f�r den Thumbnail-View **/
-        //AclFolderService categoryService = new AclFolderService(request);
-        //categoryService.setUsedLanguage(lngResolver.resolveLng(request));
+        List<MediaObjectMultiLang> imageList = pinService.getPinpicImages(pinId);
 
         try {
             PrintWriter out = response.getWriter();
@@ -243,21 +232,16 @@ public class PinRestApi extends RestBaseServlet {
     private void insertSelected(HttpServletRequest request, HttpServletResponse response) {
 
 
-        List<MediaObject> selectedList = MediaObjectService.getSelectedImageList(request.getSession());
+        List<MediaObject> selectedList = MediaObjectService.getSelectedMediaObjectList(request.getSession());
 
-        int categoryId = getUriSectionInt(4, request);
+        int pinId = getUriSectionInt(4, request);
 
-        System.out.println("insert to pin:"+categoryId);
+        System.out.println("insert to pin:"+pinId);
 
-        PinService categoryService = new PinService();
+        PinService pinService = new PinService();
         for (MediaObject mo : selectedList) {
-            //try {
                 System.out.println("insert media:"+mo.getIvid());
-                categoryService.addImageToPinpic(mo.getIvid(), categoryId);
-                //categoryService.addMediaToFolder(categoryId, mo.getIvid());
-            //} catch (DublicateEntry dublicateEntry) {
-            //    dublicateEntry.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            //}
+                pinService.addMediaToPin(mo.getIvid(), pinId);
         }
 
         MediaObjectService.deselectMedia(null, request);
@@ -265,18 +249,17 @@ public class PinRestApi extends RestBaseServlet {
 
     private void removeSelected(HttpServletRequest request, HttpServletResponse response) {
 
-        List<MediaObject> selectedList = MediaObjectService.getSelectedImageList(request.getSession());
+        List<MediaObject> selectedList = MediaObjectService.getSelectedMediaObjectList(request.getSession());
 
         int pinId = getUriSectionInt(4, request);
 
-        PinService pinPicService = new PinService();
+        PinService pinService = new PinService();
         try {
-            Pin pin = (Pin)pinPicService.getById(pinId);
+            Pin pin = (Pin)pinService.getById(pinId);
             if (accessAllowed(pin,WebHelper.getUser(request))) {
 
                 for (MediaObject mo : selectedList) {
-                    pinPicService.deleteImageFromPinpic(mo.getIvid(), pinId);
-                    //pinPicService.deleteMediaFromFolder(pinId,mo.getIvid());
+                    pinService.deleteMediaFromPin(mo.getIvid(), pinId);
                 }
 
                 MediaObjectService.deselectMedia(null, request);
@@ -285,13 +268,13 @@ public class PinRestApi extends RestBaseServlet {
             try {
                 response.sendError(403, "Keine Berechtigung");
             } catch (IOException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
             }
         }
         } catch (ObjectNotFoundException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         } catch (IOServiceException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
     }
 

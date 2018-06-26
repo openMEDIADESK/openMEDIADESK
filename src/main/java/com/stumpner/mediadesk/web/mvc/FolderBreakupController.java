@@ -85,7 +85,7 @@ public class FolderBreakupController extends SimpleFormControllerMd {
         FolderService userService = new FolderService();
         //Prüfen ob ein Parameter übergeben wurde
         if (httpServletRequest.getParameter("id")==null) {
-            httpServletRequest.setAttribute("categoryNotExists",true);
+            httpServletRequest.setAttribute("folderNotExists",true);
             return null;
             
         } else {
@@ -97,14 +97,14 @@ public class FolderBreakupController extends SimpleFormControllerMd {
                     folder = (Folder)userService.getFolderById(userId);
                 } catch (ObjectNotFoundException e) {
                     folder = new Folder();
-                    httpServletRequest.setAttribute("categoryNotExists",true);
+                    httpServletRequest.setAttribute("folderNotExists",true);
                 }
 
                 return folder;
 
             } catch (NumberFormatException e) {
                 //Wenn keine Nummer übergeben wurde
-                httpServletRequest.setAttribute("categoryNotExists",true);
+                httpServletRequest.setAttribute("folderNotExists",true);
                 return null;
             }
         }
@@ -112,35 +112,29 @@ public class FolderBreakupController extends SimpleFormControllerMd {
 
     protected ModelAndView showForm(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, BindException e) throws Exception {
 
-        if (httpServletRequest.getAttribute("categoryNotExists")!=null) {
+        if (httpServletRequest.getAttribute("folderNotExists")!=null) {
             httpServletResponse.sendError(404);
         }
 
         Folder folder = (Folder)e.getTarget();
 
 
-        //Prüfen ob diese Kategorie eine Benutzerkategorie ist:
-        boolean isHomeCategory = false;
+        //Prüfen ob dieser Ordner ein Benutzerfolder ist:
+        boolean isHomeFolder = false;
         UserService userService = new UserService();
         List userList = userService.getUserList();
         Iterator users = userList.iterator();
         while (users.hasNext()) {
             User user = (User)users.next();
             if (user.getHomeCategoryId()== folder.getFolderId()) {
-                isHomeCategory = true;
+                isHomeFolder = true;
             }
         }
         if (Config.homeFolderId == folder.getFolderId()) {
-            isHomeCategory=true;
+            isHomeFolder=true;
         }
-        int selectedImageListSize = MediaObjectService.getSelectedImageList(httpServletRequest.getSession()).size();
-        if (isHomeCategory) {
-            /*
-            this.setContentTemplateFile("/message.jsp",httpServletRequest);
-            model.put("headline","categorybreakup.headline");
-            model.put("subheadline","categorybreakup.subheadline");
-            model.put("text","categorybreakup.homecat");
-            model.put("nextUrl","cat?id="+folder.getFolderId());*/
+        int selectedImageListSize = MediaObjectService.getSelectedMediaObjectList(httpServletRequest.getSession()).size();
+        if (isHomeFolder) {
 
             httpServletRequest.setAttribute("headline","categorybreakup.headline");
             httpServletRequest.setAttribute("subheadline","categorybreakup.subheadline");
@@ -151,11 +145,6 @@ public class FolderBreakupController extends SimpleFormControllerMd {
 
             return super.showForm(httpServletRequest,e,this.getFormView(),new HashMap());
         } else {
-            /*
-            this.setContentTemplateFile("/message_yes_no.jsp",httpServletRequest);
-            model.put("headline","categorybreakup.headline");
-            model.put("subheadline","categorybreakup.subheadline");
-            model.put("text","categorybreakup.text");*/
 
             httpServletRequest.setAttribute("headline","categorybreakup.headline");
             httpServletRequest.setAttribute("subheadline","categorybreakup.subheadline");
@@ -169,7 +158,6 @@ public class FolderBreakupController extends SimpleFormControllerMd {
             httpServletRequest.setAttribute("redirectTo","");
             return super.showForm(httpServletRequest,e,this.getFormView(),new HashMap());
         }
-        //return super.showForm(httpServletRequest, httpServletResponse, e);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     protected ModelAndView onSubmit(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, BindException e) throws Exception {
@@ -177,27 +165,12 @@ public class FolderBreakupController extends SimpleFormControllerMd {
         Folder folder = (Folder)o;
         if (httpServletRequest.getParameter("yes")!=null) {
             this.deleteFolder((Folder)o);
-            httpServletResponse.sendRedirect("cat?id="+ folder.getParent());
+            httpServletResponse.sendRedirect("c?id="+ folder.getParent());
         } else {
-            httpServletResponse.sendRedirect("cat?id="+ folder.getFolderId());
+            httpServletResponse.sendRedirect("c?id="+ folder.getFolderId());
         }
 
-        this.setContentTemplateFile("/message.jsp",httpServletRequest);
-
-
-        /*
-        WebStack webStack = new WebStack(httpServletRequest);
-        String redirectTo = webStack.pop();
-        if (redirectTo.contains("/cat") && redirectTo.contains("id="+folder.getFolderId())) {
-            //Nicht auf diese seite redirecten, da es sie nichtmehr gibt,
-            // sondern auf die parent-Folder!
-            httpServletResponse.sendRedirect("/index/cat?id="+folder.getParent());
-        } else {
-            httpServletResponse.sendRedirect(redirectTo);
-        } */
-
         return null;
-        //return super.onSubmit(httpServletRequest, httpServletResponse, o, e);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     private void deleteFolder(Folder folder) {
@@ -210,7 +183,7 @@ public class FolderBreakupController extends SimpleFormControllerMd {
                 folderService.deleteById(folder.getFolderId());
             }
         } catch (IOServiceException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
 
     }

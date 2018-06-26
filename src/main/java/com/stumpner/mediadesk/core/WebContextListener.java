@@ -405,30 +405,9 @@ public class WebContextListener implements ServletContextListener {
 
             if (updateSqlFile.exists()) { updateSqlFile.delete(); }
         } catch (SQLException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-        //renewCategoryPublicProtectedStatusRekursiv(0);
-        //System.out.println("renewFolderPublicProtectedStatus done");
-    }
-
-    public static void renewCategoryPublicProtectedStatusRekursiv(int categoryId) {
-
-        System.out.println("["+Config.instanceName+"]: renewFolderPublicProtectedStatus "+categoryId);
-
-        FolderService cService = new FolderService();
-        List<FolderMultiLang> l = cService.getFolderList(categoryId);
-        for (FolderMultiLang c : l) {
-            try {
-                AclEditController.renewFolderPublicProtectedStatus(c);
-                renewCategoryPublicProtectedStatusRekursiv(c.getFolderId());
-            } catch (AclNotFoundException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            } catch (IOServiceException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
+            e.printStackTrace();
         }
 
     }

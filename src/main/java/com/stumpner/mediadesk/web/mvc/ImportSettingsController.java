@@ -112,7 +112,7 @@ public class ImportSettingsController extends SimpleFormControllerMd {
         set.setEmailImportPasswordAgain(Config.emailImportPassword);
         set.setEmailImportUsername(Config.emailImportUsername);
         set.setEmailImportLastError(Config.emailImportLastError);
-        set.setAutoImportEmailCat(Config.autoImportEmailCat);
+        set.setAutoImportEmailFolder(Config.autoImportEmailCat);
 
         set.setFtpHost(Config.ftpHost);
         set.setFtpUser(Config.ftpUser);
@@ -125,7 +125,7 @@ public class ImportSettingsController extends SimpleFormControllerMd {
         Config.emailImportHost = cs.getEmailImportHost();
         Config.emailImportUsername = cs.getEmailImportUsername();
         Config.emailImportPassword = cs.getEmailImportPassword();
-        Config.autoImportEmailCat = cs.getAutoImportEmailCat();
+        Config.autoImportEmailCat = cs.getAutoImportEmailFolder();
 
         Config.ftpHost = cs.getFtpHost();
         Config.ftpUser = cs.getFtpUser();
@@ -173,14 +173,14 @@ public class ImportSettingsController extends SimpleFormControllerMd {
         FolderService folderService = new FolderService();
         LngResolver lngResolver = new LngResolver();
         folderService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-        List categoryList = folderService.getFolderList(0);
-        //Wenn ausgewählte Kategorie keine Root Kategorie, dann zusätzlich laden
+        List folderList = folderService.getFolderList(0);
+        //Wenn ausgewählter Folder kein Root Folder, dann zusätzlich laden
         ImportSettings settings = (ImportSettings)e.getTarget();
         if (settings.getAutoImportFtpCat()!=0) {
             try {
-                Folder cat = folderService.getFolderById(settings.getAutoImportFtpCat());
-                if (cat.getParent()!=0) {
-                    categoryList.add(cat);
+                Folder f = folderService.getFolderById(settings.getAutoImportFtpCat());
+                if (f.getParent()!=0) {
+                    folderList.add(f);
                 }
             } catch (ObjectNotFoundException e2) {
                 //e2.printStackTrace();
@@ -188,7 +188,7 @@ public class ImportSettingsController extends SimpleFormControllerMd {
             }
         }
         
-        httpServletRequest.setAttribute("folderList",categoryList);
+        httpServletRequest.setAttribute("folderList",folderList);
 
 
         return super.showForm(httpServletRequest, httpServletResponse, e);    //To change body of overridden methods use File | Settings | File Templates.
@@ -219,7 +219,7 @@ public class ImportSettingsController extends SimpleFormControllerMd {
         Config.emailImportHost = cs.getEmailImportHost();
         Config.emailImportUsername = cs.getEmailImportUsername();
         Config.emailImportPassword = cs.getEmailImportPassword();
-        Config.autoImportEmailCat = cs.getAutoImportEmailCat();
+        Config.autoImportEmailCat = cs.getAutoImportEmailFolder();
 
         Config.ftpHost = cs.getFtpHost();
         Config.ftpUser = cs.getFtpUser();

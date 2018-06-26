@@ -269,13 +269,13 @@ public class PinPicViewController extends AbstractThumbnailViewController {
 
     protected void insert(MediaObject image, HttpServletRequest request) throws DublicateEntry {
         PinService pinService = new PinService();
-        pinService.addImageToPinpic(image.getIvid(),getPin(request).getPinId());
+        pinService.addMediaToPin(image.getIvid(),getPin(request).getPinId());
     }
 
     protected void remove(MediaObject image, HttpServletRequest request) {
 
         PinService pinService = new PinService();
-        pinService.deleteImageFromPinpic(image.getIvid(),getPin(request).getPinId());
+        pinService.deleteMediaFromPin(image.getIvid(),getPin(request).getPinId());
 
     }
 

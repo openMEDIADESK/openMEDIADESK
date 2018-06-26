@@ -66,11 +66,11 @@ public class FolderSelectorController extends SimpleFormControllerMd {
         FolderService folderService = new AclFolderService(request);
         LngResolver lngResolver = new LngResolver();
         folderService.setUsedLanguage(lngResolver.resolveLng(request));
-        List<FolderMultiLang> categoryTree = folderService.getAllFolderList();
+        List<FolderMultiLang> folderTree = folderService.getAllFolderList();
 
-        List<SelectableFolder> selectableFolderList = getSelectableCategoryList(request.getParameter("type"), categoryTree, request);
+        List<SelectableFolder> selectableFolderList = getSelectableFolderList(request.getParameter("type"), folderTree, request);
         FolderSelection folderSelection = new FolderSelection();
-        folderSelection.setCategoryList(selectableFolderList);
+        folderSelection.setFolderList(selectableFolderList);
 
         folderSelection.setType(request.getParameter("type"));
         folderSelection.setId(Integer.parseInt(request.getParameter("id")));
@@ -124,30 +124,30 @@ public class FolderSelectorController extends SimpleFormControllerMd {
     }
 
     /**
-     * Diese Methode muss je nach typ die Selectable CategoryList zur�ckgeben
+     * Diese Methode muss je nach typ die Selectable FolderList zurückgeben
      * @param typeParameter
      * @return
      */
-    private List<SelectableFolder> getSelectableCategoryList(String typeParameter, List<FolderMultiLang> categoryTree, HttpServletRequest request) {
+    private List<SelectableFolder> getSelectableFolderList(String typeParameter, List<FolderMultiLang> folderTree, HttpServletRequest request) {
 
         List<SelectableFolder> selectableFolderList = new ArrayList<SelectableFolder>();
 
         if (typeParameter.equalsIgnoreCase("PIN")) {
 
-            for (FolderMultiLang category : categoryTree) {
-                SelectableFolder selCat = new SelectableFolder();
-                selCat.setFolder(category);
-                selCat.setSelected(false);
-                selectableFolderList.add(selCat);
+            for (FolderMultiLang f : folderTree) {
+                SelectableFolder sf = new SelectableFolder();
+                sf.setFolder(f);
+                sf.setSelected(false);
+                selectableFolderList.add(sf);
             }
         }
 
         if (typeParameter.equalsIgnoreCase("ACL")) {
-            for (FolderMultiLang category : categoryTree) {
+            for (FolderMultiLang f : folderTree) {
                 SelectableFolder selCat = new SelectableFolder();
-                selCat.setFolder(category);
+                selCat.setFolder(f);
 
-                Acl acl = AclController.getAcl(category);
+                Acl acl = AclController.getAcl(f);
                 UserService userService = new UserService();
                 SecurityGroup securityGroup = userService.getSecurityGroupById(Integer.parseInt(request.getParameter("id")));
 
@@ -169,26 +169,24 @@ public class FolderSelectorController extends SimpleFormControllerMd {
 
     protected ModelAndView onSubmit(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, BindException e) throws Exception {
 
-        FolderService folderService = new FolderService();
         MediaService mediaService = new MediaService();
         FolderSelection folderSelection = (FolderSelection)o;
-        for (SelectableFolder category : folderSelection.getCategoryList()) {
-            if (category.isSelected()) {
-                //System.out.println("Selected: "+folder.getFolder().getFolderId());
+        for (SelectableFolder folder : folderSelection.getFolderList()) {
+            if (folder.isSelected()) {
 
                 /**
-                 * Kategorie-Inhalte einem PIN zuweisen
+                 * Folder-Inhalte einem PIN zuweisen
                  */
 
                 if (folderSelection.getType().equalsIgnoreCase("PIN")) {
                     PinService pinService = new PinService();
                     int pinId = ((Integer)httpServletRequest.getSession().getAttribute("pinid")).intValue();
-                    SimpleLoaderClass slc = new SimpleLoaderClass(category.getFolder().getFolderId());
+                    SimpleLoaderClass slc = new SimpleLoaderClass(folder.getFolder().getFolderId());
                     List mediaList = mediaService.getFolderMediaObjects(slc);
                     Iterator mediaObjects = mediaList.iterator();
                     while (mediaObjects.hasNext()) {
                         MediaObject mediaObject = (MediaObject)mediaObjects.next();
-                        pinService.addImageToPinpic(mediaObject.getIvid(),pinId);
+                        pinService.addMediaToPin(mediaObject.getIvid(),pinId);
                     }
                 }
             }
@@ -197,43 +195,43 @@ public class FolderSelectorController extends SimpleFormControllerMd {
              */
 
             if (folderSelection.getType().equalsIgnoreCase("ACL")) {
-                Acl acl = AclController.getAcl(category.getFolder());
+                Acl acl = AclController.getAcl(folder.getFolder());
                 UserService userService = new UserService();
                 SecurityGroup securityGroup = userService.getSecurityGroupById(folderSelection.getId());
                 AclPermission permission = new AclPermission(AclPermission.READ);
                 if (securityGroup.getId()==0) { permission = new AclPermission("view"); }
-                //Zugriff pr�fen
+                //Zugriff prüfen
                 if (acl.checkPermission(securityGroup, permission)) {
                     //Hat Zugriff
-                    if (category.isSelected()) {
-                        //nichts �ndern
-                        System.out.println("nichts tun (hatte bereits zugriff)"+category.getFolder().getFolderId());
+                    if (folder.isSelected()) {
+                        //nichts ändern
+                        System.out.println("nichts tun (hatte bereits zugriff)"+folder.getFolder().getFolderId());
                     } else {
                         //zugriff entfernen
-                        System.out.println("Zugriff entfernen: "+category.getFolder().getFolderId());
+                        System.out.println("Zugriff entfernen: "+folder.getFolder().getFolderId());
                         acl.removePermission(securityGroup, permission);
                         if (permission.getAction().equalsIgnoreCase("read")) {
                             acl.removePermission(securityGroup, new AclPermission("view"));
                             acl.removePermission(securityGroup, new AclPermission("write"));
                         }
-                        AclController.setAcl(category.getFolder(),acl);
+                        AclController.setAcl(folder.getFolder(),acl);
                     }
                 } else {
                     //Hat nicht Zugriff
-                    if (category.isSelected()) {
+                    if (folder.isSelected()) {
                         //zugriff geben
-                        System.out.println("Zugriff geben (hatte nicht)"+category.getFolder().getFolderId());
-                        //acl.removePermission(securityGroup,  new AclPermission("view")); //eventuell existierende view berechtigungen entfernen
+                        System.out.println("Zugriff geben (hatte nicht)"+folder.getFolder().getFolderId());
+
                         acl.addPermission(securityGroup, permission);
                         if (permission.getAction().equalsIgnoreCase("read")) {
                             if (!acl.checkPermission(securityGroup, new AclPermission("view"))) {
                                 acl.addPermission(securityGroup, new AclPermission("view"));
                             }
                         }
-                        AclController.setAcl(category.getFolder(),acl);
+                        AclController.setAcl(folder.getFolder(),acl);
                     } else {
-                        //nichts �ndern
-                        System.out.println("Hatte keinen Zugriff, braucht auch keinen: "+category.getFolder().getFolderId());
+                        //nichts ändern
+                        System.out.println("Hatte keinen Zugriff, braucht auch keinen: "+folder.getFolder().getFolderId());
                     }
                 }
             }

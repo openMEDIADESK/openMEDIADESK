@@ -223,8 +223,8 @@ public class ApplicationSettingsController extends SimpleFormControllerMd {
         httpServletRequest.setAttribute("securityGroupList",userService.getRealSecurityGroupList());
         FolderService folderService = new FolderService();
         folderService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-        List rootCategoryList = folderService.getFolderSubTree(0,0);
-        httpServletRequest.setAttribute("rootFolderList",rootCategoryList);
+        List rootFolderList = folderService.getFolderSubTree(0,0);
+        httpServletRequest.setAttribute("rootFolderList",rootFolderList);
 
         return super.showForm(httpServletRequest, httpServletResponse, e);
     }

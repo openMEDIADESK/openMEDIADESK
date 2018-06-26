@@ -36,9 +36,9 @@ public class FolderEditValidator implements Validator {
 
     public void validate(Object o, Errors errors) {
 
-        FolderMultiLang category = (FolderMultiLang)o;
-        if (!NameValidator.validate(category.getName())) {
-            errors.rejectValue("catName","edit.namenotvalid");
+        FolderMultiLang folder = (FolderMultiLang)o;
+        if (!NameValidator.validate(folder.getName())) {
+            errors.rejectValue("name","edit.namenotvalid");
         }
 
         /*

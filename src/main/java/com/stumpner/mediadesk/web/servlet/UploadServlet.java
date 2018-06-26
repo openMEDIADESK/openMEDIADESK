@@ -96,8 +96,7 @@ public class UploadServlet extends HttpServlet {
                 String authUser = "";
                 String authPass = "";
                 String folderName = "";
-                String categoryName = "";
-                int categoryId = -1;
+                int folderId = -1;
                 int ivid = -1;
 
                 String urlPathInfo = httpServletRequest.getPathInfo();
@@ -107,7 +106,7 @@ public class UploadServlet extends HttpServlet {
                     //System.out.println("idString = "+idString);
                     if (idString.endsWith("/")) { idString = idString.replaceAll("/",""); }
                     //System.out.println("bereinigt idString = "+idString);
-                    categoryId = Integer.parseInt(idString);
+                    folderId = Integer.parseInt(idString);
                 }
 
 
@@ -125,20 +124,17 @@ public class UploadServlet extends HttpServlet {
                         if (item.getFieldName().equalsIgnoreCase("PASSWORD")) {
                             authPass = item.getString();
                         }
-                        if (item.getFieldName().equalsIgnoreCase("FOLDERNAME")) {
+                        if (item.getFieldName().equalsIgnoreCase("CATEGORYNAME")) {
                             folderName = item.getString();
                         }
-                        if (item.getFieldName().equalsIgnoreCase("CATEGORYNAME")) {
-                            categoryName = item.getString();
-                        }
                         if (item.getFieldName().equalsIgnoreCase("CATEGORYID")) {
-                            categoryId = Integer.parseInt(item.getString());
+                            folderId = Integer.parseInt(item.getString());
                         }
                     }
                 }
                 //System.out.println("After Process Field Items");
                 Object autoImportObject = null;
-                autoImportObject = createAutoImportObject(folderName, categoryName, categoryId);
+                autoImportObject = createAutoImportObject(folderName, folderId);
 
                 //Zugriff checken
                 Authenticator auth = new Authenticator();
@@ -374,48 +370,48 @@ public class UploadServlet extends HttpServlet {
             }
     }
 
-    private Object createAutoImportObject(String folderName, String categoryName, int categoryId) {
+    private Object createAutoImportObject(String folderName, int folderId) {
 
         Object autoImportObject = null;
-        if (!categoryName.equalsIgnoreCase("")) {
-            //in eine kategorie importieren
+        if (!folderName.equalsIgnoreCase("")) {
+            //in einen Ordner importieren
             FolderService folderService = new FolderService();
-            FolderMultiLang category = null;
+            FolderMultiLang folder = null;
 
             try {
-                category = (FolderMultiLang) folderService.getByName(categoryName);
+                folder = (FolderMultiLang) folderService.getByName(folderName);
             } catch (ObjectNotFoundException e) {
-                /*Kategorie existiert noch nicht --> neue erstellen*/
-                category = new FolderMultiLang();
-                category.setParent(0);
-                category.setName(categoryName);
-                category.setTitle(categoryName);
-                category.setTitleLng1(categoryName);
-                category.setTitleLng2(categoryName);
-                category.setDescription("Autoimport");
+                /*Ordner existiert noch nicht --> neue erstellen*/
+                folder = new FolderMultiLang();
+                folder.setParent(0);
+                folder.setName(folderName);
+                folder.setTitle(folderName);
+                folder.setTitleLng1(folderName);
+                folder.setTitleLng2(folderName);
+                folder.setDescription("Autoimport");
                 try {
-                    folderService.addFolder(category);
+                    folderService.addFolder(folder);
                     try {
-                        category = (FolderMultiLang) folderService.getByName(categoryName);
+                        folder = (FolderMultiLang) folderService.getByName(folderName);
                     } catch (ObjectNotFoundException e1) {
-                        e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        e1.printStackTrace();
                     }
                 } catch (IOServiceException e1) {
-                    e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    e1.printStackTrace();
                 }
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
             } catch (IOServiceException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
             }
-            autoImportObject = category;
+            autoImportObject = folder;
         }
 
-        if (categoryId!=-1) {
-            //in eine kategorie importieren
-            if (categoryId!=0) {
+        if (folderId!=-1) {
+            //in einen ordner importieren
+            if (folderId!=0) {
                 FolderService folderService = new FolderService();
                 try {
-                    Folder folder = (FolderMultiLang) folderService.getById(categoryId);
+                    Folder folder = (FolderMultiLang) folderService.getById(folderId);
                     autoImportObject = folder;
                 } catch (ObjectNotFoundException e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

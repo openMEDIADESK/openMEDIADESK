@@ -69,12 +69,12 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
     */
 
     public String[] getChildrenNames(ITransaction iTransaction, String s) throws WebdavException {
-        String[] childrenNames =  new String[] {};    //To change body of overridden methods use File | Settings | File Templates.
 
-            FolderService folderService = new FolderService();
+        String[] childrenNames =  new String[] {};
+
+        FolderService folderService = new FolderService();
         Folder folder = null;
 
-        //System.out.println("getChildrenNames (s = "+s);
         if (s.equalsIgnoreCase("/")) {
             //root folder
             folder = new Folder();
@@ -84,33 +84,33 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
             try {
                 folder = folderService.getFolderByPath(s.substring(1));
             } catch (ObjectNotFoundException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
             } 
         }
 
-            MediaService imageService = new MediaService();
-            SimpleLoaderClass loaderClass = new SimpleLoaderClass();
+        MediaService mediaService = new MediaService();
+        SimpleLoaderClass loaderClass = new SimpleLoaderClass();
 
-                loaderClass.setId(folder.getFolderId());
-                List imageList = imageService.getFolderMediaObjects(loaderClass);
-        List categoryList = folderService.getFolderList(folder.getFolderId());
+        loaderClass.setId(folder.getFolderId());
+        List mediaList = mediaService.getFolderMediaObjects(loaderClass);
+        List folderList = folderService.getFolderList(folder.getFolderId());
 
-                childrenNames = new String[imageList.size()+categoryList.size()];
-                Iterator images = imageList.iterator();
+                childrenNames = new String[mediaList.size()+folderList.size()];
+                Iterator mediaObjects = mediaList.iterator();
                 int counter = 0;
-                Iterator categories = categoryList.iterator();
-                while (categories.hasNext()) {
-                    Folder cat = (Folder)categories.next();
-                    childrenNames[counter] = cat.getName();
+                Iterator mos = folderList.iterator();
+                while (mos.hasNext()) {
+                    Folder f = (Folder)mos.next();
+                    childrenNames[counter] = f.getName();
                     //System.out.println("childrenNames[counter] (dir) = "+childrenNames[counter]);
                     counter++;
                 }
-                while (images.hasNext()) {
-                    MediaObject image = (MediaObject)images.next();
-                    if (image.getVersionName().endsWith("."+image.getExtention())) {
-                        childrenNames[counter] = image.getVersionName();
+                while (mediaObjects.hasNext()) {
+                    MediaObject mediaObject = (MediaObject)mediaObjects.next();
+                    if (mediaObject.getVersionName().endsWith("."+mediaObject.getExtention())) {
+                        childrenNames[counter] = mediaObject.getVersionName();
                     } else {
-                        childrenNames[counter] = image.getVersionName()+"."+image.getExtention();
+                        childrenNames[counter] = mediaObject.getVersionName()+"."+mediaObject.getExtention();
                     }
                     //System.out.println("childrenNames[counter] = "+childrenNames[counter]);
                     counter++;
@@ -126,44 +126,43 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
 
     public long getResourceLength(ITransaction iTransaction, String s) {
         //System.out.println("getResourceLength");
-        MediaObject imageVersion = getImage(s);
+        MediaObject imageVersion = getMediaObject(s);
         File file = getFile(imageVersion);
         return file.length();
         //return 0;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public void removeObject(ITransaction iTransaction, String s) {
-        //To change body of implemented methods use File | Settings | File Templates.
 
         FolderService folderService = new FolderService();
         try {
-            FolderMultiLang category = (FolderMultiLang) folderService.getFolderByPath(s.substring(1));
+            FolderMultiLang folder = (FolderMultiLang) folderService.getFolderByPath(s.substring(1));
             try {
-                folderService.deleteById(category.getFolderId());
+                folderService.deleteById(folder.getFolderId());
             } catch (IOServiceException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
             }
         } catch (ObjectNotFoundException e) {
-            //Keine Kategorie, Bilddatei löschen:
-            MediaObject imageVersion = getImage(s);
+            //Kein Folder, Mediendatei löschen:
+            MediaObject mediaObject = getMediaObject(s);
             String pathName = s.substring(0,s.lastIndexOf("/"));
-            if (imageVersion!=null) {
-                MediaService imageService = new MediaService();
-                List categoryList = folderService.getFolderListFromImageVersion(imageVersion.getIvid());
-                if (categoryList.size()==0) {
-                    //Bilddatei löschen
+            if (mediaObject!=null) {
+                MediaService mediaService = new MediaService();
+                List folderList = folderService.getFolderListFromMediaObject(mediaObject.getIvid());
+                if (folderList.size()==0) {
+                    //Mediendatei löschen
                     try {
-                        imageService.deleteMediaObject(imageVersion);
+                        mediaService.deleteMediaObject(mediaObject);
                     } catch (IOServiceException e1) {
                         e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     }
                 } else {
                     //verknüfpung aus folder löschen
                     try {
-                        FolderMultiLang category = null;
-                        category = (FolderMultiLang) folderService.getFolderByPath(pathName.substring(1));
-                        folderService.deleteMediaFromFolder(category,imageVersion);
-                        System.out.println("Datei: "+imageVersion.getVersionName()+" aus kategorie "+pathName+" gelöscht");
+                        FolderMultiLang folder = null;
+                        folder = (FolderMultiLang) folderService.getFolderByPath(pathName.substring(1));
+                        folderService.deleteMediaFromFolder(folder,mediaObject);
+                        System.out.println("Datei: "+mediaObject.getVersionName()+" aus folder "+pathName+" gelöscht");
                     } catch (ObjectNotFoundException e1) {
                         e1.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     }
@@ -180,28 +179,22 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
     public InputStream getResourceContent(ITransaction iTransaction, String s) throws WebdavException {
 
         logger.debug("getResourceContent: s="+s);
-        MediaObject imageVersion = getImage(s);
+        MediaObject mediaObject = getMediaObject(s);
 
-        //System.out.println("getResourceContent");
-        //System.out.println("string = "+s);
-        //System.out.println(iTransaction.getPrincipal());
+        if (mediaObject!=null) {
 
-        if (imageVersion!=null) {
-
-            logger.debug("found MediaObject = "+imageVersion.getIvid());
+            logger.debug("found MediaObject = "+mediaObject.getIvid());
             InputStream inputStream = null;
             try {
-                inputStream = new FileInputStream(getFile(imageVersion));
+                inputStream = new FileInputStream(getFile(mediaObject));
             } catch (FileNotFoundException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
             }
             return inputStream;
         } else {
             logger.debug("Keine MediaObject gefunden unter String="+s);
             return null;
         }
-
-        //return super.getResourceContent(iTransaction, s);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     public void createResource(ITransaction iTransaction, String s) throws WebdavException {
@@ -234,27 +227,25 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
     }
 
     public void rollback(ITransaction iTransaction) {
-        //System.out.println("rollback");
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public void createFolder(ITransaction iTransaction, String s) throws WebdavException {
-        //System.out.println("Create Folder "+s);
 
         FolderService folderService = new FolderService();
         int lastIndexOf = s.lastIndexOf("/");
 
-        //Daten in die neue Kategorie füllen:
-            String categoryName = s.substring(s.lastIndexOf("/")+1);
-            FolderMultiLang category = new FolderMultiLang();
-            category.setName(categoryName);
-            category.setTitle(categoryName);
-            category.setTitleLng1(categoryName);
-            category.setTitleLng2(categoryName);
+        //Daten in den neuen Folder füllen:
+        String folderName = s.substring(s.lastIndexOf("/")+1);
+        FolderMultiLang f = new FolderMultiLang();
+        f.setName(folderName);
+        f.setTitle(folderName);
+        f.setTitleLng1(folderName);
+        f.setTitleLng2(folderName);
 
         if (lastIndexOf==0) {
-            //in der root kategorie anlegen:
-            category.setParent(0);
+            //in den root folder anlegen:
+            f.setParent(0);
 
         } else {
             String pathName = s.substring(1,lastIndexOf);
@@ -262,7 +253,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
             try {
                 Folder parentFolder = folderService.getFolderByPath(pathName);
                 //System.out.println(" new folder hast parentid="+parentFolder.getFolderId());
-                category.setParent(parentFolder.getFolderId());
+                f.setParent(parentFolder.getFolderId());
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
@@ -271,7 +262,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
 
         //Kategorie anlegen/speichern:
             try {
-                folderService.addFolder(category);
+                folderService.addFolder(f);
             } catch (IOServiceException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
@@ -294,22 +285,8 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
                 File importFile = new File(Config.getTempPath()+File.separator+fileName);
                 writeTo(inputStream,importFile);
 
-                /*
-                    BufferedOutputStream bos = new BufferedOutputStream(
-                    new FileOutputStream(importFile));
-
-                byte[] buf = new byte[1024];
-                int i = 0;
-                while((i=inputStream.read(buf))!=-1) {
-                    bos.write(buf, 0, i);
-                }
-                inputStream.close();
-                bos.close();*/
-
-                //bild importieren
-
-        int importFailure = 0;
-        int ivid = 0;
+                int importFailure = 0;
+                int ivid = 0;
                 ImportFactory importFactory = Config.importFactory;
                 MediaImportHandler importHandler =
                         importFactory.createMediaImportHandler(
@@ -319,23 +296,23 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
                 //importdatei löschen
                 importFile.delete();
                 logger.debug("setResourceContent: neue Datei hat ivid = "+ivid);
-                MediaService imageService = new MediaService();
-                MediaObjectMultiLang imageVersion = (MediaObjectMultiLang)imageService.getMediaObjectById(ivid);
-                imageVersion.setVersionName(fileName);
-                imageVersion.setVersionTitle(fileName);
-                imageVersion.setVersionTitleLng1(fileName);
-                imageVersion.setVersionTitleLng2(fileName);
-                imageService.saveMediaObject(imageVersion);
+                MediaService mediaService = new MediaService();
+                MediaObjectMultiLang mediaObject = (MediaObjectMultiLang)mediaService.getMediaObjectById(ivid);
+                mediaObject.setVersionName(fileName);
+                mediaObject.setVersionTitle(fileName);
+                mediaObject.setVersionTitleLng1(fileName);
+                mediaObject.setVersionTitleLng2(fileName);
+                mediaService.saveMediaObject(mediaObject);
 
 
-                //Bild automatisch der Kategorie zuweisen:
-                String categoryPath = s.substring(1,s.lastIndexOf("/"));
+                //Medienobjekt automatisch dem Folder zuweisen:
+                String path = s.substring(1,s.lastIndexOf("/"));
                 FolderService folderService = new FolderService();
-                Folder folder = folderService.getFolderByPath(categoryPath);
-                logger.debug("setResourceContent: Speichern in Kategorie: "+categoryPath+" id="+ folder.getFolderId());
+                Folder folder = folderService.getFolderByPath(path);
+                logger.debug("setResourceContent: Speichern in Folder: "+path+" id="+ folder.getFolderId());
                 folderService.addMediaToFolder(folder.getFolderId(),ivid);
 
-                length = getFile(imageVersion).length();
+                length = getFile(mediaObject).length();
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -344,19 +321,18 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
         } else {
             StoredObject object = getStoredObject(iTransaction,s);
             logger.debug("setResourceContent[iT="+iTransaction.hashCode()+"]: Objekt existiert bereits: "+s+" contentLength="+object.getResourceLength());
-            MediaObject imageVersion = getImage(s);
-            File file = getFile(imageVersion);
+            MediaObject mediaObject = getMediaObject(s);
+            File file = getFile(mediaObject);
             try {
                 writeTo(inputStream,file);
             } catch (IOException e) {
                 logger.fatal("setResourceContent: failed to overwrite file");
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
             }
 
         }
 
         return length;
-        //return super.setResourceContent(iTransaction, s, inputStream, s1, s2);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     private void writeTo(InputStream is, File file) throws IOException {
@@ -415,7 +391,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
             }
         } catch (ObjectNotFoundException e) {
             //Keine kategory, suchen nach datei:
-            MediaObject foundImage = getImage(s);
+            MediaObject foundImage = getMediaObject(s);
             if (foundImage!=null) {
 
                 logger.debug("getStoredObject[iT="+iTransaction.hashCode()+"]: Datei gefunden mit namen: "+s);
@@ -438,50 +414,50 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
 
 
 
-    private MediaObject getImage(String s) {
+    private MediaObject getMediaObject(String s) {
 
         //StoredObject storedObject = new StoredObject();
         FolderService folderService = new FolderService();
-        MediaService imageService = new MediaService();
-        MediaObject foundImage = null;
+        MediaService mediaService = new MediaService();
+        MediaObject foundMediaObject = null;
         //System.out.println("No Folder found, searching for file ");
         int lastIndexOf = s.lastIndexOf("/");
         //System.out.println("lastIndexOf / "+lastIndexOf);
-        String categoryPathString = "";
+        String pathString = "";
         if (lastIndexOf!=0) {
-            categoryPathString = s.substring(1,lastIndexOf);
+            pathString = s.substring(1,lastIndexOf);
         }
-        //System.out.println("CategoryPath: "+categoryPathString);
+        //System.out.println("Path: "+categoryPathString);
         String fileString = s.substring(lastIndexOf+1);
         //System.out.println("ObjektNotFound, searching for parent Folder: ");
         //System.out.println("FileString:   "+fileString);
         try {
             Folder folder2 = new Folder();
-            if (!categoryPathString.equalsIgnoreCase("")) {
-                folder2 = folderService.getFolderByPath(categoryPathString);
+            if (!pathString.equalsIgnoreCase("")) {
+                folder2 = folderService.getFolderByPath(pathString);
             } else {
                 folder2 = new Folder();
                 folder2.setFolderId(0);
             }
             SimpleLoaderClass loaderClass = new SimpleLoaderClass();
             loaderClass.setId(folder2.getFolderId());
-            List categoryImageList = imageService.getFolderMediaObjects(loaderClass);
-            Iterator categoryImages = categoryImageList.iterator();
-            while (categoryImages.hasNext()) {
-                MediaObject imageVersion = (MediaObject)categoryImages.next();
-                String extention = imageVersion.getExtention();
+            List folderMediaObjectList = mediaService.getFolderMediaObjects(loaderClass);
+            Iterator folderMediaObjects = folderMediaObjectList.iterator();
+            while (folderMediaObjects.hasNext()) {
+                MediaObject mediaObject = (MediaObject)folderMediaObjects.next();
+                String extention = mediaObject.getExtention();
                 String filename = "";
-                if (imageVersion.getVersionName().endsWith("."+extention)) {
-                    filename = imageVersion.getVersionName();
+                if (mediaObject.getVersionName().endsWith("."+extention)) {
+                    filename = mediaObject.getVersionName();
                 } else {
-                    filename = imageVersion.getVersionName()+"."+extention;
+                    filename = mediaObject.getVersionName()+"."+extention;
                 }
                 if (fileString.equalsIgnoreCase(filename)) {
-                    foundImage = imageVersion;
+                    foundMediaObject = mediaObject;
                 }
             }
 
-            if (foundImage!=null) {
+            if (foundMediaObject!=null) {
 
                 //System.out.println("foundimage");
                 //storedObject.setFolder(false);
@@ -502,7 +478,7 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
 
 
 
-        return foundImage;
+        return foundMediaObject;
     }
 
     private File getFile(MediaObject imageVersion) {

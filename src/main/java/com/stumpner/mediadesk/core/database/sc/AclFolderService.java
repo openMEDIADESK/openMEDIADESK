@@ -93,13 +93,13 @@ public class AclFolderService extends FolderService {
     }
 
     public List getAllFolderList() {
-        List categoryList = super.getAllFolderList();
+        List folderList = super.getAllFolderList();
 
         if (onlyShowPermittetObjects()) {
-                categoryList = aclCtx.getPermittedList(new AclPermission("read"),categoryList);
+            folderList = aclCtx.getPermittedList(new AclPermission("read"),folderList);
         }
 
-        return categoryList;
+        return folderList;
     }
 
     /**

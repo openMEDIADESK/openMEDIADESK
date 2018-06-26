@@ -97,7 +97,7 @@ public class MediaDetailEditController extends AbstractAutoFillController {
         FolderService folderService = new FolderService();
         folderService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
         int ivid = ((MediaDetailEditCommand)e.getTarget()).getImageVersion().getIvid();
-        model.put("folderList", folderService.getFolderListFromImageVersion(ivid));
+        model.put("folderList", folderService.getFolderListFromMediaObject(ivid));
 
         /**
          * Markierte Bilder testen bzw. zählen...
@@ -196,10 +196,10 @@ public class MediaDetailEditController extends AbstractAutoFillController {
             int ivid = -1;
             if (httpServletRequest.getParameter("id").equalsIgnoreCase("n")) {
                 //neue datei erstellen
-                int categoryId = Integer.parseInt(httpServletRequest.getParameter("c"));
+                int folderId = Integer.parseInt(httpServletRequest.getParameter("c"));
                 ivid = createNewFile(WebHelper.getUser(httpServletRequest));
                 FolderService folderService = new FolderService();
-                folderService.addMediaToFolder(categoryId,ivid);
+                folderService.addMediaToFolder(folderId,ivid);
             } else {
                 ivid = Integer.parseInt(httpServletRequest.getParameter("id"));
             }
