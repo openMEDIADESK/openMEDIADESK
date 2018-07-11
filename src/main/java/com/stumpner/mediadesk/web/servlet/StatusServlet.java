@@ -58,7 +58,7 @@ public class StatusServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-        MediaService imageService = new MediaService();
+        MediaService mediaService = new MediaService();
 
         Writer w = response.getWriter();
 
@@ -160,11 +160,11 @@ public class StatusServlet extends HttpServlet {
         w.write("getServerNameUrl:                     "+ WebHelper.getServerNameUrl(request)+"\n");
         w.write("=====================================================\n");
         w.write("Max-MB : "+ new Integer(Config.licMaxMb)+"\n");
-        w.write("Used-MB: "+ new Integer(imageService.getUsedMb())+"\n");
+        w.write("Used-MB: "+ new Integer(mediaService.getUsedMb())+"\n");
         w.write("licId  : "+ Config.licId+"\n");
         w.write("licFunc: "+ Config.licFunc+"\n");
         w.write("=====================================================\n");
-        w.write("Objekte: "+ new Integer(imageService.getMediaCount())+"\n");
+        w.write("Objekte: "+ new Integer(mediaService.getMediaCount())+"\n");
         w.write("FreeMem: "+ new Long(Runtime.getRuntime().freeMemory())+"\n");
         w.write("= scheduler: ========================================\n");
         if (WebContextListener.nightly !=null) {
@@ -185,7 +185,7 @@ public class StatusServlet extends HttpServlet {
         httpServletRequest.setAttribute("versionNumber",Config.versionNumbner);
         httpServletRequest.setAttribute("versionDate",Config.versionDate);
         httpServletRequest.setAttribute("licExpires",Config.licExpireDate);
-        httpServletRequest.setAttribute("licMaxImages",new Integer(Config.licMaxImages));
+        httpServletRequest.setAttribute("licMaxMediaObjects",new Integer(Config.licMaxMediaObjects));
         httpServletRequest.setAttribute("licMaxMb",new Integer(Config.licMaxMb));
         httpServletRequest.setAttribute("licMaxUsers",new Integer(Config.licMaxUsers));
 

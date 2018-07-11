@@ -189,7 +189,7 @@ public class UploadWebController extends ModelFormPageController {
             String[] errorArgs = null;
             try {
                 switch (errorCode) {
-                    case 413: errorMessage = "web.upload.error.413"; errorArgs = new String[] {Integer.toString(Config.maxImageSize/1000)};  break;
+                    case 413: errorMessage = "web.upload.error.413"; errorArgs = new String[] {Integer.toString(Config.maxFileSize /1000)};  break;
                     case 415: errorMessage = "web.upload.error.415"; break;
                     case 407: errorMessage = "web.upload.error.407"; break;
                     case 507: errorMessage = "web.upload.error.507"; break;

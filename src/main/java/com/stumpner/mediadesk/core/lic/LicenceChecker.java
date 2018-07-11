@@ -59,32 +59,32 @@ public class LicenceChecker extends TimerTask {
      */
     public boolean checkLicence() {
 
-        int imageCount = getImageCount();
-        int imageMb = getImageMb();
-        if (Config.licMaxImages!=0) {
-            //Anzahl der Bilder prüfen
-            if (imageCount>Config.licMaxImages) {
+        int mediaCount = getMediaCount();
+        int usedMb = getUsedMb();
+        if (Config.licMaxMediaObjects !=0) {
+            //Anzahl der Medienobjekte prüfen
+            if (mediaCount>Config.licMaxMediaObjects) {
                 return false;
             }
         }
         if (Config.licMaxMb!=0) {
             //Anzahl des benötigten Speicherplatz prüfen
-            if (imageMb>Config.licMaxMb) {
+            if (usedMb>Config.licMaxMb) {
                 return false;
             }
         }
         return true;
     }
 
-    public int getImageCount() {
+    public int getMediaCount() {
 
-        MediaService imageService = new MediaService();
-        return imageService.getMediaCount();
+        MediaService mediaService = new MediaService();
+        return mediaService.getMediaCount();
     }
 
-    public int getImageMb() {
+    public int getUsedMb() {
 
-        MediaService imageService = new MediaService();
-        return imageService.getUsedMb();
+        MediaService mediaService = new MediaService();
+        return mediaService.getUsedMb();
     }
 }

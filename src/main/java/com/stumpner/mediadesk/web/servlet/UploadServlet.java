@@ -230,7 +230,7 @@ public class UploadServlet extends HttpServlet {
                             int imageCount = imageService.getMediaCount(); //Anzahl der Bilder in der Datenbank überpr.
 
                             //System.out.println("Before import");
-                                if (sizeInBytes/1000<Config.maxImageSize) {
+                                if (sizeInBytes/1000<Config.maxFileSize) {
                                     //System.out.println("image size OK");
                                     //Nur Importieren wenn die Größe der Bilder erlaubt ist
 
@@ -322,16 +322,16 @@ public class UploadServlet extends HttpServlet {
                                         }
                                         }
                                     } else {
-                                        httpServletRequest.getSession().setAttribute("lasterror",new SizeExceedException((int)sizeInBytes/1000,Config.licMaxImages));
+                                        httpServletRequest.getSession().setAttribute("lasterror",new SizeExceedException((int)sizeInBytes/1000,Config.licMaxMediaObjects));
                                         logger.debug("Kein freier Speicherplatz");
                                         errMsg = "Out Of Space - Kein freier Speicherplatz";
                                         ok = false;
                                         httpErrorCode = 507; //Http 507 Insufficient Storage
                                     }
                                 } else {
-                                    httpServletRequest.getSession().setAttribute("lasterror",new SizeExceedException((int)sizeInBytes/1000,Config.licMaxImages));
+                                    httpServletRequest.getSession().setAttribute("lasterror",new SizeExceedException((int)sizeInBytes/1000,Config.licMaxMediaObjects));
                                     logger.debug("Hochgeladene Datei zu gross");
-                                    errMsg = "File oversized! Datei ist zu groß: "+(sizeInBytes/1000000)+"MB ("+(Config.maxImageSize/1000)+"MB allowed) ";
+                                    errMsg = "File oversized! Datei ist zu groß: "+(sizeInBytes/1000000)+"MB ("+(Config.maxFileSize /1000)+"MB allowed) ";
                                     ok = false;
                                     httpErrorCode = 413; //Http 413: Request Entity Too Large
                                 }

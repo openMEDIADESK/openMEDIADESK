@@ -160,7 +160,7 @@ public class Config {
 
     public static Date licExpireDate = new Date(106,11,31);
     public static String licTo = "";
-    public static int licMaxImages = Integer.MAX_VALUE;
+    public static int licMaxMediaObjects = Integer.MAX_VALUE;
     public static int licMaxMb = 0; //Anzahl der MB welche die Datenbank verbrauchen darf
     public static int licMaxUsers = 15;
     public static String licFunc = "";
@@ -170,7 +170,7 @@ public class Config {
 
     public static boolean multiLang = true;
     public static boolean rss = true;
-    public static int maxImageSize = 5000;
+    public static int maxFileSize = 5000;
     public static boolean pinPicEnabled = true;
 
     // Statcounter & Google
@@ -473,7 +473,7 @@ public class Config {
         iniFile.open(servletContext.getRealPath(WebContextListener.configFile));
         
         Config.licMaxMb = Integer.parseInt(iniFile.getProperty("licMaxMb","0"));
-        Config.maxImageSize = Integer.parseInt(iniFile.getProperty("maxImageSize","5000"));
+        Config.maxFileSize = Integer.parseInt(iniFile.getProperty("maxFileSize","5000"));
         Config.licFunc = getConvertedLicFunc(iniFile.getProperty("licFunc","-none"));
         Config.licId = iniFile.getProperty("licId","");
         Config.reset = iniFile.getProperty("reset","false").equalsIgnoreCase("true") ? true:false;
@@ -496,7 +496,7 @@ public class Config {
         licFunc = getConvertedLicFunc(iniFile.getProperty("licFunc","-none"));
         licId = iniFile.getProperty("licId","");
         rss = iniFile.getProperty("rss","true").equalsIgnoreCase("true") ? true:false;
-        maxImageSize = Integer.parseInt(iniFile.getProperty("maxImageSize","5000"));
+        maxFileSize = Integer.parseInt(iniFile.getProperty("maxFileSize","5000"));
         pinPicEnabled = iniFile.getProperty("pinPicEnabled","true").equalsIgnoreCase("true") ? true:false;
 
         instanceName = iniFile.getProperty("instanceName","mediaDESK");
@@ -519,7 +519,7 @@ public class Config {
         mailserver = iniFile.getProperty("mailserver","mail.stumpner.net");
         mailsender = iniFile.getProperty("mailsender","robot@mediaDESK.net");
 
-        licMaxImages = Integer.parseInt(iniFile.getProperty("licMaxImages",String.valueOf(Integer.MAX_VALUE)));
+        licMaxMediaObjects = Integer.parseInt(iniFile.getProperty("licMaxMediaObjects",String.valueOf(Integer.MAX_VALUE)));
         licMaxMb = Integer.parseInt(iniFile.getProperty("licMaxMb","0"));
 
         imageStorePath = iniFile.getProperty("imageStorePath","/var/is");

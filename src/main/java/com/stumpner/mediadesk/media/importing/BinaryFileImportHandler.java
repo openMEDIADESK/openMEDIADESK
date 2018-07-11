@@ -70,9 +70,9 @@ public class BinaryFileImportHandler implements MediaImportHandler {
         mediaObject.setVersionTitleLng2(file.getName());
 
         //Größe Checken (mit erlaubnis in Config)
-        if (mediaObject.getKb()> Config.maxImageSize) {
-            logger.error("Maximal File Size reached: "+mediaObject.getKb()+" ["+Config.maxImageSize+"]");
-            throw new SizeExceedException(mediaObject.getKb(),Config.maxImageSize);
+        if (mediaObject.getKb()> Config.maxFileSize) {
+            logger.error("Maximal File Size reached: "+mediaObject.getKb()+" ["+Config.maxFileSize +"]");
+            throw new SizeExceedException(mediaObject.getKb(),Config.maxFileSize);
         }
 
         //ImportPluginHandlerChain abarbeiten:

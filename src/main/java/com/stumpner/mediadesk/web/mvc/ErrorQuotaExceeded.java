@@ -48,7 +48,7 @@ public class ErrorQuotaExceeded extends AbstractPageController {
         httpServletRequest.setAttribute("redirectTo","http://www.mediaDESK.net");
         httpServletRequest.setAttribute("headline","imageimport.nolicense");
         httpServletRequest.setAttribute("info","imageimport.nolicensetextmb");
-        httpServletRequest.setAttribute("args",Config.licMaxMb+" ("+ licenceChecker.getImageMb()+")");
+        httpServletRequest.setAttribute("args",Config.licMaxMb+" ("+ licenceChecker.getUsedMb()+")");
 
         return super.handleRequestInternal(httpServletRequest,httpServletResponse);
     }

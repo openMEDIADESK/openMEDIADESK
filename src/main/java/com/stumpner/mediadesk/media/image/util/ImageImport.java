@@ -87,9 +87,9 @@ public class ImageImport {
         mediaObject.setExtention(AbstractImportFactory.getFileExtention(file));
 
         //Größe Checken (mit erlaubnis in Config)
-        if (mediaObject.getKb()>Config.maxImageSize) {
+        if (mediaObject.getKb()>Config.maxFileSize) {
             logger.error("Maximal BasicMediaObject Size reached"+mediaObject.getKb());
-            throw new SizeExceedException(mediaObject.getKb(),Config.maxImageSize);
+            throw new SizeExceedException(mediaObject.getKb(),Config.maxFileSize);
         }
 
         //image in db erstellen

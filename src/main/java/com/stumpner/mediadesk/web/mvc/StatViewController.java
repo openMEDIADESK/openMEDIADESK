@@ -112,7 +112,7 @@ public class StatViewController extends AbstractPageController {
         httpServletRequest.setAttribute("versionNumber",Config.versionNumbner);
         httpServletRequest.setAttribute("versionDate",Config.versionDate);
         httpServletRequest.setAttribute("licExpires",Config.licExpireDate);
-        httpServletRequest.setAttribute("licMaxImages",new Integer(Config.licMaxImages));
+        httpServletRequest.setAttribute("licMaxMediaObjects",new Integer(Config.licMaxMediaObjects));
         httpServletRequest.setAttribute("licMaxMb",new Integer(Config.licMaxMb));
         httpServletRequest.setAttribute("licMaxUsers",new Integer(Config.licMaxUsers));
         httpServletRequest.setAttribute("licTo",Config.licTo);

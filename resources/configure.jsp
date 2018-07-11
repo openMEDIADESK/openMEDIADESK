@@ -46,7 +46,7 @@
             conf.put("licMaxMb","150102000"); //150G
             conf.put("httpBase",request.getParameter("httpBase"));
             conf.put("rss","true");
-            conf.put("maxImageSize","15102000"); // 15G
+            conf.put("maxFileSize","15102000"); // 15G
             conf.put("pinPicEnabled","true");
             conf.put("multiLang","true");
 
