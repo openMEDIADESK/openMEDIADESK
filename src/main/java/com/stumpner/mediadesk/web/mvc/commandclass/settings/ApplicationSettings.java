@@ -539,6 +539,36 @@ public class ApplicationSettings {
         this.downloadImageFilename = downloadImageFilename;
     }
 
+    public int getDownloadImageFilenameInt() {
+
+        if (downloadImageFilename.equalsIgnoreCase("imageNumber")) {
+            return 0;
+        }
+        if (downloadImageFilename.equalsIgnoreCase("versionTitle")) {
+            return 1;
+        }
+        if (downloadImageFilename.equalsIgnoreCase("versionName")) {
+            return 2;
+        }
+        return 0;
+    }
+
+    public void setDownloadImageFilenameInt(int downloadImageFilenameInt) {
+
+        switch (downloadImageFilenameInt) {
+            case 0: downloadImageFilename = "imageNumber";
+                break;
+            case 1: downloadImageFilename = "versionTitle";
+                break;
+            case 2: downloadImageFilename = "versionName";
+                break;
+            default:
+                downloadImageFilename = "";
+        }
+
+
+    }
+
     public boolean isPopupIvidShowVersionTitle() {
         return popupIvidShowVersionTitle;
     }
