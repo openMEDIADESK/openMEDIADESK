@@ -62,7 +62,7 @@
                 </div>
 
 
-  <button type="submit" class="btn btn-default"><spring:message code="imageedit.submit"/></button>
+  <button type="submit" class="btn btn-default"><spring:message code="mediaedit.submit"/></button>
 </form>
 
 

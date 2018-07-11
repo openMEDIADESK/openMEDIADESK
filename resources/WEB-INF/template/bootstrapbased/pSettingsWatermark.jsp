@@ -66,7 +66,7 @@
     </spring:bind>
 
     <button type="submit" name="watermark" class="btn btn-default"><spring:message code="set.watermark.file"/></button>
-    <button type="submit" name="Submit" class="btn btn-default"><spring:message code="imageedit.submit"/></button>
+    <button type="submit" name="Submit" class="btn btn-default"><spring:message code="mediaedit.submit"/></button>
 
     </form>
 

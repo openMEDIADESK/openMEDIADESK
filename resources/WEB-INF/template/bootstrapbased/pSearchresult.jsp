@@ -150,7 +150,7 @@
     </div>
 
     <div class="form-group" ng-show="advancedsearch" ng-controller="DatepickerCtrl">
-    <label for="licValid"><spring:message code="imageedit.licvalid"/></label>
+    <label for="licValid"><spring:message code="mediaedit.licvalid"/></label>
         <p class="input-group">
         <input name="licValid" id="licValid" type="text" class="form-control" placeholder="" uib-datepicker-popup="dd.MM.yyyy" ng-model="dt" is-open="popupDatepicker.opened" type="html5Types" current-text="Heute" close-text="Fertig" datepicker-options="dateOptions" close-text="Close" alt-input-formats="altInputFormats">
         <span class="input-group-btn">

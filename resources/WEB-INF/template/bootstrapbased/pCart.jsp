@@ -91,7 +91,7 @@
         <div class="md-item-text"><span class="lead" ng-bind="mo.title"></span></div>
         <div class="md-item-text" ng-bind="mo.subtitle"></div>
         <c:if test="${showPriceCreditInfo}">
-            <div class="md-item-text" ng-bind="'<spring:message code="imageedit.price"/>: ' + mo.price + ' <c:out value="${config.currency}"/>'"></div>
+            <div class="md-item-text" ng-bind="'<spring:message code="mediaedit.price"/>: ' + mo.price + ' <c:out value="${config.currency}"/>'"></div>
         </c:if>
         <div class="md-item-text"><small class="text-muted" ng-bind="'# ' + mo.imagenumber"></small></div>
         <div class="md-item-text" ng-show="mo.mayorMime=='image'"><span class="lead" ng-bind="mo.byline"></span></div>

@@ -72,7 +72,7 @@
 
     <button type="submit" name="favicon" class="btn btn-default"><spring:message code="set.web.uploadFavicon"/></button>
     <button type="submit" name="logo2" class="btn btn-default"><spring:message code="set.web.uploadLogo"/></button>
-    <button type="submit" name="submit" class="btn btn-default"><spring:message code="imageedit.submit"/></button>
+    <button type="submit" name="submit" class="btn btn-default"><spring:message code="mediaedit.submit"/></button>
 
     </form>
 

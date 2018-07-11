@@ -16,19 +16,19 @@
                 <table class="table table-condensed">
                   <tbody>
                     <tr>
-                      <th ><spring:message code="imageedit.site"/></th>
+                      <th ><spring:message code="mediaedit.site"/></th>
                       <td ng-bind="mo.site"></td>
                     </tr>
                     <tr>
-                      <th><spring:message code="imageedit.photographdate"/></th>
+                      <th><spring:message code="mediaedit.photographdate"/></th>
                       <td ng-bind="mo.photographDate | date:'dd. MMM yyyy'"></td>
                     </tr>
                     <tr ng-show="mo.mayorMime=='image' || mo.mayorMime=='video'">
-                      <th><spring:message code="imageedit.photographer"/></th>
+                      <th><spring:message code="mediaedit.photographer"/></th>
                       <td ng-bind="mo.photographerAlias"></td>
                     </tr>
                     <tr>
-                      <th><spring:message code="imageedit.byline"/></th>
+                      <th><spring:message code="mediaedit.byline"/></th>
                       <td ng-bind="mo.byline"></td>
                     </tr>
                     <tr>

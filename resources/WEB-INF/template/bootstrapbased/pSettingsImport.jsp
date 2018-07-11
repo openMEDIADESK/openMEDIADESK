@@ -102,7 +102,7 @@
 
                 <spring:bind path="command.importSubtitle">
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-                    <label for="input<c:out value="${status.expression}"/>"><spring:message code="imageedit.subtitle"/></label>
+                    <label for="input<c:out value="${status.expression}"/>"><spring:message code="mediaedit.subtitle"/></label>
                             <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
                                 <c:forEach items="${metadataHeaders}" var="metadata">
                                     <option value="<c:out value="${metadata}"/>"<c:if test="${status.value==metadata}"> selected</c:if>><c:out value="${metadata}"/></option>
@@ -113,7 +113,7 @@
 
                 <spring:bind path="command.importInfo">
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-                    <label for="input<c:out value="${status.expression}"/>"><spring:message code="imageedit.info"/></label>
+                    <label for="input<c:out value="${status.expression}"/>"><spring:message code="mediaedit.info"/></label>
                             <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
                                 <c:forEach items="${metadataHeaders}" var="metadata">
                                     <option value="<c:out value="${metadata}"/>"<c:if test="${status.value==metadata}"> selected</c:if>><c:out value="${metadata}"/></option>
@@ -168,7 +168,7 @@
 
                 <spring:bind path="command.importKeywords">
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-                    <label for="input<c:out value="${status.expression}"/>"><spring:message code="imageedit.keywords"/></label>
+                    <label for="input<c:out value="${status.expression}"/>"><spring:message code="mediaedit.keywords"/></label>
                             <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
                                 <c:forEach items="${metadataHeaders}" var="metadata">
                                     <option value="<c:out value="${metadata}"/>"<c:if test="${status.value==metadata}"> selected</c:if>><c:out value="${metadata}"/></option>
@@ -190,7 +190,7 @@
 
                 <spring:bind path="command.importNote">
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-                    <label for="input<c:out value="${status.expression}"/>"><spring:message code="imageedit.note"/></label>
+                    <label for="input<c:out value="${status.expression}"/>"><spring:message code="mediaedit.note"/></label>
                             <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
                                 <c:forEach items="${metadataHeaders}" var="metadata">
                                     <option value="<c:out value="${metadata}"/>"<c:if test="${status.value==metadata}"> selected</c:if>><c:out value="${metadata}"/></option>
@@ -201,7 +201,7 @@
 
                 <spring:bind path="command.importRestrictions">
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-                    <label for="input<c:out value="${status.expression}"/>"><spring:message code="imageedit.restrictions"/></label>
+                    <label for="input<c:out value="${status.expression}"/>"><spring:message code="mediaedit.restrictions"/></label>
                             <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
                                 <c:forEach items="${metadataHeaders}" var="metadata">
                                     <option value="<c:out value="${metadata}"/>"<c:if test="${status.value==metadata}"> selected</c:if>><c:out value="${metadata}"/></option>
@@ -212,7 +212,7 @@
 
                 <spring:bind path="command.importDate">
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-                    <label for="input<c:out value="${status.expression}"/>"><spring:message code="imageedit.photographdate"/></label>
+                    <label for="input<c:out value="${status.expression}"/>"><spring:message code="mediaedit.photographdate"/></label>
                             <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
                                 <c:forEach items="${metadataHeaders}" var="metadata">
                                     <option value="<c:out value="${metadata}"/>"<c:if test="${status.value==metadata}"> selected</c:if>><c:out value="${metadata}"/></option>
@@ -396,7 +396,7 @@
 
         </div>
 
-    <button type="submit" class="btn btn-default"><spring:message code="imageedit.submit"/></button>
+    <button type="submit" class="btn btn-default"><spring:message code="mediaedit.submit"/></button>
 
     </form>
 

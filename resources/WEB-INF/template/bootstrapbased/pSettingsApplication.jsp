@@ -503,7 +503,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.title"/> [DE]
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.title"/> [DE]
                       </label>
                     </div>
                     </div>
@@ -513,7 +513,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.title"/> [EN]
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.title"/> [EN]
                       </label>
                     </div>
                     </div>
@@ -523,7 +523,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.subtitle"/> [DE]
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.subtitle"/> [DE]
                       </label>
                     </div>
                     </div>
@@ -533,7 +533,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.subtitle"/> [EN]
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.subtitle"/> [EN]
                       </label>
                     </div>
                     </div>
@@ -544,7 +544,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.info"/> [DE]
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.info"/> [DE]
                       </label>
                     </div>
                     </div>
@@ -554,7 +554,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.info"/> [EN]
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.info"/> [EN]
                       </label>
                     </div>
                     </div>
@@ -565,7 +565,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.site"/> [DE]
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.site"/> [DE]
                       </label>
                     </div>
                     </div>
@@ -575,7 +575,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.site"/> [EN]
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.site"/> [EN]
                       </label>
                     </div>
                     </div>
@@ -586,7 +586,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.photographdate"/>
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.photographdate"/>
                       </label>
                     </div>
                     </div>
@@ -596,7 +596,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.photographer"/>
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.photographer"/>
                       </label>
                     </div>
                     </div>
@@ -607,7 +607,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.byline"/>
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.byline"/>
                       </label>
                     </div>
                     </div>
@@ -617,7 +617,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.keywords"/>
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.keywords"/>
                       </label>
                     </div>
                     </div>
@@ -628,7 +628,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.people"/>
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.people"/>
                       </label>
                     </div>
                     </div>
@@ -638,7 +638,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.orientation"/>
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.orientation"/>
                       </label>
                     </div>
                     </div>
@@ -649,7 +649,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.perspective"/>
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.perspective"/>
                       </label>
                     </div>
                     </div>
@@ -659,7 +659,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.motive"/>
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.motive"/>
                       </label>
                     </div>
                     </div>
@@ -670,7 +670,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.gesture"/>
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.gesture"/>
                       </label>
                     </div>
                     </div>
@@ -681,7 +681,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.note"/> [DE]
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.note"/> [DE]
                       </label>
                     </div>
                     </div>
@@ -691,7 +691,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.note"/> [EN]
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.note"/> [EN]
                       </label>
                     </div>
                     </div>
@@ -702,7 +702,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.restrictions"/> [DE]
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.restrictions"/> [DE]
                       </label>
                     </div>
                     </div>
@@ -712,7 +712,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.restrictions"/> [EN]
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.restrictions"/> [EN]
                       </label>
                     </div>
                     </div>
@@ -723,7 +723,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.flag"/>
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.flag"/>
                       </label>
                     </div>
                     </div>
@@ -734,7 +734,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.price"/>
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.price"/>
                       </label>
                     </div>
                     </div>
@@ -745,7 +745,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="imageedit.licvalid"/>
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="mediaedit.licvalid"/>
                       </label>
                     </div>
                     </div>
@@ -1010,7 +1010,7 @@
 
         </div>
 
-    <button type="submit" class="btn btn-default"><spring:message code="imageedit.submit"/></button>
+    <button type="submit" class="btn btn-default"><spring:message code="mediaedit.submit"/></button>
 
     </form>
 

@@ -148,7 +148,7 @@ public class MediaDetailEditController extends AbstractAutoFillController {
         //Map model = new HashMap();
         httpServletRequest.setAttribute("metadataList",metadataList);
 
-        this.setContentTemplateFile("imageedit.jsp",httpServletRequest);
+        this.setContentTemplateFile("mediaedit.jsp",httpServletRequest);
         return super.showForm(httpServletRequest,e, this.getFormView(), model);    //To change body of overridden methods use File | Settings | File Templates.
     }
 

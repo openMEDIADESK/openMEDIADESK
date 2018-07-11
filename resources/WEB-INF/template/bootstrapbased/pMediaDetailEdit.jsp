@@ -18,12 +18,12 @@
 <!-- breadcrumbs -->
 <ol class="breadcrumb">
 	<li><a href="<c:url value="${home}"/>"><i class="fa fa-folder-o fa-fw"></i> Home</a></li>
-    <li class="active"><i class="fa fa-tag fa-fw"></i> <spring:message code="imageedit.headline"/> <c:out value="${command.imageVersion.versionName}"/></li>
+    <li class="active"><i class="fa fa-tag fa-fw"></i> <spring:message code="mediaedit.headline"/> <c:out value="${command.imageVersion.versionName}"/></li>
 </ol>
 <!-- /breadcrumbs -->
 <!-- ordnertitel und infos -->
 <h3>
-    <spring:message code="imageedit.headline"/>
+    <spring:message code="mediaedit.headline"/>
         <div class="btn-group">
             <label class="btn btn-primary" ng-model="showDe" uib-btn-checkbox>DE</label>
             <label class="btn btn-primary" ng-model="showEn" uib-btn-checkbox>EN</label>
@@ -43,7 +43,7 @@
 	<div class="col-sm-3 md-keywording-img">
         <a href="#" data-toggle="modal" data-target="#meinModal"><img src="/imageservlet/<c:out value="${command.imageVersion.ivid}"/>/1/image.jpg"></a>
         <div ng-controller="TimeAgoCtrl" ng-init="setDate(<c:out value="${command.imageVersion.createDate.time}"/>)">
-            <spring:message code="imageedit.by"/> <c:out value="${command.creator.userName}"/>
+            <spring:message code="mediaedit.by"/> <c:out value="${command.creator.userName}"/>
             <a href="#" tooltip-animation="true" uib-tooltip="<dt:format pattern="dd MMMM yyyy, HH:mm" default=""><c:out value="${command.imageVersion.createDate.time}"/></dt:format>">{{dt | timeago}}</a>
             <!--<a href="#" ng-click="infoMediaPopup();"><i class="fa fa-info-circle" aria-hidden="true"></i></a>-->
         </div>
@@ -62,7 +62,7 @@
 
     <spring:bind path="command.imageVersion.versionName">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="textName"><spring:message code="imageedit.name"/></label>
+        <label for="textName"><spring:message code="mediaedit.name"/></label>
         <input type="text" ng-model="data.name" ng-change="nameChanged()" class="form-control input-sm" id="textName" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -86,7 +86,7 @@
     <div class="row">
     <spring:bind path="command.imageVersion.versionTitleLng1">
         <div ng-show="showDe==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="textTitleLng1"><spring:message code="imageedit.title"/> [DE]</label> &nbsp;<input type="checkbox" name="copyfield" value="versionTitleLng1" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyTitleLng1}"> checked="true"</c:if>>
+        <label for="textTitleLng1"><spring:message code="mediaedit.title"/> [DE]</label> &nbsp;<input type="checkbox" name="copyfield" value="versionTitleLng1" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyTitleLng1}"> checked="true"</c:if>>
         <input type="text" ng-model="data.titleLng1" ng-change="title1Changed()" class="form-control input-sm" id="textTitleLng1" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -98,7 +98,7 @@
     <c:if test="${config.multiLang}">
         <spring:bind path="command.imageVersion.versionTitleLng2">
         <div ng-show="showEn==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="textTitleLng2"><spring:message code="imageedit.title"/> [EN]</label> &nbsp;<input type="checkbox" name="copyfield" value="versionTitleLng1" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyTitleLng2}"> checked="true"</c:if>>
+        <label for="textTitleLng2"><spring:message code="mediaedit.title"/> [EN]</label> &nbsp;<input type="checkbox" name="copyfield" value="versionTitleLng1" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyTitleLng2}"> checked="true"</c:if>>
         <input type="text" ng-model="data.titleLng2" ng-change="title2Changed()" class="form-control input-sm" id="textTitleLng2" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -114,7 +114,7 @@
 
         <spring:bind path="command.imageVersion.artist">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="textTitleLng2"><spring:message code="imageedit.artist"/></label> &nbsp;<input type="checkbox" name="copyfield" value="artist" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyTitle}"> checked="true"</c:if>>
+        <label for="textTitleLng2"><spring:message code="mediaedit.artist"/></label> &nbsp;<input type="checkbox" name="copyfield" value="artist" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyTitle}"> checked="true"</c:if>>
         <input type="text" ng-model="title2" class="form-control input-sm" id="textTitleLng2" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -125,7 +125,7 @@
 
         <spring:bind path="command.imageVersion.album">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="textTitleLng2"><spring:message code="imageedit.album"/></label> &nbsp;<input type="checkbox" name="copyfield" value="album" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyTitle}"> checked="true"</c:if>>
+        <label for="textTitleLng2"><spring:message code="mediaedit.album"/></label> &nbsp;<input type="checkbox" name="copyfield" value="album" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyTitle}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="textTitleLng2" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -136,7 +136,7 @@
 
         <spring:bind path="command.imageVersion.genre">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="textTitleLng2"><spring:message code="imageedit.genre"/></label> &nbsp;<input type="checkbox" name="copyfield" value="genre" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyTitle}"> checked="true"</c:if>>
+        <label for="textTitleLng2"><spring:message code="mediaedit.genre"/></label> &nbsp;<input type="checkbox" name="copyfield" value="genre" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyTitle}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="textTitleLng2" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -150,7 +150,7 @@
     <div class="row">
     <spring:bind path="command.imageVersion.versionSubTitleLng1">
         <div ng-show="showDe==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="textSubTitleLng1"><spring:message code="imageedit.subtitle"/> [DE]</label> &nbsp;<input type="checkbox" name="copyfield" value="versionSubTitleLng1" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopySubTitleLng1}"> checked="true"</c:if>>
+        <label for="textSubTitleLng1"><spring:message code="mediaedit.subtitle"/> [DE]</label> &nbsp;<input type="checkbox" name="copyfield" value="versionSubTitleLng1" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopySubTitleLng1}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="textSubTitleLng1" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -162,7 +162,7 @@
     <c:if test="${config.multiLang}">
         <spring:bind path="command.imageVersion.versionSubTitleLng2">
         <div ng-show="showEn==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="textSubTitleLng2"><spring:message code="imageedit.subtitle"/> [EN]</label> &nbsp;<input type="checkbox" name="copyfield" value="versionSubTitleLng2" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopySubTitleLng2}"> checked="true"</c:if>>
+        <label for="textSubTitleLng2"><spring:message code="mediaedit.subtitle"/> [EN]</label> &nbsp;<input type="checkbox" name="copyfield" value="versionSubTitleLng2" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopySubTitleLng2}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="textSubTitleLng2" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -176,7 +176,7 @@
     <div class="row">
     <spring:bind path="command.imageVersion.infoLng1">
         <div ng-show="showDe==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="textInfoLng1"><spring:message code="imageedit.info"/> [DE]</label> &nbsp;<input type="checkbox" name="copyfield" value="infoLng1" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyInfoLng1}"> checked="true"</c:if>>
+        <label for="textInfoLng1"><spring:message code="mediaedit.info"/> [DE]</label> &nbsp;<input type="checkbox" name="copyfield" value="infoLng1" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyInfoLng1}"> checked="true"</c:if>>
         <!--<input type="text" class="form-control input-sm" id="textInfoLng1" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>-->
         <textarea class="form-control input-sm" name="<c:out value="${status.expression}"/>" id="text<c:out value="${status.expression}"/>" rows="5"><c:out value="${status.value}"/></textarea>
         <c:if test="${status.error}">
@@ -189,7 +189,7 @@
     <c:if test="${config.multiLang}">
         <spring:bind path="command.imageVersion.infoLng2">
         <div ng-show="showEn==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="textInfoLng2"><spring:message code="imageedit.info"/> [EN]</label> &nbsp;<input type="checkbox" name="copyfield" value="infoLng2" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyInfoLng2}"> checked="true"</c:if>>
+        <label for="textInfoLng2"><spring:message code="mediaedit.info"/> [EN]</label> &nbsp;<input type="checkbox" name="copyfield" value="infoLng2" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyInfoLng2}"> checked="true"</c:if>>
         <!-- <input type="text" class="form-control input-sm" id="textInfoLng2" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>> -->
         <textarea class="form-control input-sm" name="<c:out value="${status.expression}"/>" id="text<c:out value="${status.expression}"/>" rows="5"><c:out value="${status.value}"/></textarea>
         <c:if test="${status.error}">
@@ -204,7 +204,7 @@
     <div class="row">
     <spring:bind path="command.imageVersion.siteLng1">
         <div ng-show="showDe==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="text<c:out value="${status.expression}"/>"><spring:message code="imageedit.site"/> [DE]</label> &nbsp;<input type="checkbox" name="copyfield" value="siteLng1" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopySiteLng1}"> checked="true"</c:if>>
+        <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.site"/> [DE]</label> &nbsp;<input type="checkbox" name="copyfield" value="siteLng1" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopySiteLng1}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -216,7 +216,7 @@
     <c:if test="${config.multiLang}">
         <spring:bind path="command.imageVersion.siteLng2">
         <div ng-show="showEn==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="text<c:out value="${status.expression}"/>"><spring:message code="imageedit.site"/> [EN]</label> &nbsp;<input type="checkbox" name="copyfield" value="siteLng2" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopySiteLng2}"> checked="true"</c:if>>
+        <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.site"/> [EN]</label> &nbsp;<input type="checkbox" name="copyfield" value="siteLng2" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopySiteLng2}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -230,7 +230,7 @@
     <!--
     <spring:bind path="command.imageVersion.photographDate">              
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="text<c:out value="${status.expression}"/>"><spring:message code="imageedit.photographdate"/></label> &nbsp;<input type="checkbox" name="copyfield" value="photographDate" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyPhotographDate}"> checked="true"</c:if>>
+        <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.photographdate"/></label> &nbsp;<input type="checkbox" name="copyfield" value="photographDate" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyPhotographDate}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -242,7 +242,7 @@
 
     <spring:bind path="command.imageVersion.photographDate">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>" ng-controller="DatepickerCtrl">
-        <label for="text<c:out value="${status.expression}"/>"><spring:message code="imageedit.photographdate"/></label> &nbsp;<input type="checkbox" name="copyfield" value="photographDate" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyPhotographDate}"> checked="true"</c:if>>
+        <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.photographdate"/></label> &nbsp;<input type="checkbox" name="copyfield" value="photographDate" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyPhotographDate}"> checked="true"</c:if>>
             <p class="input-group">
         <input type="text" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="dt" ng-init="setDate(<fmt:formatDate value="${command.imageVersion.photographDate}" pattern="yyyy,M,dd"/>)" is-open="popupDatepicker.opened" type="html5Types" current-text="Heute" close-text="Fertig" datepicker-options="dateOptions" ng-required="true" alt-input-formats="altInputFormats" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <span class="input-group-btn">
@@ -258,7 +258,7 @@
 
     <spring:bind path="command.imageVersion.photographerAlias">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="text<c:out value="${status.expression}"/>"><spring:message code="imageedit.photographer"/></label> &nbsp;<input type="checkbox" name="copyfield" value="photographerAlias" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyPhotographer}"> checked="true"</c:if>>
+        <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.photographer"/></label> &nbsp;<input type="checkbox" name="copyfield" value="photographerAlias" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyPhotographer}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -269,7 +269,7 @@
 
     <spring:bind path="command.imageVersion.byline">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="text<c:out value="${status.expression}"/>"><spring:message code="imageedit.byline"/></label> &nbsp;<input type="checkbox" name="copyfield" value="byline" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyByline}"> checked="true"</c:if>>
+        <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.byline"/></label> &nbsp;<input type="checkbox" name="copyfield" value="byline" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyByline}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -280,14 +280,14 @@
 
     <spring:bind path="command.imageVersion.keywords">
         <div class="form-group">
-            <label for="text<c:out value="${status.expression}"/>"><spring:message code="imageedit.keywords"/></label> &nbsp;<input type="checkbox" name="copyfield" value="keywords" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyKeywords}"> checked="true"</c:if>>
+            <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.keywords"/></label> &nbsp;<input type="checkbox" name="copyfield" value="keywords" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyKeywords}"> checked="true"</c:if>>
             <textarea class="form-control input-sm" name="<c:out value="${status.expression}"/>" id="text<c:out value="${status.expression}"/>" rows="5"><c:out value="${status.value}"/></textarea>
         </div>
     </spring:bind>
 
     <spring:bind path="command.imageVersion.people">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="text<c:out value="${status.expression}"/>"><spring:message code="imageedit.people"/></label> &nbsp;<input type="checkbox" name="copyfield" value="people" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyPeople}"> checked="true"</c:if>>
+        <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.people"/></label> &nbsp;<input type="checkbox" name="copyfield" value="people" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyPeople}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -297,60 +297,60 @@
     </spring:bind>
 
     <div class="form-group">
-        <label for="selOrientation"><spring:message code="imageedit.orientation"/></label> &nbsp;<input type="checkbox" name="copyfield" value="orientation" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyOrientation}"> checked="true"</c:if>>
+        <label for="selOrientation"><spring:message code="mediaedit.orientation"/></label> &nbsp;<input type="checkbox" name="copyfield" value="orientation" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyOrientation}"> checked="true"</c:if>>
         <spring:bind path="command.imageVersion.orientation">
         <select class="form-control" id="selOrientation" name="imageVersion.orientation">
-                          <option value="0"<c:if test="${status.value==0}"> selected</c:if>><spring:message code="imageedit.orientation.undefined"/></option>
-                          <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="imageedit.orientation.horizontal"/></option>
-                          <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="imageedit.orientation.panoramic"/></option>
-                          <option value="3"<c:if test="${status.value==3}"> selected</c:if>><spring:message code="imageedit.orientation.square"/></option>
-                          <option value="4"<c:if test="${status.value==4}"> selected</c:if>><spring:message code="imageedit.orientation.vertical"/></option>
+                          <option value="0"<c:if test="${status.value==0}"> selected</c:if>><spring:message code="mediaedit.orientation.undefined"/></option>
+                          <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="mediaedit.orientation.horizontal"/></option>
+                          <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="mediaedit.orientation.panoramic"/></option>
+                          <option value="3"<c:if test="${status.value==3}"> selected</c:if>><spring:message code="mediaedit.orientation.square"/></option>
+                          <option value="4"<c:if test="${status.value==4}"> selected</c:if>><spring:message code="mediaedit.orientation.vertical"/></option>
         </select>
         </spring:bind>
     </div>
 
     <div class="form-group">
-        <label for="selPerspective"><spring:message code="imageedit.perspective"/></label> &nbsp;<input type="checkbox" name="copyfield" value="perspective" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyPerspective}"> checked="true"</c:if>>
+        <label for="selPerspective"><spring:message code="mediaedit.perspective"/></label> &nbsp;<input type="checkbox" name="copyfield" value="perspective" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyPerspective}"> checked="true"</c:if>>
         <spring:bind path="command.imageVersion.perspective">
         <select class="form-control" id="selPerspective" name="imageVersion.perspective">
-                        <option value="0"<c:if test="${status.value==0}"> selected</c:if>><spring:message code="imageedit.perspective.undefined"/></option>
-                        <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="imageedit.perspective.topview"/></option>
-                        <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="imageedit.perspective.bottomview"/></option>
-                        <option value="3"<c:if test="${status.value==3}"> selected</c:if>><spring:message code="imageedit.perspective.sideview"/></option>
-                        <option value="4"<c:if test="${status.value==4}"> selected</c:if>><spring:message code="imageedit.perspective.frontview"/></option>
-                        <option value="5"<c:if test="${status.value==5}"> selected</c:if>><spring:message code="imageedit.perspective.backview"/></option>
-                        <option value="6"<c:if test="${status.value==6}"> selected</c:if>><spring:message code="imageedit.perspective.aerialview"/></option>
+                        <option value="0"<c:if test="${status.value==0}"> selected</c:if>><spring:message code="mediaedit.perspective.undefined"/></option>
+                        <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="mediaedit.perspective.topview"/></option>
+                        <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="mediaedit.perspective.bottomview"/></option>
+                        <option value="3"<c:if test="${status.value==3}"> selected</c:if>><spring:message code="mediaedit.perspective.sideview"/></option>
+                        <option value="4"<c:if test="${status.value==4}"> selected</c:if>><spring:message code="mediaedit.perspective.frontview"/></option>
+                        <option value="5"<c:if test="${status.value==5}"> selected</c:if>><spring:message code="mediaedit.perspective.backview"/></option>
+                        <option value="6"<c:if test="${status.value==6}"> selected</c:if>><spring:message code="mediaedit.perspective.aerialview"/></option>
         </select>
         </spring:bind>
     </div>
 
     <div class="form-group">
-        <label for="selMotive"><spring:message code="imageedit.motive"/></label> &nbsp;<input type="checkbox" name="copyfield" value="motive" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyMotive}"> checked="true"</c:if>>
+        <label for="selMotive"><spring:message code="mediaedit.motive"/></label> &nbsp;<input type="checkbox" name="copyfield" value="motive" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyMotive}"> checked="true"</c:if>>
         <spring:bind path="command.imageVersion.motive">
         <select class="form-control" id="selMotive" name="imageVersion.motive">
-                         <option value="0"<c:if test="${status.value==0}"> selected</c:if>><spring:message code="imageedit.motive.undefined"/></option>
-                         <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="imageedit.motive.portrait"/></option>
-                         <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="imageedit.motive.group"/></option>
-                         <option value="3"<c:if test="${status.value==3}"> selected</c:if>><spring:message code="imageedit.motive.overview"/></option>
-                         <option value="4"<c:if test="${status.value==4}"> selected</c:if>><spring:message code="imageedit.motive.feature"/></option>
+                         <option value="0"<c:if test="${status.value==0}"> selected</c:if>><spring:message code="mediaedit.motive.undefined"/></option>
+                         <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="mediaedit.motive.portrait"/></option>
+                         <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="mediaedit.motive.group"/></option>
+                         <option value="3"<c:if test="${status.value==3}"> selected</c:if>><spring:message code="mediaedit.motive.overview"/></option>
+                         <option value="4"<c:if test="${status.value==4}"> selected</c:if>><spring:message code="mediaedit.motive.feature"/></option>
         </select>
         </spring:bind>
     </div>
 
     <div class="form-group">
-        <label for="selGesture"><spring:message code="imageedit.gesture"/></label> &nbsp;<input type="checkbox" name="copyfield" value="gesture" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyGesture}"> checked="true"</c:if>>
+        <label for="selGesture"><spring:message code="mediaedit.gesture"/></label> &nbsp;<input type="checkbox" name="copyfield" value="gesture" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyGesture}"> checked="true"</c:if>>
         <spring:bind path="command.imageVersion.gesture">
         <select class="form-control" id="selGesture" name="imageVersion.gesture">
-                            <option value="0"<c:if test="${status.value==0}"> selected</c:if>><spring:message code="imageedit.gesture.undefined"/></option>
-                            <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="imageedit.gesture.jubilate"/></option>
-                            <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="imageedit.gesture.bright"/></option>
-                            <option value="3"<c:if test="${status.value==3}"> selected</c:if>><spring:message code="imageedit.gesture.sad"/></option>
-                            <option value="4"<c:if test="${status.value==4}"> selected</c:if>><spring:message code="imageedit.gesture.sceptic"/></option>
-                            <option value="5"<c:if test="${status.value==5}"> selected</c:if>><spring:message code="imageedit.gesture.screaming"/></option>
-                            <option value="6"<c:if test="${status.value==6}"> selected</c:if>><spring:message code="imageedit.gesture.neutral"/></option>
-                            <option value="7"<c:if test="${status.value==7}"> selected</c:if>><spring:message code="imageedit.gesture.friendly"/></option>
-                            <option value="8"<c:if test="${status.value==8}"> selected</c:if>><spring:message code="imageedit.gesture.unfriendly"/></option>
-                            <option value="9"<c:if test="${status.value==9}"> selected</c:if>><spring:message code="imageedit.gesture.talking"/></option>
+                            <option value="0"<c:if test="${status.value==0}"> selected</c:if>><spring:message code="mediaedit.gesture.undefined"/></option>
+                            <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="mediaedit.gesture.jubilate"/></option>
+                            <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="mediaedit.gesture.bright"/></option>
+                            <option value="3"<c:if test="${status.value==3}"> selected</c:if>><spring:message code="mediaedit.gesture.sad"/></option>
+                            <option value="4"<c:if test="${status.value==4}"> selected</c:if>><spring:message code="mediaedit.gesture.sceptic"/></option>
+                            <option value="5"<c:if test="${status.value==5}"> selected</c:if>><spring:message code="mediaedit.gesture.screaming"/></option>
+                            <option value="6"<c:if test="${status.value==6}"> selected</c:if>><spring:message code="mediaedit.gesture.neutral"/></option>
+                            <option value="7"<c:if test="${status.value==7}"> selected</c:if>><spring:message code="mediaedit.gesture.friendly"/></option>
+                            <option value="8"<c:if test="${status.value==8}"> selected</c:if>><spring:message code="mediaedit.gesture.unfriendly"/></option>
+                            <option value="9"<c:if test="${status.value==9}"> selected</c:if>><spring:message code="mediaedit.gesture.talking"/></option>
         </select>
         </spring:bind>
     </div>
@@ -358,14 +358,14 @@
     <div class="row">
     <spring:bind path="command.imageVersion.noteLng1">
     <div ng-show="showDe==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group">
-        <label for="text<c:out value="${status.expression}"/>"><spring:message code="imageedit.note"/> [DE]</label> &nbsp;<input type="checkbox" name="copyfield" value="noteLng1" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyNoteLng1}"> checked="true"</c:if>>
+        <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.note"/> [DE]</label> &nbsp;<input type="checkbox" name="copyfield" value="noteLng1" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyNoteLng1}"> checked="true"</c:if>>
         <textarea class="form-control input-sm" name="<c:out value="${status.expression}"/>" id="text<c:out value="${status.expression}"/>" rows="5"><c:out value="${status.value}"/></textarea>
     </div>
     </spring:bind>
 
     <spring:bind path="command.imageVersion.noteLng2">
     <div ng-show="showEn==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group">
-        <label for="text<c:out value="${status.expression}"/>"><spring:message code="imageedit.note"/> [EN]</label> &nbsp;<input type="checkbox" name="copyfield" value="noteLng2" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyNoteLng2}"> checked="true"</c:if>>
+        <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.note"/> [EN]</label> &nbsp;<input type="checkbox" name="copyfield" value="noteLng2" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyNoteLng2}"> checked="true"</c:if>>
         <textarea class="form-control input-sm" name="<c:out value="${status.expression}"/>" id="text<c:out value="${status.expression}"/>" rows="5"><c:out value="${status.value}"/></textarea>
     </div>
     </spring:bind>
@@ -374,34 +374,34 @@
     <div class="row">
     <spring:bind path="command.imageVersion.restrictionsLng1">
     <div ng-show="showDe==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group">
-        <label for="text<c:out value="${status.expression}"/>"><spring:message code="imageedit.restrictions"/> [DE]</label> &nbsp;<input type="checkbox" name="copyfield" value="restrictionsLng1" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyRestrictionsLng1}"> checked="true"</c:if>>
+        <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.restrictions"/> [DE]</label> &nbsp;<input type="checkbox" name="copyfield" value="restrictionsLng1" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyRestrictionsLng1}"> checked="true"</c:if>>
         <textarea class="form-control input-sm" name="<c:out value="${status.expression}"/>" id="text<c:out value="${status.expression}"/>" rows="5"><c:out value="${status.value}"/></textarea>
     </div>
     </spring:bind>
 
     <spring:bind path="command.imageVersion.restrictionsLng2">
     <div ng-show="showEn==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group">
-        <label for="text<c:out value="${status.expression}"/>"><spring:message code="imageedit.restrictions"/> [EN]</label> &nbsp;<input type="checkbox" name="copyfield" value="restrictionsLng2" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyRestrictionsLng2}"> checked="true"</c:if>>
+        <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.restrictions"/> [EN]</label> &nbsp;<input type="checkbox" name="copyfield" value="restrictionsLng2" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyRestrictionsLng2}"> checked="true"</c:if>>
         <textarea class="form-control input-sm" name="<c:out value="${status.expression}"/>" id="text<c:out value="${status.expression}"/>" rows="5"><c:out value="${status.value}"/></textarea>
     </div>
     </spring:bind>
     </div>
 
     <div class="form-group">
-        <label for="selFlag"><spring:message code="imageedit.flag"/></label> &nbsp;<input type="checkbox" name="copyfield" value="gesture" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyGesture}"> checked="true"</c:if>>
+        <label for="selFlag"><spring:message code="mediaedit.flag"/></label> &nbsp;<input type="checkbox" name="copyfield" value="gesture" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyGesture}"> checked="true"</c:if>>
         <spring:bind path="command.imageVersion.flag">
         <select class="form-control" id="selFlag" name="imageVersion.flag">
-                        <option value="0"<c:if test="${status.value==0}"> selected</c:if>><spring:message code="imageedit.flag.undefined"/></option>
-                        <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="imageedit.flag.red"/></option>
-                        <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="imageedit.flag.yellow"/></option>
-                        <option value="3"<c:if test="${status.value==3}"> selected</c:if>><spring:message code="imageedit.flag.green"/></option>
+                        <option value="0"<c:if test="${status.value==0}"> selected</c:if>><spring:message code="mediaedit.flag.undefined"/></option>
+                        <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="mediaedit.flag.red"/></option>
+                        <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="mediaedit.flag.yellow"/></option>
+                        <option value="3"<c:if test="${status.value==3}"> selected</c:if>><spring:message code="mediaedit.flag.green"/></option>
         </select>
         </spring:bind>
     </div>
 
     <spring:bind path="command.imageVersion.price">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="text<c:out value="${status.expression}"/>"><spring:message code="imageedit.price"/></label> &nbsp;<input type="checkbox" name="copyfield" value="price" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyPrice}"> checked="true"</c:if>>
+        <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.price"/></label> &nbsp;<input type="checkbox" name="copyfield" value="price" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyPrice}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -412,7 +412,7 @@
 
     <spring:bind path="command.imageVersion.licValid">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="text<c:out value="${status.expression}"/>"><spring:message code="imageedit.licvalid"/></label> &nbsp;<input type="checkbox" name="copyfield" value="licValid" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyLicValid}"> checked="true"</c:if>>
+        <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.licvalid"/></label> &nbsp;<input type="checkbox" name="copyfield" value="licValid" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyLicValid}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -595,7 +595,7 @@
     
     <spring:bind path="command.imageVersion.masterdataId">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="text<c:out value="${status.expression}"/>"><spring:message code="imageedit.masterdata"/></label> &nbsp;<input type="checkbox" name="copyfield" value="masterdataId" alt="copy" title="<spring:message code="imageedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyMasterdata}"> checked="true"</c:if>>
+        <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.masterdata"/></label> &nbsp;<input type="checkbox" name="copyfield" value="masterdataId" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyMasterdata}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -606,7 +606,7 @@
 
     <c:if test="${!empty folderList}">
     <div class="checkbox">
-        <fieldset id="replaceFolder"><legend><spring:message code="imageedit.replacecat"/></legend>
+        <fieldset id="replaceFolder"><legend><spring:message code="mediaedit.replacecat"/></legend>
         <c:forEach items="${folderList}" var="folder">
         <label>
           <input type="checkbox" name="replaceFolder" id="cbxCat<c:out value="${folder.folderId}"/>" value="<c:out value="${folder.folderId}"/>"> <c:out value="${folder.name}"/> (<c:out value="${folder.title}"/>)
@@ -620,7 +620,7 @@
     <div class="checkbox">
         <fieldset id="replaceSelectedMedia">
         <label>
-          <input type="checkbox"  name="replaceSelected" id="replaceSelected" value="1"> <spring:message code="imageedit.replaceselect"/> (<c:out value="${selectedList}"/>)
+          <input type="checkbox"  name="replaceSelected" id="replaceSelected" value="1"> <spring:message code="mediaedit.replaceselect"/> (<c:out value="${selectedList}"/>)
         </label>
         </fieldset>
     </div>
@@ -670,8 +670,8 @@
                   <div class="form-group">
         ID: <c:out value="${command.imageVersion.ivid}"/><br/>
         Media Number #: <c:out value="${command.imageVersion.mediaNumber}"/><br/>
-        <spring:message code="imageedit.createdate"/> <dt:format pattern="dd MMMM yyyy, HH:mm" default=""><c:out value="${command.imageVersion.createDate.time}"/></dt:format><br/>
-        <spring:message code="imageedit.by"/> <c:out value="${command.creator.userName}"/><br/>
+        <spring:message code="mediaedit.createdate"/> <dt:format pattern="dd MMMM yyyy, HH:mm" default=""><c:out value="${command.imageVersion.createDate.time}"/></dt:format><br/>
+        <spring:message code="mediaedit.by"/> <c:out value="${command.creator.userName}"/><br/>
         Mime: <c:out value="${command.imageVersion.primaryMimeType}"/><br/>
         kb: <c:out value="${command.imageVersion.kb}"/><br/>
         <c:if test="${command.imageVersion.mayorMime=='image'}">

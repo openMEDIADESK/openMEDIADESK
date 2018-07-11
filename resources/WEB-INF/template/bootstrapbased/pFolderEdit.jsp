@@ -234,7 +234,7 @@
         </c:if>
     </spring:bind>
 
-  <button type="submit" class="btn btn-default"><spring:message code="imageedit.submit"/></button>
+  <button type="submit" class="btn btn-default"><spring:message code="mediaedit.submit"/></button>
   <button type="submit" name="acl" value="true" class="btn btn-default"<c:if test="${command.folderId==0}"> ng-disabled="{{true}}"</c:if>><spring:message code="folderedit.acl"/></button>
 </form>
 
