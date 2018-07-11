@@ -57,10 +57,18 @@ public class StatusServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        Writer w = response.getWriter();
+
+        if (Config.configParam.contains("-STATUS")) {
+            showStatus(w, request, response);
+        } else {
+            w.write("Status-Page is disabled.");
+        }
+    }
+
+    private void showStatus(Writer w, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         MediaService mediaService = new MediaService();
-
-        Writer w = response.getWriter();
 
         if (request.getParameter("reloadconfig")!=null) {
             Config.reloadMaxMb(getServletContext());
@@ -178,6 +186,7 @@ public class StatusServlet extends HttpServlet {
 
         w.write("\n\nCommands: \n");
         w.write("?reloadconfig: \n");
+
     }
 
     private void doReset() throws IOException, SQLException {
