@@ -219,9 +219,9 @@ public class SearchresultRestApi extends RestBaseServlet {
         /*
         Suche aus der Session Laden (suchergebnis muss bereits vorliegen)
         */
-        MediaSearchService imageSearch = new MediaSearchService();
+        MediaSearchService mediasearch = new MediaSearchService();
         LngResolver lngResolver = new LngResolver();
-        imageSearch.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
+        mediasearch.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
         String searchString = "";
         SearchResult searchResult = (SearchResult) httpServletRequest.getSession().getAttribute("search");
         if (searchResult==null) {
@@ -246,15 +246,15 @@ public class SearchresultRestApi extends RestBaseServlet {
 
         if (searchResult.getSearchProperty() instanceof KeywordSearchProperty) {
             /* Keyword Suche */
-            searchResult = imageSearch.getImageQuery(
+            searchResult = mediasearch.getImageQuery(
                     (KeywordSearchProperty)searchResult.getSearchProperty(),viewPage,pageSize, WebHelper.getUser(httpServletRequest));
 
         } else if (searchResult.getSearchProperty() instanceof SimpleSearchProperty) {
             //simple search property (orphaned)
-            searchResult = imageSearch.getOrphanedQuery(
+            searchResult = mediasearch.getOrphanedQuery(
                     (SimpleSearchProperty)searchResult.getSearchProperty(),viewPage,pageSize);
         } else {
-            searchResult = imageSearch.getAdvancedImageQuery(
+            searchResult = mediasearch.getAdvancedImageQuery(
                     (MediaSearchProperty)searchResult.getSearchProperty(),viewPage,pageSize,WebHelper.getUser(httpServletRequest));
         }
 

@@ -37,7 +37,7 @@
   <!-- button drop ansicht -->
   <div class="btn-group btn-group-xs" role="group" aria-label="Ansicht" ng-show="allmos.length>0">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <jsp:include page="iconView.jsp"/> <spring:message code="categoryedit.defaultview"/>
+      <jsp:include page="iconView.jsp"/> <spring:message code="folderedit.defaultview"/>
       <span class="caret"></span>
     </button>
             <c:url value="/${lng}/${servletMapping}" var="urlAuto">
@@ -53,9 +53,9 @@
               <c:param name="page" value="${pageIndex}"/>
             </c:url>
     <ul class="dropdown-menu">
-        <li><a href="#" ng-click="switchToView('auto')"><jsp:include page="iconViewAuto.jsp"/> <spring:message code="categoryedit.viewauto"/></a></li>
-        <li><a href="#" ng-click="switchToView('thumbnails')"><jsp:include page="iconViewThumb.jsp"/> <spring:message code="categoryedit.thumbview"/></a></li>
-        <li><a href="#" ng-click="switchToView('list')"><jsp:include page="iconViewList.jsp"/> <spring:message code="categoryedit.listview"/></a></li>
+        <li><a href="#" ng-click="switchToView('auto')"><jsp:include page="iconViewAuto.jsp"/> <spring:message code="folderedit.viewauto"/></a></li>
+        <li><a href="#" ng-click="switchToView('thumbnails')"><jsp:include page="iconViewThumb.jsp"/> <spring:message code="folderedit.thumbview"/></a></li>
+        <li><a href="#" ng-click="switchToView('list')"><jsp:include page="iconViewList.jsp"/> <spring:message code="folderedit.listview"/></a></li>
     </ul>
   </div>
   <!-- /button drop ansicht -->
@@ -67,9 +67,9 @@
     </button>
     <ul class="dropdown-menu">
         <!--<li><a href="#" ng-click="underConstruction()"><i class="fa fa-ticket fa-fw"></i> als Pin freigeben</a></li>-->
-        <li><a href="#" ng-click="selectMediaAll()"><jsp:include page="iconSelect.jsp"/><spring:message code="categoryindex.markall"/></a></li>
+        <li><a href="#" ng-click="selectMediaAll()"><jsp:include page="iconSelect.jsp"/><spring:message code="folderindex.markall"/></a></li>
         <!-- <li><a href="#"><i class="fa fa-check fa-fw"></i>ganze Seite markieren</a></li> -->
-        <li><a href="#" ng-click="selectMediaNone()"><jsp:include page="iconDeselect.jsp"/><spring:message code="categoryindex.unmarkall"/></a></li>
+        <li><a href="#" ng-click="selectMediaNone()"><jsp:include page="iconDeselect.jsp"/><spring:message code="folderindex.unmarkall"/></a></li>
         <li><a href="#" ng-click="insertMedia()"><jsp:include page="iconCopy.jsp"/><spring:message code="copyhere"/></a></li>
         <li role="separator" class="divider"></li>
         <li><a href="#" ng-click="removeMedia()"><jsp:include page="iconRemove.jsp"/><spring:message code="mediamenu.removefromhere"/></a></li>

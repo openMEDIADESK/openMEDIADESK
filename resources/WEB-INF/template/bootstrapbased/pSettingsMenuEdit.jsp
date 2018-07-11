@@ -84,8 +84,8 @@
                             <% if (Config.pinPicEnabled) { %>
                     <option value="1;/pin"<c:if test="${status.value=='1;/pin'}"> selected="true"</c:if>><spring:message code="menu.pinpics"/></option>
                             <% } %>
-                    <option value="1;/index/advancedsearch"<c:if test="${status.value=='1;/index/advancedsearch'}"> selected="true"</c:if>><spring:message code="imagesearch.advanced"/></option>
-                    <option value="1;/index/popup/helpsearch"<c:if test="${status.value=='1;/index/popup/helpsearch'}"> selected="true"</c:if>><spring:message code="imagesearch.helpsearch"/></option>
+                    <option value="1;/index/advancedsearch"<c:if test="${status.value=='1;/index/advancedsearch'}"> selected="true"</c:if>><spring:message code="mediasearch.advanced"/></option>
+                    <option value="1;/index/popup/helpsearch"<c:if test="${status.value=='1;/index/popup/helpsearch'}"> selected="true"</c:if>><spring:message code="mediasearch.helpsearch"/></option>
                     <option value="1;/index/popup/contact"<c:if test="${status.value=='1;/index/popup/contact'}"> selected="true"</c:if>><spring:message code="menu.contact"/></option>
                     <option value="1;/index/popup/tac"<c:if test="${status.value=='1;/index/popup/tac'}"> selected="true"</c:if>><spring:message code="footer.termsconditions"/></option>
                     <option value="1;/index/popup/privacy"<c:if test="${status.value=='1;/index/popup/privacy'}"> selected="true"</c:if>><spring:message code="footer.privacy"/></option>

@@ -50,9 +50,9 @@
               <c:param name="page" value="${pageIndex}"/>
             </c:url>
     <ul class="dropdown-menu">
-        <li><a href="#" ng-click="switchToView('auto')"><i class="fa fa-th fa-fw"></i> <spring:message code="categoryedit.viewauto"/></a></li>
-        <li><a href="#" ng-click="switchToView('thumbnails')"><i class="fa fa-th-large fa-fw"></i> <spring:message code="categoryedit.thumbview"/></a></li>
-        <li><a href="#" ng-click="switchToView('list')"><i class="fa fa-list fa-fw"></i> <spring:message code="categoryedit.listview"/></a></li>
+        <li><a href="#" ng-click="switchToView('auto')"><i class="fa fa-th fa-fw"></i> <spring:message code="folderedit.viewauto"/></a></li>
+        <li><a href="#" ng-click="switchToView('thumbnails')"><i class="fa fa-th-large fa-fw"></i> <spring:message code="folderedit.thumbview"/></a></li>
+        <li><a href="#" ng-click="switchToView('list')"><i class="fa fa-list fa-fw"></i> <spring:message code="folderedit.listview"/></a></li>
     </ul>
   </div>
   <!-- /button drop ansicht -->

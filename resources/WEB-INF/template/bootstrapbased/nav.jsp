@@ -82,7 +82,7 @@
             </mediadesk:login>
             <form class="navbar-form navbar-left" role="search" method="post" action="<c:url value="/${lng}/search"/>">
         	<div class="input-group">
-          	<input type="text" class="form-control md-searchfield-nav" name="q" id="sTextKeyword" placeholder="<spring:message code="imagesearch.imagesearch"/>" accesskey="s">
+          	<input type="text" class="form-control md-searchfield-nav" name="q" id="sTextKeyword" placeholder="<spring:message code="mediasearch.imagesearch"/>" accesskey="s">
             <span class="input-group-btn">
         	<button type="submit" class="btn btn-default"><i class="fa fa-search fa-fw"></i></button>
             </span>
@@ -129,7 +129,7 @@
           <span class="input-group-btn">
             <button class="btn btn-default input-lg" type="button"><i class="fa fa-cogs fa-fw"></i></button>
           </span> -->
-      <input type="text" class="form-control input-lg" name="q" id="sTextKeyword" placeholder="<spring:message code="imagesearch.imagesearch"/>" accesskey="s">
+      <input type="text" class="form-control input-lg" name="q" id="sTextKeyword" placeholder="<spring:message code="mediasearch.imagesearch"/>" accesskey="s">
           <span class="input-group-btn">
             <button class="btn btn-default input-lg" type="submit"><i class="fa fa-search fa-fw"></i></button>
           </span>      

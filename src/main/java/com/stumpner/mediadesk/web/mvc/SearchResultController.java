@@ -137,9 +137,9 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-        MediaSearchService imageSearch = new MediaSearchService();
+        MediaSearchService mediasearch = new MediaSearchService();
         LngResolver lngResolver = new LngResolver();
-        imageSearch.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
+        mediasearch.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
         String searchString = ""; //Für die Angabe nach was gesucht wurde...
         SearchResult searchResult = new SearchResult();
 
@@ -169,7 +169,7 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
                         //suche durchführen...
                         KeywordSearchProperty ksp = new KeywordSearchProperty();
                         ksp.setKeywords(query);
-                        searchResult = imageSearch.getImageQuery(ksp,viewPage,Integer.MAX_VALUE,this.getUser(httpServletRequest));
+                        searchResult = mediasearch.getImageQuery(ksp,viewPage,Integer.MAX_VALUE,this.getUser(httpServletRequest));
                         httpServletRequest.getSession().setAttribute("search", searchResult);
                     } else {
                         //requery: suche in suche
@@ -181,7 +181,7 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
                         }
                         ISearchProperty ksp = (ISearchProperty)searchResult.getSearchProperty();
                         ksp.setKeywords(query);
-                        searchResult = imageSearch.getReQuery(ksp,viewPage,Integer.MAX_VALUE);
+                        searchResult = mediasearch.getReQuery(ksp,viewPage,Integer.MAX_VALUE);
                     }
                 }
 
@@ -193,7 +193,7 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
 
                     ISearchProperty osp = new SimpleSearchProperty();
 
-                    searchResult = imageSearch.getOrphanedQuery(osp,viewPage,Integer.MAX_VALUE);
+                    searchResult = mediasearch.getOrphanedQuery(osp,viewPage,Integer.MAX_VALUE);
                     httpServletRequest.getSession().setAttribute("search", searchResult);
 
                 } else {
@@ -220,10 +220,10 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
                             ksp.setPeriod(Integer.parseInt(httpServletRequest.getParameter("period")));
                             switch (ksp.getPeriod()) {
                                 case 0: httpServletRequest.removeAttribute("searchMessage"); break;
-                                case 1: httpServletRequest.setAttribute("searchMessage","imagesearch.24hours"); break;
-                                case 2: httpServletRequest.setAttribute("searchMessage","imagesearch.lastweek"); break;
-                                case 3: httpServletRequest.setAttribute("searchMessage","imagesearch.lastmonth"); break;
-                                case 4: httpServletRequest.setAttribute("searchMessage","imagesearch.12month"); break;
+                                case 1: httpServletRequest.setAttribute("searchMessage","mediasearch.24hours"); break;
+                                case 2: httpServletRequest.setAttribute("searchMessage","mediasearch.lastweek"); break;
+                                case 3: httpServletRequest.setAttribute("searchMessage","mediasearch.lastmonth"); break;
+                                case 4: httpServletRequest.setAttribute("searchMessage","mediasearch.12month"); break;
                                 case -1:
                                     //special: use dateFrom / dateTo
                                     ksp.setPeriod(0);
@@ -283,7 +283,7 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
 
                     searchString = ksp.getKeywords() + " " +ksp.getPeople()+ " " +ksp.getSite()+ " ";
 
-                    searchResult = imageSearch.getAdvancedImageQuery(ksp,viewPage,Integer.MAX_VALUE,this.getUser(httpServletRequest));
+                    searchResult = mediasearch.getAdvancedImageQuery(ksp,viewPage,Integer.MAX_VALUE,this.getUser(httpServletRequest));
                     httpServletRequest.getSession().setAttribute("search", searchResult);
                 }
             }

@@ -144,10 +144,10 @@
                 
                 <spring:bind path="command.folderSort">
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-                    <label for="input<c:out value="${status.expression}"/>"><spring:message code="set.application.category.sortby"/></label>
+                    <label for="input<c:out value="${status.expression}"/>"><spring:message code="set.application.folder.sortby"/></label>
                             <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
-                                <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="set.application.category.sortbyname"/></option>
-                                <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="set.application.category.sortbytitle"/></option>
+                                <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="set.application.folder.sortbyname"/></option>
+                                <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="set.application.folder.sortbytitle"/></option>
                                 <option value="3"<c:if test="${status.value==3}"> selected</c:if>><spring:message code="set.application.folderOrder.createDate"/></option>
                                 <option value="4"<c:if test="${status.value==4}"> selected</c:if>><spring:message code="set.application.folderOrder.folderDate"/></option>
                             </select>
@@ -157,7 +157,7 @@
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
                         <spring:bind path="command.sortByFolder">
                     <div class="col-sm-6">
-                    <label for="input<c:out value="${status.expression}"/>"><spring:message code="set.application.sort.category"/></label>
+                    <label for="input<c:out value="${status.expression}"/>"><spring:message code="set.application.sort.folder"/></label>
                             <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
                                 <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="set.application.sort.latestDate"/></option>
                                 <option value="6"<c:if test="${status.value==6}"> selected</c:if>><spring:message code="set.application.sort.latestImport"/></option>
@@ -184,7 +184,7 @@
                     <label>&nbsp;</label>
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="set.application.category.latestonroot"/>
+                        <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true"<c:if test="${status.value==true}"> checked</c:if>> <spring:message code="set.application.folder.latestonroot"/>
                       </label>
                     </div>
                 </div>
@@ -192,11 +192,11 @@
 
                 <spring:bind path="command.folderDefaultViewOnRoot">
                     <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-                    <label for="input<c:out value="${status.expression}"/>"><spring:message code="set.application.category.defaultviewroot"/></label>
+                    <label for="input<c:out value="${status.expression}"/>"><spring:message code="set.application.folder.defaultviewroot"/></label>
                             <select name="<c:out value="${status.expression}"/>" id="input<c:out value="${status.expression}"/>" class="form-control">
                                 <option value="0"<c:if test="${status.value==0}"> selected</c:if>>auto</option>
-                                <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="categoryedit.thumbview"/></option>
-                                <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="categoryedit.listview"/></option>
+                                <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="folderedit.thumbview"/></option>
+                                <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="folderedit.listview"/></option>
                             </select>
                     </div>
                 </spring:bind>

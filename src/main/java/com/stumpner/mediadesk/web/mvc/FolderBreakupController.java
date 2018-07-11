@@ -136,24 +136,24 @@ public class FolderBreakupController extends SimpleFormControllerMd {
         int selectedImageListSize = MediaObjectService.getSelectedMediaObjectList(httpServletRequest.getSession()).size();
         if (isHomeFolder) {
 
-            httpServletRequest.setAttribute("headline","categorybreakup.headline");
-            httpServletRequest.setAttribute("subheadline","categorybreakup.subheadline");
-            httpServletRequest.setAttribute("info","categorybreakup.homecat");
+            httpServletRequest.setAttribute("headline","folderdelete.headline");
+            httpServletRequest.setAttribute("subheadline","folderdelete.subheadline");
+            httpServletRequest.setAttribute("info","folderdelete.homecat");
             httpServletRequest.setAttribute("infoArgument", folder.getTitle());
-            if (selectedImageListSize>0) { httpServletRequest.setAttribute("attentionText","categorybreakup.attention"); }
+            if (selectedImageListSize>0) { httpServletRequest.setAttribute("attentionText","folderdelete.attention"); }
             httpServletRequest.setAttribute("redirectTo","cat?id="+ folder.getFolderId());
 
             return super.showForm(httpServletRequest,e,this.getFormView(),new HashMap());
         } else {
 
-            httpServletRequest.setAttribute("headline","categorybreakup.headline");
-            httpServletRequest.setAttribute("subheadline","categorybreakup.subheadline");
-            httpServletRequest.setAttribute("info","categorybreakup.text");
+            httpServletRequest.setAttribute("headline","folderdelete.headline");
+            httpServletRequest.setAttribute("subheadline","folderdelete.subheadline");
+            httpServletRequest.setAttribute("info","folderdelete.text");
             httpServletRequest.setAttribute("infoArgument", folder.getTitle());
-            if (selectedImageListSize>0) { System.out.println("selectedImageSize>0"); httpServletRequest.setAttribute("attentionText","categorybreakup.attention"); }
+            if (selectedImageListSize>0) { System.out.println("selectedImageSize>0"); httpServletRequest.setAttribute("attentionText","folderdelete.attention"); }
             if (getChilds(folder)>0) {
                 httpServletRequest.setAttribute("useCbx",true);
-                httpServletRequest.setAttribute("cbxText","categorybreakup.attentionsub");
+                httpServletRequest.setAttribute("cbxText","folderdelete.attentionsub");
             }
             httpServletRequest.setAttribute("redirectTo","");
             return super.showForm(httpServletRequest,e,this.getFormView(),new HashMap());

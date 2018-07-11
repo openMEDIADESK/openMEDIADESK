@@ -99,8 +99,8 @@ public class FolderSelectorController extends SimpleFormControllerMd {
             PinService ps = new PinService();
             Pin pin = (Pin)ps.getById(folderSelection.getId());
             request.setAttribute("targetname",pin.getPin());
-            request.setAttribute("headline","categoryselector.headline");
-            request.setAttribute("subheadline","categoryselector.subheadline");
+            request.setAttribute("headline","folderselector.headline");
+            request.setAttribute("subheadline","folderselector.subheadline");
         }
 
         if (folderSelection.getType().equalsIgnoreCase("ACL")) {
@@ -109,8 +109,8 @@ public class FolderSelectorController extends SimpleFormControllerMd {
             String right = "Download";
             if (group.getId()==0) { right = "Zeige"; }
             request.setAttribute("targetname",group.getName()+" ("+right+"-Berechtigung)");
-            request.setAttribute("headline","categoryselector.aclheadline");
-            request.setAttribute("subheadline","categoryselector.aclsubheadline");
+            request.setAttribute("headline","folderselector.aclheadline");
+            request.setAttribute("subheadline","folderselector.aclsubheadline");
         }
 
         return super.referenceData(request, o, errors);

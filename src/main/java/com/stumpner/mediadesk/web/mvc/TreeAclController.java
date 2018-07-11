@@ -97,8 +97,8 @@ public class TreeAclController extends SimpleFormControllerMd {
             String right = "Download";
             if (group.getId()==0) { right = "Zeige"; }
             request.setAttribute("targetname",group.getName());
-            request.setAttribute("headline","categoryselector.aclheadline");
-            request.setAttribute("subheadline","categoryselector.aclsubheadline");
+            request.setAttribute("headline","folderselector.aclheadline");
+            request.setAttribute("subheadline","folderselector.aclsubheadline");
         }
 
         return super.referenceData(request, o, errors);

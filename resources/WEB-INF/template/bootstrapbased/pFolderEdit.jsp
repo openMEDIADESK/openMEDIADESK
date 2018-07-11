@@ -26,15 +26,15 @@
         <li><a href="<c:out value="${thisFolderLink}"/>"><i class="fa fa-folder-open-o fa-fw"></i> <c:out value="${navItem.title}"/></a></li>
     </c:forEach>
     <li class="active"><i class="fa fa-pencil-square-o fa-fw"></i>
-        <c:if test="${command.folderId!=0}"><spring:message code="categoryedit.headline"/></c:if>
-        <c:if test="${command.folderId==0}"><spring:message code="categorynew.headline"/></c:if>
+        <c:if test="${command.folderId!=0}"><spring:message code="folderedit.headline"/></c:if>
+        <c:if test="${command.folderId==0}"><spring:message code="foldernew.headline"/></c:if>
         <spring:bind path="command.name"><c:out value="${status.value}"/></spring:bind></li>
 </ol>
 <!-- /breadcrumbs -->
 <!-- ordnertitel und infos -->
 <h3>
-<c:if test="${command.folderId!=0}"><spring:message code="categoryedit.headline"/></c:if>
-<c:if test="${command.folderId==0}"><spring:message code="categorynew.headline"/></c:if>
+<c:if test="${command.folderId!=0}"><spring:message code="folderedit.headline"/></c:if>
+<c:if test="${command.folderId==0}"><spring:message code="foldernew.headline"/></c:if>
 </h3>
 <h4></h4>
 <!-- /ordnertitel und infos -->
@@ -53,14 +53,14 @@
 
     <spring:bind path="command.folderId">
         <div ng-show="showMoreAndMore==true" class="form-group">
-        <label for="ID"><spring:message code="categoryedit.categoryid"/></label>
+        <label for="ID"><spring:message code="folderedit.folderid"/></label>
         <input type="text" class="form-control input-sm" id="ID" ng-model="data.id" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" readonly="true">
         </div>
     </spring:bind>
 
     <spring:bind path="command.name">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="name"><spring:message code="categoryedit.name"/></label>
+        <label for="name"><spring:message code="folderedit.name"/></label>
         <input type="text" ng-model="data.name" ng-change="nameChanged()" class="form-control input-sm" id="name" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" placeholder="Neuer Ordner"<c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -98,7 +98,7 @@
 
     <spring:bind path="command.titleLng1">
         <div ng-show="showMore==true && showDe==true" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="textTitleLng1"><spring:message code="categoryedit.title"/> [DE]</label>
+        <label for="textTitleLng1"><spring:message code="folderedit.title"/> [DE]</label>
         <input type="text" ng-model="data.titleLng1" ng-change="title1Changed()" class="form-control input-sm" id="textTitleLng1" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" placeholder="Titel auf Deutsch"<c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -110,7 +110,7 @@
     <c:if test="${config.multiLang}">
         <spring:bind path="command.titleLng2">
         <div ng-show="showMore==true && showEn==true" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="textTitleLng2"><spring:message code="categoryedit.title"/> [EN]</label>
+        <label for="textTitleLng2"><spring:message code="folderedit.title"/> [EN]</label>
         <input type="text" ng-model="data.titleLng2" ng-change="title2Changed()" class="form-control input-sm" id="textTitleLng2" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" placeholder="Titel auf Englisch"<c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -122,7 +122,7 @@
 
     <spring:bind path="command.descriptionLng1">
         <div ng-show="showMore==true && showDe==true" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="textDescriptionLng1"><spring:message code="categoryedit.description"/> [DE]</label>
+        <label for="textDescriptionLng1"><spring:message code="folderedit.description"/> [DE]</label>
         <input type="text" class="form-control input-sm" id="textDescriptionLng1" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" placeholder="Beschreibung eingeben"<c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -134,7 +134,7 @@
     <c:if test="${config.multiLang}">
         <spring:bind path="command.descriptionLng2">            
         <div ng-show="showMore==true && showEn==true" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
-        <label for="textDescriptionLng2"><spring:message code="categoryedit.description"/> [EN]</label>
+        <label for="textDescriptionLng2"><spring:message code="folderedit.description"/> [EN]</label>
         <input type="text" class="form-control input-sm" id="textDescriptionLng2" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" placeholder="Insert description here"<c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <c:if test="${status.error}">
           <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
@@ -168,7 +168,7 @@
     </spring:bind>
 
     <div ng-show="showMore==true" class="row">
-        <div class="col-xs-12"><label for="selSortBy"><spring:message code="set.application.sort.category"/></label></div>
+        <div class="col-xs-12"><label for="selSortBy"><spring:message code="set.application.sort.folder"/></label></div>
         <div class="col-xs-6">
             <spring:bind path="command.sortBy">
             <select class="form-control" id="selSortBy" name="sortBy">
@@ -196,12 +196,12 @@
 
 
     <div class="form-group">
-        <label for="selDefaultview"><spring:message code="categoryedit.defaultview"/></label>
+        <label for="selDefaultview"><spring:message code="folderedit.defaultview"/></label>
         <spring:bind path="command.defaultview">
         <select class="form-control" id="selDefaultview" name="defaultview">
                 <option value="0"<c:if test="${status.value==0}"> selected</c:if>>auto</option>
-                <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="categoryedit.thumbview"/></option>
-                <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="categoryedit.listview"/></option>
+                <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="folderedit.thumbview"/></option>
+                <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="folderedit.listview"/></option>
         </select>
         </spring:bind>
     </div>
@@ -235,7 +235,7 @@
     </spring:bind>
 
   <button type="submit" class="btn btn-default"><spring:message code="imageedit.submit"/></button>
-  <button type="submit" name="acl" value="true" class="btn btn-default"<c:if test="${command.folderId==0}"> ng-disabled="{{true}}"</c:if>><spring:message code="categoryedit.acl"/></button>
+  <button type="submit" name="acl" value="true" class="btn btn-default"<c:if test="${command.folderId==0}"> ng-disabled="{{true}}"</c:if>><spring:message code="folderedit.acl"/></button>
 </form>
 
 

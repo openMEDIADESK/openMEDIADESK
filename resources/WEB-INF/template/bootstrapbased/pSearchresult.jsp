@@ -19,7 +19,7 @@
 	<li><a href="#"><i class="fa fa-folder-o fa-fw"></i> Home</a></li>
     <li class="active"><i class="fa fa-search fa-fw"></i>
         <c:if test="${!empty searchString}"><spring:message code="searchresult.headline"/></c:if>
-        <c:if test="${empty searchString}"><spring:message code="imagesearch.imagesearch"/></c:if>
+        <c:if test="${empty searchString}"><spring:message code="mediasearch.imagesearch"/></c:if>
     </li>
 </ol>
 <!-- /breadcrumbs -->
@@ -43,7 +43,7 @@
           <span class="input-group-btn">
             <button ng-click="advancedsearch = !advancedsearch" class="btn btn-default input-lg" type="button"><i class="fa fa-cogs fa-fw"></i></button>
           </span>
-      <input type="text" name="keywords" class="form-control input-lg" placeholder="<spring:message code="imagesearch.imagesearch"/>" value="<c:out value="${searchString}"/>">
+      <input type="text" name="keywords" class="form-control input-lg" placeholder="<spring:message code="mediasearch.imagesearch"/>" value="<c:out value="${searchString}"/>">
           <span class="input-group-btn">
             <button class="btn btn-default input-lg" type="submit"><i class="fa fa-search fa-fw"></i></button>
           </span>
@@ -68,12 +68,12 @@
     <div class="form-group" ng-show="advancedsearch">
         <label for="DatumDrop"><spring:message code="advancedsearch.date"/></label>
         <select name="period" class="form-control" id="DatumDrop" ng-model="periodeselected">
-          <option value="0" selected><spring:message code="imagesearch.anydate"/></option>
-          <option value="1"><spring:message code="imagesearch.24hours"/></option>
-          <option value="2"><spring:message code="imagesearch.lastweek"/></option>
-          <option value="3"><spring:message code="imagesearch.lastmonth"/></option>
-          <option value="4"><spring:message code="imagesearch.12month"/></option>
-          <option value="-1"><spring:message code="imagesearch.more"/></option>
+          <option value="0" selected><spring:message code="mediasearch.anydate"/></option>
+          <option value="1"><spring:message code="mediasearch.24hours"/></option>
+          <option value="2"><spring:message code="mediasearch.lastweek"/></option>
+          <option value="3"><spring:message code="mediasearch.lastmonth"/></option>
+          <option value="4"><spring:message code="mediasearch.12month"/></option>
+          <option value="-1"><spring:message code="mediasearch.more"/></option>
         </select>
     </div>
 
@@ -141,10 +141,10 @@
     <mediadesk:login role="<%= User.ROLE_ADMIN %>">
 
     <div class="form-group" ng-show="advancedsearch">
-		<label><spring:message code="imagesearch.findorphan"/></label>
+		<label><spring:message code="mediasearch.findorphan"/></label>
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="orphan" name="orphan" id="cbxOrphan"> <spring:message code="imagesearch.findorphan"/>
+            <input type="checkbox" value="orphan" name="orphan" id="cbxOrphan"> <spring:message code="mediasearch.findorphan"/>
           </label>
         </div>
     </div>
@@ -185,7 +185,7 @@
   <!-- button drop ansicht -->
   <div class="btn-group btn-group-xs" role="group" aria-label="Ansicht" ng-show="allmos.length>0">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <jsp:include page="iconView.jsp"/> <spring:message code="categoryedit.defaultview"/>
+      <jsp:include page="iconView.jsp"/> <spring:message code="folderedit.defaultview"/>
       <span class="caret"></span>
     </button>
             <c:url value="/${lng}/${servletMapping}" var="urlAuto">
@@ -201,9 +201,9 @@
               <c:param name="page" value="${pageIndex}"/>
             </c:url>
     <ul class="dropdown-menu">
-        <li><a href="#" ng-click="switchToView('auto')"><jsp:include page="iconViewAuto.jsp"/> <spring:message code="categoryedit.viewauto"/></a></li>
-        <li><a href="#" ng-click="switchToView('thumbnails')"><jsp:include page="iconViewThumb.jsp"/> <spring:message code="categoryedit.thumbview"/></a></li>
-        <li><a href="#" ng-click="switchToView('list')"><jsp:include page="iconViewList.jsp"/> <spring:message code="categoryedit.listview"/></a></li>
+        <li><a href="#" ng-click="switchToView('auto')"><jsp:include page="iconViewAuto.jsp"/> <spring:message code="folderedit.viewauto"/></a></li>
+        <li><a href="#" ng-click="switchToView('thumbnails')"><jsp:include page="iconViewThumb.jsp"/> <spring:message code="folderedit.thumbview"/></a></li>
+        <li><a href="#" ng-click="switchToView('list')"><jsp:include page="iconViewList.jsp"/> <spring:message code="folderedit.listview"/></a></li>
     </ul>
   </div>
   <!-- /button drop ansicht -->
@@ -235,8 +235,8 @@
     </button>
     <ul class="dropdown-menu">
         <!--<li><a ng-href="/{{properties.lng}}/pinwizard"><jsp:include page="iconPin.jsp"/>&nbsp;&nbsp;<spring:message code="imagemenu.aspin"/></a></li>-->
-        <li><a href="#" ng-click="selectMediaAll()"><jsp:include page="iconSelect.jsp"/><spring:message code="categoryindex.markall"/></a></li>
-        <li><a href="#" ng-click="selectMediaNone()"><jsp:include page="iconDeselect.jsp"/><spring:message code="categoryindex.unmarkall"/></a></li>
+        <li><a href="#" ng-click="selectMediaAll()"><jsp:include page="iconSelect.jsp"/><spring:message code="folderindex.markall"/></a></li>
+        <li><a href="#" ng-click="selectMediaNone()"><jsp:include page="iconDeselect.jsp"/><spring:message code="folderindex.unmarkall"/></a></li>
         <mediadesk:login role="<%= User.ROLE_EDITOR %>">
         <li role="separator" class="divider"></li>
         <li><a href="#" ng-click="deleteMediaPopup()"><jsp:include page="iconDelete.jsp"/><spring:message code="imagemenu.deletedb"/></a></li>

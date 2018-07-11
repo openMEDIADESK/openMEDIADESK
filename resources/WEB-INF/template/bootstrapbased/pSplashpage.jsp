@@ -277,7 +277,7 @@ p.copyright {
                     <span class="input-group-btn">
                     <button class="btn btn-default input-lg" type="button"><i class="fa fa-cogs fa-fw"></i></button>
                     </span>
-                        <input type="text" class="form-control input-lg" name="q" id="sTextKeyword" placeholder="<spring:message code="imagesearch.imagesearch"/>">
+                        <input type="text" class="form-control input-lg" name="q" id="sTextKeyword" placeholder="<spring:message code="mediasearch.imagesearch"/>">
                     <span class="input-group-btn">
                     <button class="btn btn-default input-lg" type="submit"><i class="fa fa-search fa-fw"></i></button>
                     </span>

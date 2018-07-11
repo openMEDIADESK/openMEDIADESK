@@ -170,12 +170,12 @@
 
         <div class="form-group">
             <spring:bind path="command.defaultview">
-            <label for="sel<c:out value="${status.expression}"/>"><spring:message code="categoryedit.defaultview"/></label>
+            <label for="sel<c:out value="${status.expression}"/>"><spring:message code="folderedit.defaultview"/></label>
 
             <select class="form-control" id="sel<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>">
                     <option value="0"<c:if test="${status.value==1}"> selected</c:if>>auto</option>
-                    <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="categoryedit.thumbview"/></option>
-                    <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="categoryedit.listview"/></option>
+                    <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="folderedit.thumbview"/></option>
+                    <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="folderedit.listview"/></option>
             </select>
             </spring:bind>
         </div>
