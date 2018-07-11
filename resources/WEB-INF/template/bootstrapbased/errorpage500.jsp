@@ -32,10 +32,6 @@
 
 </div>
 
-<!-- BEGIN Podio web form -->
-<a href="https://podio.com/webforms/11630320/810315">Hier klicken um den Fehler an die Entwickler zu senden!</a>
-<!-- END Podio web form -->
-
 </body>
 </html>
 <%
