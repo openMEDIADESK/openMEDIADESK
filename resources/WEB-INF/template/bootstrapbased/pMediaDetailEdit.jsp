@@ -11,14 +11,14 @@
 <jsp:include page="header.jsp"/>
 
 <!-- spalte2 -->
-<div class="col-sm-10 main" ng-controller="EditCtrl" ng-init="init('/api/rest/mo/<c:out value="${command.imageVersion.ivid}"/>/editmode')"> <!-- col-sm-10 main SPALTE 2 FÜR INHALT -->
+<div class="col-sm-10 main" ng-controller="EditCtrl" ng-init="init('/api/rest/mo/<c:out value="${command.mediaObject.ivid}"/>/editmode')"> <!-- col-sm-10 main SPALTE 2 FÜR INHALT -->
 <!-- ###################################################################################################################################################### -->
 <!-- HIER STARTET DER INHALTSBEREICH ###################################################################################################################### -->
 <!-- AB HIER GANZ NEU MIT NEUER EINTEILUNG !!! ############################################################################################################ -->
 <!-- breadcrumbs -->
 <ol class="breadcrumb">
 	<li><a href="<c:url value="${home}"/>"><i class="fa fa-folder-o fa-fw"></i> Home</a></li>
-    <li class="active"><i class="fa fa-tag fa-fw"></i> <spring:message code="mediaedit.headline"/> <c:out value="${command.imageVersion.versionName}"/></li>
+    <li class="active"><i class="fa fa-tag fa-fw"></i> <spring:message code="mediaedit.headline"/> <c:out value="${command.mediaObject.versionName}"/></li>
 </ol>
 <!-- /breadcrumbs -->
 <!-- ordnertitel und infos -->
@@ -29,7 +29,7 @@
             <label class="btn btn-primary" ng-model="showEn" uib-btn-checkbox>EN</label>
         </div>
 </h3>
-<spring:bind path="command.imageVersion.versionName">
+<spring:bind path="command.mediaObject.versionName">
 <h4><c:out value="${status.value}"/> <a href="#" ng-click="infoMediaPopup();"><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i></a></h4>
 </spring:bind>
 <!-- /ordnertitel und infos -->
@@ -41,15 +41,15 @@
 
 <div class="row">
 	<div class="col-sm-3 md-keywording-img">
-        <a href="#" data-toggle="modal" data-target="#meinModal"><img src="/imageservlet/<c:out value="${command.imageVersion.ivid}"/>/1/image.jpg"></a>
-        <div ng-controller="TimeAgoCtrl" ng-init="setDate(<c:out value="${command.imageVersion.createDate.time}"/>)">
+        <a href="#" data-toggle="modal" data-target="#meinModal"><img src="/imageservlet/<c:out value="${command.mediaObject.ivid}"/>/1/image.jpg"></a>
+        <div ng-controller="TimeAgoCtrl" ng-init="setDate(<c:out value="${command.mediaObject.createDate.time}"/>)">
             <spring:message code="mediaedit.by"/> <c:out value="${command.creator.userName}"/>
-            <a href="#" tooltip-animation="true" uib-tooltip="<dt:format pattern="dd MMMM yyyy, HH:mm" default=""><c:out value="${command.imageVersion.createDate.time}"/></dt:format>">{{dt | timeago}}</a>
+            <a href="#" tooltip-animation="true" uib-tooltip="<dt:format pattern="dd MMMM yyyy, HH:mm" default=""><c:out value="${command.mediaObject.createDate.time}"/></dt:format>">{{dt | timeago}}</a>
             <!--<a href="#" ng-click="infoMediaPopup();"><i class="fa fa-info-circle" aria-hidden="true"></i></a>-->
         </div>
         <div>
 
-        Media Number #: <c:out value="${command.imageVersion.mediaNumber}"/><br/>
+        Media Number #: <c:out value="${command.mediaObject.mediaNumber}"/><br/>
 
         </div>
     </div>
@@ -60,7 +60,7 @@
     <form id="imageedit" method="post" action="<c:url value="mediadetailedit"/>">
     <input type="hidden" name="JSESSIONID" value="<c:out value="${pageContext.request.session.id}"/>"/>
 
-    <spring:bind path="command.imageVersion.versionName">
+    <spring:bind path="command.mediaObject.versionName">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="textName"><spring:message code="mediaedit.name"/></label>
         <input type="text" ng-model="data.name" ng-change="nameChanged()" class="form-control input-sm" id="textName" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -84,7 +84,7 @@
     ng-class="$variableToEvaluate ? 'class-if-true' : 'class-if-false'"
     -->
     <div class="row">
-    <spring:bind path="command.imageVersion.versionTitleLng1">
+    <spring:bind path="command.mediaObject.versionTitleLng1">
         <div ng-show="showDe==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="textTitleLng1"><spring:message code="mediaedit.title"/> [DE]</label> &nbsp;<input type="checkbox" name="copyfield" value="versionTitleLng1" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyTitleLng1}"> checked="true"</c:if>>
         <input type="text" ng-model="data.titleLng1" ng-change="title1Changed()" class="form-control input-sm" id="textTitleLng1" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -96,7 +96,7 @@
     </spring:bind>
 
     <c:if test="${config.multiLang}">
-        <spring:bind path="command.imageVersion.versionTitleLng2">
+        <spring:bind path="command.mediaObject.versionTitleLng2">
         <div ng-show="showEn==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="textTitleLng2"><spring:message code="mediaedit.title"/> [EN]</label> &nbsp;<input type="checkbox" name="copyfield" value="versionTitleLng1" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyTitleLng2}"> checked="true"</c:if>>
         <input type="text" ng-model="data.titleLng2" ng-change="title2Changed()" class="form-control input-sm" id="textTitleLng2" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -109,10 +109,10 @@
     </c:if>
     </div>
 
-    <c:if test="${command.imageVersion.mayorMime=='audio' || command.imageVersion.mayorMime=='video'}">
+    <c:if test="${command.mediaObject.mayorMime=='audio' || command.mediaObject.mayorMime=='video'}">
         <!-- audio video daten -->
 
-        <spring:bind path="command.imageVersion.artist">
+        <spring:bind path="command.mediaObject.artist">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="textTitleLng2"><spring:message code="mediaedit.artist"/></label> &nbsp;<input type="checkbox" name="copyfield" value="artist" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyTitle}"> checked="true"</c:if>>
         <input type="text" ng-model="title2" class="form-control input-sm" id="textTitleLng2" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -123,7 +123,7 @@
         </div>
         </spring:bind>
 
-        <spring:bind path="command.imageVersion.album">
+        <spring:bind path="command.mediaObject.album">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="textTitleLng2"><spring:message code="mediaedit.album"/></label> &nbsp;<input type="checkbox" name="copyfield" value="album" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyTitle}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="textTitleLng2" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -134,7 +134,7 @@
         </div>
         </spring:bind>
 
-        <spring:bind path="command.imageVersion.genre">
+        <spring:bind path="command.mediaObject.genre">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="textTitleLng2"><spring:message code="mediaedit.genre"/></label> &nbsp;<input type="checkbox" name="copyfield" value="genre" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyTitle}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="textTitleLng2" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -148,7 +148,7 @@
     </c:if>
 
     <div class="row">
-    <spring:bind path="command.imageVersion.versionSubTitleLng1">
+    <spring:bind path="command.mediaObject.versionSubTitleLng1">
         <div ng-show="showDe==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="textSubTitleLng1"><spring:message code="mediaedit.subtitle"/> [DE]</label> &nbsp;<input type="checkbox" name="copyfield" value="versionSubTitleLng1" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopySubTitleLng1}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="textSubTitleLng1" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -160,7 +160,7 @@
     </spring:bind>
 
     <c:if test="${config.multiLang}">
-        <spring:bind path="command.imageVersion.versionSubTitleLng2">
+        <spring:bind path="command.mediaObject.versionSubTitleLng2">
         <div ng-show="showEn==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="textSubTitleLng2"><spring:message code="mediaedit.subtitle"/> [EN]</label> &nbsp;<input type="checkbox" name="copyfield" value="versionSubTitleLng2" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopySubTitleLng2}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="textSubTitleLng2" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -174,7 +174,7 @@
     </div>
 
     <div class="row">
-    <spring:bind path="command.imageVersion.infoLng1">
+    <spring:bind path="command.mediaObject.infoLng1">
         <div ng-show="showDe==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="textInfoLng1"><spring:message code="mediaedit.info"/> [DE]</label> &nbsp;<input type="checkbox" name="copyfield" value="infoLng1" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyInfoLng1}"> checked="true"</c:if>>
         <!--<input type="text" class="form-control input-sm" id="textInfoLng1" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>-->
@@ -187,7 +187,7 @@
     </spring:bind>
 
     <c:if test="${config.multiLang}">
-        <spring:bind path="command.imageVersion.infoLng2">
+        <spring:bind path="command.mediaObject.infoLng2">
         <div ng-show="showEn==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="textInfoLng2"><spring:message code="mediaedit.info"/> [EN]</label> &nbsp;<input type="checkbox" name="copyfield" value="infoLng2" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyInfoLng2}"> checked="true"</c:if>>
         <!-- <input type="text" class="form-control input-sm" id="textInfoLng2" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>> -->
@@ -202,7 +202,7 @@
     </div>
 
     <div class="row">
-    <spring:bind path="command.imageVersion.siteLng1">
+    <spring:bind path="command.mediaObject.siteLng1">
         <div ng-show="showDe==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.site"/> [DE]</label> &nbsp;<input type="checkbox" name="copyfield" value="siteLng1" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopySiteLng1}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -214,7 +214,7 @@
     </spring:bind>
 
     <c:if test="${config.multiLang}">
-        <spring:bind path="command.imageVersion.siteLng2">
+        <spring:bind path="command.mediaObject.siteLng2">
         <div ng-show="showEn==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.site"/> [EN]</label> &nbsp;<input type="checkbox" name="copyfield" value="siteLng2" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopySiteLng2}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -228,7 +228,7 @@
     </div>
 
     <!--
-    <spring:bind path="command.imageVersion.photographDate">              
+    <spring:bind path="command.mediaObject.photographDate">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.photographdate"/></label> &nbsp;<input type="checkbox" name="copyfield" value="photographDate" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyPhotographDate}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -240,11 +240,11 @@
     </spring:bind>
     -->
 
-    <spring:bind path="command.imageVersion.photographDate">
+    <spring:bind path="command.mediaObject.photographDate">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>" ng-controller="DatepickerCtrl">
         <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.photographdate"/></label> &nbsp;<input type="checkbox" name="copyfield" value="photographDate" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyPhotographDate}"> checked="true"</c:if>>
             <p class="input-group">
-        <input type="text" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="dt" ng-init="setDate(<fmt:formatDate value="${command.imageVersion.photographDate}" pattern="yyyy,M,dd"/>)" is-open="popupDatepicker.opened" type="html5Types" current-text="Heute" close-text="Fertig" datepicker-options="dateOptions" ng-required="true" alt-input-formats="altInputFormats" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
+        <input type="text" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="dt" ng-init="setDate(<fmt:formatDate value="${command.mediaObject.photographDate}" pattern="yyyy,M,dd"/>)" is-open="popupDatepicker.opened" type="html5Types" current-text="Heute" close-text="Fertig" datepicker-options="dateOptions" ng-required="true" alt-input-formats="altInputFormats" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
         <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="openDatepicker()"><i class="glyphicon glyphicon-calendar"></i></button>
         </span>
@@ -256,7 +256,7 @@
         </div>
     </spring:bind>
 
-    <spring:bind path="command.imageVersion.photographerAlias">
+    <spring:bind path="command.mediaObject.photographerAlias">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.photographer"/></label> &nbsp;<input type="checkbox" name="copyfield" value="photographerAlias" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyPhotographer}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -267,7 +267,7 @@
         </div>
     </spring:bind>
 
-    <spring:bind path="command.imageVersion.byline">
+    <spring:bind path="command.mediaObject.byline">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.byline"/></label> &nbsp;<input type="checkbox" name="copyfield" value="byline" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyByline}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -278,14 +278,14 @@
         </div>
     </spring:bind>
 
-    <spring:bind path="command.imageVersion.keywords">
+    <spring:bind path="command.mediaObject.keywords">
         <div class="form-group">
             <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.keywords"/></label> &nbsp;<input type="checkbox" name="copyfield" value="keywords" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyKeywords}"> checked="true"</c:if>>
             <textarea class="form-control input-sm" name="<c:out value="${status.expression}"/>" id="text<c:out value="${status.expression}"/>" rows="5"><c:out value="${status.value}"/></textarea>
         </div>
     </spring:bind>
 
-    <spring:bind path="command.imageVersion.people">
+    <spring:bind path="command.mediaObject.people">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.people"/></label> &nbsp;<input type="checkbox" name="copyfield" value="people" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyPeople}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -298,8 +298,8 @@
 
     <div class="form-group">
         <label for="selOrientation"><spring:message code="mediaedit.orientation"/></label> &nbsp;<input type="checkbox" name="copyfield" value="orientation" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyOrientation}"> checked="true"</c:if>>
-        <spring:bind path="command.imageVersion.orientation">
-        <select class="form-control" id="selOrientation" name="imageVersion.orientation">
+        <spring:bind path="command.mediaObject.orientation">
+        <select class="form-control" id="selOrientation" name="mediaObject.orientation">
                           <option value="0"<c:if test="${status.value==0}"> selected</c:if>><spring:message code="mediaedit.orientation.undefined"/></option>
                           <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="mediaedit.orientation.horizontal"/></option>
                           <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="mediaedit.orientation.panoramic"/></option>
@@ -311,8 +311,8 @@
 
     <div class="form-group">
         <label for="selPerspective"><spring:message code="mediaedit.perspective"/></label> &nbsp;<input type="checkbox" name="copyfield" value="perspective" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyPerspective}"> checked="true"</c:if>>
-        <spring:bind path="command.imageVersion.perspective">
-        <select class="form-control" id="selPerspective" name="imageVersion.perspective">
+        <spring:bind path="command.mediaObject.perspective">
+        <select class="form-control" id="selPerspective" name="mediaObject.perspective">
                         <option value="0"<c:if test="${status.value==0}"> selected</c:if>><spring:message code="mediaedit.perspective.undefined"/></option>
                         <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="mediaedit.perspective.topview"/></option>
                         <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="mediaedit.perspective.bottomview"/></option>
@@ -326,8 +326,8 @@
 
     <div class="form-group">
         <label for="selMotive"><spring:message code="mediaedit.motive"/></label> &nbsp;<input type="checkbox" name="copyfield" value="motive" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyMotive}"> checked="true"</c:if>>
-        <spring:bind path="command.imageVersion.motive">
-        <select class="form-control" id="selMotive" name="imageVersion.motive">
+        <spring:bind path="command.mediaObject.motive">
+        <select class="form-control" id="selMotive" name="mediaObject.motive">
                          <option value="0"<c:if test="${status.value==0}"> selected</c:if>><spring:message code="mediaedit.motive.undefined"/></option>
                          <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="mediaedit.motive.portrait"/></option>
                          <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="mediaedit.motive.group"/></option>
@@ -339,8 +339,8 @@
 
     <div class="form-group">
         <label for="selGesture"><spring:message code="mediaedit.gesture"/></label> &nbsp;<input type="checkbox" name="copyfield" value="gesture" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyGesture}"> checked="true"</c:if>>
-        <spring:bind path="command.imageVersion.gesture">
-        <select class="form-control" id="selGesture" name="imageVersion.gesture">
+        <spring:bind path="command.mediaObject.gesture">
+        <select class="form-control" id="selGesture" name="mediaObject.gesture">
                             <option value="0"<c:if test="${status.value==0}"> selected</c:if>><spring:message code="mediaedit.gesture.undefined"/></option>
                             <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="mediaedit.gesture.jubilate"/></option>
                             <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="mediaedit.gesture.bright"/></option>
@@ -356,14 +356,14 @@
     </div>
 
     <div class="row">
-    <spring:bind path="command.imageVersion.noteLng1">
+    <spring:bind path="command.mediaObject.noteLng1">
     <div ng-show="showDe==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group">
         <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.note"/> [DE]</label> &nbsp;<input type="checkbox" name="copyfield" value="noteLng1" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyNoteLng1}"> checked="true"</c:if>>
         <textarea class="form-control input-sm" name="<c:out value="${status.expression}"/>" id="text<c:out value="${status.expression}"/>" rows="5"><c:out value="${status.value}"/></textarea>
     </div>
     </spring:bind>
 
-    <spring:bind path="command.imageVersion.noteLng2">
+    <spring:bind path="command.mediaObject.noteLng2">
     <div ng-show="showEn==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group">
         <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.note"/> [EN]</label> &nbsp;<input type="checkbox" name="copyfield" value="noteLng2" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyNoteLng2}"> checked="true"</c:if>>
         <textarea class="form-control input-sm" name="<c:out value="${status.expression}"/>" id="text<c:out value="${status.expression}"/>" rows="5"><c:out value="${status.value}"/></textarea>
@@ -372,14 +372,14 @@
     </div>
 
     <div class="row">
-    <spring:bind path="command.imageVersion.restrictionsLng1">
+    <spring:bind path="command.mediaObject.restrictionsLng1">
     <div ng-show="showDe==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group">
         <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.restrictions"/> [DE]</label> &nbsp;<input type="checkbox" name="copyfield" value="restrictionsLng1" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyRestrictionsLng1}"> checked="true"</c:if>>
         <textarea class="form-control input-sm" name="<c:out value="${status.expression}"/>" id="text<c:out value="${status.expression}"/>" rows="5"><c:out value="${status.value}"/></textarea>
     </div>
     </spring:bind>
 
-    <spring:bind path="command.imageVersion.restrictionsLng2">
+    <spring:bind path="command.mediaObject.restrictionsLng2">
     <div ng-show="showEn==true" ng-class="{ 'col-xs-6': showDandE(), 'col-xs-12': !showDandE() }" class="form-group">
         <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.restrictions"/> [EN]</label> &nbsp;<input type="checkbox" name="copyfield" value="restrictionsLng2" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyRestrictionsLng2}"> checked="true"</c:if>>
         <textarea class="form-control input-sm" name="<c:out value="${status.expression}"/>" id="text<c:out value="${status.expression}"/>" rows="5"><c:out value="${status.value}"/></textarea>
@@ -389,8 +389,8 @@
 
     <div class="form-group">
         <label for="selFlag"><spring:message code="mediaedit.flag"/></label> &nbsp;<input type="checkbox" name="copyfield" value="gesture" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyGesture}"> checked="true"</c:if>>
-        <spring:bind path="command.imageVersion.flag">
-        <select class="form-control" id="selFlag" name="imageVersion.flag">
+        <spring:bind path="command.mediaObject.flag">
+        <select class="form-control" id="selFlag" name="mediaObject.flag">
                         <option value="0"<c:if test="${status.value==0}"> selected</c:if>><spring:message code="mediaedit.flag.undefined"/></option>
                         <option value="1"<c:if test="${status.value==1}"> selected</c:if>><spring:message code="mediaedit.flag.red"/></option>
                         <option value="2"<c:if test="${status.value==2}"> selected</c:if>><spring:message code="mediaedit.flag.yellow"/></option>
@@ -399,7 +399,7 @@
         </spring:bind>
     </div>
 
-    <spring:bind path="command.imageVersion.price">
+    <spring:bind path="command.mediaObject.price">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.price"/></label> &nbsp;<input type="checkbox" name="copyfield" value="price" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyPrice}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -410,7 +410,7 @@
         </div>
     </spring:bind>
 
-    <spring:bind path="command.imageVersion.licValid">
+    <spring:bind path="command.mediaObject.licValid">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.licvalid"/></label> &nbsp;<input type="checkbox" name="copyfield" value="licValid" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyLicValid}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -424,9 +424,9 @@
     <c:if test="${not empty customList[0]}">
     <div class="form-group">
         <label for="selFlag"><c:out value="${customLists[0].title}"/></label> 
-        <spring:bind path="command.imageVersion.customList1">
-        <select class="form-control" id="selCustomList1" name="imageVersion.customList1">
-            <c:if test="${command.imageVersion.customList1==0}"><option value="0">nicht angegeben</option></c:if>
+        <spring:bind path="command.mediaObject.customList1">
+        <select class="form-control" id="selCustomList1" name="mediaObject.customList1">
+            <c:if test="${command.mediaObject.customList1==0}"><option value="0">nicht angegeben</option></c:if>
             <c:forEach items="${customList[0]}" var="listEntry">
             <option value="<c:out value="${listEntry.id}"/>"<c:if test="${status.value==listEntry.id}"> selected</c:if>><c:out value="${listEntry.title}"/></option>
             </c:forEach>
@@ -438,9 +438,9 @@
     <c:if test="${not empty customList[1]}">
     <div class="form-group">
         <label for="selFlag"><c:out value="${customLists[1].title}"/></label>
-        <spring:bind path="command.imageVersion.customList2">
-        <select class="form-control" id="selCustomList2" name="imageVersion.customList2">
-            <c:if test="${command.imageVersion.customList2==0}"><option value="0">nicht angegeben</option></c:if>
+        <spring:bind path="command.mediaObject.customList2">
+        <select class="form-control" id="selCustomList2" name="mediaObject.customList2">
+            <c:if test="${command.mediaObject.customList2==0}"><option value="0">nicht angegeben</option></c:if>
             <c:forEach items="${customList[1]}" var="listEntry">
             <option value="<c:out value="${listEntry.id}"/>"<c:if test="${status.value==listEntry.id}"> selected</c:if>><c:out value="${listEntry.title}"/></option>
             </c:forEach>
@@ -452,9 +452,9 @@
     <c:if test="${not empty customList[2]}">
     <div class="form-group">
         <label for="selFlag"><c:out value="${customLists[2].title}"/></label>
-        <spring:bind path="command.imageVersion.customList3">
-        <select class="form-control" id="selCustomList3" name="imageVersion.customList3">
-            <c:if test="${command.imageVersion.customList3==0}"><option value="0">nicht angegeben</option></c:if>
+        <spring:bind path="command.mediaObject.customList3">
+        <select class="form-control" id="selCustomList3" name="mediaObject.customList3">
+            <c:if test="${command.mediaObject.customList3==0}"><option value="0">nicht angegeben</option></c:if>
             <c:forEach items="${customList[2]}" var="listEntry">
             <option value="<c:out value="${listEntry.id}"/>"<c:if test="${status.value==listEntry.id}"> selected</c:if>><c:out value="${listEntry.title}"/></option>
             </c:forEach>
@@ -464,7 +464,7 @@
     </c:if>
 
     <c:if test="${config.customStr1!=''}">
-    <spring:bind path="command.imageVersion.customStr1">
+    <spring:bind path="command.mediaObject.customStr1">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="text<c:out value="${status.expression}"/>"><c:out value="${config.customStr1}"/></label>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -477,7 +477,7 @@
     </c:if>
 
     <c:if test="${config.customStr2!=''}">
-    <spring:bind path="command.imageVersion.customStr2">
+    <spring:bind path="command.mediaObject.customStr2">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="text<c:out value="${status.expression}"/>"><c:out value="${config.customStr2}"/></label>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -490,7 +490,7 @@
     </c:if>
 
     <c:if test="${config.customStr3!=''}">
-    <spring:bind path="command.imageVersion.customStr3">
+    <spring:bind path="command.mediaObject.customStr3">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="text<c:out value="${status.expression}"/>"><c:out value="${config.customStr3}"/></label>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -503,7 +503,7 @@
     </c:if>
 
     <c:if test="${config.customStr4!=''}">
-    <spring:bind path="command.imageVersion.customStr4">
+    <spring:bind path="command.mediaObject.customStr4">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="text<c:out value="${status.expression}"/>"><c:out value="${config.customStr4}"/></label>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -516,7 +516,7 @@
     </c:if>
 
     <c:if test="${config.customStr5!=''}">
-    <spring:bind path="command.imageVersion.customStr5">
+    <spring:bind path="command.mediaObject.customStr5">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="text<c:out value="${status.expression}"/>"><c:out value="${config.customStr5}"/></label>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -529,7 +529,7 @@
     </c:if>
 
     <c:if test="${config.customStr6!=''}">
-    <spring:bind path="command.imageVersion.customStr6">
+    <spring:bind path="command.mediaObject.customStr6">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="text<c:out value="${status.expression}"/>"><c:out value="${config.customStr6}"/></label>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -542,7 +542,7 @@
     </c:if>
 
     <c:if test="${config.customStr7!=''}">
-    <spring:bind path="command.imageVersion.customStr7">
+    <spring:bind path="command.mediaObject.customStr7">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="text<c:out value="${status.expression}"/>"><c:out value="${config.customStr7}"/></label>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -555,7 +555,7 @@
     </c:if>
 
     <c:if test="${config.customStr8!=''}">
-    <spring:bind path="command.imageVersion.customStr8">
+    <spring:bind path="command.mediaObject.customStr8">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="text<c:out value="${status.expression}"/>"><c:out value="${config.customStr8}"/></label>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -568,7 +568,7 @@
     </c:if>
 
     <c:if test="${config.customStr9!=''}">
-    <spring:bind path="command.imageVersion.customStr9">
+    <spring:bind path="command.mediaObject.customStr9">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="text<c:out value="${status.expression}"/>"><c:out value="${config.customStr9}"/></label>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -581,7 +581,7 @@
     </c:if>
 
     <c:if test="${config.customStr10!=''}">
-    <spring:bind path="command.imageVersion.customStr10">
+    <spring:bind path="command.mediaObject.customStr10">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="text<c:out value="${status.expression}"/>"><c:out value="${config.customStr10}"/></label>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -593,7 +593,7 @@
     </spring:bind>
     </c:if>
     
-    <spring:bind path="command.imageVersion.masterdataId">
+    <spring:bind path="command.mediaObject.masterdataId">
         <div class="form-group<c:if test="${status.error}"> has-error has-feedback</c:if>">
         <label for="text<c:out value="${status.expression}"/>"><spring:message code="mediaedit.masterdata"/></label> &nbsp;<input type="checkbox" name="copyfield" value="masterdataId" alt="copy" title="<spring:message code="mediaedit.copycbx"/>"<c:if test="${command.applicationSettings.editCopyMasterdata}"> checked="true"</c:if>>
         <input type="text" class="form-control input-sm" id="text<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" <c:if test="${status.error}"> aria-describedby="eingabefeldFehler2Status"</c:if>>
@@ -668,25 +668,25 @@
               <div class="col-md-12">
                 <form>
                   <div class="form-group">
-        ID: <c:out value="${command.imageVersion.ivid}"/><br/>
-        Media Number #: <c:out value="${command.imageVersion.mediaNumber}"/><br/>
-        <spring:message code="mediaedit.createdate"/> <dt:format pattern="dd MMMM yyyy, HH:mm" default=""><c:out value="${command.imageVersion.createDate.time}"/></dt:format><br/>
+        ID: <c:out value="${command.mediaObject.ivid}"/><br/>
+        Media Number #: <c:out value="${command.mediaObject.mediaNumber}"/><br/>
+        <spring:message code="mediaedit.createdate"/> <dt:format pattern="dd MMMM yyyy, HH:mm" default=""><c:out value="${command.mediaObject.createDate.time}"/></dt:format><br/>
         <spring:message code="mediaedit.by"/> <c:out value="${command.creator.userName}"/><br/>
-        Mime: <c:out value="${command.imageVersion.primaryMimeType}"/><br/>
-        kb: <c:out value="${command.imageVersion.kb}"/><br/>
-        <c:if test="${command.imageVersion.mayorMime=='image'}">
-        width: <c:out value="${command.imageVersion.width}"/>
-        height: <c:out value="${command.imageVersion.height}"/>
-        dpi: <c:out value="${command.imageVersion.dpi}"/>
+        Mime: <c:out value="${command.mediaObject.primaryMimeType}"/><br/>
+        kb: <c:out value="${command.mediaObject.kb}"/><br/>
+        <c:if test="${command.mediaObject.mayorMime=='image'}">
+        width: <c:out value="${command.mediaObject.width}"/>
+        height: <c:out value="${command.mediaObject.height}"/>
+        dpi: <c:out value="${command.mediaObject.dpi}"/>
         </c:if>
-        <c:if test="${command.imageVersion.mayorMime=='audio' || command.imageVersion.mayorMime=='video'}">
-        <c:if test="${command.imageVersion.mayorMime=='video'}">
-        Video-Codec: <c:out value="${command.imageVersion.videocodec}"/><br/>
+        <c:if test="${command.mediaObject.mayorMime=='audio' || command.mediaObject.mayorMime=='video'}">
+        <c:if test="${command.mediaObject.mayorMime=='video'}">
+        Video-Codec: <c:out value="${command.mediaObject.videocodec}"/><br/>
         </c:if>
-        Bitrate: <c:out value="${command.imageVersion.bitrate}"/> kb/s<br/>
-        Samplerate: <c:out value="${command.imageVersion.samplerate}"/> Hz<br/>
-        Channels: <c:out value="${command.imageVersion.channels}"/><br/>
-        Länge: <fmt:formatDate value="${command.imageVersion.durationDate}" pattern="mm:ss" timeZone="GMT"/>
+        Bitrate: <c:out value="${command.mediaObject.bitrate}"/> kb/s<br/>
+        Samplerate: <c:out value="${command.mediaObject.samplerate}"/> Hz<br/>
+        Channels: <c:out value="${command.mediaObject.channels}"/><br/>
+        Länge: <fmt:formatDate value="${command.mediaObject.durationDate}" pattern="mm:ss" timeZone="GMT"/>
         </c:if>
                   </div>
                   <h4>IPTC und EXIF Data</h4>

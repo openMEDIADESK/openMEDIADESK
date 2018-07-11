@@ -415,14 +415,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="messages.properties" pinned="false" current-in-tab="true">
+      <file leaf-file-name="messages.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/deployment/messages.dms/messages.properties">
           <provider editor-type-id="ResourceBundle">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="348" column="24" lean-forward="true" selection-start-line="348" selection-start-column="24" selection-end-line="348" selection-end-column="24" />
+            <state relative-caret-position="435">
+              <caret line="346" column="29" lean-forward="false" selection-start-line="346" selection-start-column="29" selection-end-line="346" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MediaDetailEditCommand.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/MediaDetailEditCommand.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="63" column="13" lean-forward="false" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="13" />
+              <folding>
+                <element signature="e#4934#4935#0" expanded="true" />
+                <element signature="e#4980#4981#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pMediaDetailEdit.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pMediaDetailEdit.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="355">
+              <caret line="698" column="20" lean-forward="false" selection-start-line="698" selection-start-column="20" selection-end-line="698" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -478,32 +501,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="messages_de.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/deployment/messages.dms/messages_de.properties">
-          <provider editor-type-id="ResourceBundle">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-15563">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="messages_ru.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/deployment/messages.dms/messages_ru.properties">
-          <provider editor-type-id="ResourceBundle">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="messages.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/deployment/messages.img/messages.properties">
           <provider editor-type-id="ResourceBundle">
@@ -534,8 +531,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>menu.categorymanager</find>
-      <find>categorylist.headline</find>
       <find>categorylist.</find>
       <find>categoryedit</find>
       <find>categoryedit.</find>
@@ -564,6 +559,8 @@
       <find>folderedit.headline</find>
       <find>imageedit.</find>
       <find>imageedit</find>
+      <find>mediaedi</find>
+      <find>imageVersion</find>
     </findStrings>
     <replaceStrings>
       <replace>mediadesk</replace>
@@ -592,6 +589,7 @@
       <replace>mediasearch.</replace>
       <replace>mediaedit.</replace>
       <replace>homefolderid</replace>
+      <replace>mediaObject</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\work\openMEDIADESK-trunk\resources\WEB-INF\template\bootstrapbased</dir>
@@ -627,7 +625,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/ImportSettingsController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/UploadSelectorController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/UserDeleteController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/FolderSelectorController.java" />
@@ -678,6 +675,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/BulkModificationController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/SearchResultController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/api/rest/SearchresultRestApi.java" />
+        <option value="$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pMediaDetailEdit.jsp" />
       </list>
     </option>
   </component>
@@ -1790,12 +1788,12 @@
       <workItem from="1529600468461" duration="9742000" />
       <workItem from="1529667014546" duration="123000" />
       <workItem from="1530035218428" duration="6068000" />
-      <workItem from="1531329922520" duration="3803000" />
+      <workItem from="1531329922520" duration="4182000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="123362000" />
+    <option name="totallyTimeSpent" value="123741000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1819,6 +1817,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36816874" sideWeight="0.19083156" order="8" side_tool="true" content_ui="tabs" />
@@ -1838,7 +1837,7 @@
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="18" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32694152" sideWeight="0.49573562" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36816874" sideWeight="0.80916846" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36816874" sideWeight="0.80916846" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="20" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21908316" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2086,13 +2085,6 @@
     <option name="myLastEditedConfigurable" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/api/MediaObjectApi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="129" column="40" lean-forward="false" selection-start-line="129" selection-start-column="40" selection-end-line="129" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/core/database/sc/FavoriteService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="235">
@@ -2120,13 +2112,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
           <caret line="65" column="31" lean-forward="false" selection-start-line="65" selection-start-column="31" selection-end-line="65" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/MediaDetailEditCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="146" column="54" lean-forward="false" selection-start-line="146" selection-start-column="54" selection-end-line="146" selection-end-column="54" />
         </state>
       </provider>
     </entry>
@@ -2499,14 +2484,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/MediaDetailEditController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="150" column="29" lean-forward="false" selection-start-line="150" selection-start-column="29" selection-end-line="150" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/common/SimpleFormControllerMd.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="235">
@@ -2520,8 +2497,35 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="348" column="24" lean-forward="true" selection-start-line="348" selection-start-column="24" selection-end-line="348" selection-end-column="24" />
+        <state relative-caret-position="435">
+          <caret line="346" column="29" lean-forward="false" selection-start-line="346" selection-start-column="29" selection-end-line="346" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/media/MediaDetailEditCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="63" column="13" lean-forward="false" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="13" />
+          <folding>
+            <element signature="e#4934#4935#0" expanded="true" />
+            <element signature="e#4980#4981#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/stumpner/mediadesk/web/mvc/MediaDetailEditController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="150" column="29" lean-forward="false" selection-start-line="150" selection-start-column="29" selection-end-line="150" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/WEB-INF/template/bootstrapbased/pMediaDetailEdit.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="355">
+          <caret line="698" column="20" lean-forward="false" selection-start-line="698" selection-start-column="20" selection-end-line="698" selection-end-column="20" />
           <folding />
         </state>
       </provider>
