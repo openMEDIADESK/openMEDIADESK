@@ -9,7 +9,7 @@
     <resultMap id="downloadLog" class="com.stumpner.mediadesk.stats.DownloadLogger">
         <result property="userId" column="userid"/>
         <result property="userName" column="username"/>
-        <result property="mediaNumber" column="imagenumber"/>
+        <result property="mediaNumber" column="medianumber"/>
         <result property="downloadDate" column="downloaddate"/>
         <result property="ivid" column="ivid"/>
         <result property="formatx" column="formatx"/>
@@ -27,7 +27,7 @@
     <statement id="getDownloadLog" parameterClass="com.stumpner.mediadesk.stats.AllPicFilter" resultMap="downloadLog">
         SELECT downloadlogger.userid as userId, downloadlogger.ivid as ivid,
             downloadlogger.downloaddate as downloadDate,
-            mediaobject.imagenumber as mediaNumber, appuser.username as userName,
+            mediaobject.medianumber as mediaNumber, appuser.username as userName,
             downloadlogger.formatx, downloadlogger.formaty,
             downloadlogger.downloadtype as downloadtype,
             downloadlogger.ip as ip,
@@ -35,13 +35,13 @@
             downloadlogger.bytes as bytes,
             mediaobject.versionname as medianame,
             downloadlogger.pinid as pinid,
-            pinpic.pin as pin,
+            pin.pin as pin,
             downloadlogger.paytransactionid as payTransactionId,
             downloadlogger.name as name
         FROM downloadlogger
         LEFT OUTER JOIN appuser ON downloadlogger.userid = appuser.userid
         LEFT OUTER JOIN mediaobject ON downloadlogger.ivid = mediaobject.ivid
-        LEFT OUTER JOIN pinpic ON downloadlogger.pinid = pinpic.pinpicid
+        LEFT OUTER JOIN pin ON downloadlogger.pinid = pin.pinid
         WHERE DATE_SUB(CURDATE(),INTERVAL $interval$) &lt;= downloaddate
           AND downloadtype = #downloadType#
         <iterate prepend="AND downloadlogger.userid IN " property="userList" open="(" close=")" conjunction=",">
@@ -59,7 +59,7 @@
     <statement id="getDownloadLogMonth" parameterClass="com.stumpner.mediadesk.stats.StatFilter" resultMap="downloadLog">
         SELECT downloadlogger.userid as userId, downloadlogger.ivid as ivid,
             downloadlogger.downloaddate as downloadDate,
-            mediaobject.imagenumber as mediaNumber, appuser.username as userName,
+            mediaobject.medianumber as mediaNumber, appuser.username as userName,
             downloadlogger.formatx, downloadlogger.formaty,
             downloadlogger.downloadtype as downloadtype,
             downloadlogger.ip as ip,
