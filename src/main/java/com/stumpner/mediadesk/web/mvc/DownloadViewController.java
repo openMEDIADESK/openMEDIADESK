@@ -64,8 +64,8 @@ public class DownloadViewController extends AbstractPageController {
             LngResolver lngResolver = new LngResolver();
             ShoppingCartService shoppingCartService = new ShoppingCartService();
             shoppingCartService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-            MediaService imageService = new MediaService();
-            imageService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
+            MediaService mediaService = new MediaService();
+            mediaService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
             User user = WebHelper.getUser(httpServletRequest);
 
                 //httpServletRequest.getSession().removeAttribute("formatSelector");
@@ -82,7 +82,7 @@ public class DownloadViewController extends AbstractPageController {
                         //Prüfen wenn der Parameter ivid nicht übergeben ist, wird ein error 404 Error ausgegeben
                         if (httpServletRequest.getParameter("ivid")==null) { httpServletResponse.sendError(404); return null; }
                         int ivid = Integer.parseInt(httpServletRequest.getParameter("ivid"));
-                        MediaObjectMultiLang media = (MediaObjectMultiLang)imageService.getMediaObjectById(ivid);
+                        MediaObjectMultiLang media = (MediaObjectMultiLang)mediaService.getMediaObjectById(ivid);
                         if (Config.useShoppingCart) {
                             BigDecimal price = Config.currency.isEmpty() ? BigDecimal.valueOf(1) : media.getPrice();
                             if (user.getRole()>= User.ROLE_USER) { //nur wenn eingeloggt, denn sonst wird unterhalb redirected
@@ -240,9 +240,9 @@ public class DownloadViewController extends AbstractPageController {
 
         int pinId = ((Integer)request.getSession().getAttribute("pinid"));
         PinService pinService = new PinService();
-        MediaService imageService = new MediaService();
+        MediaService mediaService = new MediaService();
         LngResolver lngResolver = new LngResolver();
-        imageService.setUsedLanguage(lngResolver.resolveLng(request));
+        mediaService.setUsedLanguage(lngResolver.resolveLng(request));
 
         try {
             Pin pin = (Pin)pinService.getById(pinId);
@@ -265,7 +265,7 @@ public class DownloadViewController extends AbstractPageController {
                                 }
                             }
                         if (isInPin) {
-                            selectedToDownloadList.add(imageService.getMediaObjectById(ivid));
+                            selectedToDownloadList.add(mediaService.getMediaObjectById(ivid));
                             try {
                                 response.sendRedirect(
                                     response.encodeRedirectURL("/download/?pin=ivid&ivid="+ivid)

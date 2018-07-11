@@ -115,13 +115,13 @@ public class RssServlet extends HttpServlet {
             String tokens[] = request.getPathInfo().split("/");
             int folderId = Integer.parseInt(tokens[tokens.length-1]);
 
-            MediaService imageService = new MediaService();
+            MediaService mediaService = new MediaService();
             SimpleLoaderClass loaderClass = new SimpleLoaderClass();
-            imageService.setUsedLanguage(lngResolver.resolveLng(request));
+            mediaService.setUsedLanguage(lngResolver.resolveLng(request));
             loaderClass.setId(folderId);
             loaderClass.setOrderBy(Config.orderByFolder);
             loaderClass.setSortBy(Config.sortByFolder);
-            itemList = imageService.getFolderMediaObjects(loaderClass);
+            itemList = mediaService.getFolderMediaObjects(loaderClass);
 
             FolderService folderService = new FolderService();
             folderService.setUsedLanguage(lngResolver.resolveLng(request));

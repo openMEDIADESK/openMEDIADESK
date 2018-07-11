@@ -80,9 +80,9 @@ public class MediaObjectApi extends ApiBase {
      */
     private String getMediaObjectIdByFid(String[] parameter) {
         String fid = parameter[0];
-        MediaService imageService = new MediaService();
+        MediaService mediaService = new MediaService();
         try {
-            return String.valueOf(imageService.getMediaObjectIdByFid(fid));
+            return String.valueOf(mediaService.getMediaObjectIdByFid(fid));
         } catch (ObjectNotFoundException e) {
             return "-1;ObjectNotFound";
         } catch (IOServiceException e) {
@@ -159,9 +159,9 @@ public class MediaObjectApi extends ApiBase {
     private String deleteMediaObject(String[] parameter) {
 
         int ivid = Integer.parseInt(parameter[0]);
-        MediaService imageService = new MediaService();
+        MediaService mediaService = new MediaService();
         try {
-            imageService.deleteMedia(ivid);
+            mediaService.deleteMedia(ivid);
             return "OK";
         } catch (IOServiceException e) {
             return "ERROR";

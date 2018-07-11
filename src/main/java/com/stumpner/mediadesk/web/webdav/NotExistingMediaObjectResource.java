@@ -125,8 +125,8 @@ public class NotExistingMediaObjectResource implements FileResource, PutableReso
             System.out.println("FileRejectException in NotExistingMediaObjectResource.java");
         }
 
-        MediaService imageService = new MediaService();
-        MediaObjectMultiLang media = (MediaObjectMultiLang)imageService.getMediaObjectById(ivid);
+        MediaService mediaService = new MediaService();
+        MediaObjectMultiLang media = (MediaObjectMultiLang)mediaService.getMediaObjectById(ivid);
         return new MediaObjectResource(folder,media);
     }
 

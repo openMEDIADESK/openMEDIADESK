@@ -170,10 +170,10 @@ public class FolderApi extends ApiBase {
 
         try {
             FolderService folderService = new FolderService();
-            MediaService imageService = new MediaService();
+            MediaService mediaService = new MediaService();
             SimpleLoaderClass loaderClass = new SimpleLoaderClass();
             loaderClass.setId(Integer.parseInt(parameter[0]));
-            List folderMediaObjects = imageService.getFolderMediaObjects(loaderClass);
+            List folderMediaObjects = mediaService.getFolderMediaObjects(loaderClass);
             Folder folder = folderService.getFolderById(loaderClass.getId());
 
             folderService.deleteMediaFromFolder(folder,folderMediaObjects);

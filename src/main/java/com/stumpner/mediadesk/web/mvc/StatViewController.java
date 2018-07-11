@@ -59,7 +59,7 @@ public class StatViewController extends AbstractPageController {
         }
 
         DownloadLoggerService dlls = new DownloadLoggerService();
-        MediaService imageService = new MediaService();
+        MediaService mediaService = new MediaService();
         List userList = new ArrayList();
         int downloadType = 1;
         String chartTitle = "Heruntergeladene Dateien";
@@ -116,11 +116,11 @@ public class StatViewController extends AbstractPageController {
         httpServletRequest.setAttribute("licMaxMb",new Integer(Config.licMaxMb));
         httpServletRequest.setAttribute("licMaxUsers",new Integer(Config.licMaxUsers));
         httpServletRequest.setAttribute("licTo",Config.licTo);
-        httpServletRequest.setAttribute("imageCount",new Integer(imageService.getMediaCount()));
-        httpServletRequest.setAttribute("imageMb",new Integer(imageService.getUsedMb()));
+        httpServletRequest.setAttribute("imageCount",new Integer(mediaService.getMediaCount()));
+        httpServletRequest.setAttribute("imageMb",new Integer(mediaService.getUsedMb()));
 
-        BigDecimal quotaTotal = imageService.getQuotaTotalMb();
-        BigDecimal quotaAvailable = imageService.getQuotaAvailableMb();
+        BigDecimal quotaTotal = mediaService.getQuotaTotalMb();
+        BigDecimal quotaAvailable = mediaService.getQuotaAvailableMb();
         BigDecimal quotaUsed = quotaTotal.subtract(quotaAvailable);
 
             BigDecimal quotaTotalGb = quotaTotal.divide(BigDecimal.valueOf(1000));

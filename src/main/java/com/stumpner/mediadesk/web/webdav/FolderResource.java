@@ -209,10 +209,10 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
             list.add(new FolderResource(resourceFactory, folder));
         }
 
-        MediaService imageService = new MediaService();
+        MediaService mediaService = new MediaService();
         SimpleLoaderClass loader = new SimpleLoaderClass();
         loader.setId(id);
-        List folderMediaList = imageService.getFolderMediaObjects(loader);
+        List folderMediaList = mediaService.getFolderMediaObjects(loader);
 
         for (Object folder : folderMediaList) {
             MediaObjectMultiLang media = (MediaObjectMultiLang)folder;
@@ -331,14 +331,14 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
                 System.out.println("FileRejectException in FolderResource.java");
             }
 
-            MediaService imageService = new MediaService();
-            MediaObjectMultiLang media = (MediaObjectMultiLang)imageService.getMediaObjectById(ivid);
+            MediaService mediaService = new MediaService();
+            MediaObjectMultiLang media = (MediaObjectMultiLang)mediaService.getMediaObjectById(ivid);
             media.setVersionName(newName);
             media.setVersionTitle(newName);
             media.setVersionTitleLng1(newName);
             media.setVersionTitleLng2(newName);
             try {
-                imageService.saveMediaObject(media);
+                mediaService.saveMediaObject(media);
             } catch (IOServiceException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
@@ -395,16 +395,16 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
         mediaObject.setVersionTitle(newName);
 
         //File-Objekt in der Datenbank erstellen
-        MediaService imageService = new MediaService();
+        MediaService mediaService = new MediaService();
         try {
             logger.debug("Datei in der Datenbank anlegen...");
-            mediaObject = (MediaObjectMultiLang)imageService.addMedia(mediaObject);
+            mediaObject = (MediaObjectMultiLang)mediaService.addMedia(mediaObject);
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
         try {
-            imageService.saveMediaObject(mediaObject);
+            mediaService.saveMediaObject(mediaObject);
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

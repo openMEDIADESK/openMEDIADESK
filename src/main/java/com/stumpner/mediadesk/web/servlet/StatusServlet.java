@@ -178,21 +178,6 @@ public class StatusServlet extends HttpServlet {
 
         w.write("\n\nCommands: \n");
         w.write("?reloadconfig: \n");
-        //w.write("?renewpublicprotectedstatus: \n");
-
-        /*
-        httpServletRequest.setAttribute("instanceName",Config.instanceName);
-        httpServletRequest.setAttribute("versionNumber",Config.versionNumbner);
-        httpServletRequest.setAttribute("versionDate",Config.versionDate);
-        httpServletRequest.setAttribute("licExpires",Config.licExpireDate);
-        httpServletRequest.setAttribute("licMaxMediaObjects",new Integer(Config.licMaxMediaObjects));
-        httpServletRequest.setAttribute("licMaxMb",new Integer(Config.licMaxMb));
-        httpServletRequest.setAttribute("licMaxUsers",new Integer(Config.licMaxUsers));
-
-        httpServletRequest.setAttribute("imageCount",new Integer(imageService.getMediaCount()));
-        httpServletRequest.setAttribute("imageMb",new Integer(imageService.getUsedMb()));
-         */
-        //super.doGet(request, response);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     private void doReset() throws IOException, SQLException {

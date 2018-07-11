@@ -97,10 +97,6 @@ public class DownloadServlet extends HttpServlet {
 
         final long uniqueId = System.currentTimeMillis();
         httpServletRequest.setAttribute("uniqueId",uniqueId);
-        boolean ividIsInImageList = true;
-        //int ivid = Integer.parseInt(httpServletRequest.getParameter("ivid"));
-        MediaService imageService = new MediaService();
-        //MediaObject image = imageService.getMediaObjectById(ivid);
 
         List downloadImageList = getImageList(httpServletRequest);
         if (downloadImageList!=null) {

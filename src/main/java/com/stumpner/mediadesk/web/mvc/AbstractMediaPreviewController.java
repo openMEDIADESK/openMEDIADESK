@@ -98,10 +98,10 @@ public abstract class AbstractMediaPreviewController extends AbstractPageControl
         }
 
         //Map model = new HashMap();
-        MediaService imageService = new MediaService();
+        MediaService mediaService = new MediaService();
         LngResolver lngResolver = new LngResolver();
-        imageService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-        MediaObject image = imageService.getMediaObjectById(
+        mediaService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
+        MediaObject image = mediaService.getMediaObjectById(
                 Integer.parseInt(httpServletRequest.getParameter("id")));
 
         if (image==null) {

@@ -367,9 +367,9 @@ public class FolderRestApi extends RestBaseServlet {
 
             List<MediaObject> selectedList = MediaObjectService.getSelectedMediaObjectList(request.getSession());
 
-            MediaService imageService = new MediaService();
+            MediaService mediaService = new MediaService();
             try {
-                imageService.deleteMediaObjects(selectedList);
+                mediaService.deleteMediaObjects(selectedList);
             } catch (IOServiceException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }

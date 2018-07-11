@@ -119,8 +119,8 @@ public class CartRestApi extends RestBaseServlet {
     private void jsonCartMedialist(HttpServletRequest request, HttpServletResponse response) {
 
         LngResolver lngResolver = new LngResolver();
-        MediaService imageService = new MediaService();
-        imageService.setUsedLanguage(lngResolver.resolveLng(request));
+        MediaService mediaService = new MediaService();
+        mediaService.setUsedLanguage(lngResolver.resolveLng(request));
 
         ShoppingCartService shoppingCartService = new ShoppingCartService();
         shoppingCartService.setUsedLanguage(lngResolver.resolveLng(request));

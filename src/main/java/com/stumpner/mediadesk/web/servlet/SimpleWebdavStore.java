@@ -360,8 +360,6 @@ public class SimpleWebdavStore implements net.sf.webdav.IWebdavStore {
 
     public StoredObject getStoredObject(ITransaction iTransaction, String s) {
 
-        //System.out.println("getStoredObject2 "+s);
-        MediaService imageService = new MediaService();
         FolderService folderService = new FolderService();
         Folder folder = null;
         if (s.equalsIgnoreCase("")) { s="/"; }

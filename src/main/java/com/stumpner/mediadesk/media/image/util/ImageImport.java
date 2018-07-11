@@ -93,10 +93,10 @@ public class ImageImport {
         }
 
         //image in db erstellen
-        MediaService imageService = new MediaService();
+        MediaService mediaService = new MediaService();
         try {
             logger.debug("Bild in der Datenbank anlegen...");
-            imageService.addMedia(mediaObject);
+            mediaService.addMedia(mediaObject);
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -298,7 +298,7 @@ public class ImageImport {
         }
 
         try {
-            imageService.saveMediaObject(mediaObject);
+            mediaService.saveMediaObject(mediaObject);
         } catch (IOServiceException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

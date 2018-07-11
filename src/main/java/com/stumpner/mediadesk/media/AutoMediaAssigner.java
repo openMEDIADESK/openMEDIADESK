@@ -79,8 +79,8 @@ public class AutoMediaAssigner {
                 //Informieren, wenn aktiviert
                 if (pin.getEmailnotification().length()>0) {
 
-                    MediaService imageService = new MediaService();
-                    MediaObjectMultiLang image = (MediaObjectMultiLang)imageService.getMediaObjectById(ivid);
+                    MediaService mediaService = new MediaService();
+                    MediaObjectMultiLang image = (MediaObjectMultiLang)mediaService.getMediaObjectById(ivid);
 
                     String mailsubject = "PIN Upload: "+ pin.getPin() + " "+ pin.getPinName();
                     String mailbody = "Eine oder mehrere Dateien wurden in den PIN "+ pin.getPin() + " hochgeladen.";

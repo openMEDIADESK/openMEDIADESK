@@ -78,8 +78,8 @@ public class ShoppingCartViewController extends AbstractThumbnailAjaxController 
         LngResolver lngResolver = new LngResolver();
         ShoppingCartService shoppingCartService = new ShoppingCartService();
         shoppingCartService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
-        MediaService imageService = new MediaService();
-        imageService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
+        MediaService mediaService = new MediaService();
+        mediaService.setUsedLanguage(lngResolver.resolveLng(httpServletRequest));
         Folder folder = new Folder();
         folder.setTitle("Shopping Cart");
 

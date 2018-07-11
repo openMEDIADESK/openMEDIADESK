@@ -445,10 +445,10 @@ public class MediaDetailEditController extends AbstractAutoFillController {
 
     private void copyMetadataOfFolder(MediaDetailEditCommand mediaDetailEditCommand, int folderId) {
 
-        MediaService imageService = new MediaService();
+        MediaService mediaService = new MediaService();
         SimpleLoaderClass loaderClass = new SimpleLoaderClass();
         loaderClass.setId(folderId);
-        List imageList = imageService.getFolderMediaObjects(loaderClass);
+        List imageList = mediaService.getFolderMediaObjects(loaderClass);
         //Daten kopieren:
         copyMetadataOfMediaObjects(mediaDetailEditCommand,imageList);
     }
