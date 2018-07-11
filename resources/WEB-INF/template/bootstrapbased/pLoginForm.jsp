@@ -1,5 +1,6 @@
 <%@ page import="com.stumpner.mediadesk.core.Config" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/datetime-1.0" prefix="dt" %>
 <%@ taglib uri="/mediadesk" prefix="mediadesk" %>
@@ -47,7 +48,7 @@
 
   <div class="checkbox">
     <label>
-      <input type="checkbox" name="autologin" value="true" > <spring:message code="login.rememberme"/>
+        <input type="checkbox" name="autologin" value="true"<c:if test="${!fn:contains(config.param, '-DALOGIN')}"> checked</c:if>> <spring:message code="login.rememberme"/>
     </label>
   </div>
 
