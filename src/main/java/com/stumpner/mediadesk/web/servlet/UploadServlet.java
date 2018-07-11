@@ -124,10 +124,10 @@ public class UploadServlet extends HttpServlet {
                         if (item.getFieldName().equalsIgnoreCase("PASSWORD")) {
                             authPass = item.getString();
                         }
-                        if (item.getFieldName().equalsIgnoreCase("CATEGORYNAME")) {
+                        if (item.getFieldName().equalsIgnoreCase("FOLDERNAME")) {
                             folderName = item.getString();
                         }
-                        if (item.getFieldName().equalsIgnoreCase("CATEGORYID")) {
+                        if (item.getFieldName().equalsIgnoreCase("FOLDERID")) {
                             folderId = Integer.parseInt(item.getString());
                         }
                     }

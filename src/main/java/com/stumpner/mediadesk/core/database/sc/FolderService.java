@@ -609,7 +609,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
     }
 
     /**
-     * gibt true oder false zurück ob der angegebene User diesen Ordner verändern darf (homecategory)
+     * gibt true oder false zurück ob der angegebene User diesen Ordner verändern darf (homefolder)
      * @param user
      * @param folderId
      * @return
@@ -617,7 +617,7 @@ public class FolderService extends MultiLanguageService implements IServiceClass
     public boolean isCanModifyFolder(User user, int folderId) {
 
         try {
-            int homeFolderId = user.getHomeCategoryId();
+            int homeFolderId = user.getHomeFolderId();
             if (homeFolderId!=0) {
                 int id = folderId;
                 List folderList = this.getParentFolderList(id);

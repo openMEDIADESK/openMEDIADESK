@@ -37,3 +37,4 @@ UPDATE appconfig SET appkey = 'homeFolderId' WHERE appkey = 'homeCategoryId';
 UPDATE appconfig SET appkey = 'homeFolderAsRoot' WHERE appkey = 'homeCategoryAsRoot';
 UPDATE appconfig SET appkey = 'homeFolderAutocreate' WHERE appkey = 'homeCategoryAutocreate';
 UPDATE appconfig SET appkey = 'folderDefaultViewOnRoot' WHERE appkey = 'categoryDefaultViewOnRoot';
+ALTER TABLE `appuser` CHANGE COLUMN `homecategoryid` `homefolderid` INT(11) NOT NULL DEFAULT '-1' ;

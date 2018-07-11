@@ -224,7 +224,7 @@ public class UserService implements IServiceClass {
 
     public void createHomeFolder(User user) throws IOServiceException {
 
-        if (user.getHomeCategoryId()==-1) {
+        if (user.getHomeFolderId()==-1) {
 
             String folderName = user.getName()+user.getUserId();
 
@@ -239,7 +239,7 @@ public class UserService implements IServiceClass {
 
             try {
                 folder = (FolderMultiLang) folderService.getFolderByName(folderName);
-                user.setHomeCategoryId(folder.getFolderId());
+                user.setHomeFolderId(folder.getFolderId());
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();
             }

@@ -126,7 +126,7 @@ public class FolderBreakupController extends SimpleFormControllerMd {
         Iterator users = userList.iterator();
         while (users.hasNext()) {
             User user = (User)users.next();
-            if (user.getHomeCategoryId()== folder.getFolderId()) {
+            if (user.getHomeFolderId()== folder.getFolderId()) {
                 isHomeFolder = true;
             }
         }

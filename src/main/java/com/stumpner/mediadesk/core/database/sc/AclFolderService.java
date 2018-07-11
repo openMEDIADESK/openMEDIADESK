@@ -67,13 +67,13 @@ public class AclFolderService extends FolderService {
             if (parentId==0) {
                 User user = ((AclUserContext)aclCtx).getUser();
                 //früher User user = getUser();
-                if (user.getHomeCategoryId()!=-1) {
+                if (user.getHomeFolderId()!=-1) {
                     if (Config.homeFolderAsRoot) {
                         //Home-Kategorie wird gleich als "Root/Hauptkategorie" angezeigt, andere Kategorien werden nicht angezeigner
-                        folderSubTree = super.getFolderSubTree(user.getHomeCategoryId(),maxSubElements);
+                        folderSubTree = super.getFolderSubTree(user.getHomeFolderId(),maxSubElements);
                     } else {
                         //Home-Kategorie wird neben den anderen Hauptkategorien angezeigt
-                        Folder homeFolder = this.getFolderById(user.getHomeCategoryId());
+                        Folder homeFolder = this.getFolderById(user.getHomeFolderId());
                         folderSubTree.add(homeFolder);
                     }
                 }
@@ -112,7 +112,7 @@ public class AclFolderService extends FolderService {
      */
     public List getParentFolderList(int id) throws ObjectNotFoundException, IOServiceException {
 
-        if (Config.homeFolderId !=-1 && getUser().getHomeCategoryId()!=-1) {
+        if (Config.homeFolderId !=-1 && getUser().getHomeFolderId()!=-1) {
 
             List list = super.getParentFolderList(id);
             List mangledList = new LinkedList();
@@ -125,7 +125,7 @@ public class AclFolderService extends FolderService {
                 if (homeFoundInParent) {
                     mangledList.add(folder);
                 }
-                if (folder.getFolderId()==getUser().getHomeCategoryId()) {
+                if (folder.getFolderId()==getUser().getHomeFolderId()) {
                     homeFoundInParent = true;
                     if (!Config.homeFolderAsRoot) {
                         mangledList.add(folder);

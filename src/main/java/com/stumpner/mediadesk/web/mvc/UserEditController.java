@@ -87,7 +87,7 @@ public class UserEditController extends SimpleFormControllerMd {
             user.setSecurityGroup(Config.defaultSecurityGroup);
             if (loggedInUser.getRole()!=User.ROLE_ADMIN) {
                 //Mandantenbenutzer:
-                user.setHomeCategoryId(loggedInUser.getHomeCategoryId());
+                user.setHomeFolderId(loggedInUser.getHomeFolderId());
                 user.setMandant(loggedInUser.getUserId());
                 user.setSecurityGroup(loggedInUser.getSecurityGroup());
                 user.setRole(User.ROLE_USER); //Mandantenbenutzer erhalten nur Benutzer-Rolle
@@ -187,7 +187,7 @@ public class UserEditController extends SimpleFormControllerMd {
             FolderService folderService = new FolderService();
 
             try {
-                Folder folder = folderService.getFolderById(user.getHomeCategoryId());
+                Folder folder = folderService.getFolderById(user.getHomeFolderId());
                 folder.setName(folder.getName()+".bak."+(new Date().getDay()));
                 folderService.save(folder);
             } catch (IOServiceException e1) {
@@ -195,7 +195,7 @@ public class UserEditController extends SimpleFormControllerMd {
             } catch (ObjectNotFoundException e2) {
                 e.printStackTrace();
             }
-            user.setHomeCategoryId(-1);
+            user.setHomeFolderId(-1);
             this.saveUser(user);
         }
 

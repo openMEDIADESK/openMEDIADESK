@@ -88,7 +88,7 @@ public class UserDeleteController extends SimpleFormControllerMd {
             httpServletRequest.setAttribute("info","userdelete.text");
             httpServletRequest.setAttribute("redirectTo","");
 
-            if (user.getHomeCategoryId()!=-1) {
+            if (user.getHomeFolderId()!=-1) {
 
                 httpServletRequest.setAttribute("useCbx",true);
                 httpServletRequest.setAttribute("cbxChecked",true);
@@ -110,7 +110,7 @@ public class UserDeleteController extends SimpleFormControllerMd {
             //Benutzerfolder löschen
             if (httpServletRequest.getParameter("cbx")!=null) {
                 FolderService folderService = new FolderService();
-                folderService.deleteById(user.getHomeCategoryId());
+                folderService.deleteById(user.getHomeFolderId());
             }
             this.deleteUser(user);
         }

@@ -52,7 +52,7 @@ public class User extends SimpleUser implements Principal, AclPrincipal {
 
     int role = 0;
     private int securityGroup = 1; // Standardmaessig Security Group A setzen
-    private int homeCategoryId = -1; //Home-Dir/ Home-Kategorie des Users
+    private int homeFolderId = -1; //Home-Dir/ Home-Kategorie des Users
 
     private int mandant = -1; //ID des zugeh�rigen Mandanten (Mandant = ID des Mandanten-Benutzers)
     private String activateCode = ""; //Code/Hash zum aktivieren des Benutzers via Email-Link
@@ -180,12 +180,12 @@ public class User extends SimpleUser implements Principal, AclPrincipal {
         this.securityGroup = securityGroup;
     }
 
-    public int getHomeCategoryId() {
-        return homeCategoryId;
+    public int getHomeFolderId() {
+        return homeFolderId;
     }
 
-    public void setHomeCategoryId(int homeCategoryId) {
-        this.homeCategoryId = homeCategoryId;
+    public void setHomeFolderId(int homeFolderId) {
+        this.homeFolderId = homeFolderId;
     }
 
     public int getAclObjectSerialId() {

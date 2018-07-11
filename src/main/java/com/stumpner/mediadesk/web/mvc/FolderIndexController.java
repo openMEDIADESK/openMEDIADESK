@@ -345,8 +345,8 @@ public class FolderIndexController extends AbstractThumbnailAjaxController {
         
         if (Config.homeFolderId !=-1) {
             User user = getUser(httpServletRequest);
-            if (id==0 && user.getHomeCategoryId()!=-1) {
-                id = getUser(httpServletRequest).getHomeCategoryId();
+            if (id==0 && user.getHomeFolderId()!=-1) {
+                id = getUser(httpServletRequest).getHomeFolderId();
             }
         }
 

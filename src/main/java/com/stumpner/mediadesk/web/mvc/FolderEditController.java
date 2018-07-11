@@ -95,7 +95,7 @@ public class FolderEditController extends AbstractAutoFillController {
                 } else {
                     User user = getUser(httpServletRequest);
                     if (user.getRole()==User.ROLE_HOME_EDITOR) {
-                        folder.setParent(user.getHomeCategoryId());
+                        folder.setParent(user.getHomeFolderId());
                     }
                     if (user.getRole()>=User.ROLE_MASTEREDITOR) {
                         folder.setParent(0);

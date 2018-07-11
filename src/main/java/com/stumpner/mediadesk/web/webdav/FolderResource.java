@@ -159,7 +159,7 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
         if (Config.homeFolderId !=-1) {
             if (folder.getFolderId()==0) {
                 //Aktueller Ordner = ROOT
-                if (user.getHomeCategoryId()!=-1) {
+                if (user.getHomeFolderId()!=-1) {
                     //Benutzer hat einen Home-Ordner
                     if (Config.homeFolderAsRoot) {
                         //Soll als Root angezeigt werden, daher nur Config.homeFolderId anzeigen
@@ -177,7 +177,7 @@ public class FolderResource implements MakeCollectionableResource, PropFindableR
             }
             if (folder.getFolderId()==Config.homeFolderId) {
                 //Aktueller Folder = Home-Folder Container, nur die Home-Folder des aktuellen Users anzeigen
-                if (user.getHomeCategoryId()!=-1) {
+                if (user.getHomeFolderId()!=-1) {
                     if (Config.homeFolderAsRoot) {
                         //Soll als Root angezeigt werden, daher nur Config.homeFolderId anzeigen
                         try {
