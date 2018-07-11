@@ -965,15 +965,33 @@ angular.module('ui.mediadesk').controller('ThumbnailViewCtrl', function ($scope,
 	
     //Ausgewähltes Bild als Ordnerbild verwenden
     $scope.setFolderImage = function() {
-		
-          $http.get($scope.apiUriPrefix+"/"+$scope.containerId+"/setfolderimageselected")
-            .then(function(response) {
-              //alert('erfolgreich');
-              toaster.pop('success', "Ordnerbild", "Ordnerbild festgelegt");
-          }, function(response) {
-              toaster.pop('error', "Uuuups!", "Das hat nicht funktioniert");
-          });
-		
+
+        if ($scope.selectedMedia == 1) {
+
+
+            $http.get($scope.apiUriPrefix + "/" + $scope.containerId + "/setfolderimageselected")
+                .then(function (response) {
+                    //alert('erfolgreich');
+                    toaster.pop('success', "Ordnerbild", "Ordnerbild festgelegt");
+
+                    //alle Medienobjekte abwählen
+                    for (var a = 0; a < $scope.mos.length; a++) {
+                        if ($scope.mos[a].selected) {
+                            $scope.mos[a].selected = false;
+                        }
+                    }
+
+                    $scope.selectedMedia = 0;
+
+                }, function (response) {
+                    toaster.pop('error', "Uuuups!", "Das hat nicht funktioniert");
+                });
+
+        } else if ($scope.selectedMedia==0) {
+            toaster.pop('warning', "Geht nicht!", "Es ist kein Bild ausgewählt");
+		} else {
+            toaster.pop('warning', "Geht nicht!", "Es sind zu viele Bilder ausgewählt");
+		}
 	}
 
     //Drag&Drop

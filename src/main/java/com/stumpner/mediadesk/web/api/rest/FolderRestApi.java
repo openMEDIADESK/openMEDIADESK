@@ -325,6 +325,7 @@ public class FolderRestApi extends RestBaseServlet {
                 System.out.println("set Folder BasicMediaObject");
                 folderService.save(c);
             }
+            MediaObjectService.deselectMedia(request);
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (IOServiceException e) {

@@ -139,7 +139,7 @@ public class MediaObjectService {
      * @param session
      * @return Liste von <MediaObject> Bildern die ausgew�hlt sind.
      */
-    public static List getSelectedMediaObjectList(HttpSession session) {
+    public static List<MediaObject> getSelectedMediaObjectList(HttpSession session) {
 
         List imageList = new ArrayList();
         if (session.getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES)!=null) {
@@ -160,4 +160,13 @@ public class MediaObjectService {
         return false;
     }
 
+    /**
+     * Deselects all selected Media
+     * @param request
+     */
+    public static void deselectMedia(HttpServletRequest request) {
+
+        deselectMedia(null, request);
+
+    }
 }
