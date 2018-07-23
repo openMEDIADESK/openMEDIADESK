@@ -39,16 +39,15 @@ import com.stumpner.mail.StumpnerMailer;
  */
 public class MailWrapper {
 
+    public static String lastError = "";
     private static boolean smtpUseTls = false;
     private static String smtpUsername = "";
     private static String smtpPassword = "";
 
-    public static String lastError = "";
-
     public static void sendErrorReport(HttpServletRequest request, Throwable exception, String info) {
 
-    String mailbody = "Ein Fehler trat in einer mediaDESK Instanz auf:\n\n";
-    mailbody = mailbody + "\nInstanz: "+ Config.instanceName+ " ["+Config.httpBase+"]";
+    String mailbody = "An error occurred in your openMEDIADESK Webapplication Instance:\n\n";
+    mailbody = mailbody + "\nInstance: "+ Config.instanceName+ " ["+Config.httpBase+"]";
     mailbody = mailbody + "\nDate: "+(new Date());
     mailbody = mailbody + "\nURL:"+request.getRequestURL();
     mailbody = mailbody + "\nrequest.attribute.uri:"+request.getAttribute("uri");
@@ -64,18 +63,18 @@ public class MailWrapper {
     mailbody = mailbody + "\nReferer:"+request.getHeader("Referer");
     mailbody = mailbody + "\nFrom:"+request.getHeader("From");
     mailbody = mailbody + "\nVersion:"+ Config.versionNumbner+" ["+Config.versionDate+"]";
-    mailbody = mailbody + "\nWeitere Information: "+ info;
+    mailbody = mailbody + "\nDetails: "+ info;
 
-    /* PrÃ¼fen auf angemeldeten User */
+    /* Check on Logged-In User */
 
     if (request.getSession().getAttribute("user")!=null) {
         User user = (User)request.getSession().getAttribute("user");
         mailbody = mailbody + "\nUser:"+user.getUserName();
     } else {
-        mailbody = mailbody + "\nUser: - NICHT ANGEMELDET -";
+        mailbody = mailbody + "\nUser: - NOT LOGGED IN -";
     }
 
-    /* Pin Pic Ã¼berprÃ¼fung */
+    /* Check for used PIN */
 
     if (request.getSession().getAttribute("pinid")!=null) {
         Integer pin = (Integer)request.getSession().getAttribute("pinid");
@@ -87,33 +86,31 @@ public class MailWrapper {
         PrintWriter p = new PrintWriter(s);
         exception.printStackTrace(p);
 
-        mailbody = mailbody + "\nKlasse: "+exception.getClass();
-        mailbody = mailbody + "\nKlassname: "+exception.getClass().getName();
+        mailbody = mailbody + "\nClass: "+exception.getClass();
+        mailbody = mailbody + "\nClassname: "+exception.getClass().getName();
         mailbody = mailbody + "\n\nStacktrace: "+s.toString();
     } else {
-        mailbody = mailbody + "\n\nKein Stacktrace verfuegbar";
+        mailbody = mailbody + "\n\nNo Stacktrace available";
     }
 
-            StumpnerMailer mailer = new StumpnerMailer("", "", "mailgate.stumpner.net", "robot@media-desk.net", false);
-
-            try {
-                mailer.send("error@mediadesk.net", "HTTP500 - Report "+Config.versionNumbner, mailbody);
-            } catch (MessagingException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
-    /*
-    try {
-        MailWrapper.sendMail("mailgate.stumpner.net","robot@media-desk.net","error@mediadesk.net","HTTP500 - Report "+Config.versionNumbner,mailbody);
-    } catch (MessagingException e) {
-        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-    } */
+        try {
+            sendMail(Config.mailReceiverAdminEmail, "HTTP500 - Report "+Config.versionNumbner, mailbody);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
 
     }
 
+    public static void sendMail(String receiver, String subject, String body) throws MessagingException {
+
+        StumpnerMailer mailer = new StumpnerMailer(smtpUsername, smtpPassword, Config.mailserver, Config.mailsender, smtpUseTls);
+        mailer.send(receiver, subject, body);
+
+    }
 
 
     /**
-     * Gilt nicht mehr als @deprecated {@link net.stumpner.util.mailproxy.MailProxy} sollte verwendet werden.
+     * Funktion zum versenden einer Email
      * @param mailServer
      * @param sender
      * @param receiver

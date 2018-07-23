@@ -27,7 +27,7 @@
         <p><spring:message code="error.500"/></p>
         <p><a href="/"><spring:message code="error.startpage"/></a></p>
         <p>Error-Codes: <%= request.getAttribute("javax.servlet.error.exception") %></p>
-        <a href="mailto:<%= Config.mailsender %>"><%= Config.mailsender %></a>
+        <a href="mailto:<%= Config.mailReceiverAdminEmail %>"><%= Config.mailReceiverAdminEmail %></a>
     </div>
 
 </div>
@@ -36,6 +36,8 @@
 </html>
 <%
 
-    MailWrapper.sendErrorReport(request,exception,"");
+    if (Config.configParam.contains("-ERML")) {
+        MailWrapper.sendErrorReport(request, exception, "");
+    }
 
 %>
