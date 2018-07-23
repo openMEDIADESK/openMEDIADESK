@@ -78,71 +78,155 @@
             request.setAttribute("instance", instance);
 
 %>
-<html>
-  <head><title>openMEDIADESK Configuration</title></head>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Die 3 Meta-Tags oben *müssen* zuerst im head stehen; jeglicher sonstiger head-Inhalt muss *nach* diesen Tags kommen -->
+    <meta name="keywords" content="<%= Config.webKeywords %>">
+    <meta name="description" content="<%= Config.webDescription %>">
+    <link rel="icon" href="/favicon.ico"><!-- TODO -->
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.css">
+    <!-- bei buttons die nur icons enthalten noch: <span class="sr-only">Text</span> einfügen als hilfe -->
+    <title><c:if test="${webSiteTitle==''}"><c:out value="${config.webTitle}"/></c:if><c:out value="${webSiteTitle}"/></title>
+    <!-- Bootstrap-CSS -->
+    <!-- !!ACHTUNG: verwende hier .min.css da das andere file mit padding im body arbeitet! -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        <%= Config.cssAdd %>
+    </style>
+    <%= Config.googleWebmasters %>
+    <title>openMEDIADESK Setup</title>
+</head>
   <body>
 
-  <h1>Configure your mediaDESK here:</h1>
+  <!-- ###################################################################################################################################################### -->
+  <!-- NAVBAR ############################################################################################################################################### -->
+  <!-- Fixierte Navbar -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                  <span class="sr-only">Navigation ein-/ausblenden</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="<c:url value="${home}"/>">
+                  <img src="/logo2.png<c:out value="${cacheFix}"/>" alt="mediaDESK" title="mediaDESK" border="0" class="img-responsive"/>
+              </a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+
+                  <li><a href="https://openmediadesk.org" target="_blank">openMEDIADESK.org</a></li>
+
+                  <!-- sprache -->
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="text-uppercase"><c:out value="${lng}"/></span>&nbsp;<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                          <li><a href="https://wiki.openmediadesk.net" target="_blank" class="text-uppercase">Wiki &amp; How-Tos</a></li>
+                          <li><a href="http://get.openmediadesk.net" target="_blank" class="text-uppercase">Downloads</a></li>
+                          <li><a href="https://github.com/openMEDIADESK/openMEDIADESK" class="text-uppercase">GIT Repository</a></li>
+                          <li role="separator" class="divider"></li>
+                          <li><a href="https://github.com/openMEDIADESK/openMEDIADESK/releases/tag/<%= Config.versionNumbner %>" target="_blank">v<%= Config.versionNumbner %></a></li>
+                      </ul>
+                  </li>
+                  <!-- /sprache -->
+              </ul>
+          </div><!--/.nav-collapse -->
+      </div>
+  </nav>
+  <!-- /Fixierte Navbar -->
+
+  <h1>&nbsp;</h1>
+
+  <div class="container-fluid">
+
+      <div class="row">
+
+          <div class="col-lg-12">
+
+
+
+  <h1>Setup openMEDIADESK</h1>
 
   <form action="/configure.jsp" method="GET">
 
-      <dt>instanceName:</dt>
-      <dd>
-          <input type="text" name="instanceName" size="100" value="<c:out value="${instance}"/>"/>
-      </dd>
+      <div class="form-group">
+          <label for="instanceName">Instance-Name</label>
+          <input id="instanceName" type="text" class="form-control" name="instanceName" size="100" value="<c:out value="${instance}"/>"/>
+      </div>
 
-      <!--
-      <dt>licId (Podio):</dt>
-      <dd>
-          <input type="text" name="licId" size="5" value=""/>
-      </dd>-->
+      <div class="form-group">
+          <label for="jdbcDriver">db.jdbcDriver</label>
+          <input id="jdbcDriver" type="text" class="form-control" name="db.jdbcDriver"  size="100"  width="200" value="com.mysql.jdbc.Driver"/>
+      </div>
 
-      <dt>db.jdbcDriver:</dt>
-      <dd>
-          <input type="text" name="db.jdbcDriver"  size="100"  width="200" value="com.mysql.jdbc.Driver"/>
-      </dd>
+      <div class="form-group">
+          <label for="connectionUrl">db.connectionUrl</label>
+          <input id="connectionUrl" type="text" class="form-control" name="db.connectionUrl"  size="100"  width="200" value="jdbc:mysql://localhost:3306/<c:out value="${instance}"/>?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8"/>
+      </div>
 
-      <dt>db.connectionUrl:</dt>
-      <dd>
-          <input type="text" name="db.connectionUrl"  size="100"  width="200" value="jdbc:mysql://localhost:3306/<c:out value="${instance}"/>?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8"/>
-      </dd>
+      <div class="form-group">
+          <label for="dbUsername">db.username</label>
+          <input id="dbUsername" class="form-control" type="text" name="db.username"  size="100"  value="root"/>
+      </div>
 
-      <dt>db.username:</dt>
-      <dd>
-          <input type="text" name="db.username"  size="100"  value="root"/>
-      </dd>
+      <div class="form-group">
+          <label for="dbPassword">db.password</label>
+          <input id="dbPassword" type="text" class="form-control" name="db.password" width="200"  size="100"  value="mediadesk"/>
+      </div>
 
-      <dt>db.password:</dt>
-      <dd>
-          <input type="text" name="db.password" width="200"  size="100"  value="mediadesk"/>
-      </dd>
+      <div class="form-group">
+          <label for="imageStorePath">storePath</label>
+          <input id="imageStorePath" type="text" class="form-control" name="imageStorePath" width="200" size="100" value="/srv/datastore/<c:out value="${instance}"/>/repository/"/>
+      </div>
 
-      <dt>imageStorePath:</dt>
-      <dd>
-          <input type="text" name="imageStorePath" width="200" size="100" value="/srv/datastore/<c:out value="${instance}"/>/repository/"/>
-      </dd>
+      <div class="form-group">
+          <label for="fileSystemImportPath">fileSystemImportPath</label>
+          <input id="fileSystemImportPath" type="text" class="form-control" name="fileSystemImportPath" width="200" size="100" value="/srv/datastore/<c:out value="${instance}"/>/upload/"/>
+      </div>
 
-      <dt>fileSystemImportPath:</dt>
-      <dd>
-          <input type="text" name="fileSystemImportPath" width="200" size="100" value="/srv/datastore/<c:out value="${instance}"/>/upload/"/>
-      </dd>
+      <div class="form-group">
+          <label for="lic">lic</label>
+          <input id="lic" type="text" class="form-control" name="lic" width="200" value=""/>
+      </div>
 
-      <dt>lic:</dt>
-      <dd>
-          <input type="text" name="lic" width="200" value=""/>
-      </dd>
+      <div class="form-group">
+          <label for="lic">httpBase</label>
+          <input type="text" name="httpBase" class="form-control" width="200" size="100" value="https://<%= request.getServerName() %>"/>
+      </div>
 
-      <dt>httpBase</dt>
-      <dd>
-          <input type="text" name="httpBase" width="200" size="100" value="https://<%= request.getServerName() %>"/>
-      </dd>
-
-      <input type="submit"/>
+      <input type="submit" value="Start installation" class="btn btn-primary"/>
 
   </form>
 
-  </body>
+          </div>
+
+      </div> <!-- //ROW -->
+
+  </div>
+
+
+<!-- Bootstrap-JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<!--
+mediaDESK Version: <%= Config.versionNumbner %>
+mediaDESK VerDate: <%= Config.versionDate %>
+-->
+
+<%= Config.statCounterCode %>
+<%= Config.googleAnalytics %>
+
+</body>
 </html>
+
+
 <%
         }
     } else {
