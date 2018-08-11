@@ -1,0 +1,431 @@
+
+/* /css/less/var.less */
+/*
+
+  *************************************
+  Variablen fuer mediaDESK LESS CSS FILE
+  Vom TemplateService wird aus den Dateien:
+  * /css/less/var.less (diese Datei)
+  * Template var.less
+  * Less Angaben in den Anzeige Einstellungen ( //todo )
+  * Template mediadesk.less
+  die CSS Datei unter /css/mediadesk.css generiert
+  *************************************
+*/
+
+/***********************************************************/
+/* Variablen                                               */
+/***********************************************************/
+
+@md-colorprim: #375466; /* Primaere Textfarbe */
+@md-colorsec: #375466; /* Sekundaere Textfarbe */
+@md-colorbg: ; /* Primaere Hintergrundfarbe f�r Flaechen, Boxen, Rahmen etc... */
+@md-bodybg: ; /* Hintergrund f�r die gesamte Seite */
+/* Template var.less */
+/*
+
+  *************************************
+  Variablen fuer mediaDESK LESS CSS FILE
+  Vom TemplateService wird aus den Dateien:
+  * /css/less/var.less (Vorlage dieser Datei)
+  * Template var.less (diese datei)
+  * Less Angaben in den Anzeige Einstellungen ( //todo )
+  * Template mediadesk.less
+  die CSS Datei unter /css/mediadesk.css generiert
+  *************************************
+*/
+
+/***********************************************************/
+/* Variablen                                               */
+/***********************************************************/
+
+@md-colorprim: #375466; /* Primäre Textfarbe mediaDESK Petrol */
+@md-colorprim-hover: #375466; /* mediaDESK Petrol */
+
+@md-treecolor: @md-colorprim; /* Baumfarbe */
+@md-treecolor-hover: @md-colorprim-hover; /* Baumfarbe Hoover Effekt */
+
+@md-iconcolor-folder: ; /* Ordnerfarbe für Listen und Thumbnailansicht */
+@md-iconcolor-mimetype: ; /* Farbe für Filetype-Symbole */
+
+@md-iconcolor: #337ab7; /* Same as bootstrap a href / Link */
+
+@md-acolor: ; /* Individuelle Farbe fuer Links */
+
+@md-green: #3c763d; /* Selbe wie bootstrap text-success */
+@md-red: #a94442; /* Selbe bootstrap text-danger */
+@md-gray: #777; /* Dunkles Grau */
+
+/* Thumbnail-Box-Size */
+
+@md-thumb-item-height: 410px;
+@md-thumb-item-width: 170px;
+@md-thumb-img-height: 171px; /*Höhe des Thumbnail-Images*/
+
+/* Template mediadesk.less */
+﻿/*
+
+  *************************************
+  mediaDESK Standard LESS CSS FILE
+  Vom TemplateService wird aus den Dateien:
+  * /css/less/var.less
+  * Template var.less
+  * Less Angaben in den Anzeige Einstellungen ( //todo )
+  * Template mediadesk.less (diese datei)
+  die CSS Datei unter /css/mediadesk.css generiert
+  *************************************
+
+  In diesem Less File wird das mediaDESK Standard CSS definiert und unter /css/mediadesk.css kompiliert
+*/
+
+/***********************************************************/
+/* Variablen (Überschreibt ggf die Variablen aus var.less) */
+/***********************************************************/
+
+/* @md-colorprim: #683B0D; /* Primäre Textfarbe mediaDESK Braun */
+/* @md-colorprim-hover: #542F0A; /* mediaDESK Braun etwas dunkler */
+
+/* @md-gray: #777; /* Dunkles Grau */
+
+/* @md-treecolor: @md-colorprim; /* Baumfarbe */
+/* @md-treecolor-hover: @md-colorprim-hover; /* Baumfarbe Hoover Effekt */
+
+/* @md-iconcolor-folder: ; /* Ordnerfarbe für Listen und Thumbnailansicht */
+/* @md-iconcolor-mimetype: ; /* Farbe für Filetype-Symbole */
+
+/* @md-iconcolor: #337ab7; /* Same as bootstrap a href / Link */
+
+/* @md-acolor: ; /* Individuelle Farbe fuer Links */
+
+/* @md-green: #3c763d; /* Selbe wie bootstrap text-success */
+/* @md-red: #a94442; /* Selbe bootstrap text-danger */
+
+/* Thumbnail-Box-Size */
+
+/* @md-thumb-item-height: 410px;
+/* @md-thumb-item-width: 170px;
+/* @md-thumb-img-height: 171px; /*Höhe des Thumbnail-Images, meist md-thumb-item-width+1? */
+
+
+/***********************************************************/
+/* Global                                                  */
+/* Hier sind Teile die Gobale Styles z.B. a (href) usw definiert  */
+/***********************************************************/
+
+a { color: @md-acolor; }
+
+/***********************************************************/
+/* Core                                                    */
+/* Hier sind die Haupt-Teile definiert                     */
+/***********************************************************/
+
+.md-text-prim { color: @md-colorprim; }
+
+.md-icon-download { color: @md-green; } /* Green */
+.md-icon-edit { color: @md-iconcolor; opacity: 0.5; } /* Wird derzeit nur in der Tabellenansicht verwendet */
+.md-icon-fav { color: @md-iconcolor; opacity: 0.5; }
+.md-icon-cart { color: @md-iconcolor; }
+
+.md-color-spinner { color: @md-gray; }
+
+/* aus header.jsp */
+.md-space {height:20px;}
+.md-space-sm {height:10px;}
+.md-space-lg {height:90px;}
+
+/* aus list.jsp und pUserManager.jsp */
+
+.md-table-col-icon {
+    width:25px;
+}
+
+/* SF: 20.09.2016 rote textfarbe */
+
+body .md-text-red {
+    color: @md-red;
+}
+
+/***********************************************************/
+/* Nav                                                     */
+/* Hier sind Teile der Navigation                          */
+/***********************************************************/
+
+.md-nav-icon-user { color: ; } /* User-Icon Farbe Default */
+.md-nav-icon-setting { color: ; } /* Settings-Icon Farbe Default */
+
+/* SF: 27.08.2016: Badge Notify wenn noch keine Einstellungen gemacht wurden. Badge soll beim Zahnrad overlappen */
+
+.md-badge-notify{
+   background:red;
+   position:absolute;
+   top: 6px;
+   left: 30px;
+}
+
+/* Navbar verändert sich bei kleiner Breite */
+.navbar-form {
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+@media (max-width: 767px) {
+
+    .navbar-nav > li > a {
+      padding-left: 1px;
+      padding-right: 1px;
+    }
+
+}
+
+@media (min-width: 768px) {
+    .navbar-brand > img {
+      max-width: 140px;
+    }
+    .navbar-nav .caret {
+      display: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .navbar-nav > li > a {
+      padding-left: 7px;
+      padding-right: 7px;
+    }
+}
+
+@media (min-width: 992px) {
+    .navbar-brand > img {
+      max-width: 250px;
+    }
+    .navbar-nav .caret {
+      display: inline-block;
+    }
+}
+@media (min-width: 1200px) {
+      .navbar-brand > img {
+      max-width: 300px;
+    }
+}
+
+/***********************************************************/
+/* Tree                                                    */
+/* Hier sind Teile des Baumes                              */
+/***********************************************************/
+
+/* ANFANG NEUE KLASSEN FUER INDIVIDUALISIERUNG */
+
+.md-treeiconcolor, .md-treeiconcolor:hover, .md-treeiconcolor:active {
+    color: @md-treecolor;
+}
+
+.md-treelinkcolor { color: @md-treecolor; }
+.md-treelinkcolor:hover, .md-treelinkcolor:active { color: @md-treecolor-hover; }
+/* Iconfarbe fuer Neu = gruen */
+.md-treenewcolor i { color: @md-green; }
+
+.md-treenewcolor {
+  padding-bottom:15px;
+}
+
+/* SF: 06.09.2016: Popover Link für löschen rot machen */
+
+body .md-treedelcolor i {
+    color: @md-red;
+}
+
+/* ENDE NEUE KLASSEN FUER INDIVIDUALISIERUNG */
+
+/* aus foldertree.jsp */
+.md-tree-level0 {padding-left:0px;} /* ex .e0 */
+.md-tree-level1 {padding-left:5px; opacity: 0.9; filter: alpha(opacity=90); /* For IE8 and earlier */}
+.md-tree-level2 {padding-left:10px;opacity: 0.8; filter: alpha(opacity=80);}
+.md-tree-level3 {padding-left:15px;opacity: 0.7; filter: alpha(opacity=70);}
+.md-tree-level4 {padding-left:20px;opacity: 0.6; filter: alpha(opacity=60);}
+.md-tree-level5 {padding-left:25px;opacity: 0.5; filter: alpha(opacity=50);}
+.md-tree-level6 {padding-left:30px;opacity: 0.4; filter: alpha(opacity=40);}
+.md-tree-level7 {padding-left:35px;opacity: 0.4; filter: alpha(opacity=40);}
+.md-tree-level8 {padding-left:40px;opacity: 0.4; filter: alpha(opacity=40);}
+.md-tree-level9 {padding-left:45px;opacity: 0.4; filter: alpha(opacity=40);}
+.md-treelevel {white-space: nowrap;overflow:hidden;text-overflow: ellipsis;} /* ex .baumEbene */
+.md-treelevel:hover .md-treeiconedit {visibility:visible;}
+.md-treelevel .md-treeiconedit {visibility:hidden;}
+.md-treelevel.on-drag-hover { font-size: x-large; }
+.md-treeloadspinner { width:100%;margin-top:30px;text-align:center;}
+
+.md-iconsettings-sm {
+    color: #8c8c8c; /* Farbe fuer kleines Zahnrad: hellgrau */
+}
+
+.md-iconsettings-sm:hover {
+    color: #4d4d4d; /* Farbe (Hover) fuer kleines Zahnrad: dunkelgrau */
+}
+
+/* aus foldertree.jsp Drag and Drop for Tree */
+
+.bin {
+  /*@extend %content;*/
+  min-height: 150px;
+  min-width: 150px;
+
+  border: 1px solid red;
+  padding: 20px;
+}
+.dragitem {
+  /*@extend %content;*/
+  min-height: 150px;
+  min-width: 150px;
+  background: blue;
+
+  transition: all 0.2s ease;
+}
+.drag {
+  opacity: 0.5;
+}
+.over {
+  background: red;
+}
+
+/* Treenode auf hover verschieben */
+
+.md-tree-droproot {
+    display:none;
+}
+
+.md-tree-droproot.on-drag-enter {
+    display:block;
+    background-color: @md-treecolor;
+    height: 2px;
+}
+
+.md-tree-droproot.on-drag-hover {
+    background-color: @md-treecolor-hover;
+    height: 18px;
+}
+
+/***********************************************************/
+/* Thumbnail, Filelist View                                */
+/* Hier sind die Teile der Thumbnail, Dateiliste anzeige   */
+/***********************************************************/
+
+/* SF: eingefuegt beim zusammenkopieren und ueberarbeiten */
+
+.md-text-moview-selected { color: @md-green; } /* Ausgewaehlt Textfarbe Green from text-success */
+
+/* aus list.jsp */
+
+.md-iconcolor-folder a { color: @md-iconcolor-folder; }
+.md-iconcolor-mimetype a { color: @md-iconcolor-mimetype; }
+
+#md-moview-loading {width:100%;margin-top:60px;text-align: center;}
+#md-thumbs {width:100%;margin-top:30px;}
+.md-thumb-item {width:@md-thumb-item-width;margin-left:5px;margin-right:5px;float:left;margin-bottom:20px;height:@md-thumb-item-height;border-bottom: 1px solid; border-color:#666;}
+.md-thumb-item-op {margin-bottom:5px;}
+.md-thumb-item:hover .md-thumb-item-op {visibility:visible;}
+.md-thumb-item .md-thumb-item-op {visibility:hidden;}
+.md-thumb-item-bg {}
+.md-thumb-item-img-box, .md-thumb-item-icon  {text-align:center;height:@md-thumb-img-height;background-color:#FFFFFF;border-top: 1px solid; border-color:#666;background-color:#f4f4f4;}
+.md-thumb-item-img img {opacity:1;
+	-o-transition: all .30s linear;
+	-ms-transition: all .30s linear;
+	-webkit-transition: all .30s linear;
+	-moz-transition: all .30s linear;
+	transition: all .30s linear;}
+.md-thumb-item-img img:hover {opacity: 0.75;}
+.md-thumb-item-info {padding: 0px 5px 5px 5px;}
+.md-item-text-name {white-space: nowrap;overflow:hidden;text-overflow: ellipsis; max-width: 10em; }
+.md-item-text {white-space: nowrap;overflow:hidden;text-overflow: ellipsis;}
+.md-thumb-item-upload-bg {background-color:#f4f4f4;margin-top:25px;border-top: 1px solid; border-color:#666;}
+.md-thumb-item-upload {font-size:95px !important;} /* Sf: Große Upload Wolke, .fa font und font-size wuerde den Wert ueberschreiben, daher important-anweisung! */
+
+/* NEUES CSS FÜR DIESE ANSICHT */
+.md-thumb-item-icon {font-size:100px;}
+
+/* ########################### */
+/* MEDIA QUERY um Thumbnails  100% breit darzustellen sobald nur 1 Spalte (!) angezeigt wird */
+@media (max-width: 379px) {
+#md-thumbs {width:100%;margin-top:30px;}
+.md-thumb-item {width:100%;margin-left:5px;margin-right:5px;float:left;margin-bottom:20px;height:410px;border-bottom: 1px solid; border-color:#666;}
+.md-thumb-item-img-box {text-align:center;height:auto;background-color:#FFFFFF;border-top: 1px solid; border-color:#666;background-color:#f4f4f4;}
+.md-thumb-item-img img {width:100%; }
+}
+/* ############################ */
+
+
+
+/***********************************************************/
+/* Others                                                  */
+/* Hier sind alle anderen, restlichen Teile                */
+/***********************************************************/
+
+/* aus footer.jsp FOOTER 1 LOGOS */
+
+.md-footer ul {}
+.md-footer li {float:left;list-style-type:none;display:block;padding-left:10px;padding-right:150px;padding-bottom:70px;}
+
+/* aus footer.jsp MEDIDADESK FOOTER MIT HINTERGRUND */
+
+.md-footer-bg {background-color:#f2f2f2;padding:20px; }
+
+/* aus list.jsp START CSS FOR NG-DIALOG src: https://github.com/likeastore/ngDialog/issues/251 */
+/* herausgenommen weil es scheinbar nicht mehr verwendet wird 
+.ngdialog.ngdialog-theme-plain.mediapreviewdialog .ngdialog-content {
+    width: 78%;
+}
+.ngdialog.ngdialog-theme-plain.mediapreviewdialog {
+  padding-bottom: 60px;
+  padding-top: 60px;
+}  */
+
+/* aus list.jsp Carousel CSS ohne shadow http://stackoverflow.com/questions/28962324/how-to-remove-shadow-from-glyphicons-in-bootstrap-carousel */
+.md-modal-preview .carousel-control.left.noshadow, .carousel-control.right.noshadow {
+   background-image:none !important;
+   filter:none !important;
+}
+
+/* aus wPreview.jsp und wDeleteMedia.jsp Modal Style */
+
+body .modal-lg {
+    width:90%;
+}
+
+.md-modal-body img {width:100%;}
+.md-modal-loader {
+    position:absolute;
+    top:0;
+    right:0;
+    /*background:rgba(66, 139, 202, 0.75);*/
+    width:100%;
+    height:100%;
+    text-align:center;
+    background:#7f7f7f;
+    /*color:#22f !important;*/
+    background:rgba(255,255,255,0.5);
+}
+
+/* aus pMediaDetailEdit.jsp EDIT BILD */
+
+.md-keywording-img img {width:100%;}
+
+/* Eventuell zusammenführen mit md-img-thumb und .md-thumb-item-img img ??? */
+.md-keywording-img {opacity:1;
+	-o-transition: all .30s linear;
+	-ms-transition: all .30s linear;
+	-webkit-transition: all .30s linear;
+	-moz-transition: all .30s linear;
+	transition: all .30s linear;}
+.md-keywording-img:hover {opacity: 0.75;}
+
+/* pCart.jsp */
+
+.md-img-thumb {opacity:1;
+	-o-transition: all .30s linear;
+	-ms-transition: all .30s linear;
+	-webkit-transition: all .30s linear;
+	-moz-transition: all .30s linear;
+	transition: all .30s linear;}
+.md-img-thumb:hover {opacity: 0.75;}
+.md-download-info {padding: 0px 5px 5px 5px;}
+
+/* pCart.jsp und pDownload.jsp */
+
+.md-border-bottom {border-bottom: 1px solid; border-color:#666;}

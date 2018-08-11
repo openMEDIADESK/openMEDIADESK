@@ -2,3 +2,8 @@ exploded/
 resources/WEB-INF/mediaDESK.conf
 resources/WEB-INF/web.xml
 resources/WEB-INF/messages/
+build/
+src/main/webapp/WEB-INF/classes/org/
+src/main/webapp/WEB-INF/classes/com/
+src/main/webapp/WEB-INF/template/current/
+src/main/webapp/WEB-INF/mediaDESK.conf

@@ -1,0 +1,103 @@
+import java.text.SimpleDateFormat
+
+plugins {
+    id 'com.palantir.git-version' version '0.8.0'
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+tasks.compileJava.dependsOn("precompile")
+
+war {
+
+    def details = versionDetails()
+    details.lastTag
+    details.commitDistance
+    details.gitHash
+    details.branchName // is null if the repository in detached HEAD mode
+    details.isCleanTag
+
+    println 'LastTag:       ' + details.lastTag
+    println 'CommitDistance ' + details.commitDistance
+    println 'GitHash        ' + details.gitHash
+    println 'BranchName     ' + details.branchName
+    println 'isCleanTag     ' + details.isCleanTag
+
+    baseName = 'mediaDESK'
+
+    if (details.commitDistance == 0) {
+        //Version Build
+        println 'Configuring a RELEASE'
+        version = details.lastTag
+    } else {
+        //Nightly Build
+        println 'Configuring a Nightly Build'
+        version = '2018n' + getCurrentTimestamp()
+    }
+
+    manifest {
+        attributes("Implementation-Title": "mediaDESK",
+                "Implementation-Version": version)
+    }
+
+    doFirst {
+
+        println 'Building .war for Version ' + version
+
+    }
+
+    webInf { from 'src/additionalWebInf' } // adds a file-set to the WEB-INF dir.
+    exclude('WEB-INF/mediaDESK.conf')
+    exclude('WEB-INF/classes/log4j.properties')
+    exclude('WEB-INF/template/current/*')
+
+    from('deployment') {
+        include 'log4j.properties'
+        into 'WEB-INF/classes'
+    }
+}
+
+task clear << {
+
+}
+
+
+task precompile {
+
+    doFirst {
+
+        println 'Before Compile'
+
+    }
+
+}
+
+task(devenv) {
+    doLast {
+        println "Create/Update the development environment"
+        //copy {
+        //    from "web.xml"
+        //    into "../resources/WEB-INF/"
+        //}
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile fileTree(dir: 'src/main/webapp/WEB-INF/lib')
+    providedCompile files('deployment/libapi/servlet-api.jar','deployment/libapi/el-api.jar', 'deployment/libapi/jsp-api.jar')
+}
+
+
+def getCurrentTimestamp ()
+{
+    Date today = new Date ()
+    SimpleDateFormat df = new SimpleDateFormat ("yyyyMMdd")
+    return df.format (today)
+}
+
+

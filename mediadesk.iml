@@ -4,11 +4,10 @@
     <facet type="web" name="mediadesk">
       <configuration>
         <descriptors>
-          <deploymentDescriptor name="context.xml" url="file://$MODULE_DIR$/META-INF/context.xml" />
-          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/resources/WEB-INF/web.xml" />
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/web.xml" />
         </descriptors>
         <webroots>
-          <root url="file://$MODULE_DIR$/resources" relative="/" />
+          <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
         </webroots>
         <sourceRoots />
       </configuration>
@@ -18,29 +17,13 @@
     </facet>
   </component>
   <component name="NewModuleRootManager">
-    <output url="file://$MODULE_DIR$/exploded/WEB-INF/classes" />
+    <output url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/classes" />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
-      <excludeFolder url="file://$MODULE_DIR$/build" />
-      <excludeFolder url="file://$MODULE_DIR$/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/exploded" />
-      <excludeFolder url="file://$MODULE_DIR$/exploded/META-INF" />
-      <excludeFolder url="file://$MODULE_DIR$/exploded/WEB-INF/classes/com" />
-      <excludeFolder url="file://$MODULE_DIR$/exploded/WEB-INF/classes/snapdox" />
-      <excludeFolder url="file://$MODULE_DIR$/exploded/WEB-INF/classes/sqlmap" />
-      <excludeFolder url="file://$MODULE_DIR$/exploded/WEB-INF/templates" />
-      <excludeFolder url="file://$MODULE_DIR$/exploded/bilddaten" />
-      <excludeFolder url="file://$MODULE_DIR$/exploded/css" />
-      <excludeFolder url="file://$MODULE_DIR$/exploded/images" />
-      <excludeFolder url="file://$MODULE_DIR$/exploded/img" />
-      <excludeFolder url="file://$MODULE_DIR$/exploded/js" />
-      <excludeFolder url="file://$MODULE_DIR$/exploded/test" />
-      <excludeFolder url="file://$MODULE_DIR$/resources/WEB-INF/classes/com" />
-      <excludeFolder url="file://$MODULE_DIR$/resources/WEB-INF/classes/snapdox" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="servlet" level="project" />
-    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" exported="" name="servlet" level="project" />
+    <orderEntry type="library" exported="" name="lib" level="project" />
   </component>
 </module>
