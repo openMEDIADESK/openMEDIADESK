@@ -89,7 +89,7 @@ CREATE TABLE `folder` (
   `description` varchar(100) NOT NULL,
   `parent` int(10) unsigned NOT NULL DEFAULT '0',
   `changeddate` datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
-  `mediacount` int(11) NOT NULL DEFAULT '0',
+  `imagecount` int(11) NOT NULL DEFAULT '0',
   `imagecounts` int(11) NOT NULL DEFAULT '0',
   `cattitlelng1` varchar(100) NOT NULL,
   `cattitlelng2` varchar(100) NOT NULL,
