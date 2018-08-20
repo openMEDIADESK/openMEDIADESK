@@ -51,6 +51,8 @@ war {
     exclude('WEB-INF/mediaDESK.conf')
     exclude('WEB-INF/classes/log4j.properties')
     exclude('WEB-INF/template/current/*')
+    exclude('WEB-INF/classes/com/*') //exclude class files from dev-generated
+    exclude('WEB-INF/classes/org/*') //exclude class files from dev-generated
 
     from('deployment') {
         include 'log4j.properties'
