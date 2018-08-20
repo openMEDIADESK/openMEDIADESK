@@ -153,7 +153,7 @@
 
   <h1>Setup openMEDIADESK</h1>
 
-  <form action="/configure.jsp" method="GET">
+  <form action="/configure.jsp" method="POST">
 
       <div class="form-group">
           <label for="instanceName">Instance-Name</label>
