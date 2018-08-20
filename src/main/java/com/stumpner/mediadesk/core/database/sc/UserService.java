@@ -497,14 +497,19 @@ public class UserService implements IServiceClass {
                 String autologinkey = token[1];
                 try {
                     User user = (User)this.getById(userId);
-                    if (user.getAutologinKey().equalsIgnoreCase(autologinkey)) {
-                        //Einloggen
-                        HttpSession session = request.getSession();
-                        System.out.println("Userlogin autologin: user="+user.getUserName()+" from key="+autologinkey);
-                        Config.lastLogin = new Date();
-                        session.setAttribute("user",user);
-                        return true;
+                    if (user!=null) {
+                        if (user.getAutologinKey().equalsIgnoreCase(autologinkey)) {
+                            //Einloggen
+                            HttpSession session = request.getSession();
+                            System.out.println("Userlogin autologin: user=" + user.getUserName() + " from key=" + autologinkey);
+                            Config.lastLogin = new Date();
+                            session.setAttribute("user", user);
+                            return true;
+                        } else {
+                            return false;
+                        }
                     } else {
+                        //userid exisiert nicht
                         return false;
                     }
                 } catch (ObjectNotFoundException e) {
