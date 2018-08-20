@@ -9,9 +9,7 @@ import com.stumpner.mediadesk.util.IniFile;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.Authenticator;
 import com.stumpner.mediadesk.media.MimeCssMap;
-import com.stumpner.mediadesk.web.mvc.AclEditController;
 import com.stumpner.mediadesk.media.image.util.ImageImport;
-import com.stumpner.mediadesk.folder.FolderMultiLang;
 
 import javax.servlet.ServletContextListener;
 import javax.servlet.ServletContextEvent;
@@ -26,7 +24,6 @@ import java.util.concurrent.ScheduledFuture;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
-import java.security.acl.AclNotFoundException;
 import java.beans.XMLDecoder;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -63,6 +60,8 @@ import com.asual.lesscss.LessException;
  * To change this template use File | Settings | File Templates.
  */
 public class WebContextListener implements ServletContextListener {
+
+    Logger logger = Logger.getLogger(WebContextListener .class);
 
     /**
      * Config-File wird entweder in /WEB-INF Ordner oder im Parent-Ordner gesucht.
@@ -139,37 +138,30 @@ public class WebContextListener implements ServletContextListener {
             System.out.println("Checking Config File: "+confInWebrootParent.getAbsolutePath());
 
         }
+
         if (fileConfig.exists()) {
 
             //Konfiguration Laden...
             doAndReloadConfiguration(event.getServletContext());
+
+            //Prüfen ob ein Upgrade der Datenbank durchgeführt werden muss
+            File updateSqlFile = new File(event.getServletContext().getRealPath("/WEB-INF/update.sql"));
+            if (updateSqlFile.exists()) {
+                upgradeMEDIADESK(event.getServletContext());
+
+                //Konfiguration (nochmal) Laden...
+                doAndReloadConfiguration(event.getServletContext());
+            }
             
         } else {
             //Initiale Konfiguration erledigen...
-            //todo:
             System.out.println("Do initial mediaDESK-Configuration....");
-
         }
-
-        //Styles laden:
-        //logger.info("Loading Styles...["+styleConfigFile+"]");
-        //IniFile styleFile = new IniFile();
-        //styleFile.open(event.getServletContext().getRealPath(styleConfigFile));
-        //StyleConfig.initConfiguration(styleFile);
 
         //ApplicationContext
         ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext("applicationContext.xml");
         BeanFactory factory = (BeanFactory)appContext;
-        
         //Object messageSource = factory.getBean("messageSource");
-
-        //Prüfen ob ein upgrade (der Datenbank durchgeführt werden muss
-        File updateSqlFile = new File(event.getServletContext().getRealPath("/WEB-INF/update.sql"));
-        if (updateSqlFile.exists() && Config.isConfigured) {
-            upgradeSuSIDE(event.getServletContext());
-            //Konfiguration Laden...
-            doAndReloadConfiguration(event.getServletContext());
-        }
 
         if (Config.isConfigured) {
             //Verweiste Datensätze aus Pin-Holder löschen:
@@ -207,19 +199,17 @@ public class WebContextListener implements ServletContextListener {
         //Config.customTemplate = "bootstrap"; //!!!!! - immer nach hochfahren bootstrap template verwenden
 
         //Verwendetes Template hochfahren (in current kopieren)
-            System.out.println("Current Template: "+Config.customTemplate);
-            TemplateService templateService = new TemplateService();
-            try {
-                templateService.setTemplate(Config.customTemplate);
-            } catch (IOException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                System.out.println("ERROR LOADING TEMPLATE: Fallback to default Template");
-            } catch (LessException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                System.out.println("Less Exception in TEMPLATE: Fallback to default Template");
-            }
-
-        //To change body of implemented methods use File | Settings | File Templates.
+        System.out.println("Current Template: "+Config.customTemplate);
+        TemplateService templateService = new TemplateService();
+        try {
+            templateService.setTemplate(Config.customTemplate);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("ERROR LOADING TEMPLATE: Fallback to default Template");
+        } catch (LessException e) {
+            e.printStackTrace();
+            System.out.println("Less Exception in TEMPLATE: Fallback to default Template");
+        }
     }
 
     private void doAndReloadConfiguration(ServletContext servletContext) {
@@ -239,20 +229,6 @@ public class WebContextListener implements ServletContextListener {
         //Configuration aus DB Laden (und mit aktueller überschreiben)
         System.out.println("Loading Configuration from DB");
         Config.loadConfigurationFromDB();
-
-        //checking for root user
-        //if it does not exist, create one with password root
-        UserService userService = new UserService();
-        try {
-            userService.getByName("admin");
-        } catch (ObjectNotFoundException e) {
-            //user nicht gefunden, erstellen...
-            this.createInitialUser();
-            logger.info("Create Initial ADMIN-User: "+Config.versionNumbner+" ["+Config.versionDate+"], "+Config.instanceName);
-
-        } catch (IOServiceException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
 
         licenceChecker.scheduleAtFixedRate(new LicenceChecker(),10000,3600000);
         cronServiceTimer.scheduleAtFixedRate(new TimerTask() {
@@ -323,7 +299,7 @@ public class WebContextListener implements ServletContextListener {
     }
 
     /**
-     * Installiert die SuSIDE Instanz und legt die Configuration an
+     * Installiert die mediadesk Instanz und legt die Configuration an
      * @param conf
      */
     public void setupMediaDESK(Properties conf, ServletContext servletContext) throws IOException {
@@ -376,6 +352,19 @@ public class WebContextListener implements ServletContextListener {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
+        //checking for admin user if it does not exist, create one with password admin
+        UserService userService = new UserService();
+        try {
+            userService.getByName("admin");
+        } catch (ObjectNotFoundException e) {
+            //user nicht gefunden, erstellen...
+            this.createInitialUser();
+            logger.info("Created Initial ADMIN-User: "+Config.versionNumbner+" ["+Config.versionDate+"], "+Config.instanceName);
+
+        } catch (IOServiceException e) {
+            e.printStackTrace();
+        }
+
         doAndReloadConfiguration(servletContext);
 
     }
@@ -384,7 +373,7 @@ public class WebContextListener implements ServletContextListener {
      * Aktualisiert das SQL bzw. die Datenbankstruktur für die neue Version (aus /WEB-INF/update.sql) und
      * löscht anschließend diese Datei
      */
-    private void upgradeSuSIDE(ServletContext servletContext) {
+    private void upgradeMEDIADESK(ServletContext servletContext) {
 
         System.out.println("["+Config.instanceName+"]: Found /WEB-INF/update.sql");
         System.out.println("["+Config.instanceName+"]: Upgrading Instance "+Config.instanceName);
@@ -392,8 +381,8 @@ public class WebContextListener implements ServletContextListener {
         File updateSqlFile = new File(servletContext.getRealPath("/WEB-INF/update.sql"));
 
         try {
-            InputStreamReader isr = new InputStreamReader(servletContext.getResourceAsStream("/WEB-INF/SqlMapConfig.xml"));
-            AppSqlMap.initialize(isr,Config.getDatabaseProperties());
+            //InputStreamReader isr = new InputStreamReader(servletContext.getResourceAsStream("/WEB-INF/SqlMapConfig.xml"));
+            //AppSqlMap.initialize(isr,Config.getDatabaseProperties());
             //AppSqlMap.getSqlMapInstance().getDataSource().getConnection()
             Connection connection = AppSqlMap.getSqlMapInstance().getDataSource().getConnection();
             SqlInstallerBase sqlInstaller =
