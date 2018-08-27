@@ -105,7 +105,7 @@
   </div>
 <!-- buttongruppe Herunterladen -->
 <div class="btn-group btn-group-xs" role="group" aria-label="Herunterladen" ng-show="selectedMedia>1">
-  <a href="/{{properties.lng}}/shoppingcart?download=selectedMedia" class="btn btn-default"><i class="fa fa-download fa-fw"></i> <spring:message code="tm.download"/></a>
+  <a href="/{{properties.lng}}/download?download=selectedMedia" class="btn btn-default"><i class="fa fa-download fa-fw"></i> <spring:message code="tm.download"/></a>
 </div>
 <!-- /buttongruppe Herunterladen -->
 <!-- buttongruppe Ausgewaehlt -->
