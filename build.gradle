@@ -26,7 +26,7 @@ war {
 
     baseName = 'mediaDESK'
 
-    if (details.commitDistance == 0) {
+    if (details.commitDistance == 0 && details.isCleanTag) {
         //Version Build
         println 'Configuring a RELEASE'
         version = details.lastTag
