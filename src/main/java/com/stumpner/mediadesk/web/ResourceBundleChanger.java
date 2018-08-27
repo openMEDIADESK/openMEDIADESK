@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.web;
 
+import org.apache.log4j.Logger;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
 import java.util.*;
@@ -41,6 +42,8 @@ import com.stumpner.mediadesk.core.Config;
  */
 public class ResourceBundleChanger extends ResourceBundleMessageSource {
 
+    static Logger logger = Logger.getLogger(ResourceBundleChanger.class);
+
     private static String RB_IMAGE_ARCHIV = "/WEB-INF/messages/image";
     private static String RB_MEDIA_ARCHIV = "/WEB-INF/messages/media";
     private static String BASENAME = "/WEB-INF/classes"; //Pfad für die Resource-Bundles
@@ -64,7 +67,7 @@ public class ResourceBundleChanger extends ResourceBundleMessageSource {
                     BASENAME);
         }
 
-        System.out.println("custom Template: "+Config.customTemplate);
+        logger.info("using/switching to Template: "+Config.customTemplate);
 
         if (!TemplateService.isStandardTemplate(Config.customTemplate)) {
             //prüfen ob messages_<LNG> im Template Pfad liegen, wenn ja mergen
@@ -77,7 +80,7 @@ public class ResourceBundleChanger extends ResourceBundleMessageSource {
                     //Messages File
                     String messageFileString = Config.webroot.getAbsolutePath()+BASENAME+File.separator+templateFile.getName();
                     File messageFile = new File(messageFileString);
-                    System.out.println("ResourceBundles: merging template resource bundle file: "+templateFile.getName());
+                    logger.debug("ResourceBundles: merging template resource bundle file: "+templateFile.getName());
 
                     //Original öffnen
                     Properties propsOriginal = new Properties();

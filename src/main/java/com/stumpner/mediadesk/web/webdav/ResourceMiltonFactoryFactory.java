@@ -48,7 +48,7 @@ public class ResourceMiltonFactoryFactory implements ResourceFactoryFactory {
 
 	@Override
 	public WebDavResponseHandler createResponseHandler() {
-        System.out.println("create responseHandler");
+        log.debug("Milton Webdav: create responseHandler");
         return new DefaultWebDavResponseHandler(authenticationService);
 	}
 
@@ -61,7 +61,7 @@ public class ResourceMiltonFactoryFactory implements ResourceFactoryFactory {
             //authenticationService = new MdAuthService();
             authenticationService.setDisableDigest(false);
             authenticationService.setDisableBasic(true);
-            System.out.println("authenticationhandlers.size="+authenticationService.getAuthenticationHandlers().size());
+            log.debug("Milton Webdav authenticationhandlers.size="+authenticationService.getAuthenticationHandlers().size());
             resourceFactory = new WebdavResourceFactory();
 			checkInitialData();
 		}

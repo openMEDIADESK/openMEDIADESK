@@ -415,7 +415,7 @@ public class MediaService extends MultiLanguageService implements IServiceClass 
 
             Statement stmt = connection.createStatement();
             String notAllowedChars = NameValidator.getNotAllowedChars();
-            System.out.println("Normalize BasicMediaObject Names: "+notAllowedChars);
+            logger.debug("Normalize BasicMediaObject Names: "+notAllowedChars);
             stmt.addBatch("UPDATE mediaobject set versionname = REPLACE(versionname,'\\\\','_') WHERE versionname LIKE '%\\\\\\\\%'");
             for (int a=1;a<notAllowedChars.length();a++) {
                 stmt.addBatch("UPDATE mediaobject set versionname = REPLACE(versionname,'"+notAllowedChars.charAt(a)+"','_') WHERE versionname LIKE '%"+notAllowedChars.charAt(a)+"%'");

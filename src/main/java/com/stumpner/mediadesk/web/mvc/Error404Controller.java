@@ -1,5 +1,6 @@
 package com.stumpner.mediadesk.web.mvc;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,11 +39,13 @@ import com.stumpner.mediadesk.core.Config;
  */
 public class Error404Controller extends AbstractPageController {
 
+    static Logger logger = Logger.getLogger(Error404Controller.class);
+
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 
         Map model = new HashMap();
 
-        System.out.println("["+Config.instanceName+"] HTTP404: "+httpServletRequest.getAttribute("javax.servlet.error.request_uri"));
+        logger.debug("["+Config.instanceName+"] HTTP404: "+httpServletRequest.getAttribute("javax.servlet.error.request_uri"));
 
         Config.lastError400 = (String)httpServletRequest.getAttribute("javax.servlet.error.request_uri")+"?"+httpServletRequest.getQueryString()+" "+(new Date());;
 

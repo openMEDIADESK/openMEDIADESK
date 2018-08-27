@@ -40,9 +40,11 @@ import com.stumpner.mediadesk.core.Config;
  */
 public class LogoServlet extends HttpServlet {
 
+    static Logger logger = Logger.getLogger(LogoServlet.class);
+
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
 
-        System.out.println("Logo Request: "+httpServletRequest.getRequestURI());
+        logger.debug("Logo Request: "+httpServletRequest.getRequestURI());
 
         String filename = httpServletRequest.getRequestURI().substring(1); //for example: logo.gif logo2.png
 

@@ -13,6 +13,7 @@ import com.stumpner.mediadesk.util.FileUtil;
 import com.stumpner.mediadesk.web.mvc.common.GlobalRequestDataProvider;
 import com.asual.lesscss.LessEngine;
 import com.asual.lesscss.LessException;
+import org.apache.log4j.Logger;
 
 /*********************************************************
  Copyright 2017 by Franz STUMPNER (franz@stumpner.com)
@@ -41,6 +42,8 @@ import com.asual.lesscss.LessException;
  * To change this template use File | Settings | File Templates.
  */
 public class TemplateService {
+
+    static Logger logger = Logger.getLogger(TemplateService.class);
 
     private boolean devOp = false; //DevOp Option ( wenn true = keine Komprimierung bei den css Files)
 
@@ -98,9 +101,9 @@ public class TemplateService {
      */
     public void setTemplate(String templateName) throws IOException, LessException {
 
-        //EXTJS Basis Template
+        //Basis Template
         File baseTemplateDir = getBaseTemplateDir(templateName);
-        System.out.println("BaseTemplate: "+baseTemplateDir.getName());
+        logger.debug("BaseTemplate: "+baseTemplateDir.getName());
 
         File customDir = getCustomDir();
         if (!customDir.exists()) { customDir.mkdirs(); }
@@ -111,7 +114,7 @@ public class TemplateService {
 
         if (!isStandardTemplate(templateName)) {
             //Custom-Template Files kopieren
-            System.out.println("Using Custom-Template (copy): "+templateName);
+            logger.info("Using Custom-Template (copy): "+templateName);
             File customTemplateDir = getCustomTemplateDir(templateName);
             copyDir(customTemplateDir, customDir);
             //Resource-Bundels mitkopieren/mergen (wenn es welche im Template-Pfad gibt z.b. messages_en.properties)
@@ -125,7 +128,7 @@ public class TemplateService {
             //compileLessFiles(templateName);
         } else {
             //Ein Standard-Template wurde benutzt
-            System.out.println("Using Default-Template (copy)");
+            logger.debug("Using Default-Template (copy)");
         }
 
         // Datei /css/mediadesk.css erstellen:
@@ -204,7 +207,7 @@ public class TemplateService {
         File customTemplateDir = getCustomTemplateDir(templateName);
         File customCssPath = new File(Config.webroot + File.separator + "css" + File.separator + "template" + File.separator + templateName);
         if (!customCssPath.mkdirs()) {
-            System.out.println("Fehler beim erstellen des custom CSS Verzeichnis: "+customCssPath.getAbsolutePath());
+            logger.error("Fehler beim erstellen des custom CSS Verzeichnis: "+customCssPath.getAbsolutePath());
         }
 
         File[] cssSrcFiles = customTemplateDir.listFiles(new FilenameFilter() {
@@ -219,11 +222,11 @@ public class TemplateService {
         for (File cssSrcFile : cssSrcFiles) {
             File cssDstFile = new File(customCssPath, cssSrcFile.getName());
             try {
-                System.out.println("copy css file: "+cssSrcFile.getName());
+                logger.debug("copy css file: "+cssSrcFile.getName());
                 customCssFiles.add(cssSrcFile.getName());
                 FileUtil.copyFile(cssSrcFile, cssDstFile);
             } catch (IOException e) {
-                System.out.println("Fehler beim kopieren der Template CSS-Datei: "+cssDstFile);
+                logger.error("Error copying template CSS file: "+cssDstFile+" "+e.getMessage());
             }
         }
     }
@@ -233,7 +236,7 @@ public class TemplateService {
         File customTemplateDir = getCustomTemplateDir(templateName);
         File customCssPath = new File(Config.webroot + File.separator + "css" + File.separator + "template" + File.separator + templateName);
         if (!customCssPath.mkdirs()) {
-            System.out.println("Fehler beim erstellen des custom CSS Verzeichnis: "+customCssPath.getAbsolutePath());
+            logger.error("Error creating the custom CSS directory: "+customCssPath.getAbsolutePath());
         }
 
         File[] lessSrcFiles = customTemplateDir.listFiles(new FilenameFilter() {
@@ -248,7 +251,7 @@ public class TemplateService {
         for (File lessSrcFile : lessSrcFiles) {
             File lessDstFile = new File(customCssPath, lessSrcFile.getName());
             try {
-                System.out.println("copy less file: "+lessSrcFile.getName());
+                logger.debug("copy less file: "+lessSrcFile.getName());
                 customLessFiles.add(lessSrcFile.getName());
                 FileUtil.copyFile(lessSrcFile, lessDstFile);
                 //compile
@@ -256,7 +259,7 @@ public class TemplateService {
                 engine.compile(lessSrcFile,
                         new File(customCssPath, lessSrcFile.getName().replaceAll("\\.less", ".css")));
             } catch (IOException e) {
-                System.out.println("Fehler beim kopieren der Template LESS-Datei: "+lessDstFile);
+                logger.error("Error copying the template LESS file: "+lessDstFile);
             }
         }
     }
@@ -282,12 +285,12 @@ public class TemplateService {
         String cssColor = "";
         if (!Config.cssColorPrimaryHex.isEmpty()) {
             cssColor = "\n/* cssColorPrimaryHex from CSS config */\n@md-colorprim: "+Config.cssColorPrimaryHex+";\n@md-colorprim-hover: "+Config.cssColorPrimaryHex+";\n";
-            //System.out.println("cssColorPrimaryHexLessStr: "+cssColor);
+            logger.debug("Cusom cssColorPrimaryHexLessStr: "+cssColor);
         }
 
         if (!Config.cssColorAHref.isEmpty()) {
             cssColor = cssColor + "\n/* cssColorAHref from CSS config */\n@md-acolor: "+Config.cssColorAHref+";\n";
-            //System.out.println("cssColorAHref: "+cssColor);
+            logger.debug("Custom cssColorAHref: "+cssColor);
         }
 
         String all = "\n/* /css/less/var.less */\n"+stdVarLessStr+"\n/* Template var.less */\n"+tplVarLessStr+"\n"+cssColor+"\n/* Template mediadesk.less */\n"+stdCssLessStr;
@@ -301,7 +304,7 @@ public class TemplateService {
             setTextFileContent(outFile, outStr);
 
 
-            System.out.println(outFile.getAbsolutePath()+" generiert");
+            logger.debug(outFile.getAbsolutePath()+" generiert");
         //} catch (LessException e) {
         //    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         //}
@@ -428,7 +431,7 @@ public class TemplateService {
 
     private void copyDir(File from, File to) throws IOException {
 
-                System.out.println("copyDir: "+from+" --> "+to);
+        logger.info("Template copy directory: "+from+" --> "+to);
 
         File[] files = from.listFiles();
         for (File file : files) {

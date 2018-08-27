@@ -61,7 +61,7 @@ import com.asual.lesscss.LessException;
  */
 public class WebContextListener implements ServletContextListener {
 
-    Logger logger = Logger.getLogger(WebContextListener .class);
+    static Logger logger = Logger.getLogger(WebContextListener .class);
 
     /**
      * Config-File wird entweder in /WEB-INF Ordner oder im Parent-Ordner gesucht.
@@ -80,13 +80,17 @@ public class WebContextListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent event) {
 
+        //Logging:
+        //Logger.getRootLogger().setAdditivity(false);
+        PropertyConfigurator.configure(event.getServletContext().getRealPath("/")+"WEB-INF/classes/log4j.properties");
+        //logger.setAdditivity(false);
+
         Config.webroot = new File(event.getServletContext().getRealPath(""));
-        System.out.println("Starting mediaDESK Version: "+Config.versionNumbner+" ["+Config.versionDate+"], "+Config.instanceName);
-        //Todo: Manifest Version in die Config.version schreiben
-        System.out.println("Manifest Version: "+WebContextListener.class.getPackage().getImplementationVersion());
-        System.out.println("Webroot: "+Config.webroot);
-        Logger logger = Logger.getLogger(WebContextListener.class);
-        logger.info("Starting mediaDESK Version: "+Config.versionNumbner+" ["+Config.versionDate+"], "+Config.instanceName);
+        System.out.println("Starting up mediaDESK Version: "+Config.versionNumbner+" ["+Config.versionDate+"], "+Config.instanceName);
+
+        logger.info("Startup openMEDIADESK Version: "+Config.versionNumbner+" ["+Config.versionDate+"], "+Config.instanceName);
+        logger.info("Manifest Version: "+WebContextListener.class.getPackage().getImplementationVersion());
+        logger.info("openMEDIADESK Webroot: "+Config.webroot);
 
         ServletContext sc = event.getServletContext();
         ServletRegistration sr = sc.addServlet("IndexDispatcher","org.springframework.web.servlet.DispatcherServlet");
@@ -120,7 +124,7 @@ public class WebContextListener implements ServletContextListener {
         System.setProperty("java.awt.headless","true");
 
         //Prüfen ob es ein configFile gibt...
-        System.out.println("Checking Config File: "+event.getServletContext().getRealPath("/WEB-INF/"+configFilename));
+        logger.debug("Checking Config File: "+event.getServletContext().getRealPath("/WEB-INF/"+configFilename));
         File fileConfig = new File(event.getServletContext().getRealPath("/WEB-INF/"+configFilename));
         configFile = fileConfig.getAbsolutePath();
         if (!fileConfig.exists()) {
@@ -135,7 +139,7 @@ public class WebContextListener implements ServletContextListener {
 
             configFile = confInWebrootParent.getAbsolutePath();
 
-            System.out.println("Checking Config File: "+confInWebrootParent.getAbsolutePath());
+            logger.debug("Checking Config File: "+confInWebrootParent.getAbsolutePath());
 
         }
 
@@ -155,7 +159,7 @@ public class WebContextListener implements ServletContextListener {
             
         } else {
             //Initiale Konfiguration erledigen...
-            System.out.println("Do initial mediaDESK-Configuration....");
+            logger.info("Do initial mediaDESK-Configuration....");
         }
 
         //ApplicationContext
@@ -189,26 +193,21 @@ public class WebContextListener implements ServletContextListener {
 
         MailProxy.getInstance().setPostmaster("franz@stumpner.com","mailgate.stumpner.net");
 
-        //Logging:
-        PropertyConfigurator.configure(event.getServletContext().getRealPath("/")+"WEB-INF/classes/log4j.properties");
-        Logger log = Logger.getLogger(WebContextListener.class.toString());
-
-        log.info("LOGGING HAS BEEN CONFIGURED by franzi");
         //System.out.println("SpringVersion="+ SpringVersion.getVersion());
 
         //Config.customTemplate = "bootstrap"; //!!!!! - immer nach hochfahren bootstrap template verwenden
 
         //Verwendetes Template hochfahren (in current kopieren)
-        System.out.println("Current Template: "+Config.customTemplate);
+        logger.info("Current Template: "+Config.customTemplate);
         TemplateService templateService = new TemplateService();
         try {
             templateService.setTemplate(Config.customTemplate);
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("ERROR LOADING TEMPLATE: Fallback to default Template");
+            logger.error("ERROR LOADING TEMPLATE: Fallback to default Template");
         } catch (LessException e) {
             e.printStackTrace();
-            System.out.println("Less Exception in TEMPLATE: Fallback to default Template");
+            logger.error("Less Exception in TEMPLATE: Fallback to default Template");
         }
     }
 
@@ -227,7 +226,7 @@ public class WebContextListener implements ServletContextListener {
         AppSqlMap.initialize(isr,Config.getDatabaseProperties());
 
         //Configuration aus DB Laden (und mit aktueller überschreiben)
-        System.out.println("Loading Configuration from DB");
+        logger.debug("Loading Configuration from DB");
         Config.loadConfigurationFromDB();
 
         licenceChecker.scheduleAtFixedRate(new LicenceChecker(),10000,3600000);
@@ -247,7 +246,7 @@ public class WebContextListener implements ServletContextListener {
         nightly = scheduler.scheduleAtFixedRate(new Runnable() {
 
                 public void run() {
-                    System.out.println("Starting Nightly Cron "+(new Date()));
+                    logger.info("Starting Nightly Cron "+(new Date()));
                     CronService.nightly();
                 }
 
@@ -260,9 +259,9 @@ public class WebContextListener implements ServletContextListener {
         daily = scheduler.scheduleAtFixedRate(new Runnable() {
 
                 public void run() {
-                    System.out.println("Starting Daily Cron "+(new Date()));
+                    logger.info("Starting Daily Cron "+(new Date()));
                     if (Config.configParam.contains("-MAIL")) {
-                        System.out.println("Sending Ping-Mail");
+                        logger.info("Sending Ping-Mail");
                         CronService.pingMail();
                     }
                 }
@@ -314,7 +313,7 @@ public class WebContextListener implements ServletContextListener {
         File wmhSrc = new File(servletContext.getRealPath("/WEB-INF/wmh.gif"));
         File wmvSrc = new File(servletContext.getRealPath("/WEB-INF/wmv.gif"));
         File wmhDest = new File(Config.watermarkHorizontal);
-        if (wmhDest.getParentFile().mkdirs()) { System.out.println("Directory for Watermark created"); }
+        if (wmhDest.getParentFile().mkdirs()) { logger.info("Directory for Watermark created"); }
         File wmvDest = new File(Config.watermarkVertical);
         try {
             ImageImport.copyFile(wmhSrc,wmhDest);
@@ -375,8 +374,7 @@ public class WebContextListener implements ServletContextListener {
      */
     private void upgradeMEDIADESK(ServletContext servletContext) {
 
-        System.out.println("["+Config.instanceName+"]: Found /WEB-INF/update.sql");
-        System.out.println("["+Config.instanceName+"]: Upgrading Instance "+Config.instanceName);
+        logger.info("["+Config.instanceName+"]: Found /WEB-INF/update.sql");
 
         File updateSqlFile = new File(servletContext.getRealPath("/WEB-INF/update.sql"));
 
@@ -428,10 +426,10 @@ public class WebContextListener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent event) {
         //To change body of implemented methods use File | Settings | File Templates.
 
-        System.out.println("mediaDESK Instance "+Config.instanceName+" goes down...");
+        logger.info("mediaDESK Instance "+Config.instanceName+" shutting down...");
         licenceChecker.cancel();
         cronServiceTimer.cancel();
         scheduler.shutdownNow();
-        System.out.println("...ok!");
+
     }
 }

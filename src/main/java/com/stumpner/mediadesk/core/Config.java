@@ -58,11 +58,13 @@ import javax.servlet.ServletContext;
  */
 public class Config {
 
+    static Logger logger = Logger.getLogger(Config.class);
+
     //Programm Version Values
 
-    public static String versionNumbner = "2018rc2";//- a1...n,b1...n,rc1...n,rtm,sr1...n";
-    public static String versionDate = "2018-08-20";
-    public static String SERIAL_UID = "2018082006";
+    public static String versionNumbner = "2018rc3";//- a1...n,b1...n,rc1...n,rtm,sr1...n";
+    public static String versionDate = "2018-08-27";
+    public static String SERIAL_UID = "2018082700";
 
     //Config Values
 
@@ -541,10 +543,10 @@ public class Config {
         File tmpPath = new File(getTempPath());
         if (tmpPath.exists() && tmpPath.isDirectory()) {
             //tmpPath existiert, leeren... //todo: tmp path leeren
-            System.out.println("Cleanup tmp-path: "+getTempPath());
+            logger.info("Cleanup tmp-path: "+getTempPath());
         } else {
             //tmpPath erstellen
-            System.out.println("Create tmp-path: "+getTempPath());
+            logger.info("Create tmp-path: "+getTempPath());
             tmpPath.mkdirs();
         }
 
@@ -552,7 +554,7 @@ public class Config {
         if (templateArchivePath.exists() && templateArchivePath.isDirectory()) {
             //path exists + ok
         } else {
-            System.out.println("Create Template-Archive Path");
+            logger.info("Create Template-Archive Path");
             templateArchivePath.mkdirs();
         }
 
@@ -605,7 +607,7 @@ public class Config {
             strDownloadRes = "800x600;1024x768;1280x1024";
             alterProperty("","downloadRes","800x600;1024x768;1280x1024");
             createAcl = true;
-            System.out.println("No Acl for Download-Resolution exist, creating...");
+            logger.info("No Acl for Download-Resolution exist, creating...");
         }
 
         //Umkonvertieren in Format-Klassen
@@ -613,7 +615,7 @@ public class Config {
         Config.downloadRes.clear();
         Config.downloadRes.add(formatt); // 0,0 = Original-Format
         if (createAcl) {
-            System.out.println("Create Acl-Data For Group with objectSerialId="+formatt.getAclObjectSerialId());
+            logger.info("Create Acl-Data For Group with objectSerialId="+formatt.getAclObjectSerialId());
             FormatListController.addAccessToAllGroups(formatt);
         }
         if (strDownloadRes.trim().length()>0) {
@@ -627,7 +629,7 @@ public class Config {
                 Format formatObj = new Format(width,height);
                 Config.downloadRes.add(formatObj);
                 if (createAcl) {
-                    System.out.println("Create Acl-Data For Group with objectSerialId="+formatObj.getAclObjectSerialId());
+                    logger.info("Create Acl-Data For Group with objectSerialId="+formatObj.getAclObjectSerialId());
                     FormatListController.addAccessToAllGroups(formatObj);
                 }
             }
@@ -1040,7 +1042,7 @@ public class Config {
             UserService userService = new UserService();
             try {
                 User admin = (User) userService.getByName("admin");
-                System.out.println("Using admin Email as Receiver Admin Email");
+                logger.info("Using admin Email as Receiver Admin Email "+admin.getEmail());
                 Config.mailReceiverAdminEmail = admin.getEmail();
             } catch (ObjectNotFoundException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -1504,12 +1506,12 @@ public class Config {
         //PluginHandlerChain (ImportPlugin) initialisieren
         //Test: ImportPluginHandlerChain.getInstance().add(new EmptyImportPlugin());
         if (Config.importPluginClass != null) {
-            System.out.println("Initialisiere ImportPluginHandler Instanz");
+            logger.info("Initialize ImportPluginHandler Instance");
             ImportPluginHandlerChain.getInstance().init();
             for (String importPluginClass : Config.importPluginClass) {
                 if (importPluginClass.length()>0 && !importPluginClass.startsWith("#")) {
                     try {
-                        System.out.println("Registering ImportPluginHandler: "+importPluginClass);
+                        logger.info("Registering ImportPluginHandler: "+importPluginClass);
                         String[] classAndParam = importPluginClass.split(" ");
                         String classname = classAndParam[0];
                         ImportPluginHandler plugin = (ImportPluginHandler)Class.forName(classname).newInstance();
@@ -1524,7 +1526,7 @@ public class Config {
                     }
                 } else {
                     if (importPluginClass.length()>0) {
-                        System.out.println("ImportPluginHandler: wird ausgelassen: "+importPluginClass);
+                        logger.debug("ImportPluginHandler: is omitted: "+importPluginClass);
                     }
                 }
             }
