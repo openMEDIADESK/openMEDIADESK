@@ -646,8 +646,10 @@ public class DownloadServlet extends HttpServlet {
                     List selectedImageList = (List)request.getSession().getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES);
                     pinImageList.retainAll(selectedImageList);
                     downloadImageList = selectedImageList;
-                    if (request.getParameter("pinpic").equalsIgnoreCase("all")) {
-                        downloadImageList = pinService.getPinpicImages(pinId);
+                    if (request.getParameter("pinpic")!=null) {
+                        if (request.getParameter("pinpic").equalsIgnoreCase("all")) {
+                            downloadImageList = pinService.getPinpicImages(pinId);
+                        }
                     }
                 } else {
                     if (request.getParameter("pinpic").equalsIgnoreCase("all")) {
