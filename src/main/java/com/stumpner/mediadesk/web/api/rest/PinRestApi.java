@@ -188,7 +188,7 @@ public class PinRestApi extends RestBaseServlet {
                 out.println("  \"previewUrl\" : \"wpreview?id="+mo.getIvid()+"\",");
                 out.println("  \"note\" : \""+StringEscapeUtils.escapeJson(mo.getNote())+"\",");
 
-                out.println("  \"downloadlink\" : \"/download/?pinpic=ivid&ivid="+mo.getIvid()+"\",");
+                out.println("  \"downloadlink\" : \"/download/?pin=ivid&ivid="+mo.getIvid()+"\",");
 
                 //Daten f�r Sitzung (Ausgew�hlt)
 //                out.println(true ? "" : "");
