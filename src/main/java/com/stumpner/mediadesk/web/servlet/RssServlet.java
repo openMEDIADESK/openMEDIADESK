@@ -147,48 +147,50 @@ public class RssServlet extends HttpServlet {
             } catch (IOServiceException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
-        }
 
-        Iterator folders = itemList.iterator();
-        while (folders.hasNext()) {
-            MediaObject mo = (MediaObject)folders.next();
-                                          /* http://localhost:8080/index/image?id=9764 */
-            writer.print("\n<item>\n");
-            writer.print("<guid isPermaLink=\"false\">"+httpBase+"index/ppreview?id="+ mo.getIvid()+"</guid>\n");
-            writer.print("<title>"+ mo.getVersionTitle().replace("&"," ")+"</title>\n");
-            if (iTunesCompatible) {
-                writer.print("<itunes:author>"+Config.webTitle+"</itunes:author>");
-                writer.print("<itunes:subtitle>no subtitle</itunes:subtitle>");
-                writer.print("<itunes:summary>summary</itunes:summary>");
-                //Duration Datum-Format
-                SimpleDateFormat ddf = new SimpleDateFormat("mm:ss");
-                System.out.println("Duration long="+mo.getDuration());
-                System.out.println("Duration Date="+mo.getDurationDate());
-                writer.print("<itunes:duration>"+ddf.format(mo.getDurationDate())+"</itunes:duration>");
-                writer.print("<itunes:keywords>no keywords</itunes:keywords>");
+
+            Iterator folders = itemList.iterator();
+            while (folders.hasNext()) {
+                MediaObject mo = (MediaObject)folders.next();
+                                              /* http://localhost:8080/index/image?id=9764 */
+                writer.print("\n<item>\n");
+                writer.print("<guid isPermaLink=\"false\">"+httpBase+"index/c?id="+folderId+"#/"+ mo.getIvid()+"</guid>\n");
+                writer.print("<title>"+ mo.getVersionTitle().replace("&"," ")+"</title>\n");
+                if (iTunesCompatible) {
+                    writer.print("<itunes:author>"+Config.webTitle+"</itunes:author>");
+                    writer.print("<itunes:subtitle>no subtitle</itunes:subtitle>");
+                    writer.print("<itunes:summary>summary</itunes:summary>");
+                    //Duration Datum-Format
+                    SimpleDateFormat ddf = new SimpleDateFormat("mm:ss");
+                    System.out.println("Duration long="+mo.getDuration());
+                    System.out.println("Duration Date="+mo.getDurationDate());
+                    writer.print("<itunes:duration>"+ddf.format(mo.getDurationDate())+"</itunes:duration>");
+                    writer.print("<itunes:keywords>no keywords</itunes:keywords>");
+                }
+                String description = mo.getNote().replace("&"," ");
+                if (mo.getExtention().equalsIgnoreCase("JPG") || mo.getExtention().equalsIgnoreCase("JPEG")) {
+                    description = "<img src=\"/imageservlet/"+ mo.getIvid()+"/1/image.jpg\">";
+                }
+                writer.print("<description>\n");
+                writer.print("\t<![CDATA[\n");
+                writer.print("<p>"+description+"</p>\n");
+                //writer.print("&lt;img src=&quot;")
+                writer.print(" ]]>\n");
+                writer.print("</description>\n");
+                //if (mo.getPrimaryIvid()!=-1) {
+                    writer.print("<enclosure url=\""+httpBase+"podcast/object/"+ mo.getIvid()+"/"+getPodcastFilename(mo)+"\" length=\""+(mo.getKb()*1000)+"\" type=\""+ mo.getPrimaryMimeType()+"\"/>\n");
+                //}
+                writer.print("<link>"+httpBase+"index/c?id="+folderId+"#/"+ mo.getIvid()+"</link>\n");
+                writer.print("<pubDate>"+sdf.format(mo.getCreateDate())+"</pubDate>\n");
+                writer.print("</item>\n");
             }
-            String description = mo.getNote().replace("&"," ");
-            if (mo.getExtention().equalsIgnoreCase("JPG") || mo.getExtention().equalsIgnoreCase("JPEG")) {
-                description = "<img src=\"/imageservlet/"+ mo.getIvid()+"/1/image.jpg\">";
-            }
-            writer.print("<description>\n");
-            writer.print("\t<![CDATA[\n");
-            writer.print("<p>"+description+"</p>\n");
-            //writer.print("&lt;img src=&quot;")
-            writer.print(" ]]>\n");
-            writer.print("</description>\n");
-            //if (mo.getPrimaryIvid()!=-1) {
-                writer.print("<enclosure url=\""+httpBase+"podcast/object/"+ mo.getIvid()+"/"+getPodcastFilename(mo)+"\" length=\""+(mo.getKb()*1000)+"\" type=\""+ mo.getPrimaryMimeType()+"\"/>\n");
-            //}
-            writer.print("<link>"+httpBase+"index/ppreview?id="+ mo.getIvid()+"</link>\n");
-            writer.print("<pubDate>"+sdf.format(mo.getCreateDate())+"</pubDate>\n");
-            writer.print("</item>\n");
+
+
+
+            writer.print("</channel>\n");
+            writer.print("</rss>\n");
+
         }
-
-
-
-        writer.print("</channel>\n");
-        writer.print("</rss>\n");
 
         writer.flush();
         writer.close();
