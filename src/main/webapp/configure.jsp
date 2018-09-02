@@ -58,7 +58,13 @@
             wcl.setupMediaDESK(conf,pageContext.getServletContext());
             //wcl.doAndReloadConfiguration(pageContext.getServletContext());
 
-            out.println("Config initalized... <a href=\"/\">start...</a>");
+            out.println("<html>\n" +
+                    "<head>\n" +
+                    "<meta http-equiv=\"refresh\" content=\"5;url=/\" />\n" +
+                    "<title>openMEDIADESK Config OK</title>\n" +
+                    "</head>\n" +
+                    "<body>Setup openMEDIADESK done... <a href=\"/\">[open starpage]</a></body>\n" +
+                    "</html>");
 
         } else {
 
