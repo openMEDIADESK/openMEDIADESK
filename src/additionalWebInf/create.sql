@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS `aclimage`;
-CREATE TABLE `aclimage` (
+DROP TABLE IF EXISTS `aclmedia`;
+CREATE TABLE `aclmedia` (
   `ivid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `objectid` int(10) unsigned NOT NULL,
   `objecttype` int(10) unsigned NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE `appuser` (
   `enabled` int(11) NOT NULL DEFAULT '0',
   `credits` float NOT NULL DEFAULT '-1',
   `securitygroup` int(11) NOT NULL DEFAULT '0',
-  `homecategoryid` int(11) NOT NULL DEFAULT '-1',
+  `homefolderid` int(11) NOT NULL DEFAULT '-1',
   `digestpassword` varchar(254) NOT NULL DEFAULT '',
   `oldusername` varchar(100) NOT NULL DEFAULT '',
   `mandant` int(11) NOT NULL DEFAULT '-1',
@@ -81,18 +81,25 @@ CREATE TABLE `downloadlogger` (
   `paytransactionid` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`dllid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=273 DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `fav`;
+CREATE TABLE `fav` (
+  `liid` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int(11) NOT NULL DEFAULT '0',
+  `ivid` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`liid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 DROP TABLE IF EXISTS `folder`;
 CREATE TABLE `folder` (
-  `categoryid` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `cattitle` varchar(100) NOT NULL,
-  `catname` varchar(100) NOT NULL,
+  `folderid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
   `description` varchar(100) NOT NULL,
   `parent` int(10) unsigned NOT NULL DEFAULT '0',
   `changeddate` datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
-  `imagecount` int(11) NOT NULL DEFAULT '0',
-  `imagecounts` int(11) NOT NULL DEFAULT '0',
-  `cattitlelng1` varchar(100) NOT NULL,
-  `cattitlelng2` varchar(100) NOT NULL,
+  `mediacount` int(11) NOT NULL DEFAULT '0',
+  `mediacounts` int(11) NOT NULL DEFAULT '0',
+  `titlelng1` varchar(100) NOT NULL,
+  `titlelng2` varchar(100) NOT NULL,
   `descriptionlng1` varchar(100) NOT NULL,
   `descriptionlng2` varchar(100) NOT NULL,
   `icon` varchar(100) NOT NULL,
@@ -101,25 +108,25 @@ CREATE TABLE `folder` (
   `defaultview` int(10) unsigned NOT NULL DEFAULT '1',
   `createdate` datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
   `primaryivid` int(11) NOT NULL DEFAULT '0',
-  `categorydate` datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
+  `folderdate` datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
   `creatoruserid` int(10) unsigned NOT NULL DEFAULT '0',
   `fid` varchar(255) DEFAULT NULL,
   `public` tinyint(1) NOT NULL DEFAULT '0',
   `inheritacl` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `protected` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`categoryid`),
+  PRIMARY KEY (`folderid`),
   UNIQUE KEY `fiduniquec` (`fid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 DROP TABLE IF EXISTS `folderholder`;
 CREATE TABLE `folderholder` (
   `chid` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `categoryid` int(10) unsigned NOT NULL DEFAULT '0',
+  `folderid` int(10) unsigned NOT NULL DEFAULT '0',
   `ivid` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`chid`),
-  KEY `idx_categoryid` (`categoryid`)
+  KEY `idx_categoryid` (`folderid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-DROP TABLE IF EXISTS `imagemetadata`;
-CREATE TABLE `imagemetadata` (
+DROP TABLE IF EXISTS `mediametadata`;
+CREATE TABLE `mediametadata` (
   `imdid` int(11) NOT NULL AUTO_INCREMENT,
   `imageid` int(11) NOT NULL DEFAULT '0',
   `versionid` int(11) NOT NULL DEFAULT '0',
@@ -131,13 +138,11 @@ CREATE TABLE `imagemetadata` (
   PRIMARY KEY (`imdid`),
   KEY `ivid_index` (`ivid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
-DROP TABLE IF EXISTS `imageversion`;
-CREATE TABLE `imageversion` (
+DROP TABLE IF EXISTS `mediaobject`;
+CREATE TABLE `mediaobject` (
   `ivid` int(11) NOT NULL AUTO_INCREMENT,
-  `version` int(11) NOT NULL DEFAULT '0',
   `versiontitle` varchar(255) NOT NULL DEFAULT '',
   `versionname` varchar(255) NOT NULL DEFAULT '',
-  `imageid` int(11) NOT NULL DEFAULT '0',
   `createdate` datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
   `creatoruserid` int(11) NOT NULL DEFAULT '0',
   `note` text NOT NULL,
@@ -155,7 +160,7 @@ CREATE TABLE `imageversion` (
   `photographeruserid` int(11) NOT NULL DEFAULT '0',
   `byline` varchar(255) NOT NULL DEFAULT '',
   `photographdate` datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
-  `imagenumber` varchar(255) NOT NULL DEFAULT '',
+  `medianumber` varchar(255) NOT NULL DEFAULT '',
   `restrictions` varchar(255) NOT NULL DEFAULT '',
   `lastdatachange` datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
   `keywords` text NOT NULL,
@@ -204,9 +209,8 @@ CREATE TABLE `imageversion` (
   `licvalid` datetime DEFAULT NULL,
   PRIMARY KEY (`ivid`),
   UNIQUE KEY `fiduniquem` (`fid`),
-  KEY `imageid_index` (`imageid`),
   KEY `userid_index` (`creatoruserid`),
-  KEY `Index_imagenumber` (`imagenumber`),
+  KEY `Index_imagenumber` (`medianumber`),
   KEY `createdate` (`createdate`),
   FULLTEXT KEY `versionsubtitle` (`versionsubtitle`,`versiontitle`),
   FULLTEXT KEY `super_fulltextidx` (`versionsubtitle`,`versiontitle`,`versiontitlelng1`,`versiontitlelng2`),
@@ -215,13 +219,6 @@ CREATE TABLE `imageversion` (
   FULLTEXT KEY `people` (`people`),
   FULLTEXT KEY `FTIDX` (`versionsubtitle`,`versiontitle`,`versiontitlelng1`,`versiontitlelng2`,`keywords`,`byline`,`site`,`sitelng1`,`sitelng2`,`info`,`infolng1`,`infolng2`,`people`)
 ) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
-DROP TABLE IF EXISTS `lightbox`;
-CREATE TABLE `lightbox` (
-  `liid` int(11) NOT NULL AUTO_INCREMENT,
-  `userid` int(11) NOT NULL DEFAULT '0',
-  `ivid` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`liid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -235,11 +232,11 @@ CREATE TABLE `menu` (
   `openas` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
-DROP TABLE IF EXISTS `pinpic`;
-CREATE TABLE `pinpic` (
-  `pinpicid` int(11) NOT NULL AUTO_INCREMENT,
-  `pinpictitle` varchar(100) NOT NULL,
-  `pinpicname` varchar(100) NOT NULL,
+DROP TABLE IF EXISTS `pin`;
+CREATE TABLE `pin` (
+  `pinid` int(11) NOT NULL AUTO_INCREMENT,
+  `pintitle` varchar(100) NOT NULL,
+  `pinname` varchar(100) NOT NULL,
   `pin` varchar(10) NOT NULL,
   `note` text NOT NULL,
   `used` int(11) NOT NULL DEFAULT '0',
@@ -255,12 +252,12 @@ CREATE TABLE `pinpic` (
   `defaultview` int(10) unsigned NOT NULL DEFAULT '0',
   `emailnotification` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL DEFAULT '',
-  PRIMARY KEY (`pinpicid`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-DROP TABLE IF EXISTS `pinpicholder`;
-CREATE TABLE `pinpicholder` (
+  PRIMARY KEY (`pinid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `pinholder`;
+CREATE TABLE `pinholder` (
   `phid` int(11) NOT NULL AUTO_INCREMENT,
-  `pinpicid` int(11) NOT NULL DEFAULT '0',
+  `pinid` int(11) NOT NULL DEFAULT '0',
   `ivid` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`phid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -279,7 +276,7 @@ CREATE TABLE `securitygroup` (
   `securitygroupid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`securitygroupid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 DROP TABLE IF EXISTS `shoppingcart`;
 CREATE TABLE `shoppingcart` (
   `liid` int(11) NOT NULL AUTO_INCREMENT,
@@ -288,26 +285,3 @@ CREATE TABLE `shoppingcart` (
   `paytransactionid` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`liid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
-
-ALTER TABLE `imageversion` RENAME TO `mediaobject` ;
-ALTER TABLE `pinpic` RENAME TO `pin` ;
-ALTER TABLE `pinpicholder` RENAME TO `pinholder` ;
-ALTER TABLE `pinholder` CHANGE COLUMN `pinpicid` `pinid` INT(11) NOT NULL DEFAULT '0' ;
-ALTER TABLE `pin` CHANGE COLUMN `pinpicid` `pinid` INT(11) NOT NULL , CHANGE COLUMN `pinpictitle` `pintitle` VARCHAR(100) NOT NULL , CHANGE COLUMN `pinpicname` `pinname` VARCHAR(100) NOT NULL ;
-ALTER TABLE `mediaobject` CHANGE COLUMN `imagenumber` `medianumber` VARCHAR(255) NOT NULL DEFAULT '' ;
-ALTER TABLE `mediaobject` DROP COLUMN `imageid`, DROP COLUMN `version`, DROP INDEX `imageid_index` ;
-ALTER TABLE `imagemetadata` RENAME TO  `mediametadata` ;
-ALTER TABLE `lightbox` RENAME TO  `fav` ;
-ALTER TABLE `pin` MODIFY pinid INTEGER NOT NULL AUTO_INCREMENT;
-ALTER TABLE `aclimage` RENAME TO  `aclmedia` ;
-ALTER TABLE `folder`
-CHANGE COLUMN `categoryid` `folderid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT ,
-CHANGE COLUMN `cattitle` `title` VARCHAR(100) NOT NULL ,
-CHANGE COLUMN `catname` `name` VARCHAR(100) NOT NULL ,
-CHANGE COLUMN `imagecount` `mediacount` INT(11) NOT NULL DEFAULT '0' ,
-CHANGE COLUMN `cattitlelng1` `titlelng1` VARCHAR(100) NOT NULL ,
-CHANGE COLUMN `cattitlelng2` `titlelng2` VARCHAR(100) NOT NULL ,
-CHANGE COLUMN `categorydate` `folderdate` DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' ;
-ALTER TABLE `folder` CHANGE COLUMN `imagecounts` `mediacounts` INT(11) NOT NULL DEFAULT '0' ;
-ALTER TABLE `folderholder` CHANGE COLUMN `categoryid` `folderid` INT(10) UNSIGNED NOT NULL DEFAULT '0' ;
-ALTER TABLE `appuser` CHANGE COLUMN `homecategoryid` `homefolderid` INT(11) NOT NULL DEFAULT '-1' ;
