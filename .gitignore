@@ -7,3 +7,4 @@ src/main/webapp/WEB-INF/classes/org/
 src/main/webapp/WEB-INF/classes/com/
 src/main/webapp/WEB-INF/template/current/
 src/main/webapp/WEB-INF/mediaDESK.conf
+.gradle/
