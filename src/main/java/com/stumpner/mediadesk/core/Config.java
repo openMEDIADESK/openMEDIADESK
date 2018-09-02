@@ -62,9 +62,9 @@ public class Config {
 
     //Programm Version Values
 
-    public static String versionNumbner = "2018rc3";//- a1...n,b1...n,rc1...n,rtm,sr1...n";
-    public static String versionDate = "2018-08-27";
-    public static String SERIAL_UID = "2018082700";
+    public static String versionNumbner = "2018n20180902";//- a1...n,b1...n,rc1...n,rtm,sr1...n";
+    public static String versionDate = "2018-09-02";
+    public static String SERIAL_UID = "2018090201";
 
     //Config Values
 
@@ -145,7 +145,7 @@ public class Config {
 
     public static String templatePath = "/current/";
 
-    public static String redirectStartPage = "/index/cat"; //redirect to startpage...
+    public static String redirectStartPage = "/index/c"; //redirect to startpage...
 
     public static String webTitle = "openMEDIADESK";
     public static String webKeywords = "mediaDESK Mediendatenbank";

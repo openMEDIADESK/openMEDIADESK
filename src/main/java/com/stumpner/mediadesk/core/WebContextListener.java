@@ -5,6 +5,7 @@ import com.stumpner.mediadesk.core.database.sc.*;
 import com.stumpner.mediadesk.core.database.sc.exceptions.ObjectNotFoundException;
 import com.stumpner.mediadesk.core.database.sc.exceptions.IOServiceException;
 import com.stumpner.mediadesk.core.lic.LicenceChecker;
+import com.stumpner.mediadesk.usermanagement.SecurityGroup;
 import com.stumpner.mediadesk.util.IniFile;
 import com.stumpner.mediadesk.usermanagement.User;
 import com.stumpner.mediadesk.usermanagement.Authenticator;
@@ -351,8 +352,11 @@ public class WebContextListener implements ServletContextListener {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
+        doAndReloadConfiguration(servletContext);
+
         //checking for admin user if it does not exist, create one with password admin
         UserService userService = new UserService();
+        this.createSecurityGroups();
         try {
             userService.getByName("admin");
         } catch (ObjectNotFoundException e) {
@@ -363,9 +367,21 @@ public class WebContextListener implements ServletContextListener {
         } catch (IOServiceException e) {
             e.printStackTrace();
         }
+    }
 
-        doAndReloadConfiguration(servletContext);
+    private void createSecurityGroups() {
 
+        logger.info("Created Initial Security Groups");
+        UserService userService = new UserService();
+        SecurityGroup privat = new SecurityGroup();
+        privat.setName("Private");
+        userService.addSecurityGroup(privat);
+        SecurityGroup friends = new SecurityGroup();
+        friends.setName("Friends");
+        userService.addSecurityGroup(friends);
+        SecurityGroup family = new SecurityGroup();
+        family.setName("Family");
+        userService.addSecurityGroup(family);
     }
 
     /**
