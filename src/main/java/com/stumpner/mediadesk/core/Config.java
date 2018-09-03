@@ -1045,7 +1045,7 @@ public class Config {
                 logger.info("Using admin Email as Receiver Admin Email "+admin.getEmail());
                 Config.mailReceiverAdminEmail = admin.getEmail();
             } catch (ObjectNotFoundException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                logger.debug("No admin User found, Config.mailReceiverAdminEmail is leaving empty");
             } catch (IOServiceException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }

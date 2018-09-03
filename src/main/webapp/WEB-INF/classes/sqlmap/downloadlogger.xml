@@ -78,10 +78,9 @@
     <resultMap id="xymap" class="com.stumpner.mediadesk.stats.XyMap">
         <result property="x" column="xval"/>
         <result property="y" column="yval"/>
-        <result property="downloaddate" column="downloaddate"/>
     </resultMap>
     <select id="getAllDownloadedPics" parameterClass="com.stumpner.mediadesk.stats.AllPicFilter" resultMap="xymap">
-        SELECT COUNT(*) as yval, $group$(downloaddate) as xval, downloaddate FROM downloadlogger
+        SELECT COUNT(*) as yval, $group$(downloaddate) as xval FROM downloadlogger
         WHERE DATE_SUB(CURDATE(),INTERVAL $interval$) &lt;= downloaddate
           AND downloadtype = #downloadType#
         <isNotEqual property="userId"  compareValue="0">
