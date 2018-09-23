@@ -246,7 +246,7 @@ public class DownloadViewController extends AbstractPageController {
 
         try {
             Pin pin = (Pin)pinService.getById(pinId);
-            List pinpicImages = pinService.getPinpicImages(pinId);
+            List pinMediaObjects = pinService.getPinMediaObjects(pinId);
 
             HttpSession session = request.getSession();
             List selectedToDownloadList = new LinkedList();
@@ -257,7 +257,7 @@ public class DownloadViewController extends AbstractPageController {
                         int ivid = Integer.parseInt(request.getParameter("ivid"));
 
                             boolean isInPin = false;
-                            Iterator pinFiles = pinpicImages.iterator();
+                            Iterator pinFiles = pinMediaObjects.iterator();
                             while (pinFiles.hasNext()) {
                                 MediaObject mediaObject = (MediaObject)pinFiles.next();
                                 if (mediaObject.getIvid()==ivid) {
@@ -293,15 +293,15 @@ public class DownloadViewController extends AbstractPageController {
     }
 
     /**
-     * Gibt true zurück wenn die angegebene ImageList ein Bild enthält
+     * Returns true if the given list has an image
      * @param downloadList
      * @return
      */
     private boolean isImageInDownload(List downloadList) {
         for (Object obj : downloadList) {
 
-            MediaObjectMultiLang image = (MediaObjectMultiLang)obj;
-            if (image.getMayorMime().equalsIgnoreCase("image")) {
+            MediaObjectMultiLang mediaObject = (MediaObjectMultiLang)obj;
+            if (mediaObject.getMayorMime().equalsIgnoreCase("image")) {
                 return true;
             }
 

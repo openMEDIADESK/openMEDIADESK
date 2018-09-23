@@ -51,7 +51,7 @@ public class PinValidator implements Validator {
         PinService pinService = new PinService();
         try {
             Pin pin = pinService.getPinpicByPin(((Pin)o).getPin());
-            int imageCount = pinService.getPinpicImages(pin.getPinId()).size();
+            int imageCount = pinService.getPinMediaObjects(pin.getPinId()).size();
             if (imageCount<1 && !pin.isUploadEnabled()) {
                 errors.reject("pinlogin.error.noimage","!!!DM PIN EMPTY!!!");
             }

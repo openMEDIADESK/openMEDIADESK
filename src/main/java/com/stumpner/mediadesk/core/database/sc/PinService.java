@@ -224,7 +224,7 @@ public class PinService extends MultiLanguageService {
         //To change body of implemented methods use File | Settings | File Templates.
 
         //Zuerst die Medienobjekte des Pins löschen        
-        List<MediaObjectMultiLang> pinImageList = this.getPinpicImages(id);
+        List<MediaObjectMultiLang> pinImageList = this.getPinMediaObjects(id);
         for (MediaObjectMultiLang image : pinImageList) {
             this.deleteMediaFromPin(image.getIvid(),id);
         }
@@ -258,7 +258,7 @@ public class PinService extends MultiLanguageService {
         return pinpic;
     }
 
-    public List<MediaObjectMultiLang> getPinpicImages(int pinpicId) {
+    public List<MediaObjectMultiLang> getPinMediaObjects(int pinpicId) {
 
         SqlMapClient smc = AppSqlMap.getSqlMapInstance();
         List imageList = new LinkedList();

@@ -629,10 +629,10 @@ public class DownloadServlet extends HttpServlet {
                 PinService pinService = new PinService();
                 LngResolver lngResolver = new LngResolver();
                 pinService.setUsedLanguage(lngResolver.resolveLng(request));
-                //PrÃ¼fen ob alle Bilder des Pins oder nur ausgewÃ¤hlte angezeigt werden sollen:
+                //Check if all media objects of the pin or only selected ones should be displayed:
                 if (request.getParameter("ivid")!=null) {
-                    //Einzelnes Bild soll heruntergeladen werden
-                    List pinMediaObjectList = pinService.getPinpicImages(pinId);
+                    //Single media object should be downloaded
+                    List pinMediaObjectList = pinService.getPinMediaObjects(pinId);
                     Iterator pinMediaObjects = pinMediaObjectList.iterator();
                     while (pinMediaObjects.hasNext()) {
                         MediaObject mediaObject = (MediaObject)pinMediaObjects.next();
@@ -642,19 +642,19 @@ public class DownloadServlet extends HttpServlet {
                     }
 
                 } else if (request.getSession().getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES)!=null) {
-                    List pinImageList = pinService.getPinpicImages(pinId);
+                    List pinImageList = pinService.getPinMediaObjects(pinId);
                     List selectedImageList = (List)request.getSession().getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES);
                     pinImageList.retainAll(selectedImageList);
                     downloadImageList = selectedImageList;
                     if (request.getParameter("pinpic")!=null) {
                         if (request.getParameter("pinpic").equalsIgnoreCase("all")) {
-                            downloadImageList = pinService.getPinpicImages(pinId);
+                            downloadImageList = pinService.getPinMediaObjects(pinId);
                         }
                     }
                 } else {
                     if (request.getParameter("pinpic").equalsIgnoreCase("all")) {
-                        //Alle Bilder im Pin herunterladen...
-                        downloadImageList = pinService.getPinpicImages(pinId);
+                        //download all media objects of pin...
+                        downloadImageList = pinService.getPinMediaObjects(pinId);
                     }
                 }
                 break;
@@ -948,28 +948,28 @@ public class DownloadServlet extends HttpServlet {
 
     public static List getPermittedImages(HttpServletRequest request, AclControllerContext aclContext, List selectedToDownloadList) {
 
-        List permittedImages = AclUtil.getPermittedMediaObjects(aclContext, selectedToDownloadList);
-        //PrÃ¼fen ob PIN
+        List permittedMediaObjects = AclUtil.getPermittedMediaObjects(aclContext, selectedToDownloadList);
+        //Check if pin
         if (request.getSession().getAttribute("pinid")!=null) {
             int pinId = ((Integer)request.getSession().getAttribute("pinid"));
             PinService pinService = new PinService();
-            List pinpicImageList = pinService.getPinpicImages(pinId);
-            Iterator pinpicImages = pinpicImageList.iterator();
-            while (pinpicImages.hasNext()) {
-                //prÃ¼fen ob PIN Medien-Objekt in selected to download
-                MediaObject mediaObject = (MediaObject)pinpicImages.next();
+            List pinMediaObjectList = pinService.getPinMediaObjects(pinId);
+            Iterator pinMediaObjects = pinMediaObjectList.iterator();
+            while (pinMediaObjects.hasNext()) {
+                //check if media object of the pin is in selected to download
+                MediaObject mediaObject = (MediaObject)pinMediaObjects.next();
                 if (isMediaObjectInList(mediaObject, selectedToDownloadList)) {
-                    //prÃ¼fen ob bereits in permittetImages
-                    if (isMediaObjectInList(mediaObject, permittedImages)) {
-                        //bereits erlaubt, nichts unternehmen
+                    //check if already in permittetImages
+                    if (isMediaObjectInList(mediaObject, permittedMediaObjects)) {
+                        //already allowed, do nothing
                     } else {
-                        //noch nicht in permitted Images -> dann erlauben/hinzufÃ¼gen
-                        permittedImages.add(getMediaObjectInList(mediaObject, selectedToDownloadList));
+                        //not yet in permittedMediaObjects -> add to permitted
+                        permittedMediaObjects.add(getMediaObjectInList(mediaObject, selectedToDownloadList));
                     }
                 }
             }
         }
-        return permittedImages;
+        return permittedMediaObjects;
 
     }
 

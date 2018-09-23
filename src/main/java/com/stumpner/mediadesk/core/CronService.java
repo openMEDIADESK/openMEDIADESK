@@ -232,7 +232,7 @@ public class CronService {
                 //System.out.println("+ AutoDelete is enabled");
                 if (pin.getUsed()>=pin.getMaxUse() || (pin.getEndDate().before(new Date()))) {
                     //Bilder des Pins laden:
-                    Iterator mos = pinService.getPinpicImages(pin.getPinId()).iterator();
+                    Iterator mos = pinService.getPinMediaObjects(pin.getPinId()).iterator();
                     while (mos.hasNext()) {
                         MediaObject mo = (MediaObject)mos.next();
                         List folderList = folderService.getFolderListFromMediaObject(mo.getIvid());

@@ -120,7 +120,7 @@ public class PinRestApi extends RestBaseServlet {
         //Loader-Class: definieren was geladen werden soll
         int pinId = getUriSectionInt(4, request);
 
-        List<MediaObjectMultiLang> imageList = pinService.getPinpicImages(pinId);
+        List<MediaObjectMultiLang> imageList = pinService.getPinMediaObjects(pinId);
 
         try {
             PrintWriter out = response.getWriter();

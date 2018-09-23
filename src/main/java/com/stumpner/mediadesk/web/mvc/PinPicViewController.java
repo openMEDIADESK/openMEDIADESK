@@ -285,7 +285,7 @@ public class PinPicViewController extends AbstractThumbnailViewController {
 
     protected int getImageCount(HttpServletRequest request) {
         PinService pinService = new PinService();
-        List images = pinService.getPinpicImages(getPinId(request));
+        List images = pinService.getPinMediaObjects(getPinId(request));
         int imageCount = images.size();
         //System.out.println("BasicMediaObject-Count in PIN: "+imageCount);
         return imageCount;

@@ -125,7 +125,7 @@ public class StatisticRestApi extends RestBaseServlet {
 
             if (outputType.equalsIgnoreCase("chart")) {
 
-                List<XyMap> list = dlls.getAllDownloadedPics(interval,0,downloadType);
+                List<XyMap> list = dlls.getAllDownloadedMediaObjects(interval,0,downloadType);
 
                 //list = fillEmptyIntervalsAndLabels(list, interval);
 

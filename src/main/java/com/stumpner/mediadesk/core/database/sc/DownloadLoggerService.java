@@ -110,7 +110,7 @@ public class DownloadLoggerService {
 
     }
 
-    public List getAllDownloadedPics(int interval, int userId, int downloadType) {
+    public List getAllDownloadedMediaObjects(int interval, int userId, int downloadType) {
 
         SqlMapClient smc = AppSqlMap.getSqlMapInstance();
         List<XyMap> log = new LinkedList<XyMap>();
@@ -119,7 +119,7 @@ public class DownloadLoggerService {
         statFilter.setDownloadType(downloadType);
 
         try {
-            log = smc.queryForList("getAllDownloadedPics",statFilter);
+            log = smc.queryForList("getAllDownloadedMediaObjects",statFilter);
         } catch (SQLException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

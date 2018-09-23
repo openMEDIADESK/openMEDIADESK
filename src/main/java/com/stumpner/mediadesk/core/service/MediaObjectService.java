@@ -100,24 +100,24 @@ public class MediaObjectService {
 
         HttpSession session = request.getSession();
 
-        List imageList = new LinkedList();
+        List mediaObjectList = new LinkedList();
         Object objectToDelete = null;
 
         if (ivid != null) {
 
-            imageList = getSelectedMediaObjectList(session);
+            mediaObjectList = getSelectedMediaObjectList(session);
 
-            Iterator images = imageList.iterator();
-            while(images.hasNext()) {
-                MediaObject image = (MediaObject)images.next();
+            Iterator mediaObjects = mediaObjectList.iterator();
+            while(mediaObjects.hasNext()) {
+                MediaObject image = (MediaObject)mediaObjects.next();
                 if (image.getIvid()==ivid) {
                     objectToDelete = image;
                 }
             }
             if(objectToDelete!=null) {
-                imageList.remove(objectToDelete);
+                mediaObjectList.remove(objectToDelete);
 
-                //Herkunftsobjekt l�schen:
+                //Remove origin (from folder, from pin) object:
                 Map fromMap = new HashMap();
                 if (session.getAttribute(Resources.SESSIONVAR_SELECTED_IMAGES_FROM)!=null) {
                     fromMap.remove(objectToDelete);
@@ -127,17 +127,17 @@ public class MediaObjectService {
             }
 
         } else {
-            //ivid = null ---> alle l�schen: imagList ist bereits leer
+            //ivid = null ---> delete all: list is empty
             session.setAttribute(Resources.SESSIONVAR_SELECTED_IMAGES_FROM,new HashMap());
         }
 
-        session.setAttribute(Resources.SESSIONVAR_SELECTED_IMAGES,imageList);
+        session.setAttribute(Resources.SESSIONVAR_SELECTED_IMAGES,mediaObjectList);
     }
 
     /**
-     * Liste mit ausgew�hlten Images zur�ckgeben
+     * Returns the list of selected media objects
      * @param session
-     * @return Liste von <MediaObject> Bildern die ausgew�hlt sind.
+     * @return list of <MediaObject> which has been selected.
      */
     public static List<MediaObject> getSelectedMediaObjectList(HttpSession session) {
 
