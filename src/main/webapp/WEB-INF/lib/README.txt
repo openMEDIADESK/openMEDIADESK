@@ -1,1 +1,0 @@
-Dieses Verzeichnis wird durch deploylocal aus deployment/libapi befüllt
