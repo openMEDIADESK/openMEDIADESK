@@ -53,6 +53,7 @@ war {
     exclude('WEB-INF/template/current/*')
     exclude('WEB-INF/classes/com/*') //exclude class files from dev-generated
     exclude('WEB-INF/classes/org/*') //exclude class files from dev-generated
+    exclude('WEB-INF/lib/*') //exclude class files from dev-generated
 
     from('deployment') {
         include 'log4j.properties'
