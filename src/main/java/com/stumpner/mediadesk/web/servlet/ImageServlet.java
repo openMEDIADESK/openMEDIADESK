@@ -70,7 +70,12 @@ public class ImageServlet extends HttpServlet {
             }
 
             //Zugriff auf Originalbild verweigern
-            if (imageSize == 0) { imageSize = 1; httpServletResponse.sendError(403,"Forbidden: Zugriff auf Originalbild verweigert"); }
+            if (!Config.configParam.contains("-SLIDE")) { //With slideshow enabled, allow access to the original image
+                if (imageSize == 0) {
+                    imageSize = 1;
+                    httpServletResponse.sendError(403, "Forbidden: Zugriff auf Originalbild verweigert");
+                }
+            }
             String imageFile = Config.imageStorePath+"/"+ivid+"_"+imageSize;
 
             //Bild anzeigen

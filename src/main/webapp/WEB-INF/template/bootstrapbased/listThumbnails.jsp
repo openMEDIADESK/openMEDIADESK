@@ -84,10 +84,17 @@
     <div class="md-thumb-item-img-box" ng-show="mo.mayorMime=='image' || mo.mayorMime=='video'">
 
         <div class="md-thumb-item-img">
+            <c:if test="${fn:contains(config.param, '-SLIDE')}">
+            <a ng-href="/imageservlet/{{mo.ivid}}/0/{{mo.name}}" data-fancybox="gallery" data-caption="Caption for single image">
+                <img ng-src="/imageservlet/{{mo.ivid}}/1/{{mo.name}}"/>
+
+            </a>
+            </c:if>
+            <c:if test="${!fn:contains(config.param, '-SLIDE')}">
             <a ng-href="#/{{mo.ivid}}" ng-click="openPreview($index)">
                 <img ng-src="/imageservlet/{{mo.ivid}}/1/{{mo.name}}"/>
-                <!-- <img class="visible-xs" ng-src="/imageservlet/{{mo.ivid}}/2/{{mo.name}}"/> -->
             </a>
+            </c:if>
         </div>
 
     </div>
