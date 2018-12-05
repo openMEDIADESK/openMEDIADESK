@@ -23,7 +23,7 @@
 </ol>
 <!-- /breadcrumbs -->
 <!-- ordnertitel und infos -->
-<h3><spring:message code="lightbox.headline"/><small>&nbsp;{{mos.length}} <spring:message code="stat.pics"/></small></h3>
+<h3><spring:message code="lightbox.headline"/><small>&nbsp;{{allmos.length}} <spring:message code="stat.pics"/></small></h3>
 <h4></h4>
 <!-- /ordnertitel und infos -->
 <!-- mediadesk abstand -->
@@ -91,13 +91,12 @@
 <jsp:include page="list.jsp" flush="true"/>
 <!-- \elemente anzeigen -->
 
-</div><!-- /thumb row ende und zu -->
 <!-- mediadesk abstand -->
 <div class="md-space">&nbsp;</div>
 <!-- /mediadesk abstand -->
 
 <!-- MEHR LADEN -->
-<button type="button" ng-show="allmos.length>mos.length" ng-click="appendMos()" class="btn btn-default btn-lg btn-block"><small><i class="fa fa-chevron-circle-down"></i>&nbsp;&nbsp;MEHR LADEN&nbsp;&nbsp;<i class="fa fa-chevron-circle-down"></i></small></button>
+<button type="button" ng-show="allmos.length>mos.length" ng-click="appendMos()" class="btn btn-default btn-lg btn-block"><small><i class="fa fa-chevron-circle-down"></i>&nbsp;&nbsp;<spring:message code="loadmore"/>&nbsp;&nbsp;<i class="fa fa-chevron-circle-down"></i></small></button>
 <!-- /MEHR LADEN -->
 
 <!-- /verschachtelung -->
