@@ -70,11 +70,11 @@
     </ul>
   </div>
   <!-- /button drop auswahl -->
-<!-- buttongruppe Herunterladen -->
-<div class="btn-group btn-group-xs" role="group" aria-label="Herunterladen">
-  <!--<button type="button" class="btn btn-default"><i class="fa fa-download fa-fw"></i> Herunterladen</button>-->
-</div>
-<!-- /buttongruppe Herunterladen -->
+    <!-- buttongruppe Herunterladen -->
+    <div class="btn-group btn-group-xs" role="group" aria-label="Herunterladen" ng-show="selectedMedia>1">
+        <a href="/{{properties.lng}}/download?download=selectedMedia" class="btn btn-default"><i class="fa fa-download fa-fw"></i> <spring:message code="tm.download"/></a>
+    </div>
+    <!-- /buttongruppe Herunterladen -->
 <!-- buttongruppe Ausgewaehlt -->
 <div class="btn-group btn-group-xs" role="group" aria-label="Ausgewaehlt">
   <button type="button" class="btn btn-default disabled"><span class="md-text-moview-selected" ng-bind="selectedMedia + ' Objekte ausgewält'"></span></button>

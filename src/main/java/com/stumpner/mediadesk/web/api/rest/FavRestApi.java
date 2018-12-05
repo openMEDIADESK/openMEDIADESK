@@ -214,6 +214,7 @@ public class FavRestApi extends RestBaseServlet {
                 out.println("  \"size\" : \""+mo.getKb()+"\",");
                 out.println("  \"price\" : \""+mo.getPrice()+"\",");
                 out.println("  \"downloadUrl\" : \"download?download=ivid&ivid="+mo.getIvid()+"\",");
+                out.println("  \"downloadlink\" : \"download?download=ivid&ivid="+mo.getIvid()+"\",");
                 out.println("  \"editUrl\" : \"mediadetailedit?id="+mo.getIvid()+"\",");
                 out.println("  \"shoppingCartUrl\" : \""+mo.getVersionName()+"\",");
                 out.println("  \"lightboxUrl\" : \""+StringEscapeUtils.escapeJson(mo.getVersionName())+"\",");
