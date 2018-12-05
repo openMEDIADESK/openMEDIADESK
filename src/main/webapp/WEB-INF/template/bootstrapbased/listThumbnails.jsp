@@ -52,22 +52,22 @@
         <div class="btn-toolbar" role="toolbar" aria-label="Optionen">
             <mediadesk:login role="<%= User.ROLE_EDITOR %>">
            	<div class="btn-group btn-group-xs" role="group" aria-label="Editieren">
-            <a tabindex="0" href="#" title="Edit" ng-click="openMediaEdit(mo.ivid,'<c:out value="${url}"/>')"><i class="fa fa-pencil-square-o fa-fw md-icon-edit"></i></a>
+            <a tabindex="0" href="" title="Edit" ng-click="openMediaEdit(mo.ivid,'<c:out value="${url}"/>')"><i class="fa fa-pencil-square-o fa-fw md-icon-edit"></i></a>
     		</div>
             </mediadesk:login>
             <mediadesk:login><c:if test="${useLightbox}">
             <div class="btn-group btn-group-xs" role="group" aria-label="Favoriten" ng-show="apiUriPrefix!='/api/rest/fav'">
-            <a tabindex="0" href="#" title="zu Favoriten" ng-click="toFav(mo)"><i class="fa fa-star fa-fw md-icon-fav"></i></a>
+            <a tabindex="0" href="" title="zu Favoriten" ng-click="toFav(mo)"><i class="fa fa-star fa-fw md-icon-fav"></i></a>
             </div>
             </c:if></mediadesk:login>
             <mediadesk:login><c:if test="${useShoppingCart}">
             <div class="btn-group btn-group-xs" role="group" aria-label="zum Warenkorb">
-            <a tabindex="0" href="#" title="Warenkorb" ng-click="toCart(mo)"><i class="fa fa-shopping-cart fa-fw md-icon-cart"></i></a>
+            <a tabindex="0" href="" title="Warenkorb" ng-click="toCart(mo)"><i class="fa fa-shopping-cart fa-fw md-icon-cart"></i></a>
             </div>
             </c:if></mediadesk:login>
             <c:if test="${showDownload}">
             <div class="btn-group btn-group-xs" role="group" aria-label="Sofortdownload">
-            <a tabindex="0" href="#" ng-href="{{mo.downloadlink}}" title="Sofortdownload"><i class="fa fa-download fa-fw md-icon-download"></i></a>
+            <a tabindex="0" href="" ng-href="{{mo.downloadlink}}" title="Sofortdownload"><i class="fa fa-download fa-fw md-icon-download"></i></a>
                 <!--
             <button type="button" class="btn btn-default" title="Sofortdownload" ng-click="underConstruction()"><i class="fa fa-download fa-fw text-info"></i></button>
                 -->

@@ -65,9 +65,9 @@
           <td ng-bind="mo.size | fileSizeH"></td>
           <c:if test="${showImageActionMenu}">
           <td class="text-right">
-              <mediadesk:login role="<%= User.ROLE_EDITOR %>"><a tabindex="0" ng-click="openMediaEdit(mo.ivid,'<c:out value="${url}"/>')" ng-href="#" title="Edit"><i class="fa fa-pencil fa-fw md-icon-edit"></i></a>&nbsp;</mediadesk:login>
-              <mediadesk:login><c:if test="${useLightbox}"><a tabindex="0" ng-click="toFav(mo)" href="#" title="Favoriten" ng-show="apiUriPrefix!='/api/rest/fav'"><i class="fa fa-star fa-fw md-icon-fav"></i></a>&nbsp;</c:if></mediadesk:login>
-              <mediadesk:login><c:if test="${useShoppingCart}"><a tabindex="0" ng-click="toCart(mo)" href="#" title="Warenkorb"><i class="fa fa-shopping-cart fa-fw md-icon-cart"></i></a>&nbsp;</c:if></mediadesk:login>
+              <mediadesk:login role="<%= User.ROLE_EDITOR %>"><a tabindex="0" ng-click="openMediaEdit(mo.ivid,'<c:out value="${url}"/>')" ng-href="" title="Edit"><i class="fa fa-pencil fa-fw md-icon-edit"></i></a>&nbsp;</mediadesk:login>
+              <mediadesk:login><c:if test="${useLightbox}"><a tabindex="0" ng-click="toFav(mo)" href="" title="Favoriten" ng-show="apiUriPrefix!='/api/rest/fav'"><i class="fa fa-star fa-fw md-icon-fav"></i></a>&nbsp;</c:if></mediadesk:login>
+              <mediadesk:login><c:if test="${useShoppingCart}"><a tabindex="0" ng-click="toCart(mo)" href="" title="Warenkorb"><i class="fa fa-shopping-cart fa-fw md-icon-cart"></i></a>&nbsp;</c:if></mediadesk:login>
               <c:if test="${showDownload}"><a ng-href="{{mo.downloadlink}}" title="Download"><i class="fa fa-download fa-fw md-icon-download"></i></a>&nbsp;</c:if></td>
           </c:if>
         </tr>
