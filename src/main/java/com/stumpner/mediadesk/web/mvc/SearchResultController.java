@@ -108,14 +108,9 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
             searchResult = getSearchResultFromSession(viewPage,httpServletRequest);
         }
 
-        if (searchResult.getResultCount()==1000) {
-            httpServletRequest.setAttribute("reduced",true);
-        } else {
-            httpServletRequest.setAttribute("reduced",false);
-        }
-
         if (searchResult!=null) {
             httpServletRequest.setAttribute("searchString",searchResult.getSearchString());
+            httpServletRequest.setAttribute("mediaCount",searchResult.getResultCount());
         } else {
             logger.warn("aufruf einer ungültigen Suche");
             throw new LoadThumbnailException();
@@ -269,8 +264,10 @@ public class SearchResultController extends AbstractThumbnailAjaxController {
                         filledInValues++;
                     }
                     if (httpServletRequest.getParameter("licValid")!=null) {
-                        ksp.setLicValid(getInputDate(httpServletRequest.getParameter("licValid"),false));
-                        filledInValues++;
+                        if (!httpServletRequest.getParameter("licValid").isEmpty()) {
+                            ksp.setLicValid(getInputDate(httpServletRequest.getParameter("licValid"), false));
+                            filledInValues++;
+                        }
                     }
 
 
