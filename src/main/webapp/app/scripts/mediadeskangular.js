@@ -962,6 +962,42 @@ angular.module('ui.mediadesk').controller('ThumbnailViewCtrl', function ($scope,
 		console.log("onPreviewImageLoaded");
 		$scope.moloaded = true;
 	}
+
+	$scope.openFancybox = function(index) {
+
+        //Open Fancybox and load all images/media
+		var gallery = [];
+
+        for (var a = 0; a < $scope.allmos.length; a++) {
+
+        	gallery[a] =             {
+                src  : "/imageservlet/"+$scope.mos[a].ivid+"/0/"+$scope.mos[a].name,
+                poster  : "/imageservlet/"+$scope.mos[a].ivid+"/2/thumb.jpg",
+                opts : {
+                    caption : $scope.mos[a].title+"<br><small>"+$scope.mos[a].subtitle+"</small> | <a href='"+$scope.mos[a].downloadUrl+"'><i class='fa fa-download fa-fw md-icon-download'></a>",
+                    thumb   : "/imageservlet/"+$scope.mos[a].ivid+"/1/thumb.jpg"
+                }
+            };
+        }
+
+        $.fancybox.open(
+        	gallery, {
+            loop : false,
+			video : {
+            	/*
+                tpl:
+                '<video class="fancybox-video" controls controlsList="nodownload" poster="{{poster}}">' +
+                '<source src="{{src}}" type="{{format}}" />' +
+                'Sorry, your browser doesn\'t support embedded videos, <a href="{{src}}">download</a> and watch with your favorite video player!' +
+                "</video>",*/
+            	autoStart: false,
+				preload: false
+			}
+        });
+
+        $.fancybox.getInstance().jumpTo(index);
+
+	}
 	
     //Ausgewähltes Bild als Ordnerbild verwenden
     $scope.setFolderImage = function() {

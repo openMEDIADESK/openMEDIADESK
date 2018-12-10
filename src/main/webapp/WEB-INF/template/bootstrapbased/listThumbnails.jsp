@@ -68,10 +68,12 @@
             <c:if test="${showDownload}">
             <div class="btn-group btn-group-xs" role="group" aria-label="Sofortdownload">
             <a tabindex="0" href="" ng-href="{{mo.downloadlink}}" title="Sofortdownload"><i class="fa fa-download fa-fw md-icon-download"></i></a>
-                <!--
-            <button type="button" class="btn btn-default" title="Sofortdownload" ng-click="underConstruction()"><i class="fa fa-download fa-fw text-info"></i></button>
-                -->
             </div>
+            </c:if>
+            <c:if test="${fn:contains(config.param, '-SLIDE')}">
+                <div class="btn-group btn-group-xs" role="group" aria-label="Info Preview">
+                    <a ng-href="#/{{mo.ivid}}" ng-click="openPreview($index)"><i class="fa fa-info-circle fa-fw"></i></a>
+                </div>
             </c:if>
         </div>
         </c:if>
@@ -85,9 +87,13 @@
 
         <div class="md-thumb-item-img">
             <c:if test="${fn:contains(config.param, '-SLIDE')}">
+                <!--
             <a ng-href="/imageservlet/{{mo.ivid}}/0/{{mo.name}}" data-fancybox="gallery" data-caption="Caption for single image">
                 <img ng-src="/imageservlet/{{mo.ivid}}/1/{{mo.name}}"/>
 
+            </a> -->
+            <a ng-href="#/{{mo.ivid}}" ng-click="openFancybox($index)">
+                <img ng-src="/imageservlet/{{mo.ivid}}/1/{{mo.name}}"/>
             </a>
             </c:if>
             <c:if test="${!fn:contains(config.param, '-SLIDE')}">
