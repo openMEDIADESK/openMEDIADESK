@@ -44,6 +44,8 @@ public class ImageServlet extends HttpServlet {
         FileInputStream is = null;
         OutputStream os = null;
 
+        System.out.println("url: "+ httpServletRequest.getRequestURL().toString());
+
         /*
         An BasicMediaObject Url looks like this:
         /imageservlet/12345/3/image.jpg

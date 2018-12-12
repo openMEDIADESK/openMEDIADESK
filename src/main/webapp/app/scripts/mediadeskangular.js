@@ -966,16 +966,28 @@ angular.module('ui.mediadesk').controller('ThumbnailViewCtrl', function ($scope,
 	$scope.openFancybox = function(index) {
 
         //Open Fancybox and load all images/media
+		/*
+	$scope.streamUrl = "/stream/object/"+$scope.mo.ivid+"."+$scope.mo.fileExtention;
+	$scope.streamMimeType = $scope.mo.mime;
+
+	$scope.posterUrl = "/imageservlet/"+$scope.mo.ivid+"/2/"+$scope.mo.name;
+		 */
 		var gallery = [];
 
         for (var a = 0; a < $scope.allmos.length; a++) {
 
+        	var srcUrl = "/imageservlet/"+$scope.allmos[a].ivid+"/0/"+$scope.allmos[a].name;
+        	if ($scope.allmos[a].mayorMime=='video') {
+        		srcUrl = "/stream/object/"+$scope.allmos[a].ivid+"."+$scope.allmos[a].fileExtention;
+			}
+
         	gallery[a] =             {
-                src  : "/imageservlet/"+$scope.mos[a].ivid+"/0/"+$scope.mos[a].name,
-                poster  : "/imageservlet/"+$scope.mos[a].ivid+"/2/thumb.jpg",
+                src  : srcUrl,
+                poster  : "/imageservlet/"+$scope.allmos[a].ivid+"/2/postergallery.jpg",
                 opts : {
-                    caption : $scope.mos[a].title+"<br><small>"+$scope.mos[a].subtitle+"</small> | <a href='"+$scope.mos[a].downloadUrl+"'><i class='fa fa-download fa-fw md-icon-download'></a>",
-                    thumb   : "/imageservlet/"+$scope.mos[a].ivid+"/1/thumb.jpg"
+                    caption : $scope.allmos[a].title+"<br><small>"+$scope.allmos[a].subtitle+"</small> | <a href='"+$scope.allmos[a].downloadUrl+"'><i class='fa fa-download fa-fw md-icon-download'></a>",
+                    thumb   : "/imageservlet/"+$scope.allmos[a].ivid+"/1/thumb.jpg",
+                    poster  : "/imageservlet/"+$scope.allmos[a].ivid+"/2/poster.jpg"
                 }
             };
         }
